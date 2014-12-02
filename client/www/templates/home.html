@@ -1,0 +1,52 @@
+<ion-view title="Unlyst">
+  <ion-content>
+    <ion-slide-box on-slide-changed="slideHasChanged($index)">
+      <ion-slide>
+        <div class="box blue">
+          <h2 class="slidersection">1 Market Street</h2>
+          <div class="text-center">
+            <icon class="icon-left ion-location"/>
+            St. Lawrence Market, Toronto
+            <icon class="icon-left ion-heart"/>43
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box yellow"><h2 class="slidersection">YELLOW</h2></div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box pink"><h2 class="slidersection">PINK</h2></div>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+  <div class="priceslider">
+    <div class="row  bar bar-subfooter">
+      <div class="item col">
+        <div class="list">
+          <div class="text-center">
+            <h1>{{home.valuation | currency:"$":0}}</h1>
+          </div>
+          <div class="item range range-positive">
+            <input type="range" name="price" min="100000" max="900000" ng-init="home.valuation=500000"
+                   ng-model="home.valuation">
+          </div>
+          <div class="row text-center padding">
+            <div class="col-10">
+              <button class="button button-large button-assertive icon ion-heart"></button>
+            </div>
+            <div class="col-80">
+              <button class="button button-large button-assertive" style="min-width: 200px;">
+                Submit Value
+              </button>
+            </div>
+            <div class="col-10">
+              <button class="button button-large button-light">
+                Skip
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-view>
