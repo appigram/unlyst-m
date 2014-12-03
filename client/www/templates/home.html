@@ -1,14 +1,64 @@
-<ion-view title="Unlyst">
+<ion-view title="Unlyst" ng-controller="HomeCtrl">
   <ion-content>
     <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override">
+      <ion-slide>
+        <div class="box blue">
+          <div class="overlay" onClick="style.pointerEvents='none'"></div>
+          <iframe
+            src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.785333017898!2d-79.43210399999998!3d43.65263440000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b3450c0a80a17%3A0x56adee3c41da856f!2s1102+College+St%2C+Toronto%2C+ON+M6H+1B3!5e0!3m2!1sen!2sca!4v1416743380438'
+            , width='100%' , height='250' , frameborder='0' , style='border:0'></iframe>
+          <h2 class="slidersection">1 Market Street</h2>
+          <div class="text-center">
+            <icon class="icon-left ion-location icon-positive"></icon>
+            St. Lawrence Market, Toronto
+            <icon class="icon-left ion-heart icon-positive"></icon>
+            43
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div style="height: 100%">
+          <div class="row ">
+            <div class="col-50">
+              <img src="img/home-icons/icon_building_type.png" class="valdIcon"/>
+              <div>{{houseType}}</div>
+              <div>Home</div>
+            </div>
+            <div class="col-50">
+              <img src="img/home-icons/icon_bathrooms.png" class="valdIcon"/>
+              <div>{{bathRmNum}} 2</div>
+              <div>BathRoom</div>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-50">
+              <img src="img/home-icons/icon_bedrooms.png" class="valdIcon"/>
+              <div>{{bedRmNum}} 5</div>
+              <div>BedRoom</div>
+            </div>
+            <div class="col-50">
+              <span>Sqf: {{houseSize}}2245 sqf</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-33">
+              <span>Lot Size: {{lotSize}} 1201ft</span>
+            </div>
+            <div class="col-33">
+              <span></span> <span>Parking: 1{{parking}}</span>
+            </div>
+            <div class="col-33"><span>Year Built: 1999{{buildYr}}</span></div>
+          </div>
+        </div>
+      </ion-slide>
       <ion-slide>
         <div class="box blue">
           <img src="/img/homes/house1_1.jpg" width="100%"/>
           <h2 class="slidersection">1 Market Street</h2>
           <div class="text-center">
-              <icon class="icon-left ion-location icon-positive"></icon>
+            <icon class="icon-left ion-location icon-positive"></icon>
             St. Lawrence Market, Toronto
-              <icon class="icon-left ion-heart icon-positive"></icon>
+            <icon class="icon-left ion-heart icon-positive"></icon>
             43
           </div>
         </div>
@@ -50,14 +100,14 @@
           </div>
           <div class="item range range-positive">
             <input type="range" name="price" min="100000" max="900000" ng-init="home.valuation=500000"
-                   ng-model="home.valuation">
+                   ng-model="home.valuation" class="assertive">
           </div>
           <div class="row text-center padding">
             <div class="col-10">
               <button class="button button-large button-assertive icon-left ion-heart"></button>
             </div>
             <div class="col-80">
-              <button class="button button-large button-assertive" style="min-width: 200px;">
+              <button class="button button-large button-assertive" ng-click="modal.show()" style="min-width: 200px;">
                 Submit Value
               </button>
             </div>
