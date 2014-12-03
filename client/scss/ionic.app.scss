@@ -43,3 +43,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   font-size: $font-size-large;
   color:$positive;
 }
+
+// override icon size
+.button-custom,
+.button-custom .icon:before{
+  font-size: 16px !important;
+}

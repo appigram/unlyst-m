@@ -7832,3 +7832,6 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .icon-positive {
   font-size: 18px;
   color: #4a87ee; }
+
+.button-custom, .button-custom .icon:before {
+  font-size: 14px !important; }

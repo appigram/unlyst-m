@@ -7,7 +7,7 @@ var express = require('express'),
 app.use(bodyParser());          // pull information from html in POST
 app.use(methodOverride());      // simulate DELETE and PUT
 
-app.use(express.static('../conference/www'));
+app.use(express.static('../client/www'));
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', function(req, res, next) {
