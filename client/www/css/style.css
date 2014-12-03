@@ -1,24 +1,3 @@
-/* -----------------overrides------------------- */
-
-.bar-assertive {
-  background-color: #FC675E !important;
-}
-
-.priceslider .bar {
-  height: auto !important;
-}
-
-/* -----------------overrides------------------- */
-
-.slidersection {
-  margin: 10px 0px;
-  text-align: center;
-}
-
-/* make content fixed at bottom */
-.priceslider .bar-subfooter {
-  bottom: 48px !important; /* place bar-subfooter above footer */
-}
 
 /* Tinder card css */
 td-cards {

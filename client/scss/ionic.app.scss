@@ -4,6 +4,8 @@ in ionic's _variables.scss file.
 
 For example, you might change some of the default colors:
 
+
+
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
 $positive:                        #387ef5 !default;
@@ -14,10 +16,30 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
+$assertive: #FC675E !default;
+$positive: #4a87ee !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "../www/lib/ionic/scss/ionic";
 
+.priceslider .bar {
+  height: auto !important;
+}
+
+.slidersection {
+  margin: 10px 0px;
+  text-align: center;
+}
+
+/* make content fixed at bottom */
+.priceslider .bar-subfooter {
+  bottom: 48px !important; /* place bar-subfooter above footer */
+}
+
+.icon-positive{
+  font-size: $font-size-large;
+  color:$positive;
+}

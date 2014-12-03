@@ -1,14 +1,14 @@
 <ion-view title="Unlyst">
   <ion-content>
-    <ion-slide-box on-slide-changed="slideHasChanged($index)">
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override">
       <ion-slide>
         <div class="box blue">
           <img src="/img/homes/house1_1.jpg" width="100%"/>
           <h2 class="slidersection">1 Market Street</h2>
           <div class="text-center">
-            <icon class="icon-left ion-location"/>
+              <icon class="icon-left ion-location icon-positive"></icon>
             St. Lawrence Market, Toronto
-            <icon class="icon-left ion-heart"/>
+              <icon class="icon-left ion-heart icon-positive"></icon>
             43
           </div>
         </div>
@@ -18,9 +18,9 @@
           <img src="/img/homes/house1_2.jpg" width="100%"/>
           <h2 class="slidersection">542 College Street</h2>
           <div class="text-center">
-            <icon class="icon-left ion-location"/>
+            <icon class="icon-left ion-location icon-positive"></icon>
             St. Lawrence Market, Toronto
-            <icon class="icon-left ion-heart"/>
+            <icon class="icon-left ion-heart icon-positive"></icon>
             43
           </div>
         </div>
@@ -30,9 +30,9 @@
           <img src="/img/homes/house1_3.jpg" width="100%"/>
           <h2 class="slidersection">1 Market Street</h2>
           <div class="text-center">
-            <icon class="icon-left ion-location"/>
+            <icon class="icon-left ion-location icon-positive"></icon>
             St. Lawrence Market, Toronto
-            <icon class="icon-left ion-heart"/>
+            <icon class="icon-left ion-heart icon-positive"></icon>
             43
           </div>
         </div>
@@ -43,8 +43,10 @@
     <div class="row  bar bar-subfooter">
       <div class="item col">
         <div class="list">
+          <!--Note noFractionCurrency is a temporary work arround until ionic updates to beta 14 or later,
+          which uses angularjs 1.3, then we can use | currency:undefined:0-->
           <div class="text-center">
-            <h1>{{home.valuation | currency:"$":0}}</h1>
+            <h1>{{home.valuation | noFractionCurrency}}</h1>
           </div>
           <div class="item range range-positive">
             <input type="range" name="price" min="100000" max="900000" ng-init="home.valuation=500000"
@@ -52,7 +54,7 @@
           </div>
           <div class="row text-center padding">
             <div class="col-10">
-              <button class="button button-large button-assertive icon ion-heart"></button>
+              <button class="button button-large button-assertive icon-left ion-heart"></button>
             </div>
             <div class="col-80">
               <button class="button button-large button-assertive" style="min-width: 200px;">
