@@ -1,4 +1,40 @@
+/*used for overlay the map to prevent scrolling*/
+.overlay {
+  background:transparent;
+  position:relative;
+  width:640px;
+  height:480px; /* your iframe height */
+  top:480px;  /* your iframe height */
+  margin-top:-480px;  /* your iframe height */
+}
 
+input[type="range"] {
+  display: inline-block;
+  overflow: hidden;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-right: 2px;
+  padding-left: 1px;
+  width: auto;
+  /*height: 35px;/
+  min-height: 35px;
+  outline: none;
+  /background: linear-gradient(to right, #cccccc 0%, #cccccc 100%);*/
+  background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cccccc), color-stop(100%, #cccccc));
+  background-position: center;
+  background-size: 99% 4px;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb:before {
+  /* what creates the colorful line on the left side of the slider */
+  position: absolute;
+  top: 8px;
+  left: -2001px;
+  width: 2000px;
+  height: 4px;
+  background: #444;
+  content: ' '; }
 /* Tinder card css */
 td-cards {
   display: block;

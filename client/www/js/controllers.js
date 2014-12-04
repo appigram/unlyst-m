@@ -44,4 +44,17 @@ angular.module('starter.controllers', [])
       console.log('RIGHT SWIPE');
       $scope.addCard();
     };
+  })
+  .controller('HomeCtrl', function($scope, $ionicModal) {
+    console.log('Home');
+
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/modal.html', function($ionicModal) {
+      $scope.modal = $ionicModal;
+    }, {
+      // Use our scope for the scope of the modal to keep it simple
+      scope: $scope,
+      // The animation we want to use for the modal entrance
+      animation: 'slide-in-up'
+    });
   });
