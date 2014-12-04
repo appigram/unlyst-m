@@ -49,3 +49,29 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .button-custom .icon:before{
   font-size: 16px !important;
 }
+
+.tabs .tab-item .icon.unlyst-bg-icon{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../img/logo-white-bg.png');
+}
+
+.slider-nav-btn-left, .slider-nav-btn-right  {
+  position:absolute; top: 100px;z-index: 5; font-size:16px; cursor: hand;
+}
+
+.slider-nav-btn-right {
+  right:0%;
+}
+
+
+// custom sliderbox's pager, remove this if not needed
+.slider-override .slider-pager .slider-pager-page{
+  width:auto;
+}
+.slider-override .slider-pager .slider-pager-page:after{
+  content:'test';
+}
+.slider-override .slider-pager .slider-pager-page .icon{
+  font-size:0 !important;
+}

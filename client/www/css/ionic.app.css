@@ -7834,4 +7834,28 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   color: #4a87ee; }
 
 .button-custom, .button-custom .icon:before {
-  font-size: 14px !important; }
+  font-size: 16px !important; }
+
+.tabs .tab-item .icon.unlyst-bg-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../img/logo-white-bg.png'); }
+
+.slider-nav-btn-left, .slider-nav-btn-right {
+  position: absolute;
+  top: 100px;
+  z-index: 5;
+  font-size: 16px;
+  cursor: hand; }
+
+.slider-nav-btn-right {
+  right: 0%; }
+
+.slider-override .slider-pager .slider-pager-page {
+  width: auto; }
+
+.slider-override .slider-pager .slider-pager-page:after {
+  content: 'test'; }
+
+.slider-override .slider-pager .slider-pager-page .icon {
+  font-size: 0 !important; }

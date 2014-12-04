@@ -7,8 +7,8 @@
         "type": "git",
         "url": "https://github.com/dongmingliy/unlyst"
     },
-    "author": "Christophe Coenraets",
-    "license": "MIT",
+    "author": ["Louis Li", "Jerry Yang"],
+    "license": "None",
     "bugs": {
         "url": "https://github.com/dongmingliy/unlyst/issues"
     },
