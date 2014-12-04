@@ -1,0 +1,29 @@
+<div class="priceslider">
+  <div class="row  bar bar-subfooter">
+    <div class="item col">
+      <div class="list">
+        <!--Note noFractionCurrency is a temporary work arround until ionic updates to beta 14 or later,
+        which uses angularjs 1.3, then we can use | currency:undefined:0-->
+        <div class="text-center">
+          <h1>{{home.valuation | noFractionCurrency}}</h1>
+        </div>
+        <div class="item range range-positive">
+          <input type="range" name="price" min="100000" max="900000" ng-init="home.valuation=500000"
+                 ng-model="home.valuation" class="assertive">
+        </div>
+        <div class="row padding">
+          <div class="col-60 col-offset-20">
+            <button class="button button-large button-assertive" ng-click="modal.show(home.valuation)" style="min-width: 200px;">
+              Submit Value
+            </button>
+          </div>
+          <div class="col-20 text-right">
+            <button class="button button-large button-light">
+              Skip
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
