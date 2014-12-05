@@ -131,14 +131,26 @@ angular.module('starter.controllers', [])
     $scope.valuation = $scope.home.valuation;
     $scope.score = ($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10;
     $scope.Math = window.Math;
+    $scope.totalScore = 0;
+    $scope.playCount = 0;
+    $scope.avgScore = 0;
     $ionicModal.fromTemplateUrl('templates/modal.html', function(modal) {
       $scope.modal = modal;
+
     }, {
       // Use our scope for the scope of the modal to keep it simple
       scope: $scope,
       // The animation we want to use for the modal entrance
       animation: 'slide-in-up'
     });
+    $scope.submitScore = function(){
+      $scope.score = ($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10;
+      $scope.totalScore += $scope.score;
+      $scope.playCount++;
+      console.log('score:'+ $scope.score);
+      console.log('playcount:'+ $scope.playCount);
+      $scope.avgScore = $scope.score;
+    };
 
 
     $scope.clickNext = function() {
