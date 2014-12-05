@@ -47,17 +47,9 @@ angular.module('starter.controllers', [])
   })
   .controller('HomeCtrl', function($scope, $ionicModal) {
 
-    $scope.valuation = 500000;
+    $scope.valuation = 400000;
     // Load the modal from the given template URL
     // somehow need to move ionicmodal first
-    $ionicModal.fromTemplateUrl('templates/modal.html', function(modal) {
-      $scope.modal = modal;
-    }, {
-      // Use our scope for the scope of the modal to keep it simple
-      scope: $scope,
-      // The animation we want to use for the modal entrance
-      animation: 'slide-in-up'
-    });
 
     var TYPE = ['CONDO', 'DETACHED', 'SEMEI-DETACHED'];
     var i = 0;
@@ -77,8 +69,8 @@ angular.module('starter.controllers', [])
         "img": ["img/homes/house1_1.jpg","img/homes/house1_2.jpg","img/homes/house1_3.jpg", "img/homes/house1_4.jpg"],
         "score": 88,
         "scoremsg": "That was so close",
-        "expertvalue":"$689,600",
-        "crowdvalue":"$695,850"
+        "expertvalue":689600,
+        "crowdvalue":695850
       },
       {
         "houseId " : 2,
@@ -94,8 +86,8 @@ angular.module('starter.controllers', [])
         "img": ["img/homes/house2_1.jpg","img/homes/house2_2.jpg","img/homes/house2_3.jpg", "img/homes/house1_1.jpg"],
         "score": 48,
         "scoremsg": "Come on be more serious",
-        "expertvalue":"$583,600",
-        "crowdvalue":"$592,810"
+        "expertvalue":583600,
+        "crowdvalue":592810
       },
       {
         "houseId " : 3,
@@ -111,8 +103,8 @@ angular.module('starter.controllers', [])
         "img": ["img/homes/house3_1.jpg","img/homes/house3_2.jpg","img/homes/house3_3.jpg","img/homes/house3_4.jpg"],
         "score": 95,
         "scoremsg": "Awesome!",
-        "expertvalue":"$719,360",
-        "crowdvalue":"$725,850"
+        "expertvalue":719360,
+        "crowdvalue":725850
       }
     ];
 
@@ -129,8 +121,26 @@ angular.module('starter.controllers', [])
     $scope.hideDetail = true;
     $scope.score = 88;
     $scope.scoremsg ="That was so close";
-    $scope.expertvalue ="$689,600";
-    $scope.crowdvalue ="$695,850";
+    $scope.expertvalue =689600;
+    $scope.crowdvalue =695850;
+
+
+    //bind model to scoep; set valuation
+    $scope.home = {};
+
+    $scope.valuation = $scope.home.valuation;
+    $scope.score = ($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10;
+    $scope.Math = window.Math;
+    $ionicModal.fromTemplateUrl('templates/modal.html', function(modal) {
+      $scope.modal = modal;
+    }, {
+      // Use our scope for the scope of the modal to keep it simple
+      scope: $scope,
+      // The animation we want to use for the modal entrance
+      animation: 'slide-in-up'
+    });
+
+
     $scope.clickNext = function() {
       var length = houses.length;
       $scope.hideDetail = true;
