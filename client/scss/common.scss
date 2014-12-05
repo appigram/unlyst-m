@@ -1,0 +1,42 @@
+//global max width
+.mainContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+//tab icon at bottom
+.tabs .tab-item .icon.unlyst-bg-icon{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../img/logo-white-bg.png');
+}
+
+
+.icon-positive{
+  font-size: $font-size-large;
+  color:$positive;
+}
+
+// override icon size
+.button-custom,
+.button-custom .icon:before{
+  font-size: 16px !important;
+}
+
+// custom sliderbox's pager, remove this if not needed
+.slider-override .slider-pager .slider-pager-page{
+  width:auto;
+}
+.slider-override .slider-pager .slider-pager-page:after{
+  content:'test';
+}
+.slider-override .slider-pager .slider-pager-page .icon{
+  font-size:0 !important;
+}
+

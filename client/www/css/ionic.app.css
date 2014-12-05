@@ -7817,6 +7817,16 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   -webkit-transition: none !important;
   transition: none !important; }
 
+.mainContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto; }
+
 .priceslider .bar {
   height: auto !important; }
 
