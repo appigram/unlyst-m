@@ -46,6 +46,19 @@ angular.module('starter.controllers', [])
     };
   })
   .controller('HomeCtrl', function($scope, $ionicModal) {
+
+    $scope.valuation = 500000;
+    // Load the modal from the given template URL
+    // somehow need to move ionicmodal first
+    $ionicModal.fromTemplateUrl('templates/modal.html', function(modal) {
+      $scope.modal = modal;
+    }, {
+      // Use our scope for the scope of the modal to keep it simple
+      scope: $scope,
+      // The animation we want to use for the modal entrance
+      animation: 'slide-in-up'
+    });
+
     var TYPE = ['CONDO', 'DETACHED', 'SEMEI-DETACHED'];
     var i = 0;
     $scope.test = $scope.data;
@@ -155,15 +168,5 @@ angular.module('starter.controllers', [])
         $scope.crowdvalue = houses[i].crowdvalue;
       }
 
-      $scope.valuation = 500000;
     };
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/modal.html', function($ionicModal) {
-      $scope.modal = $ionicModal;
-    }, {
-      // Use our scope for the scope of the modal to keep it simple
-      scope: $scope,
-      // The animation we want to use for the modal entrance
-      animation: 'slide-in-up'
-    });
   });

@@ -1,4 +1,4 @@
-<ion-modal-view style="width: 90%; height: 50%; top: 1%; left: 5%; right: 5%; bottom: 5%; min-height: 250px;">
+<ion-modal-view style="width: 90%; height: 50%; top: 1%; left: 5%; right: 5%; bottom: 5%; min-height:450px;">
   <ion-header-bar class="bar bar-header bar-assertive">
     <h1 class="title">Current Unlysted Value</h1>
     <!--button-clear makes the icon bigger-->
@@ -8,17 +8,19 @@
   </ion-header-bar>
   <ion-content has-header="true" padding="true">
     <div class="text-center card">
-      <h1>valuation: {{valuation }}</h1>
-      <h1><strong>689,600</strong></h1>
       <h5>That was so close</h5>
-      <h5>+ 88 points</h5>
-      <h5>Points Improve Your Reputation</h5>
+      <h3>8</h3>
+      <h5>points awarded</h5>
+      <h1><strong>$689,600</strong></h1>
+      <h5>unlysted value</h5>
+      <h3>8.56</h3>
+      <h5>your average</h5>
     </div>
     <div class="row">
-      <div class="col-40">
+      <div class="col-20 col-offset-20">
         <button class="button button-assertive ion-heart"></button>
       </div>
-      <div class="col-60 text-right">
+      <div class="col-60">
         <button ng-click="modal.hide()" class="button button-assertive">View Next Home
         </button>
       </div>
