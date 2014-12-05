@@ -107,6 +107,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
         return value.substring(0, sep) + ')';
       };
-    }]);
-
+    }])
 

@@ -7859,3 +7859,17 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 
 .slider-override .slider-pager .slider-pager-page .icon {
   font-size: 0 !important; }
+
+.home-info h3 {
+  color: #fff; }
+.home-info h6 {
+  color: #eeeeee; }
+
+.home-detail-info span {
+  color: #d9d9d9;
+  font-weight: 300; }
+.home-detail-info h6 {
+  color: #fff;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  font-weight: 600; }

@@ -154,6 +154,8 @@ angular.module('starter.controllers', [])
         $scope.expertvalue = houses[i].expertvalue;
         $scope.crowdvalue = houses[i].crowdvalue;
       }
+
+      $scope.valuation = 500000;
     };
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/modal.html', function($ionicModal) {
