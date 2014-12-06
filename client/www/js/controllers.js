@@ -107,13 +107,13 @@ angular.module('starter.controllers', [])
         "maintFee": 450,
         "neighborhood" : 'A Neighborhood',
         "img": ["img/homes/68_Broadview_Avenue_422/1.png", "img/homes/68_Broadview_Avenue_422/2.png",
-          "img/homes/68_Broadview_Avenue_422/3.png", "img/homes/68_Broadview_Avenue_422/4.png",
-          "img/homes/68_Broadview_Avenue_422/5.png", "img/homes/68_Broadview_Avenue_422/6.png",
-          "img/homes/68_Broadview_Avenue_422/7.png", "img/homes/68_Broadview_Avenue_422/8.png",
-          "img/homes/68_Broadview_Avenue_422/9.png", "img/homes/68_Broadview_Avenue_422/10.png",
-          "img/homes/68_Broadview_Avenue_422/11.png", "img/homes/68_Broadview_Avenue_422/12.png",
-          "img/homes/68_Broadview_Avenue_422/13.png", "img/homes/68_Broadview_Avenue_422/14.png",
-          "img/homes/68_Broadview_Avenue_422/15.png", "img/homes/68_Broadview_Avenue_422/16.png"],
+                "img/homes/68_Broadview_Avenue_422/3.png", "img/homes/68_Broadview_Avenue_422/4.png",
+                "img/homes/68_Broadview_Avenue_422/5.png", "img/homes/68_Broadview_Avenue_422/6.png",
+                "img/homes/68_Broadview_Avenue_422/7.png", "img/homes/68_Broadview_Avenue_422/8.png",
+                "img/homes/68_Broadview_Avenue_422/9.png", "img/homes/68_Broadview_Avenue_422/10.png",
+                "img/homes/68_Broadview_Avenue_422/11.png", "img/homes/68_Broadview_Avenue_422/12.png",
+                "img/homes/68_Broadview_Avenue_422/13.png", "img/homes/68_Broadview_Avenue_422/14.png",
+                "img/homes/68_Broadview_Avenue_422/15.png", "img/homes/68_Broadview_Avenue_422/16.png"],
         "score": 88,
         "scoremsg": "That was so close",
         "expertvalue":583600,
@@ -121,16 +121,28 @@ angular.module('starter.controllers', [])
       },
       {
         "houseId " : 3,
-        "address1" : "777 Bay Street",
+        "address1" : "103 - 100 Western Battery Road",
+        "city": "Toronto",
         "houseType" : "Condo",
-        "size" : 3000,
-        "bedRmNum": 2,
-        "bathRmNum": 2,
+        "size" : 600,
+        "bedRmNum": 1,
+        "bathRmNum": 1,
         "parkingNum": 1,
+        "stories": 1.5,
+        "additionalSpace": "",
+        "parkingType": "Underground",
+        "outdoorSpace": "Patio",
+        "orientation": "West",
         "buildYr": 5,
-        "landSize": 1000,
-        "maintFee": null,
-        "img": ["img/homes/house3_1.jpg","img/homes/house3_2.jpg","img/homes/house3_3.jpg","img/homes/house3_4.jpg"],
+        "landSize": 0,
+        "maintFee": 450,
+        "neighborhood" : 'Liberty Village',
+        "img": ["img/homes/100_Western_Battery_Road_103/1.jpg", "img/homes/100_Western_Battery_Road_103/2.jpg",
+                "img/homes/100_Western_Battery_Road_103/3.jpg", "img/homes/100_Western_Battery_Road_103/4.jpg",
+                "img/homes/100_Western_Battery_Road_103/5.jpg", "img/homes/100_Western_Battery_Road_103/6.jpg",
+                "img/homes/100_Western_Battery_Road_103/7.jpg", "img/homes/100_Western_Battery_Road_103/8.jpg",
+                "img/homes/100_Western_Battery_Road_103/9.jpg", "img/homes/100_Western_Battery_Road_103/10.jpg",
+                "img/homes/100_Western_Battery_Road_103/11.jpg"],
         "score": 95,
         "scoremsg": "Awesome!",
         "expertvalue":719360,
@@ -157,8 +169,8 @@ angular.module('starter.controllers', [])
     $scope.hideDetail = true;
     $scope.score = 88;
     $scope.scoremsg ="That was so close";
-    $scope.expertvalue =689600;
-    $scope.crowdvalue =695850;
+    $scope.expertvalue = houses[i].expertvalue;
+    $scope.crowdvalue =houses[i].crowdvalue;
 
 
     //bind model to scoep; set valuation
@@ -222,8 +234,8 @@ angular.module('starter.controllers', [])
         $scope.hideDetail = true;
         $scope.score = 88;
         $scope.scoremsg ="That was so close";
-        $scope.expertvalue =689600;
-        $scope.crowdvalue =695850;
+        $scope.expertvalue = houses[i].expertvalue;
+        $scope.crowdvalue =houses[i].crowdvalue;
       }
       else {
         i = 0;
@@ -246,8 +258,8 @@ angular.module('starter.controllers', [])
         $scope.hideDetail = true;
         $scope.score = 88;
         $scope.scoremsg ="That was so close";
-        $scope.expertvalue =689600;
-        $scope.crowdvalue =695850;
+        $scope.expertvalue = houses[i].expertvalue;
+        $scope.crowdvalue =houses[i].crowdvalue;
       }
 
     };
