@@ -7813,7 +7813,7 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   height: auto !important; }
 
 .slidersection {
-  margin: 10px 0px;
+  margin: 0px 0px;
   text-align: center; }
 
 /* make content fixed at bottom */

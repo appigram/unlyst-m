@@ -17,9 +17,9 @@
   background:transparent;
   position:relative;
   width:640px;
-  height:480px; /* your iframe height */
-  top:480px;  /* your iframe height */
-  margin-top:-480px;  /* your iframe height */
+  height:280px; /* your iframe height */
+  top:280px;  /* your iframe height */
+  margin-top:-280px;  /* your iframe height */
 }
 
 //tab icon at bottom
@@ -39,6 +39,10 @@
 .button-custom,
 .button-custom .icon:before{
   font-size: 16px !important;
+}
+
+.slider-override{
+  height:240px;
 }
 
 // custom sliderbox's pager, remove this if not needed

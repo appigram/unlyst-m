@@ -7814,11 +7814,11 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   background: transparent;
   position: relative;
   width: 640px;
-  height: 480px;
+  height: 280px;
   /* your iframe height */
-  top: 480px;
+  top: 280px;
   /* your iframe height */
-  margin-top: -480px;
+  margin-top: -280px;
   /* your iframe height */ }
 
 .tabs .tab-item .icon.unlyst-bg-icon {
@@ -7832,6 +7832,9 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 
 .button-custom, .button-custom .icon:before {
   font-size: 16px !important; }
+
+.slider-override {
+  height: 240px; }
 
 .slider-override .slider-pager .slider-pager-page {
   width: auto; }
