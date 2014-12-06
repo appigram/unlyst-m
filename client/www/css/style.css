@@ -1,12 +1,4 @@
-/*used for overlay the map to prevent scrolling*/
-.overlay {
-  background:transparent;
-  position:relative;
-  width:640px;
-  height:480px; /* your iframe height */
-  top:480px;  /* your iframe height */
-  margin-top:-480px;  /* your iframe height */
-}
+
 
 input[type="range"] {
   display: inline-block;

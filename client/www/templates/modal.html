@@ -1,4 +1,4 @@
-<ion-modal-view style="width: 90%; height: 50%; top: 1%; left: 5%; right: 5%; bottom: 5%; min-height: 300px;">
+<ion-modal-view style="width: 90%; height: 50%; top: 1%; left: 5%; right: 5%; bottom: 5%; min-height:450px;">
   <ion-header-bar class="bar bar-header bar-assertive">
     <h1 class="title">Current Unlysted Value</h1>
     <!--button-clear makes the icon bigger-->
@@ -8,26 +8,22 @@
   </ion-header-bar>
   <ion-content has-header="true" padding="true">
     <div class="text-center card">
-      <h1><strong>689,600</strong></h1>
       <h5>That was so close</h5>
-      <h5>+ 88 points</h5>
-      <h5>Points Improve Your Reputation</h5>
+      <h3>{{score | number : 0}}</h3>
+      <h5>points awarded</h5>
+      <h1><strong>{{crowdvalue | noFractionCurrency}}</strong></h1>
+      <h5>unlysted value</h5>
+      <h3>{{avgScore | number: 2}}</h3>
+      <h5>your average</h5>
     </div>
-    <div class="text-center">
-      <button ng-click="modal.hide()" class="button button-assertive">View Next Home
-      </button>
+    <div class="row">
+      <div class="col-20 col-offset-20">
+        <button class="button button-assertive ion-heart"></button>
+      </div>
+      <div class="col-60">
+        <button ng-click="modal.hide()" class="button button-assertive">View Next Home
+        </button>
+      </div>
     </div>
   </ion-content>
-</ion-modal-view>
-
-<!--<div class="modal-body text-center">-->
-  <!--<h1><strong>{{expertvalue}}</strong></h1>-->
-  <!--<h5>{{scoremsg}}</h5>-->
-  <!--<h5>+ {{score}} points</h5>-->
-  <!--<h5>Points Improve Your Reputation</h5>-->
-<!--</div>-->
-<!--<div class="modal-footer text-center">-->
-  <!--<button id="nexthome" type="button" data-dismiss="modal" ng-click="clickNext()"-->
-          <!--class="btn btn-primary center-block">View Next Home-->
-  <!--</button>-->
-<!--</div>-->
+</ion-modal-view><!--<div class="modal-body text-center">--><!--<h1><strong>{{expertvalue}}</strong></h1>--><!--<h5>{{scoremsg}}</h5>--><!--<h5>+ {{score}} points</h5>--><!--<h5>Points Improve Your Reputation</h5>--><!--</div>--><!--<div class="modal-footer text-center">--><!--<button id="nexthome" type="button" data-dismiss="modal" ng-click="clickNext()"--><!--class="btn btn-primary center-block">View Next Home--><!--</button>--><!--</div>-->

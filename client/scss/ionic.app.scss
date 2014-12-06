@@ -18,34 +18,18 @@ $dark:                            #444 !default;
 */
 $assertive: #FC675E !default;
 $positive: #4a87ee !default;
-
+$gray-base:              #000;
+$gray-darker:            lighten($gray-base, 13.5%); // #222
+$gray-dark:              lighten($gray-base, 20%);   // #333
+$gray:                   lighten($gray-base, 33.5%); // #555
+$gray-light:             lighten($gray-base, 46.7%); // #777
+$gray-lighter:           lighten($gray-base, 85.0%); //
+$gray-verylight:         lighten($gray-base, 93.5%); // #eee
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "../www/lib/ionic/scss/ionic";
-
-.priceslider .bar {
-  height: auto !important;
-}
-
-.slidersection {
-  margin: 10px 0px;
-  text-align: center;
-}
-
-/* make content fixed at bottom */
-.priceslider .bar-subfooter {
-  bottom: 48px !important; /* place bar-subfooter above footer */
-}
-
-.icon-positive{
-  font-size: $font-size-large;
-  color:$positive;
-}
-
-// override icon size
-.button-custom,
-.button-custom .icon:before{
-  font-size: 16px !important;
-}
+//@import "common";
+//@import "homeinfo";
+//@import "priceslider";
