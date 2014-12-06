@@ -45,13 +45,14 @@ angular.module('starter.controllers', [])
       $scope.addCard();
     };
   })
-  .controller('HomeCtrl', function($scope, $ionicModal) {
+  .controller('HomeCtrl', function($scope, $ionicModal,$ionicSlideBoxDelegate) {
     $scope.next = function() {
       $ionicSlideBoxDelegate.next();
     };
     $scope.previous = function() {
       $ionicSlideBoxDelegate.previous();
     };
+
     $scope.valuation = 400000;
     // Load the modal from the given template URL
     // somehow need to move ionicmodal first
