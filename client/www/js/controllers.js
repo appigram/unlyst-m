@@ -182,6 +182,7 @@ angular.module('starter.controllers', [])
 
     $scope.clickNext = function() {
       $ionicSlideBoxDelegate.update();
+      $ionicSlideBoxDelegate.slide(0);
       console.log("click Next")
       var length = houses.length;
       $scope.hideDetail = true;
