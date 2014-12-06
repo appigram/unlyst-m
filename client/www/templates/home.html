@@ -6,8 +6,7 @@
     <div class="slider-nav-btn-right">
       <button class="button button-dark button-small button-outline ion-chevron-right"></button>
     </div>
-    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" show-pager="false"
-                   style="min-height:400px">
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" show-pager="false">
       <ion-slide>
         <div ng-include src="'templates/home-details/map.html'"></div>
       </ion-slide>
@@ -18,6 +17,7 @@
         <div ng-include src="'templates/home-details/picture.html'"></div>
       </ion-slide>
     </ion-slide-box>
+    <div ng-include src="'templates/home-details/address.html'"></div>
     <div ng-include src="'templates/price-slider.html'"></div>
   </ion-content>
 </ion-view>
