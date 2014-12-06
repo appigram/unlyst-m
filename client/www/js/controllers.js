@@ -83,8 +83,6 @@ angular.module('starter.controllers', [])
                 "img/homes/1_Market_Street _625/MW-1bed-kitchen1.jpg", "img/homes/1_Market_Street _625/MW-1bed-kitchen2.jpg",
                 "img/homes/1_Market_Street _625/MW-1bed-main.jpg", "img/homes/1_Market_Street _625/MW-1bed-main2.jpg",
                 "img/homes/1_Market_Street _625/MW-1BED-MAIN3.jpg", "img/homes/1_Market_Street _625/urbantoronto-7363-25184.jpg"],
-        "score": 88,
-        "scoremsg": "That was so close",
         "expertvalue":689600,
         "crowdvalue":695850
       },
@@ -114,7 +112,6 @@ angular.module('starter.controllers', [])
                 "img/homes/68_Broadview_Avenue_422/11.png", "img/homes/68_Broadview_Avenue_422/12.png",
                 "img/homes/68_Broadview_Avenue_422/13.png", "img/homes/68_Broadview_Avenue_422/14.png",
                 "img/homes/68_Broadview_Avenue_422/15.png", "img/homes/68_Broadview_Avenue_422/16.png"],
-        "score": 88,
         "scoremsg": "That was so close",
         "expertvalue":583600,
         "crowdvalue":592810
@@ -143,8 +140,6 @@ angular.module('starter.controllers', [])
                 "img/homes/100_Western_Battery_Road_103/7.jpg", "img/homes/100_Western_Battery_Road_103/8.jpg",
                 "img/homes/100_Western_Battery_Road_103/9.jpg", "img/homes/100_Western_Battery_Road_103/10.jpg",
                 "img/homes/100_Western_Battery_Road_103/11.jpg"],
-        "score": 95,
-        "scoremsg": "Awesome!",
         "expertvalue":719360,
         "crowdvalue":725850
       }
@@ -159,7 +154,7 @@ angular.module('starter.controllers', [])
     $scope.lotSize = houses[i].landSize;
     $scope.stories = houses[i].stories;
     $scope.orientation = houses[i].orientation;
-    $scope.parking = houses[i].parkingNum > 0? 'Yes' : 'No';
+    $scope.parking = houses[i].parkingNum;
     $scope.parkingType = houses[i].parkingType;
     $scope.outdoorSpace = houses[i].outdoorSpace;
     $scope.buildYr = 2014 - houses[i].buildYr;
@@ -167,8 +162,6 @@ angular.module('starter.controllers', [])
     $scope.neighborhood = houses[i].neighborhood;
     $scope.city = houses[i].city;
     $scope.hideDetail = true;
-    $scope.score = 88;
-    $scope.scoremsg ="That was so close";
     $scope.expertvalue = houses[i].expertvalue;
     $scope.crowdvalue =houses[i].crowdvalue;
 
@@ -195,8 +188,6 @@ angular.module('starter.controllers', [])
       $scope.score = 10 - Math.abs(($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10);
       $scope.totalScore += $scope.score;
       $scope.playCount++;
-      console.log('score:'+ $scope.score);
-      console.log('playcount:'+ $scope.playCount);
       $scope.avgScore = $scope.totalScore/$scope.playCount;
 
     };
@@ -209,7 +200,6 @@ angular.module('starter.controllers', [])
     $scope.clickNext = function() {
       $ionicSlideBoxDelegate.update();
       $ionicSlideBoxDelegate.slide(0);
-      console.log("click Next")
       var length = houses.length;
       $scope.hideDetail = true;
 
@@ -224,7 +214,7 @@ angular.module('starter.controllers', [])
         $scope.lotSize = houses[i].landSize;
         $scope.stories = houses[i].stories;
         $scope.orientation = houses[i].orientation;
-        $scope.parking = houses[i].parkingNum > 0? 'Yes' : 'No';
+        $scope.parking = houses[i].parkingNum;
         $scope.parkingType = houses[i].parkingType;
         $scope.outdoorSpace = houses[i].outdoorSpace;
         $scope.buildYr = 2014 - houses[i].buildYr;
@@ -248,7 +238,7 @@ angular.module('starter.controllers', [])
         $scope.lotSize = houses[i].landSize;
         $scope.stories = houses[i].stories;
         $scope.orientation = houses[i].orientation;
-        $scope.parking = houses[i].parkingNum > 0? 'Yes' : 'No';
+        $scope.parking = houses[i].parkingNum;
         $scope.parkingType = houses[i].parkingType;
         $scope.outdoorSpace = houses[i].outdoorSpace;
         $scope.buildYr = 2014 - houses[i].buildYr;
@@ -261,6 +251,5 @@ angular.module('starter.controllers', [])
         $scope.expertvalue = houses[i].expertvalue;
         $scope.crowdvalue =houses[i].crowdvalue;
       }
-
     };
   });

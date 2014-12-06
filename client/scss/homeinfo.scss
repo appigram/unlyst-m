@@ -1,6 +1,8 @@
 @import "../www/lib/ionic/scss/ionic";
 @import "ionic.app";
 .home-info{
+  min-height: 230px;
+  height: 100%;
   h3{
     color: $light;
     margin-top:1px;
@@ -26,4 +28,8 @@
 }
 .valdIcon{
   width:32px;
+
+}
+.iconheight{
+  height:30px;
 }
