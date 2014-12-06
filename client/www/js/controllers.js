@@ -57,16 +57,26 @@ angular.module('starter.controllers', [])
     var houses = [
       {
         "houseId " : 1,
-        "address1" : "1102 College Street",
-        "houseType" : "House",
-        "size" : 1000,
+        "address1" : "625 - 1 Market Street",
+        "city": "Toronto",
+        "houseType" : "Condo",
+        "size" : 642,
         "bedRmNum": 1,
-        "bathRmNum": 2,
+        "bathRmNum": 1,
         "parkingNum": 1,
+        "stories": 1,
+        "parkingType": "Garage",
+        "outdoorSpace": "Terrace",
+        "orientation": "East",
         "buildYr": 5,
         "landSize": 0,
-        "maintFee": 100,
-        "img": ["img/homes/house1_1.jpg","img/homes/house1_2.jpg","img/homes/house1_3.jpg", "img/homes/house1_4.jpg"],
+        "maintFee": 360,
+        "neighborhood" : 'St Lawrence Market',
+        "img": ["img/homes/1_Market_Street _625/Floor-plan.jpg","img/homes/1_Market_Street _625/MarketWharf-1bed-living-room.jpg",
+                "img/homes/1_Market_Street _625/MW-1BED-bath.jpg", "img/homes/1_Market_Street _625/MW-1bed-bed.jpg",
+                "img/homes/1_Market_Street _625/MW-1bed-kitchen1.jpg", "img/homes/1_Market_Street _625/MW-1bed-kitchen2.jpg",
+                "img/homes/1_Market_Street _625/MW-1bed-main.jpg", "img/homes/1_Market_Street _625/MW-1bed-main2.jpg",
+                "img/homes/1_Market_Street _625/MW-1BED-MAIN3.jpg", "img/homes/1_Market_Street _625/urbantoronto-7363-25184.jpg"],
         "score": 88,
         "scoremsg": "That was so close",
         "expertvalue":689600,
@@ -115,9 +125,15 @@ angular.module('starter.controllers', [])
     $scope.houseType = houses[i].houseType;
     $scope.houseSize = houses[i].size;
     $scope.lotSize = houses[i].landSize;
+    $scope.stories = houses[i].stories;
+    $scope.orientation = houses[i].orientation;
     $scope.parking = houses[i].parkingNum > 0? 'Yes' : 'No';
+    $scope.parkingType = houses[i].parkingType;
+    $scope.outdoorSpace = houses[i].outdoorSpace;
     $scope.buildYr = 2014 - houses[i].buildYr;
     $scope.address = houses[i].address1;
+    $scope.neighborhood = houses[i].neighborhood;
+    $scope.city = houses[i].city;
     $scope.hideDetail = true;
     $scope.score = 88;
     $scope.scoremsg ="That was so close";
@@ -154,40 +170,57 @@ angular.module('starter.controllers', [])
 
 
     $scope.clickNext = function() {
+      console.log("click Next")
       var length = houses.length;
       $scope.hideDetail = true;
 
       if(i < length-1) {
         i++;
+        $scope.likes = 20;
+        $scope.imgurl = houses[i].img;
         $scope.bedRmNum =houses[i].bedRmNum;
         $scope.bathRmNum = houses[i].bathRmNum;
         $scope.houseType = houses[i].houseType;
         $scope.houseSize = houses[i].size;
         $scope.lotSize = houses[i].landSize;
+        $scope.stories = houses[i].stories;
+        $scope.orientation = houses[i].orientation;
         $scope.parking = houses[i].parkingNum > 0? 'Yes' : 'No';
+        $scope.parkingType = houses[i].parkingType;
+        $scope.outdoorSpace = houses[i].outdoorSpace;
         $scope.buildYr = 2014 - houses[i].buildYr;
         $scope.address = houses[i].address1;
-        $scope.score = houses[i].score;
-        $scope.imgurl = houses[i].img;
-        $scope.scoremsg = houses[i].scoremsg;
-        $scope.expertvalue = houses[i].expertvalue;
-        $scope.crowdvalue = houses[i].crowdvalue;
+        $scope.neighborhood = houses[i].neighborhood;
+        $scope.city = houses[i].city;
+        $scope.hideDetail = true;
+        $scope.score = 88;
+        $scope.scoremsg ="That was so close";
+        $scope.expertvalue =689600;
+        $scope.crowdvalue =695850;
       }
       else {
         i = 0;
-        $scope.bedRmNum = houses[i].bedRmNum;
+        $scope.likes = 20;
+        $scope.imgurl = houses[i].img;
+        $scope.bedRmNum =houses[i].bedRmNum;
         $scope.bathRmNum = houses[i].bathRmNum;
         $scope.houseType = houses[i].houseType;
         $scope.houseSize = houses[i].size;
         $scope.lotSize = houses[i].landSize;
+        $scope.stories = houses[i].stories;
+        $scope.orientation = houses[i].orientation;
         $scope.parking = houses[i].parkingNum > 0? 'Yes' : 'No';
+        $scope.parkingType = houses[i].parkingType;
+        $scope.outdoorSpace = houses[i].outdoorSpace;
         $scope.buildYr = 2014 - houses[i].buildYr;
         $scope.address = houses[i].address1;
-        $scope.score = houses[i].score;
-        $scope.imgurl = houses[i].img;
-        $scope.scoremsg = houses[i].scoremsg;
-        $scope.expertvalue = houses[i].expertvalue;
-        $scope.crowdvalue = houses[i].crowdvalue;
+        $scope.neighborhood = houses[i].neighborhood;
+        $scope.city = houses[i].city;
+        $scope.hideDetail = true;
+        $scope.score = 88;
+        $scope.scoremsg ="That was so close";
+        $scope.expertvalue =689600;
+        $scope.crowdvalue =695850;
       }
 
     };
