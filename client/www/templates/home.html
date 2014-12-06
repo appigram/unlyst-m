@@ -1,12 +1,13 @@
-<ion-view title="Unlyst" ng-controller="HomeCtrl" class="tabs-item-hide">
-  <ion-content class="tabs-item-hide">
+<ion-view title="Unlyst" ng-controller="HomeCtrl" >
+  <ion-content >
     <div class="slider-nav-btn-left">
       <button class="button button-dark button-small button-outline ion-chevron-left"></button>
     </div>
     <div class="slider-nav-btn-right">
       <button class="button button-dark button-small button-outline ion-chevron-right"></button>
     </div>
-    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" show-pager="false" style="min-height:400px">
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" show-pager="false"
+                   style="min-height:400px">
       <ion-slide>
         <div ng-include src="'templates/home-details/map.html'"></div>
       </ion-slide>
@@ -17,6 +18,7 @@
         <div ng-include src="'templates/home-details/picture.html'"></div>
       </ion-slide>
     </ion-slide-box>
+    <div ng-include src="'templates/price-slider.html'"></div>
+    <input type="range" name="test" min="0" max="100"  class="positive">
   </ion-content>
-  <div ng-include src="'templates/price-slider.html'"></div>
 </ion-view>

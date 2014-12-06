@@ -7833,6 +7833,9 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .button-custom, .button-custom .icon:before {
   font-size: 16px !important; }
 
+.slider-override {
+  height: 530px; }
+
 .slider-override .slider-pager .slider-pager-page {
   width: auto; }
 
