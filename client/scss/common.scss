@@ -1,4 +1,5 @@
 @import "../www/lib/ionic/scss/ionic";
+@import "ionic.app";
 
 //global max width
 .mainContainer {
@@ -56,3 +57,17 @@
   font-size:0 !important;
 }
 
+.gray{
+  color:$gray;
+}
+
+.gray-lighter{
+  color:$gray-lighter;
+}
+
+.gray-light{
+  color:$gray-lighter;
+}
+.graycolor{
+  color:gray;
+}

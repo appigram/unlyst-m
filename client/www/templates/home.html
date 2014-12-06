@@ -1,10 +1,10 @@
 <ion-view title="Unlyst" ng-controller="HomeCtrl" >
   <ion-content >
     <div class="slider-nav-btn-left">
-      <button class="button button-dark button-small button-outline ion-chevron-left"></button>
+      <button ng-click="previous()" class="button button-dark button-small button-outline ion-chevron-left"></button>
     </div>
     <div class="slider-nav-btn-right">
-      <button class="button button-dark button-small button-outline ion-chevron-right"></button>
+      <button ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></button>
     </div>
     <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" show-pager="false">
       <ion-slide>

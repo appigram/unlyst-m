@@ -45,7 +45,13 @@ angular.module('starter.controllers', [])
       $scope.addCard();
     };
   })
-  .controller('HomeCtrl', function($scope, $ionicModal) {
+  .controller('HomeCtrl', function($scope, $ionicModal,$ionicSlideBoxDelegate) {
+    $scope.next = function() {
+      $ionicSlideBoxDelegate.next();
+    };
+    $scope.previous = function() {
+      $ionicSlideBoxDelegate.previous();
+    };
 
     $scope.valuation = 400000;
     // Load the modal from the given template URL
@@ -180,10 +186,17 @@ angular.module('starter.controllers', [])
       console.log('score:'+ $scope.score);
       console.log('playcount:'+ $scope.playCount);
       $scope.avgScore = $scope.totalScore/$scope.playCount;
+
     };
 
+    // Called each time the slide changes
+    $scope.slideHasChanged = function(index) {
+      $ionicSlideBoxDelegate.update();
+    };
 
     $scope.clickNext = function() {
+      $ionicSlideBoxDelegate.update();
+      $ionicSlideBoxDelegate.slide(0);
       console.log("click Next")
       var length = houses.length;
       $scope.hideDetail = true;
