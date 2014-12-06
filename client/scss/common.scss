@@ -1,3 +1,5 @@
+@import "../www/lib/ionic/scss/ionic";
+
 //global max width
 .mainContainer {
   position: absolute;
@@ -8,6 +10,16 @@
   max-width: 464px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/*used for overlay the map to prevent scrolling*/
+.overlay {
+  background:transparent;
+  position:relative;
+  width:640px;
+  height:480px; /* your iframe height */
+  top:480px;  /* your iframe height */
+  margin-top:-480px;  /* your iframe height */
 }
 
 //tab icon at bottom

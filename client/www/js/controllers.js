@@ -144,12 +144,12 @@ angular.module('starter.controllers', [])
       animation: 'slide-in-up'
     });
     $scope.submitScore = function(){
-      $scope.score = ($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10;
+      $scope.score = 10 - Math.abs(($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10);
       $scope.totalScore += $scope.score;
       $scope.playCount++;
       console.log('score:'+ $scope.score);
       console.log('playcount:'+ $scope.playCount);
-      $scope.avgScore = $scope.score;
+      $scope.avgScore = $scope.totalScore/$scope.playCount;
     };
 
 

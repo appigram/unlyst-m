@@ -7799,45 +7799,24 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   -webkit-transition: none !important;
   transition: none !important; }
 
-.mainContainer {
+.slider-nav-btn-left, .slider-nav-btn-right {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  max-width: 464px;
-  margin-left: auto;
-  margin-right: auto; }
+  top: 100px;
+  z-index: 5;
+  font-size: 16px;
+  cursor: hand; }
 
-/*used for overlay the map to prevent scrolling*/
-.overlay {
-  background: transparent;
-  position: relative;
-  width: 640px;
-  height: 480px;
-  /* your iframe height */
-  top: 480px;
-  /* your iframe height */
-  margin-top: -480px;
-  /* your iframe height */ }
+.slider-nav-btn-right {
+  right: 0%; }
 
-.tabs .tab-item .icon.unlyst-bg-icon {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url('../img/logo-white-bg.png'); }
+.priceslider .bar {
+  height: auto !important; }
 
-.icon-positive {
-  font-size: 18px;
-  color: #4a87ee; }
+.slidersection {
+  margin: 10px 0px;
+  text-align: center; }
 
-.button-custom, .button-custom .icon:before {
-  font-size: 16px !important; }
-
-.slider-override .slider-pager .slider-pager-page {
-  width: auto; }
-
-.slider-override .slider-pager .slider-pager-page:after {
-  content: 'test'; }
-
-.slider-override .slider-pager .slider-pager-page .icon {
-  font-size: 0 !important; }
+/* make content fixed at bottom */
+.priceslider .bar-subfooter {
+  bottom: 48px !important;
+  /* place bar-subfooter above footer */ }

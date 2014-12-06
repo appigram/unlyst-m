@@ -5,7 +5,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>Unlyst</title>
 
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/homeinfo.css" rel="stylesheet">
     <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/priceslider.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
 
     <!-- ionic/angularjs js -->
@@ -20,7 +24,7 @@
     <script src="js/services.js"></script>
     <script src="lib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
   </head>
-  <body ng-app="starter" class="mainContainer" animation="slide-left-right-ios7" no-scroll>
+  <body ng-app="starter" class="mainContainer tabs-item-hide" animation="slide-left-right-ios7" no-scroll>
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
@@ -29,7 +33,7 @@
         Back
       </ion-nav-back-button>
       <button class="button button-clear icon ion-navicon"></button>
-      </ion-nav-back-button>
+      </ion-nav-  -button>
       <button class="button button-clear icon ion-plus pull-right"></button>
     </ion-nav-bar>
     <!--
@@ -38,5 +42,6 @@
       have templates inline in this html file if you'd like).
     -->
     <ion-nav-view></ion-nav-view>
+    <!--<div ng-include src="'templates/home.html'"></div>-->
   </body>
 </html>
