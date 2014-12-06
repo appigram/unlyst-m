@@ -172,10 +172,16 @@ angular.module('starter.controllers', [])
       console.log('score:'+ $scope.score);
       console.log('playcount:'+ $scope.playCount);
       $scope.avgScore = $scope.totalScore/$scope.playCount;
+
     };
 
+    // Called each time the slide changes
+    $scope.slideHasChanged = function(index) {
+      $ionicSlideBoxDelegate.update();
+    };
 
     $scope.clickNext = function() {
+      $ionicSlideBoxDelegate.update();
       console.log("click Next")
       var length = houses.length;
       $scope.hideDetail = true;
