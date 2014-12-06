@@ -15645,4 +15645,5 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   width: 32px; }
 
 .iconheight {
-  height: 30px; }
+  height: 30px;
+  min-width: 40px; }
