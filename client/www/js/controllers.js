@@ -142,6 +142,33 @@ angular.module('starter.controllers', [])
                 "img/homes/100_Western_Battery_Road_103/11.jpg"],
         "expertvalue":719360,
         "crowdvalue":725850
+      },
+      {
+        "houseId " : 4,
+        "address1" : "671 - 313 Richmond Street East",
+        "city": "Toronto",
+        "houseType" : "Condo",
+        "size" : 900,
+        "bedRmNum": 2,
+        "bathRmNum": 2,
+        "parkingNum": 2,
+        "stories": 1,
+        "additionalSpace": "Locker",
+        "parkingType": "Underground",
+        "outdoorSpace": "Roof Top Terrace",
+        "orientation": "West and North",
+        "buildYr": 5,
+        "landSize": 0,
+        "maintFee": 530,
+        "neighborhood" : 'Old Toronto',
+        "img": ["img/homes/313_Richmond_Street_East _671/1.jpg", "img/homes/313_Richmond_Street_East _671/2.jpg",
+          "img/homes/313_Richmond_Street_East _671/3.jpg", "img/homes/313_Richmond_Street_East _671/4.jpg",
+          "img/homes/313_Richmond_Street_East _671/5.jpg", "img/homes/313_Richmond_Street_East _671/6.jpg",
+          "img/homes/313_Richmond_Street_East _671/7.jpg", "img/homes/313_Richmond_Street_East _671/8.jpg",
+          "img/homes/313_Richmond_Street_East _671/9.jpg", "img/homes/313_Richmond_Street_East _671/10.jpg",
+          "img/homes/313_Richmond_Street_East _671/11.jpg"],
+        "expertvalue":719360,
+        "crowdvalue":725850
       }
     ];
 
