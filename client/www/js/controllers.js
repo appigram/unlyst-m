@@ -207,12 +207,15 @@ angular.module('starter.controllers', [])
 
     }, {
       // Use our scope for the scope of the modal to keep it simple
-      scope: $scope,
+      scope: $scope
       // The animation we want to use for the modal entrance
-      animation: 'slide-in-up'
+      //animation: 'slide-in-up'
     });
     $scope.submitScore = function(){
       $scope.score = 10 - Math.abs(($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10);
+      if($scope.score<0){
+        $scope.score = 0;
+      }
       $scope.totalScore += $scope.score;
       $scope.playCount++;
       $scope.avgScore = $scope.totalScore/$scope.playCount;
@@ -229,54 +232,57 @@ angular.module('starter.controllers', [])
       $ionicSlideBoxDelegate.slide(0);
       var length = houses.length;
       $scope.hideDetail = true;
+      //setTimeout to prevent the next score to be shown
+      setTimeout(function() {
+        if(i < length-1) {
+          i++;
+          $scope.likes = 20;
+          $scope.imgurl = houses[i].img;
+          $scope.bedRmNum =houses[i].bedRmNum;
+          $scope.bathRmNum = houses[i].bathRmNum;
+          $scope.houseType = houses[i].houseType;
+          $scope.houseSize = houses[i].size;
+          $scope.lotSize = houses[i].landSize;
+          $scope.stories = houses[i].stories;
+          $scope.orientation = houses[i].orientation;
+          $scope.parking = houses[i].parkingNum;
+          $scope.parkingType = houses[i].parkingType;
+          $scope.outdoorSpace = houses[i].outdoorSpace;
+          $scope.buildYr = 2014 - houses[i].buildYr;
+          $scope.address = houses[i].address1;
+          $scope.neighborhood = houses[i].neighborhood;
+          $scope.city = houses[i].city;
+          $scope.hideDetail = true;
+          $scope.score = 88;
+          $scope.scoremsg ="That was so close";
+          $scope.expertvalue = houses[i].expertvalue;
+          $scope.crowdvalue =houses[i].crowdvalue;
+        }
+        else {
+          i = 0;
+          $scope.likes = 20;
+          $scope.imgurl = houses[i].img;
+          $scope.bedRmNum =houses[i].bedRmNum;
+          $scope.bathRmNum = houses[i].bathRmNum;
+          $scope.houseType = houses[i].houseType;
+          $scope.houseSize = houses[i].size;
+          $scope.lotSize = houses[i].landSize;
+          $scope.stories = houses[i].stories;
+          $scope.orientation = houses[i].orientation;
+          $scope.parking = houses[i].parkingNum;
+          $scope.parkingType = houses[i].parkingType;
+          $scope.outdoorSpace = houses[i].outdoorSpace;
+          $scope.buildYr = 2014 - houses[i].buildYr;
+          $scope.address = houses[i].address1;
+          $scope.neighborhood = houses[i].neighborhood;
+          $scope.city = houses[i].city;
+          $scope.hideDetail = true;
+          $scope.score = 88;
+          $scope.scoremsg ="That was so close";
+          $scope.expertvalue = houses[i].expertvalue;
+          $scope.crowdvalue =houses[i].crowdvalue;
+        }
+      },1000);
 
-      if(i < length-1) {
-        i++;
-        $scope.likes = 20;
-        $scope.imgurl = houses[i].img;
-        $scope.bedRmNum =houses[i].bedRmNum;
-        $scope.bathRmNum = houses[i].bathRmNum;
-        $scope.houseType = houses[i].houseType;
-        $scope.houseSize = houses[i].size;
-        $scope.lotSize = houses[i].landSize;
-        $scope.stories = houses[i].stories;
-        $scope.orientation = houses[i].orientation;
-        $scope.parking = houses[i].parkingNum;
-        $scope.parkingType = houses[i].parkingType;
-        $scope.outdoorSpace = houses[i].outdoorSpace;
-        $scope.buildYr = 2014 - houses[i].buildYr;
-        $scope.address = houses[i].address1;
-        $scope.neighborhood = houses[i].neighborhood;
-        $scope.city = houses[i].city;
-        $scope.hideDetail = true;
-        $scope.score = 88;
-        $scope.scoremsg ="That was so close";
-        $scope.expertvalue = houses[i].expertvalue;
-        $scope.crowdvalue =houses[i].crowdvalue;
-      }
-      else {
-        i = 0;
-        $scope.likes = 20;
-        $scope.imgurl = houses[i].img;
-        $scope.bedRmNum =houses[i].bedRmNum;
-        $scope.bathRmNum = houses[i].bathRmNum;
-        $scope.houseType = houses[i].houseType;
-        $scope.houseSize = houses[i].size;
-        $scope.lotSize = houses[i].landSize;
-        $scope.stories = houses[i].stories;
-        $scope.orientation = houses[i].orientation;
-        $scope.parking = houses[i].parkingNum;
-        $scope.parkingType = houses[i].parkingType;
-        $scope.outdoorSpace = houses[i].outdoorSpace;
-        $scope.buildYr = 2014 - houses[i].buildYr;
-        $scope.address = houses[i].address1;
-        $scope.neighborhood = houses[i].neighborhood;
-        $scope.city = houses[i].city;
-        $scope.hideDetail = true;
-        $scope.score = 88;
-        $scope.scoremsg ="That was so close";
-        $scope.expertvalue = houses[i].expertvalue;
-        $scope.crowdvalue =houses[i].crowdvalue;
-      }
     };
   });
