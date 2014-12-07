@@ -83,8 +83,8 @@ angular.module('starter.controllers', [])
                 "img/homes/1_Market_Street _625/MW-1bed-kitchen1.jpg", "img/homes/1_Market_Street _625/MW-1bed-kitchen2.jpg",
                 "img/homes/1_Market_Street _625/MW-1bed-main.jpg", "img/homes/1_Market_Street _625/MW-1bed-main2.jpg",
                 "img/homes/1_Market_Street _625/MW-1BED-MAIN3.jpg", "img/homes/1_Market_Street _625/urbantoronto-7363-25184.jpg"],
-        "expertvalue":689600,
-        "crowdvalue":695850
+        "expertvalue":429000,
+        "crowdvalue":429000
       },
       {
         "houseId " : 2,
@@ -113,8 +113,8 @@ angular.module('starter.controllers', [])
                 "img/homes/68_Broadview_Avenue_422/13.png", "img/homes/68_Broadview_Avenue_422/14.png",
                 "img/homes/68_Broadview_Avenue_422/15.png", "img/homes/68_Broadview_Avenue_422/16.png"],
         "scoremsg": "That was so close",
-        "expertvalue":583600,
-        "crowdvalue":592810
+        "expertvalue":620000,
+        "crowdvalue":620000
       },
       {
         "houseId " : 3,
@@ -140,8 +140,8 @@ angular.module('starter.controllers', [])
                 "img/homes/100_Western_Battery_Road_103/7.jpg", "img/homes/100_Western_Battery_Road_103/8.jpg",
                 "img/homes/100_Western_Battery_Road_103/9.jpg", "img/homes/100_Western_Battery_Road_103/10.jpg",
                 "img/homes/100_Western_Battery_Road_103/11.jpg"],
-        "expertvalue":719360,
-        "crowdvalue":725850
+        "expertvalue":359000,
+        "crowdvalue":359000
       },
       {
         "houseId " : 4,
@@ -167,8 +167,8 @@ angular.module('starter.controllers', [])
           "img/homes/313_Richmond_Street_East _671/7.jpg", "img/homes/313_Richmond_Street_East _671/8.jpg",
           "img/homes/313_Richmond_Street_East _671/9.jpg", "img/homes/313_Richmond_Street_East _671/10.jpg",
           "img/homes/313_Richmond_Street_East _671/11.jpg"],
-        "expertvalue":719360,
-        "crowdvalue":725850
+        "expertvalue":359000,
+        "crowdvalue":359000
       }
     ];
 
