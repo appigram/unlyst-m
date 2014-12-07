@@ -6,7 +6,7 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
-
+var autoprefixer = require('gulp-autoprefixer');
 var paths = {
   sass: ['./scss/**/*.scss']
 };
@@ -16,6 +16,10 @@ gulp.task('default', ['sass']);
 gulp.task('sass', function(done) {
   gulp.src('./scss/**/*.scss')
     .pipe(sass())
+    .pipe(autoprefixer({                  // Autoprefix for target browsers
+      browsers: ['last 2 versions'],
+      cascade: true
+    }))
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
