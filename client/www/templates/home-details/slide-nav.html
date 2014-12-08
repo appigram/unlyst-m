@@ -1,0 +1,18 @@
+<div class="tab-custom-slider">
+  <div class="tabs-striped tabs-color-assertive">
+    <div class="tabs tabs-icon-left">
+      <a class="tab-item" href="#" ng-click="slideToIndex(0)" ng-class="{'active': activeSlide == 0}">
+        <i class="icon ion-map"></i>
+        Map
+      </a>
+      <a class="tab-item" href="#"  ng-click="slideToIndex(1)" ng-class="{'active': (activeSlide == 1 || activeSlide == 2)}">
+        <i class="icon ion-information-circled"></i>
+        Info
+      </a>
+      <a class="tab-item" href="#"  ng-click="slideToIndex(3)" ng-class="{'active': activeSlide > 2}">
+        <i class="icon ion-images"></i>
+        Photos
+      </a>
+    </div>
+  </div>
+</div>

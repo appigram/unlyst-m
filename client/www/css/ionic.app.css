@@ -24,8 +24,8 @@ $dark:                            #444 !default;
 */
 @font-face {
   font-family: "Ionicons";
-  src: url("../lib/ionic/fonts/ionicons.eot?v=1.5.2");
-  src: url("../lib/ionic/fonts/ionicons.eot?v=1.5.2#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/ionicons.ttf?v=1.5.2") format("truetype"), url("../lib/ionic/fonts/ionicons.woff?v=1.5.2") format("woff"), url("../lib/ionic/fonts/ionicons.svg?v=1.5.2#Ionicons") format("svg");
+  src: url("../fonts/ionicons.eot?v=1.5.2");
+  src: url("../fonts/ionicons.eot?v=1.5.2#iefix") format("embedded-opentype"), url("../fonts/ionicons.ttf?v=1.5.2") format("truetype"), url("../fonts/ionicons.woff?v=1.5.2") format("woff"), url("../fonts/ionicons.svg?v=1.5.2#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -7318,3 +7318,183 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 
 .platform-c:not(.enable-transitions) * {
   transition: none !important; }
+
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+.mainContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 464px;
+  margin-left: auto;
+  margin-right: auto; }
+
+/*used for overlay the map to prevent scrolling*/
+.overlay {
+  background: transparent;
+  position: relative;
+  width: 640px;
+  height: 280px;
+  /* your iframe height */
+  top: 280px;
+  /* your iframe height */
+  margin-top: -280px
+  /* your iframe height */ }
+
+.tabs .tab-item .icon.unlyst-bg-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../img/logo-white-bg.png'); }
+
+.icon-positive {
+  font-size: 18px;
+  color: #4a87ee; }
+
+.button-custom, .button-custom .icon:before {
+  font-size: 16px !important; }
+
+.slider-override {
+  height: 240px; }
+
+.slider-override .slider-pager .slider-pager-page {
+  width: auto; }
+
+.slider-override .slider-pager .slider-pager-page:after {
+  content: 'test'; }
+
+.slider-override .slider-pager .slider-pager-page .icon {
+  font-size: 0 !important; }
+
+.gray {
+  color: #555555; }
+
+.gray-lighter {
+  color: #d9d9d9; }
+
+.gray-light {
+  color: #d9d9d9; }
+
+.graycolor {
+  color: gray; }
+
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+.tab-custom-slider .tabs {
+  position: relative !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  height: 35px;
+  line-height: 40px;
+  padding: 0; }
+
+.home-info {
+  min-height: 230px;
+  height: 100%; }
+  .home-info h3 {
+    color: #fff;
+    margin-top: 1px;
+    margin-bottom: 1px; }
+  .home-info h6 {
+    color: #eeeeee;
+    margin-top: 1px;
+    margin-bottom: 1px; }
+
+.home-detail-info {
+  letter-spacing: 1px; }
+  .home-detail-info span {
+    color: #d9d9d9;
+    font-weight: 300; }
+  .home-detail-info h6 {
+    color: #fff;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-weight: 600; }
+
+.valdIcon {
+  width: 32px; }
+
+.iconheight {
+  height: 30px;
+  min-width: 40px; }
+
+.box-shadow {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); }
+
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+.slider-nav-btn-left, .slider-nav-btn-right {
+  position: absolute;
+  top: 100px;
+  z-index: 5;
+  font-size: 16px;
+  cursor: hand; }
+
+.slider-nav-btn-right {
+  right: 0%; }
+
+.priceslider .bar {
+  height: auto !important; }
+
+.slidersection {
+  margin: 0px 0px;
+  text-align: center; }
+
+/* make content fixed at bottom */
+.priceslider .bar-subfooter {
+  bottom: 48px !important
+  /* place bar-subfooter above footer */ }
+
+.border-top-gray {
+  border-top: 2px solid gray; }
+
+input[type="range"]::-webkit-slider-thumb {
+  background-color: #FC675E; }

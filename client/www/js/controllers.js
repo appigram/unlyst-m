@@ -53,7 +53,6 @@ angular.module('starter.controllers', [])
       $ionicSlideBoxDelegate.previous();
     };
 
-    $scope.valuation = 400000;
     // Load the modal from the given template URL
     // somehow need to move ionicmodal first
 
@@ -78,7 +77,7 @@ angular.module('starter.controllers', [])
         "landSize": 0,
         "maintFee": 360,
         "neighborhood" : 'St Lawrence Market',
-        "img": ["img/homes/1_Market_Street _625/Floor-plan.jpg","img/homes/1_Market_Street _625/MarketWharf-1bed-living-room.jpg",
+        "img": ["img/homes/1_Market_Street _625/MarketWharf-1bed-living-room.jpg","img/homes/1_Market_Street _625/Floor-plan.jpg",
                 "img/homes/1_Market_Street _625/MW-1BED-bath.jpg", "img/homes/1_Market_Street _625/MW-1bed-bed.jpg",
                 "img/homes/1_Market_Street _625/MW-1bed-kitchen1.jpg", "img/homes/1_Market_Street _625/MW-1bed-kitchen2.jpg",
                 "img/homes/1_Market_Street _625/MW-1bed-main.jpg", "img/homes/1_Market_Street _625/MW-1bed-main2.jpg",
@@ -221,18 +220,23 @@ angular.module('starter.controllers', [])
       $scope.avgScore = $scope.totalScore/$scope.playCount;
 
     };
-
+    $scope.activeSlide = 0;
     // Called each time the slide changes
     $scope.slideHasChanged = function(index) {
       $ionicSlideBoxDelegate.update();
+      $scope.activeSlide = index;
     };
+
+    $scope.slideToIndex = function(index){
+      $ionicSlideBoxDelegate.slide(index);
+    }
 
     $scope.clickNext = function() {
       $ionicSlideBoxDelegate.update();
       $ionicSlideBoxDelegate.slide(0);
       var length = houses.length;
       $scope.hideDetail = true;
-      //setTimeout to prevent the next score to be shown
+      //prevent the next score to be shown
       setTimeout(function() {
         if(i < length-1) {
           i++;
