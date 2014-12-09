@@ -54,7 +54,16 @@ angular.module('starter.controllers', ["firebase"])
   })
 
   .controller('HomeCtrl', function ($scope, houseDB, $ionicModal, $ionicSlideBoxDelegate) {
+    $scope.activeSlide = 3;
+    //bind model to scoep; set valuation
+    $scope.home = {};
 
+    $scope.valuation = $scope.home.valuation;
+    $scope.score = ($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10;
+    $scope.Math = window.Math;
+    $scope.totalScore = 0;
+    $scope.playCount = 0;
+    $scope.avgScore = 0;
     //init firebase
     houseDB.$loaded().then(function () {
       var houses = houseDB;
@@ -80,15 +89,7 @@ angular.module('starter.controllers', ["firebase"])
       $scope.crowdvalue = houses[i].crowdvalue;
 
 
-      //bind model to scoep; set valuation
-      $scope.home = {};
 
-      $scope.valuation = $scope.home.valuation;
-      $scope.score = ($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10;
-      $scope.Math = window.Math;
-      $scope.totalScore = 0;
-      $scope.playCount = 0;
-      $scope.avgScore = 0;
       $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
         $scope.modal = modal;
 
@@ -115,8 +116,10 @@ angular.module('starter.controllers', ["firebase"])
       $scope.previous = function () {
         $ionicSlideBoxDelegate.previous();
       };
+
       $scope.activeSlide = 3;
       $ionicSlideBoxDelegate.update();
+
 
       // Called each time the slide changes
       $scope.slideHasChanged = function (index) {
@@ -163,8 +166,6 @@ angular.module('starter.controllers', ["firebase"])
             $scope.neighborhood = houses[i].neighborhood;
             $scope.city = houses[i].city;
             $scope.hideDetail = true;
-            $scope.score = 88;
-            $scope.scoremsg = "That was so close";
             $scope.expertvalue = houses[i].expertvalue;
             $scope.crowdvalue = houses[i].crowdvalue;
           }
@@ -187,8 +188,6 @@ angular.module('starter.controllers', ["firebase"])
             $scope.neighborhood = houses[i].neighborhood;
             $scope.city = houses[i].city;
             $scope.hideDetail = true;
-            $scope.score = 88;
-            $scope.scoremsg = "That was so close";
             $scope.expertvalue = houses[i].expertvalue;
             $scope.crowdvalue = houses[i].crowdvalue;
           }
