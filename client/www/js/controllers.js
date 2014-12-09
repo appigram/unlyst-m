@@ -154,15 +154,16 @@ angular.module('starter.controllers', ["firebase"])
         $ionicSlideBoxDelegate.update();
       };
       $scope.$on('modal.hidden', function () {
-        $scope.clickNext();
+        //$scope.clickNext();
       });
 
       $scope.clickNext = function () {
-
-        //hack: need to call slide twice because images are in ng-repeat's css is not applied.
-        $ionicSlideBoxDelegate.slide(2);
-        $ionicSlideBoxDelegate.slide(3);
-        $ionicSlideBoxDelegate.update();
+        setTimeout(function () {
+          //hack: need to call slide twice because images are in ng-repeat's css is not applied.
+          $ionicSlideBoxDelegate.slide(2);
+          $ionicSlideBoxDelegate.slide(3);
+          $ionicSlideBoxDelegate.update();
+        },200);
 
         var length = houses.length;
         $scope.hideDetail = true;
@@ -214,7 +215,7 @@ angular.module('starter.controllers', ["firebase"])
             $scope.expertvalue = houses[i].expertvalue;
             $scope.crowdvalue = houses[i].crowdvalue;
           }
-        }, 200);
+        }, 100);
 
       };
     });
