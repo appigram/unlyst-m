@@ -46,12 +46,6 @@ angular.module('starter.controllers', [])
     };
   })
   .controller('HomeCtrl', function($scope, $ionicModal,$ionicSlideBoxDelegate) {
-    $scope.next = function() {
-      $ionicSlideBoxDelegate.next();
-    };
-    $scope.previous = function() {
-      $ionicSlideBoxDelegate.previous();
-    };
 
     // Load the modal from the given template URL
     // somehow need to move ionicmodal first
@@ -220,24 +214,39 @@ angular.module('starter.controllers', [])
       $scope.avgScore = $scope.totalScore/$scope.playCount;
 
     };
-    $scope.activeSlide = 0;
+
+    $scope.next = function() {
+      $ionicSlideBoxDelegate.next();
+    };
+    $scope.previous = function() {
+      $ionicSlideBoxDelegate.previous();
+    };
+    $scope.activeSlide = 3;
+    $ionicSlideBoxDelegate.update();
+
     // Called each time the slide changes
     $scope.slideHasChanged = function(index) {
-      $ionicSlideBoxDelegate.update();
       $scope.activeSlide = index;
+      $ionicSlideBoxDelegate.update();
     };
 
     $scope.slideToIndex = function(index){
       $ionicSlideBoxDelegate.slide(index);
-    }
+      $ionicSlideBoxDelegate.update();
+    };
+    $scope.$on('modal.hidden', function() {
+      $scope.clickNext();
+    });
 
     $scope.clickNext = function() {
-      $ionicSlideBoxDelegate.update();
-      $ionicSlideBoxDelegate.slide(0);
+      setTimeout(function(){
+        $ionicSlideBoxDelegate.slide(3);
+        $ionicSlideBoxDelegate.update();
+      },200);
       var length = houses.length;
       $scope.hideDetail = true;
       //prevent the next score to be shown
-      setTimeout(function() {
+
         if(i < length-1) {
           i++;
           $scope.likes = 20;
@@ -286,7 +295,6 @@ angular.module('starter.controllers', [])
           $scope.expertvalue = houses[i].expertvalue;
           $scope.crowdvalue =houses[i].crowdvalue;
         }
-      },1000);
 
     };
   });
