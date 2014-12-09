@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
       $scope.addCard();
     };
   })
-  .controller('HomeCtrl', function($scope, $ionicModal,$ionicSlideBoxDelegate) {
+  .controller('HomeCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate) {
 
     // Load the modal from the given template URL
     // somehow need to move ionicmodal first
@@ -55,11 +55,11 @@ angular.module('starter.controllers', [])
     $scope.test = $scope.data;
     var houses = [
       {
-        "houseId " : 1,
-        "address1" : "625 - 1 Market Street",
+        "houseId ": 1,
+        "address1": "625 - 1 Market Street",
         "city": "Toronto",
-        "houseType" : "Condo",
-        "size" : 642,
+        "houseType": "Condo",
+        "size": 642,
         "bedRmNum": 1,
         "bathRmNum": 1,
         "parkingNum": 1,
@@ -70,21 +70,21 @@ angular.module('starter.controllers', [])
         "buildYr": 5,
         "landSize": 0,
         "maintFee": 360,
-        "neighborhood" : 'St Lawrence Market',
-        "img": ["img/homes/1_Market_Street _625/MarketWharf-1bed-living-room.jpg","img/homes/1_Market_Street _625/Floor-plan.jpg",
-                "img/homes/1_Market_Street _625/MW-1BED-bath.jpg", "img/homes/1_Market_Street _625/MW-1bed-bed.jpg",
-                "img/homes/1_Market_Street _625/MW-1bed-kitchen1.jpg", "img/homes/1_Market_Street _625/MW-1bed-kitchen2.jpg",
-                "img/homes/1_Market_Street _625/MW-1bed-main.jpg", "img/homes/1_Market_Street _625/MW-1bed-main2.jpg",
-                "img/homes/1_Market_Street _625/MW-1BED-MAIN3.jpg", "img/homes/1_Market_Street _625/urbantoronto-7363-25184.jpg"],
-        "expertvalue":429000,
-        "crowdvalue":429000
+        "neighborhood": 'St Lawrence Market',
+        "img": ["img/homes/1_Market_Street _625/MarketWharf-1bed-living-room.jpg", "img/homes/1_Market_Street _625/Floor-plan.jpg",
+          "img/homes/1_Market_Street _625/MW-1BED-bath.jpg", "img/homes/1_Market_Street _625/MW-1bed-bed.jpg",
+          "img/homes/1_Market_Street _625/MW-1bed-kitchen1.jpg", "img/homes/1_Market_Street _625/MW-1bed-kitchen2.jpg",
+          "img/homes/1_Market_Street _625/MW-1bed-main.jpg", "img/homes/1_Market_Street _625/MW-1bed-main2.jpg",
+          "img/homes/1_Market_Street _625/MW-1BED-MAIN3.jpg", "img/homes/1_Market_Street _625/urbantoronto-7363-25184.jpg"],
+        "expertvalue": 429000,
+        "crowdvalue": 429000
       },
       {
-        "houseId " : 2,
-        "address1" : "422 - 68 Broadview Ave",
+        "houseId ": 2,
+        "address1": "422 - 68 Broadview Ave",
         "city": "Toronto",
-        "houseType" : "Condo",
-        "size" : 1050,
+        "houseType": "Condo",
+        "size": 1050,
         "bedRmNum": 1,
         "bathRmNum": 1,
         "parkingNum": 2,
@@ -96,25 +96,25 @@ angular.module('starter.controllers', [])
         "buildYr": 5,
         "landSize": 0,
         "maintFee": 450,
-        "neighborhood" : 'A Neighborhood',
+        "neighborhood": 'A Neighborhood',
         "img": ["img/homes/68_Broadview_Avenue_422/1.png", "img/homes/68_Broadview_Avenue_422/2.png",
-                "img/homes/68_Broadview_Avenue_422/3.png", "img/homes/68_Broadview_Avenue_422/4.png",
-                "img/homes/68_Broadview_Avenue_422/5.png", "img/homes/68_Broadview_Avenue_422/6.png",
-                "img/homes/68_Broadview_Avenue_422/7.png", "img/homes/68_Broadview_Avenue_422/8.png",
-                "img/homes/68_Broadview_Avenue_422/9.png", "img/homes/68_Broadview_Avenue_422/10.png",
-                "img/homes/68_Broadview_Avenue_422/11.png", "img/homes/68_Broadview_Avenue_422/12.png",
-                "img/homes/68_Broadview_Avenue_422/13.png", "img/homes/68_Broadview_Avenue_422/14.png",
-                "img/homes/68_Broadview_Avenue_422/15.png", "img/homes/68_Broadview_Avenue_422/16.png"],
+          "img/homes/68_Broadview_Avenue_422/3.png", "img/homes/68_Broadview_Avenue_422/4.png",
+          "img/homes/68_Broadview_Avenue_422/5.png", "img/homes/68_Broadview_Avenue_422/6.png",
+          "img/homes/68_Broadview_Avenue_422/7.png", "img/homes/68_Broadview_Avenue_422/8.png",
+          "img/homes/68_Broadview_Avenue_422/9.png", "img/homes/68_Broadview_Avenue_422/10.png",
+          "img/homes/68_Broadview_Avenue_422/11.png", "img/homes/68_Broadview_Avenue_422/12.png",
+          "img/homes/68_Broadview_Avenue_422/13.png", "img/homes/68_Broadview_Avenue_422/14.png",
+          "img/homes/68_Broadview_Avenue_422/15.png", "img/homes/68_Broadview_Avenue_422/16.png"],
         "scoremsg": "That was so close",
-        "expertvalue":620000,
-        "crowdvalue":620000
+        "expertvalue": 620000,
+        "crowdvalue": 620000
       },
       {
-        "houseId " : 3,
-        "address1" : "103 - 100 Western Battery Road",
+        "houseId ": 3,
+        "address1": "103 - 100 Western Battery Road",
         "city": "Toronto",
-        "houseType" : "Condo",
-        "size" : 600,
+        "houseType": "Condo",
+        "size": 600,
         "bedRmNum": 1,
         "bathRmNum": 1,
         "parkingNum": 1,
@@ -126,22 +126,22 @@ angular.module('starter.controllers', [])
         "buildYr": 5,
         "landSize": 0,
         "maintFee": 450,
-        "neighborhood" : 'Liberty Village',
+        "neighborhood": 'Liberty Village',
         "img": ["img/homes/100_Western_Battery_Road_103/1.jpg", "img/homes/100_Western_Battery_Road_103/2.jpg",
-                "img/homes/100_Western_Battery_Road_103/3.jpg", "img/homes/100_Western_Battery_Road_103/4.jpg",
-                "img/homes/100_Western_Battery_Road_103/5.jpg", "img/homes/100_Western_Battery_Road_103/6.jpg",
-                "img/homes/100_Western_Battery_Road_103/7.jpg", "img/homes/100_Western_Battery_Road_103/8.jpg",
-                "img/homes/100_Western_Battery_Road_103/9.jpg", "img/homes/100_Western_Battery_Road_103/10.jpg",
-                "img/homes/100_Western_Battery_Road_103/11.jpg"],
-        "expertvalue":359000,
-        "crowdvalue":359000
+          "img/homes/100_Western_Battery_Road_103/3.jpg", "img/homes/100_Western_Battery_Road_103/4.jpg",
+          "img/homes/100_Western_Battery_Road_103/5.jpg", "img/homes/100_Western_Battery_Road_103/6.jpg",
+          "img/homes/100_Western_Battery_Road_103/7.jpg", "img/homes/100_Western_Battery_Road_103/8.jpg",
+          "img/homes/100_Western_Battery_Road_103/9.jpg", "img/homes/100_Western_Battery_Road_103/10.jpg",
+          "img/homes/100_Western_Battery_Road_103/11.jpg"],
+        "expertvalue": 359000,
+        "crowdvalue": 359000
       },
       {
-        "houseId " : 4,
-        "address1" : "671 - 313 Richmond Street East",
+        "houseId ": 4,
+        "address1": "671 - 313 Richmond Street East",
         "city": "Toronto",
-        "houseType" : "Condo",
-        "size" : 900,
+        "houseType": "Condo",
+        "size": 900,
         "bedRmNum": 2,
         "bathRmNum": 2,
         "parkingNum": 2,
@@ -153,21 +153,21 @@ angular.module('starter.controllers', [])
         "buildYr": 5,
         "landSize": 0,
         "maintFee": 530,
-        "neighborhood" : 'Old Toronto',
+        "neighborhood": 'Old Toronto',
         "img": ["img/homes/313_Richmond_Street_East _671/1.jpg", "img/homes/313_Richmond_Street_East _671/2.jpg",
           "img/homes/313_Richmond_Street_East _671/3.jpg", "img/homes/313_Richmond_Street_East _671/4.jpg",
           "img/homes/313_Richmond_Street_East _671/5.jpg", "img/homes/313_Richmond_Street_East _671/6.jpg",
           "img/homes/313_Richmond_Street_East _671/7.jpg", "img/homes/313_Richmond_Street_East _671/8.jpg",
           "img/homes/313_Richmond_Street_East _671/9.jpg", "img/homes/313_Richmond_Street_East _671/10.jpg",
           "img/homes/313_Richmond_Street_East _671/11.jpg"],
-        "expertvalue":359000,
-        "crowdvalue":359000
+        "expertvalue": 359000,
+        "crowdvalue": 359000
       }
     ];
 
     $scope.likes = 20;
     $scope.imgurl = houses[i].img;
-    $scope.bedRmNum =houses[i].bedRmNum;
+    $scope.bedRmNum = houses[i].bedRmNum;
     $scope.bathRmNum = houses[i].bathRmNum;
     $scope.houseType = houses[i].houseType;
     $scope.houseSize = houses[i].size;
@@ -183,19 +183,19 @@ angular.module('starter.controllers', [])
     $scope.city = houses[i].city;
     $scope.hideDetail = true;
     $scope.expertvalue = houses[i].expertvalue;
-    $scope.crowdvalue =houses[i].crowdvalue;
+    $scope.crowdvalue = houses[i].crowdvalue;
 
 
     //bind model to scoep; set valuation
     $scope.home = {};
 
     $scope.valuation = $scope.home.valuation;
-    $scope.score = ($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10;
+    $scope.score = ($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10;
     $scope.Math = window.Math;
     $scope.totalScore = 0;
     $scope.playCount = 0;
     $scope.avgScore = 0;
-    $ionicModal.fromTemplateUrl('templates/modal.html', function(modal) {
+    $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
       $scope.modal = modal;
 
     }, {
@@ -204,54 +204,54 @@ angular.module('starter.controllers', [])
       // The animation we want to use for the modal entrance
       //animation: 'slide-in-up'
     });
-    $scope.submitScore = function(){
-      $scope.score = 10 - Math.abs(($scope.crowdvalue- $scope.home.valuation)/$scope.crowdvalue*10);
-      if($scope.score<0){
+    $scope.submitScore = function () {
+      $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10);
+      if ($scope.score < 0) {
         $scope.score = 0;
       }
       $scope.totalScore += $scope.score;
       $scope.playCount++;
-      $scope.avgScore = $scope.totalScore/$scope.playCount;
+      $scope.avgScore = $scope.totalScore / $scope.playCount;
 
     };
 
-    $scope.next = function() {
+    $scope.next = function () {
       $ionicSlideBoxDelegate.next();
     };
-    $scope.previous = function() {
+    $scope.previous = function () {
       $ionicSlideBoxDelegate.previous();
     };
     $scope.activeSlide = 3;
-    $ionicSlideBoxDelegate.update();
 
     // Called each time the slide changes
-    $scope.slideHasChanged = function(index) {
+    $scope.slideHasChanged = function (index) {
       $scope.activeSlide = index;
       $ionicSlideBoxDelegate.update();
     };
 
-    $scope.slideToIndex = function(index){
+    $scope.slideToIndex = function (index) {
       $ionicSlideBoxDelegate.slide(index);
       $ionicSlideBoxDelegate.update();
     };
-    $scope.$on('modal.hidden', function() {
+    $scope.$on('modal.hidden', function () {
       $scope.clickNext();
     });
 
-    $scope.clickNext = function() {
-      setTimeout(function(){
+    $scope.clickNext = function () {
+      setTimeout(function () {
         $ionicSlideBoxDelegate.slide(3);
         $ionicSlideBoxDelegate.update();
-      },200);
-      var length = houses.length;
-      $scope.hideDetail = true;
-      //prevent the next score to be shown
+      }, 200);
+      setTimeout(function () {
+        var length = houses.length;
+        $scope.hideDetail = true;
+        //prevent the next score to be shown
 
-        if(i < length-1) {
+        if (i < length - 1) {
           i++;
           $scope.likes = 20;
           $scope.imgurl = houses[i].img;
-          $scope.bedRmNum =houses[i].bedRmNum;
+          $scope.bedRmNum = houses[i].bedRmNum;
           $scope.bathRmNum = houses[i].bathRmNum;
           $scope.houseType = houses[i].houseType;
           $scope.houseSize = houses[i].size;
@@ -267,15 +267,15 @@ angular.module('starter.controllers', [])
           $scope.city = houses[i].city;
           $scope.hideDetail = true;
           $scope.score = 88;
-          $scope.scoremsg ="That was so close";
+          $scope.scoremsg = "That was so close";
           $scope.expertvalue = houses[i].expertvalue;
-          $scope.crowdvalue =houses[i].crowdvalue;
+          $scope.crowdvalue = houses[i].crowdvalue;
         }
         else {
           i = 0;
           $scope.likes = 20;
           $scope.imgurl = houses[i].img;
-          $scope.bedRmNum =houses[i].bedRmNum;
+          $scope.bedRmNum = houses[i].bedRmNum;
           $scope.bathRmNum = houses[i].bathRmNum;
           $scope.houseType = houses[i].houseType;
           $scope.houseSize = houses[i].size;
@@ -291,10 +291,10 @@ angular.module('starter.controllers', [])
           $scope.city = houses[i].city;
           $scope.hideDetail = true;
           $scope.score = 88;
-          $scope.scoremsg ="That was so close";
+          $scope.scoremsg = "That was so close";
           $scope.expertvalue = houses[i].expertvalue;
-          $scope.crowdvalue =houses[i].crowdvalue;
+          $scope.crowdvalue = houses[i].crowdvalue;
         }
-
+      }, 800);
     };
   });
