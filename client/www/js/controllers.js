@@ -64,6 +64,29 @@ angular.module('starter.controllers', ["firebase"])
     $scope.totalScore = 0;
     $scope.playCount = 0;
     $scope.avgScore = 0;
+
+
+    $scope.lat = 43.6471214;
+    $scope.lng = -79.3711985;
+    angular.extend($scope, {
+      osloCenter: {
+        lat: $scope.lat,
+        lng: $scope.lng,
+        zoom: 14
+      },
+      markers: {
+        osloMarker: {
+          lat: $scope.lat,
+          lng: $scope.lng,
+          //message: "WalkScore:98",
+          focus: true,
+          draggable: false
+        }
+      },
+      defaults: {
+        scrollWheelZoom: false
+      }
+    });
     //init firebase
     houseDB.$loaded().then(function () {
       var houses = houseDB;
@@ -87,7 +110,6 @@ angular.module('starter.controllers', ["firebase"])
       $scope.hideDetail = true;
       $scope.expertvalue = houses[i].expertvalue;
       $scope.crowdvalue = houses[i].crowdvalue;
-
 
 
       $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
@@ -136,10 +158,11 @@ angular.module('starter.controllers', ["firebase"])
       });
 
       $scope.clickNext = function () {
-        setTimeout(function () {
-          $ionicSlideBoxDelegate.slide(3);
-          $ionicSlideBoxDelegate.update();
-        }, 200);
+
+        //hack: need to call slide twice because images are in ng-repeat's css is not applied.
+        $ionicSlideBoxDelegate.slide(2);
+        $ionicSlideBoxDelegate.slide(3);
+        $ionicSlideBoxDelegate.update();
 
         var length = houses.length;
         $scope.hideDetail = true;
@@ -191,7 +214,7 @@ angular.module('starter.controllers', ["firebase"])
             $scope.expertvalue = houses[i].expertvalue;
             $scope.crowdvalue = houses[i].crowdvalue;
           }
-        }, 800);
+        }, 200);
 
       };
     });

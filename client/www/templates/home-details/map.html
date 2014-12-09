@@ -1,13 +1,4 @@
 <div>
   <div class="overlay" onClick="style.pointerEvents='none'"></div>
-  <style>
-    body { margin:0; padding:0; }
-    #map { position:absolute; top:0; bottom:0; width:100%; }
-  </style>
-  <div id='map'></div>
-  <script>
-    L.mapbox.accessToken = 'pk.eyJ1IjoiZG9uZ21pbmdsaXkiLCJhIjoiQ2tnWV9BayJ9.HEq2tSy-Jvid21sQNIUBRQ';
-    var map = L.mapbox.map('map', 'examples.map-i86nkdio')
-      .setView([40, -74.50], 9);
-  </script>
+  <leaflet markers="markers" center="osloCenter" height="228px" ></leaflet>
 </div>
