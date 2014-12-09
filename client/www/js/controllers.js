@@ -54,22 +54,10 @@ angular.module('starter.controllers', ["firebase"])
   })
 
   .controller('HomeCtrl', function ($scope, houseDB, $ionicModal, $ionicSlideBoxDelegate) {
-    $scope.activeSlide = 3;
-    //bind model to scoep; set valuation
-    $scope.home = {};
-
-    $scope.valuation = $scope.home.valuation;
-    $scope.score = ($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10;
-    $scope.Math = window.Math;
-    $scope.totalScore = 0;
-    $scope.playCount = 0;
-    $scope.avgScore = 0;
-
-
     $scope.lat = 43.6471214;
     $scope.lng = -79.3711985;
     angular.extend($scope, {
-      osloCenter: {
+      toronto: {
         lat: $scope.lat,
         lng: $scope.lng,
         zoom: 14
@@ -83,10 +71,33 @@ angular.module('starter.controllers', ["firebase"])
           draggable: false
         }
       },
+      layers: {
+        baselayers: {
+          googleRoadmap: {
+            name: 'Google Streets',
+            layerType: 'ROADMAP',
+            type: 'google'
+          }
+        }
+      },
       defaults: {
         scrollWheelZoom: false
       }
     });
+    $scope.activeSlide = 3;
+    //bind model to scoep; set valuation
+    $scope.home = {};
+
+    $scope.valuation = $scope.home.valuation;
+    $scope.score = ($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10;
+    $scope.Math = window.Math;
+    $scope.totalScore = 0;
+    $scope.playCount = 0;
+    $scope.avgScore = 0;
+
+
+
+
     //init firebase
     houseDB.$loaded().then(function () {
       var houses = houseDB;

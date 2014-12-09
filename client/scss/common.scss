@@ -17,9 +17,10 @@
   background:transparent;
   position:relative;
   width:640px;
-  height:280px; /* your iframe height */
-  top:280px;  /* your iframe height */
-  margin-top:-280px;  /* your iframe height */
+  height:280px;
+  top:280px;
+  margin-top:-280px;
+  z-index: 10;
 }
 
 //tab icon at bottom
