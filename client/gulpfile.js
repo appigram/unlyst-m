@@ -11,6 +11,8 @@ var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var changed = require('gulp-changed');
 var preprocess = require('gulp-preprocess');
+var concat = require('gulp-concat');
+var sourcemaps = require('gulp-sourcemaps');
 
 var paths = {
   clean: [
@@ -26,21 +28,18 @@ gulp.task('default', ['sass','html']);
 
 gulp.task('sass', function (done) {
   gulp.src(paths.sass)
-  .pipe(sass())
-  .pipe(autoprefixer({                  // Autoprefix for target browsers
-    browsers: ['last 2 versions'],
-    cascade: true
-  }))
+  .pipe(sourcemaps.init())
+    .pipe(sass())
+    .pipe(autoprefixer({                  // Autoprefix for target browsers
+      browsers: ['last 2 versions'],
+      cascade: true
+    }))
+    .pipe(concat('unlyst.css'))
+  .pipe(sourcemaps.write())
   .pipe(gulp.dest('./www/css/'))
   .on('end', done);
 });
 
-gulp.task('html', function() {
-  gulp.src('./www/index.html')
-  .pipe(preprocess({context: { NODE_ENV: 'development', DEBUG: true}})) //To set environment variables in-line
-  .pipe(rename('production.html'))
-  .pipe(gulp.dest('./www/'))
-});
 
 gulp.task('images', function () {
   return gulp.src('./www/img/**/*')
@@ -75,28 +74,4 @@ gulp.task('git-check', function (done) {
     process.exit(1);
   }
   done();
-});
-
-// Production gulp for minification
-gulp.task('prod', ['prod-sass','html-prod']);
-
-gulp.task('html-prod', function() {
-  gulp.src('./www/index.html')
-  .pipe(preprocess({context: { NODE_ENV: 'production', DEBUG: true}})) //To set environment variables in-line
-  .pipe(rename('production.html'))
-  .pipe(gulp.dest('./www/'))
-});
-
-gulp.task('prod-sass', function () {
-  gulp.src('./scss/production.scss')
-  .pipe(sass())
-  .pipe(autoprefixer({                  // Autoprefix for target browsers
-    browsers: ['last 2 versions'],
-    cascade: true
-  }))
-  .pipe(minifyCss({
-    keepSpecialComments: 0
-  }))
-  .pipe(rename({extname: '.min.css'}))
-  .pipe(gulp.dest('./www/production/'));
 });
