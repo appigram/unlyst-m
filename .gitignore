@@ -23,5 +23,3 @@ node_modules
 .idea
 *.iml
 .idea/workspace.xml
-
-client/www/css

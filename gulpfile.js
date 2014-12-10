@@ -27,11 +27,12 @@ gulp.task('html-prod', function() {
   .pipe(gulp.dest('./client/www/'))
 });
 
-gulp.task('prod-sass', function () {
-  gulp.src('./client/www/css/unlyst.css')
-  .pipe(minifyCss({
-    keepSpecialComments: 0
-  }))
-  .pipe(rename({extname: '.min.css'}))
-  .pipe(gulp.dest('./client/www/css/'));
-});
+// This does not work on heroku somehow, but work locally
+//gulp.task('prod-sass', function () {
+//  gulp.src('./client/www/css/unlyst.css')
+//  .pipe(minifyCss({
+//    keepSpecialComments: 0
+//  }))
+//  .pipe(rename({extname: '.min.css'}))
+//  .pipe(gulp.dest('./client/www/css/'));
+//});

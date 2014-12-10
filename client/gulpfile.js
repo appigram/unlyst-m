@@ -19,7 +19,6 @@ var paths = {
     './scss/**/*.scss'
   ],
   sass: [
-    '!./scss/production.scss',
     './scss/**/*.scss'
   ]
 };
@@ -37,9 +36,23 @@ gulp.task('sass', function (done) {
     .pipe(concat('unlyst.css'))
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('./www/css/'))
+  .pipe(minifyCss({
+    keepSpecialComments: 0
+  }))
+  .pipe(rename({extname: '.min.css'}))
+  .pipe(gulp.dest('./www/css/'))
   .on('end', done);
 });
 
+//
+//gulp.task('sass-minify', function () {
+//  gulp.src('./client/www/css/unlyst.css')
+//  .pipe(minifyCss({
+//    keepSpecialComments: 0
+//  }))
+//  .pipe(rename({extname: '.min.css'}))
+//  .pipe(gulp.dest('./client/www/css/'));
+//});
 
 gulp.task('images', function () {
   return gulp.src('./www/img/**/*')
@@ -53,7 +66,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(paths.sass, ['sass','html']);
+  gulp.watch(paths.sass, ['sass']);
 });
 
 gulp.task('install', ['git-check'], function () {
