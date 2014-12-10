@@ -94,10 +94,6 @@ angular.module('starter.controllers', ["firebase"])
     $scope.totalScore = 0;
     $scope.playCount = 0;
     $scope.avgScore = 0;
-
-
-
-
     //init firebase
     houseDB.$loaded().then(function () {
       var houses = houseDB;
@@ -134,6 +130,8 @@ angular.module('starter.controllers', ["firebase"])
       });
       $scope.submitScore = function () {
         $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10);
+        console.log($scope.home.valuation);
+        console.log($scope.score);
         if ($scope.score < 0) {
           $scope.score = 0;
         }
@@ -177,12 +175,13 @@ angular.module('starter.controllers', ["firebase"])
         },200);
 
         var length = houses.length;
+        console.log("no: " + i);
         $scope.hideDetail = true;
         //need a delay so the next home's value won't be displayed while the modal hides itself
         //there should a better way to do this
         setTimeout(function () {
           //prevent the next score to be shown
-          if (i < length - 1) {
+          if (i < length-1) {
             i++;
             $scope.likes = 20;
             $scope.imgurl = houses[i].img;
