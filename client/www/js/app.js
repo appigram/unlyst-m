@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','firebase'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'firebase', 'leaflet-directive'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -108,4 +108,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','f
         return value.substring(0, sep) + ')';
       };
     }])
+  // interceptor for http request. Show loading icon.
+  .config(function ($httpProvider) {
+    $httpProvider.interceptors.push(function ($rootScope) {
+      return {
+        request: function (config) {
+          $rootScope.$broadcast('loading:show')
+          return config
+        },
+        response: function (response) {
+          $rootScope.$broadcast('loading:hide')
+          return response
+        }
+      }
+    })
+  })
 
+  .run(function ($rootScope, $ionicLoading) {
+    $rootScope.$on('loading:show', function () {
+      $ionicLoading.show({template: 'foo'})
+    })
+
+    $rootScope.$on('loading:hide', function () {
+      $ionicLoading.hide()
+    })
+  })

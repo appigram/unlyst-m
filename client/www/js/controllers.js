@@ -54,6 +54,36 @@ angular.module('starter.controllers', ["firebase"])
   })
 
   .controller('HomeCtrl', function ($scope, houseDB, $ionicModal, $ionicSlideBoxDelegate) {
+    $scope.lat = 43.6471214;
+    $scope.lng = -79.3711985;
+    angular.extend($scope, {
+      toronto: {
+        lat: $scope.lat,
+        lng: $scope.lng,
+        zoom: 14
+      },
+      markers: {
+        osloMarker: {
+          lat: $scope.lat,
+          lng: $scope.lng,
+          //message: "WalkScore:98",
+          focus: true,
+          draggable: false
+        }
+      },
+      layers: {
+        baselayers: {
+          googleRoadmap: {
+            name: 'Google Streets',
+            layerType: 'ROADMAP',
+            type: 'google'
+          }
+        }
+      },
+      defaults: {
+        scrollWheelZoom: false
+      }
+    });
     $scope.activeSlide = 3;
     //bind model to scoep; set valuation
     $scope.home = {};
@@ -64,8 +94,6 @@ angular.module('starter.controllers', ["firebase"])
     $scope.totalScore = 0;
     $scope.playCount = 0;
     $scope.avgScore = 0;
-      console.log($scope.score);
-      console.log($scope.home);
     //init firebase
     houseDB.$loaded().then(function () {
       var houses = houseDB;
@@ -89,6 +117,7 @@ angular.module('starter.controllers', ["firebase"])
       $scope.hideDetail = true;
       $scope.expertvalue = houses[i].expertvalue;
       $scope.crowdvalue = houses[i].crowdvalue;
+
 
       $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
         $scope.modal = modal;
@@ -134,14 +163,16 @@ angular.module('starter.controllers', ["firebase"])
         $ionicSlideBoxDelegate.update();
       };
       $scope.$on('modal.hidden', function () {
-        $scope.clickNext();
+        //$scope.clickNext();
       });
 
       $scope.clickNext = function () {
         setTimeout(function () {
+          //hack: need to call slide twice because images are in ng-repeat's css is not applied.
+          $ionicSlideBoxDelegate.slide(2);
           $ionicSlideBoxDelegate.slide(3);
           $ionicSlideBoxDelegate.update();
-        }, 200);
+        },200);
 
         var length = houses.length;
         console.log("no: " + i);
@@ -150,7 +181,7 @@ angular.module('starter.controllers', ["firebase"])
         //there should a better way to do this
         setTimeout(function () {
           //prevent the next score to be shown
-          if (i < length) {
+          if (i < length-1) {
             i++;
             $scope.likes = 20;
             $scope.imgurl = houses[i].img;
@@ -194,7 +225,7 @@ angular.module('starter.controllers', ["firebase"])
             $scope.expertvalue = houses[i].expertvalue;
             $scope.crowdvalue = houses[i].crowdvalue;
           }
-        }, 800);
+        }, 100);
 
       };
     });

@@ -32,11 +32,9 @@ $dark:                            #444 !default;
   position: relative;
   width: 640px;
   height: 280px;
-  /* your iframe height */
   top: 280px;
-  /* your iframe height */
-  margin-top: -280px
-  /* your iframe height */ }
+  margin-top: -280px;
+  z-index: 10; }
 
 .tabs .tab-item .icon.unlyst-bg-icon {
   background-repeat: no-repeat;

@@ -24,8 +24,8 @@ $dark:                            #444 !default;
 */
 @font-face {
   font-family: "Ionicons";
-  src: url("../fonts/ionicons.eot?v=1.5.2");
-  src: url("../fonts/ionicons.eot?v=1.5.2#iefix") format("embedded-opentype"), url("../fonts/ionicons.ttf?v=1.5.2") format("truetype"), url("../fonts/ionicons.woff?v=1.5.2") format("woff"), url("../fonts/ionicons.svg?v=1.5.2#Ionicons") format("svg");
+  src: url("../lib/ionic/fonts/ionicons.eot?v=1.5.2");
+  src: url("../lib/ionic/fonts/ionicons.eot?v=1.5.2#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/ionicons.ttf?v=1.5.2") format("truetype"), url("../lib/ionic/fonts/ionicons.woff?v=1.5.2") format("woff"), url("../lib/ionic/fonts/ionicons.svg?v=1.5.2#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -7353,11 +7353,9 @@ $dark:                            #444 !default;
   position: relative;
   width: 640px;
   height: 280px;
-  /* your iframe height */
   top: 280px;
-  /* your iframe height */
-  margin-top: -280px
-  /* your iframe height */ }
+  margin-top: -280px;
+  z-index: 10; }
 
 .tabs .tab-item .icon.unlyst-bg-icon {
   background-repeat: no-repeat;
