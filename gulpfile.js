@@ -19,14 +19,13 @@ var paths = {
   ]
 };
 // Production gulp for minification
-gulp.task('heroku:production', ['html-prod']);
+gulp.task('heroku:production', ['prod-sass','html-prod']);
 
 gulp.task('html-prod', function() {
   gulp.src('./client/www/index.html')
   .pipe(preprocess({context: { NODE_ENV: 'production', DEBUG: true}})) //To set environment variables in-line
   .pipe(gulp.dest('./client/www/'))
 });
-
 // This does not work on heroku somehow, but work locally
 //gulp.task('prod-sass', function () {
 //  gulp.src('./client/www/css/unlyst.css')

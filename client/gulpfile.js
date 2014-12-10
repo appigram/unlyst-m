@@ -19,7 +19,8 @@ var paths = {
     './scss/**/*.scss'
   ],
   sass: [
-    './scss/**/*.scss'
+    './scss/**/*.scss',
+    './www/lib/leaflet/dist/leaflet.css'
   ]
 };
 
