@@ -93,7 +93,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
+  // interceptor for http request. Show loading icon.
+  //.config(function ($httpProvider) {
+  //  $httpProvider.interceptors.push(function ($rootScope) {
+  //    return {
+  //      request: function (config) {
+  //        $rootScope.$broadcast('loading:show')
+  //        return config
+  //      },
+  //      response: function (response) {
+  //        $rootScope.$broadcast('loading:hide')
+  //        return response
+  //      }
+  //    }
+  //  })
+  //})
+  //
+  //.run(function ($rootScope, $ionicLoading) {
+  //  $rootScope.$on('loading:show', function () {
+  //    $ionicLoading.show({template: 'foo'})
+  //  })
+  //
+  //  $rootScope.$on('loading:hide', function () {
+  //    $ionicLoading.hide()
+  //  })
+  //})
   .filter('noFractionCurrency',
   ['$filter', '$locale',
     function (filter, locale) {
@@ -108,28 +132,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         return value.substring(0, sep) + ')';
       };
     }])
-  // interceptor for http request. Show loading icon.
-  .config(function ($httpProvider) {
-    $httpProvider.interceptors.push(function ($rootScope) {
-      return {
-        request: function (config) {
-          $rootScope.$broadcast('loading:show')
-          return config
-        },
-        response: function (response) {
-          $rootScope.$broadcast('loading:hide')
-          return response
-        }
-      }
-    })
-  })
-
-  .run(function ($rootScope, $ionicLoading) {
-    $rootScope.$on('loading:show', function () {
-      $ionicLoading.show({template: 'foo'})
-    })
-
-    $rootScope.$on('loading:hide', function () {
-      $ionicLoading.hide()
-    })
-  })
+  .filter('scoreMessage',
+  ['$filter',
+    function (score) {
+      var scoreAdjusted = Math.round(score);
+      var scoreMsg = ['Sorry, we can’t count that estimate', //0
+        'Are you even trying?',
+        'Yikes, you’re way off',
+        'Think of this as a learning round', //3
+        'Don’t get out much?',
+        'You’ve got it in you!',
+        'Okay, you’re getting the hang of this',//5
+        'A solid valuation',
+        'You’re a star',
+        'That was so close!',//9
+        'Nailed it!'];
+      return scoreMsg[scoreAdjusted - 1];
+    }
+  ]);
