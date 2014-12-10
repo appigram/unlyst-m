@@ -64,6 +64,8 @@ angular.module('starter.controllers', ["firebase"])
     $scope.totalScore = 0;
     $scope.playCount = 0;
     $scope.avgScore = 0;
+      console.log($scope.score);
+      console.log($scope.home);
     //init firebase
     houseDB.$loaded().then(function () {
       var houses = houseDB;
@@ -87,8 +89,7 @@ angular.module('starter.controllers', ["firebase"])
       $scope.hideDetail = true;
       $scope.expertvalue = houses[i].expertvalue;
       $scope.crowdvalue = houses[i].crowdvalue;
-
-
+      console.log($scope.home);
 
       $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
         $scope.modal = modal;
@@ -101,6 +102,8 @@ angular.module('starter.controllers', ["firebase"])
       });
       $scope.submitScore = function () {
         $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10);
+        console.log($scope.home.valuation);
+        console.log($scope.score);
         if ($scope.score < 0) {
           $scope.score = 0;
         }
