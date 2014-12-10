@@ -2,12 +2,12 @@
 <widget id="com.ionicframework.client407780" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>client</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Home valuation
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="louis@unlyst.com" href="http://www.unlyst.com/">
+      Unlyst Team
     </author>
-  <content src="index.html"/>
+  <content src="production.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>

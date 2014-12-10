@@ -1,6 +1,6 @@
 {
-    "name": "server",
-    "version": "0.1.0",
+    "name": "unlyst",
+    "version": "1.0.0",
     "description": "Unlyst Your custom home valuation",
     "main": "server.js",
     "repository": {
