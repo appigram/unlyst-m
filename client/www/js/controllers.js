@@ -21,81 +21,37 @@ angular.module('starter.controllers', ["firebase"])
   .controller('AccountCtrl', function ($scope) {
   })
 
-  .controller('CardsCtrl', function ($scope, TDCardDelegate) {
-    console.log('CARDS CTRL');
-    var cardTypes = [
-      {image: 'https://pbs.twimg.com/profile_images/479740132258361344/KaYdH9hE.jpeg'},
-      {image: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'},
-      {image: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'},
-    ];
-
-    $scope.cards = Array.prototype.slice.call(cardTypes, 0);
-
-    $scope.cardDestroyed = function (index) {
-      $scope.cards.splice(index, 1);
-    };
-
-    $scope.addCard = function () {
-      var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
-      newCard.id = Math.random();
-      $scope.cards.push(angular.extend({}, newCard));
-    }
-  })
-
-  .controller('CardCtrl', function ($scope, TDCardDelegate) {
-    $scope.cardSwipedLeft = function (index) {
-      console.log('LEFT SWIPE');
-      $scope.addCard();
-    };
-    $scope.cardSwipedRight = function (index) {
-      console.log('RIGHT SWIPE');
-      $scope.addCard();
-    };
-  })
-
   .controller('HomeCtrl', function ($scope, houseDB, $ionicModal, $ionicSlideBoxDelegate) {
-    $scope.lat = 43.6471214;
-    $scope.lng = -79.3711985;
-    angular.extend($scope, {
-      toronto: {
-        lat: $scope.lat,
-        lng: $scope.lng,
-        zoom: 14
-      },
-      markers: {
-        osloMarker: {
-          lat: $scope.lat,
-          lng: $scope.lng,
-          //message: "WalkScore:98",
-          focus: true,
-          draggable: false
-        }
-      },
-      layers: {
-        baselayers: {
-          googleRoadmap: {
-            name: 'Google Streets',
-            layerType: 'ROADMAP',
-            type: 'google'
-          }
-        }
-      },
-      defaults: {
-        scrollWheelZoom: false
-      }
-    });
     $scope.activeSlide = 3;
     //bind model to scoep; set valuation
     $scope.home = {};
 
     $scope.valuation = $scope.home.valuation;
-    $scope.score = ($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10;
+    $scope.score = 0;
     $scope.Math = window.Math;
     $scope.totalScore = 0;
     $scope.playCount = 0;
     $scope.avgScore = 0;
+
+    $scope.toronto = {};
+    $scope.markers = {};
+    $scope.layers = {
+      baselayers: {
+        googleRoadmap: {
+          name: 'Google Streets',
+          layerType: 'ROADMAP',
+          type: 'google'
+        }
+      }
+    };
+    $scope.defaults = {
+      scrollWheelZoom: false
+    };
+
+
     //init firebase
     houseDB.$loaded().then(function () {
+
       var houses = houseDB;
       var i = 0;
       $scope.likes = 20;
@@ -117,7 +73,23 @@ angular.module('starter.controllers', ["firebase"])
       $scope.hideDetail = true;
       $scope.expertvalue = houses[i].expertvalue;
       $scope.crowdvalue = houses[i].crowdvalue;
-
+      $scope.lat = houses[i].lat;
+      //TODO: change this when houses[i].lng is defined
+      $scope.lng = -79.3711985;
+      $scope.toronto = {
+        lat: $scope.lat,
+        lng: $scope.lng,
+        zoom: 14
+      };
+      $scope.markers = {
+        osloMarker: {
+          lat: $scope.lat,
+          lng: $scope.lng,
+          //message: "WalkScore:98",
+          focus: true,
+          draggable: false
+        }
+      };
 
       $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
         $scope.modal = modal;
@@ -129,9 +101,7 @@ angular.module('starter.controllers', ["firebase"])
         //animation: 'slide-in-up'
       });
       $scope.submitScore = function () {
-        $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) / $scope.crowdvalue * 10);
-        console.log($scope.home.valuation);
-        console.log($scope.score);
+        $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation)*1.5 / $scope.crowdvalue * 10);
         if ($scope.score < 0) {
           $scope.score = 0;
         }
@@ -172,7 +142,7 @@ angular.module('starter.controllers', ["firebase"])
           $ionicSlideBoxDelegate.slide(2);
           $ionicSlideBoxDelegate.slide(3);
           $ionicSlideBoxDelegate.update();
-        },200);
+        }, 200);
 
         var length = houses.length;
         console.log("no: " + i);
@@ -181,7 +151,7 @@ angular.module('starter.controllers', ["firebase"])
         //there should a better way to do this
         setTimeout(function () {
           //prevent the next score to be shown
-          if (i < length-1) {
+          if (i < length - 1) {
             i++;
             $scope.likes = 20;
             $scope.imgurl = houses[i].img;
@@ -202,6 +172,22 @@ angular.module('starter.controllers', ["firebase"])
             $scope.hideDetail = true;
             $scope.expertvalue = houses[i].expertvalue;
             $scope.crowdvalue = houses[i].crowdvalue;
+            $scope.lat = houses[i].lat;
+            $scope.lng = -79.3711985;
+            $scope.toronto = {
+              lat: $scope.lat,
+              lng: $scope.lng,
+              zoom: 14
+            };
+            $scope.markers = {
+              osloMarker: {
+                lat: $scope.lat,
+                lng: $scope.lng,
+                //message: "WalkScore:98",
+                focus: true,
+                draggable: false
+              }
+            };
           }
           else {
             i = 0;
@@ -224,6 +210,22 @@ angular.module('starter.controllers', ["firebase"])
             $scope.hideDetail = true;
             $scope.expertvalue = houses[i].expertvalue;
             $scope.crowdvalue = houses[i].crowdvalue;
+            $scope.lat = houses[i].lat;
+            $scope.lng = -79.5711985;
+            $scope.toronto = {
+              lat: $scope.lat,
+              lng: $scope.lng,
+              zoom: 14
+            };
+            $scope.markers = {
+              osloMarker: {
+                lat: $scope.lat,
+                lng: $scope.lng,
+                //message: "WalkScore:98",
+                focus: true,
+                draggable: false
+              }
+            };
           }
         }, 100);
 
