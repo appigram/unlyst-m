@@ -89,7 +89,6 @@ angular.module('starter.controllers', ["firebase"])
       $scope.hideDetail = true;
       $scope.expertvalue = houses[i].expertvalue;
       $scope.crowdvalue = houses[i].crowdvalue;
-      console.log($scope.home);
 
       $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
         $scope.modal = modal;
@@ -145,12 +144,13 @@ angular.module('starter.controllers', ["firebase"])
         }, 200);
 
         var length = houses.length;
+        console.log("no: " + i);
         $scope.hideDetail = true;
         //need a delay so the next home's value won't be displayed while the modal hides itself
         //there should a better way to do this
         setTimeout(function () {
           //prevent the next score to be shown
-          if (i < length - 1) {
+          if (i < length) {
             i++;
             $scope.likes = 20;
             $scope.imgurl = houses[i].img;
