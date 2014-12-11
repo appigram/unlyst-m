@@ -74,8 +74,7 @@ angular.module('starter.controllers', ["firebase"])
     $scope.expertvalue = houses[i].expertvalue;
     $scope.crowdvalue = houses[i].crowdvalue;
     $scope.lat = houses[i].lat;
-    //TODO: change this when houses[i].lng is defined
-    $scope.lng = -79.3711985;
+    $scope.lng = houses[i].lng;
     $scope.toronto = {
       lat: $scope.lat,
       lng: $scope.lng,
@@ -173,7 +172,7 @@ angular.module('starter.controllers', ["firebase"])
           $scope.expertvalue = houses[i].expertvalue;
           $scope.crowdvalue = houses[i].crowdvalue;
           $scope.lat = houses[i].lat;
-          $scope.lng = -79.3711985;
+          $scope.lng = houses[i].lng;
           $scope.toronto = {
             lat: $scope.lat,
             lng: $scope.lng,
