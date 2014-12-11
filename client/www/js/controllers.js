@@ -7,8 +7,8 @@ angular.module('starter.controllers', ["firebase"])
 }
 ])
 
-.factory('valuationDB', ["$firebase", function ($firebase) {
-  var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/valuations-prod");
+.factory('valuationDB', ["$firebase", function () {
+  var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/valuations");
   return ref;
 }
 ])
