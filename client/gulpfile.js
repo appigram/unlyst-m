@@ -24,7 +24,7 @@ var paths = {
   ]
 };
 
-gulp.task('default', ['sass','html']);
+gulp.task('default', ['sass']);
 
 gulp.task('sass', function (done) {
   gulp.src(paths.sass)
@@ -43,6 +43,12 @@ gulp.task('sass', function (done) {
   .pipe(rename({extname: '.min.css'}))
   .pipe(gulp.dest('./www/css/'))
   .on('end', done);
+});
+
+gulp.task('html', function() {
+  gulp.src('./www/index.html')
+  .pipe(preprocess({context: { NODE_ENV: 'development', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}})) //To set environment variables in-line
+  .pipe(gulp.dest('./client/www/'))
 });
 
 //
