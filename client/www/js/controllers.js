@@ -53,13 +53,9 @@ angular.module('starter.controllers', ["firebase"])
   $scope.defaults = {
     scrollWheelZoom: false
   };
-  $scope.crowdvalues = {};
 
   //init firebase
   houseDB.$loaded().then(function () {
-    //var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/valuations");
-    //var valuations = $firebase(ref.child('crowdvalues')).$asArray();
-    //console.log(valuations);
     var houses = houseDB;
     var i = 0;
     $scope.likes = 20;
@@ -97,7 +93,6 @@ angular.module('starter.controllers', ["firebase"])
         draggable: false
       }
     };
-    $scope.crowdvalues = houses[i].crowdvalues;
 
     $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
       $scope.modal = modal;
@@ -182,7 +177,6 @@ angular.module('starter.controllers', ["firebase"])
           $scope.crowdvalue = houses[i].crowdvalue;
           $scope.lat = houses[i].lat;
           $scope.lng = houses[i].lng;
-          $scope.crowdvalues = houses[i].crowdvalues;
           $scope.toronto = {
             lat: $scope.lat,
             lng: $scope.lng,
@@ -219,7 +213,6 @@ angular.module('starter.controllers', ["firebase"])
           $scope.hideDetail = true;
           $scope.expertvalue = houses[i].expertvalue;
           $scope.crowdvalue = houses[i].crowdvalue;
-          $scope.crowdvalues = houses[i].crowdvalues;
           $scope.lat = houses[i].lat;
           $scope.lng = houses[i].lng;
           $scope.toronto = {
