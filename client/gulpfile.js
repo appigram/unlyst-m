@@ -45,11 +45,7 @@ gulp.task('sass', function (done) {
   .on('end', done);
 });
 
-gulp.task('html', function() {
-  gulp.src('./www/index.html')
-  .pipe(preprocess({context: { NODE_ENV: 'development', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}})) //To set environment variables in-line
-  .pipe(gulp.dest('./client/www/'))
-});
+
 
 //
 //gulp.task('sass-minify', function () {

@@ -8,7 +8,14 @@ angular.module('starter.controllers', ["firebase"])
 ])
 
 .factory('valuationDB', ["$firebase", function () {
-  var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/valuations");
+  //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
+  var configValue = '/* @echo FIREBASE */';
+  /* @if NODE_ENV='development' */
+  if(configValue.indexOf('@echo') > -1) {
+    configValue = 'https://fiery-heat-1976.firebaseio.com/valuations';
+  }
+  /* @endif */
+  var ref = new Firebase(configValue);
   return ref;
 }
 ])

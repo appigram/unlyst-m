@@ -19,13 +19,21 @@ var paths = {
   ]
 };
 // Production gulp for minification
-gulp.task('heroku:production', ['html-prod']);
+gulp.task('heroku:production', ['html-prod','config']);
 
 gulp.task('html-prod', function() {
   gulp.src('./client/www/index.html')
-  .pipe(preprocess({context: { NODE_ENV: 'production', DEBUG: true}})) //To set environment variables in-line
+  //To set environment variables in-line
+  .pipe(preprocess({context: { NODE_ENV: 'development', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}}))
   .pipe(gulp.dest('./client/www/'))
 });
+
+gulp.task('config', function() {
+  gulp.src('./client/www/js/controllers.js')
+  .pipe(preprocess({context: { NODE_ENV: 'production', FIREBASE:'https://fiery-heat-1976.firebaseio.com/valuations-prod'}})) //To set environment variables in-line
+  .pipe(gulp.dest('./client/www/js/test'))
+});
+
 // This does not work on heroku somehow, but work locally
 //gulp.task('prod-sass', function () {
 //  gulp.src('./client/www/css/unlyst.css')
