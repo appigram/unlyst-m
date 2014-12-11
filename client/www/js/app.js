@@ -21,7 +21,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -30,20 +30,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $stateProvider
 
     // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: "/tab",
-    abstract: true,
-    templateUrl: "templates/tabs.html"
-  })
+    //.state('tab', {
+    //  url: "/tab",
+    //  abstract: true,
+    //  templateUrl: "templates/tabs.html"
+    //})
 
     // Each tab has its own nav history stack:
 
   .state('tab.dash', {
-    url: '/home',
+    url: '/',
     views: {
       'tab-dash': {
         templateUrl: 'templates/home.html',
-        controller: 'DashCtrl'
+        controller: 'HomeCtrl'
       }
     }
   })
@@ -78,7 +78,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/');
+  //remove # from url
+  if (window.history && window.history.pushState) {
+    $locationProvider.html5Mode(true);
+  }
 
 })
 .directive('noScroll', function ($document) {

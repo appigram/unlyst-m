@@ -56,14 +56,14 @@ gulp.task('sass', function (done) {
 //});
 
 gulp.task('images', function () {
-  return gulp.src('./www/img/**/*')
-  //.pipe(changed('./www/img/**/*')) //changed only works on different directories and identical files
+  return gulp.src('./image/**/*')
+  .pipe(changed('./www/img')) //changed only works on different directories and identical files
   .pipe(imagemin({
     progressive: true,
     svgoPlugins: [{removeViewBox: false}],
     use: [pngquant()]
   }))
-  .pipe(gulp.dest('./www/img/'));
+  .pipe(gulp.dest('./www/img'));
 });
 
 gulp.task('watch', function () {
