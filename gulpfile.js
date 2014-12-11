@@ -31,7 +31,7 @@ gulp.task('html-prod', function() {
 gulp.task('config', function() {
   gulp.src('./client/www/js/controllers.js')
   .pipe(preprocess({context: { NODE_ENV: 'production', FIREBASE:'https://fiery-heat-1976.firebaseio.com/valuations-prod'}})) //To set environment variables in-line
-  .pipe(gulp.dest('./client/www/js/test'))
+  .pipe(gulp.dest('./client/www/js/'))
 });
 
 // This does not work on heroku somehow, but work locally
