@@ -1,53 +1,61 @@
 @import "variables";
 
+$slider-height: 238px;
 //customize tab
-.tab-custom-slider{
-  .tabs{
+.tab-custom-slider {
+  .tabs {
     position: relative !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.30);
     height: 35px;
     line-height: 40px;
-    padding:0;
+    padding: 0;
   }
 }
 
+.home-info, .slide-height {
 
-.home-info{
-
-  min-height: 230px;
+  min-height: $slider-height;
   height: 100%;
-  h3{
+  h3 {
     color: $light;
-    margin-top:1px;
-    margin-bottom:1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
   }
-  h6{
+  h6 {
     color: $gray-verylight;
-    margin-top:1px;
-    margin-bottom:1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
   }
 }
-.home-detail-info{
+
+.home-detail-info {
   letter-spacing: 1px;
-  span{
-    color:$gray-lighter;
+  span {
+    color: $gray-lighter;
     font-weight: 300;
   }
-  h6{
+  h6 {
     color: $light;
-    margin-top:4px;
-    margin-bottom:4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
     font-weight: 600;
   }
 }
-.valdIcon{
-  width:32px;
+
+.valdIcon {
+  width: 32px;
 
 }
-.iconheight{
-  height:30px;
-  min-width:40px;
+
+.iconheight {
+  height: 30px;
+  min-width: 40px;
 }
-.box-shadow{
+
+.box-shadow {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.30);
+}
+
+.slide-height {
+  height: $slider-height;
 }
