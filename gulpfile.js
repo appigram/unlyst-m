@@ -24,7 +24,7 @@ gulp.task('heroku:production', ['html-prod','config']);
 gulp.task('html-prod', function() {
   gulp.src('./client/www/index.html')
   //To set environment variables in-line
-  .pipe(preprocess({context: { NODE_ENV: 'development', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}}))
+  .pipe(preprocess({context: { NODE_ENV: 'production', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}}))
   .pipe(gulp.dest('./client/www/'))
 });
 
