@@ -24,13 +24,13 @@ gulp.task('heroku:production', ['html-prod','config']);
 gulp.task('html-prod', function() {
   gulp.src('./client/www/index.html')
   //To set environment variables in-line
-  .pipe(preprocess({context: { NODE_ENV: 'production', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}}))
+  .pipe(preprocess({context: { NODE_ENV: 'development', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}}))
   .pipe(gulp.dest('./client/www/'))
 });
 
 gulp.task('config', function() {
   gulp.src('./client/www/js/controllers.js')
-  .pipe(preprocess({context: { NODE_ENV: 'production', FIREBASE:'https://fiery-heat-1976.firebaseio.com/valuations-prod'}})) //To set environment variables in-line
+  .pipe(preprocess({context: { NODE_ENV: 'development', FIREBASE:'https://fiery-heat-1976.firebaseio.com/valuations-prod'}})) //To set environment variables in-line
   .pipe(gulp.dest('./client/www/js/'))
 });
 
