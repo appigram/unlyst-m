@@ -29,12 +29,12 @@ gulp.task('default', ['sass']);
 gulp.task('sass', function (done) {
   gulp.src(paths.sass)
   .pipe(sourcemaps.init())
-    .pipe(sass())
-    .pipe(autoprefixer({                  // Autoprefix for target browsers
-      browsers: ['last 2 versions'],
-      cascade: true
-    }))
-    .pipe(concat('unlyst.css'))
+  .pipe(sass())
+  .pipe(autoprefixer({                  // Autoprefix for target browsers
+    browsers: ['last 2 versions'],
+    cascade: true
+  }))
+  .pipe(concat('unlyst.css'))
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('./www/css/'))
   .pipe(minifyCss({
@@ -44,7 +44,6 @@ gulp.task('sass', function (done) {
   .pipe(gulp.dest('./www/css/'))
   .on('end', done);
 });
-
 
 
 //

@@ -6,7 +6,7 @@
     <h4>{{home.valuation | noFractionCurrency}}</h4>
   </div>
   <div class="range range-positive">
-    <input type="range" name="price" min="100000" max="900000" ng-init="home.valuation=500000" ng-model="home.valuation"
+    <input type="range" name="price" min="100000" max="900000" step="1000" ng-init="home.valuation=500000" ng-model="home.valuation"
            class="assertive">
   </div>
   <div class="row row-center">

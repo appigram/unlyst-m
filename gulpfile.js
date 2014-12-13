@@ -19,19 +19,30 @@ var paths = {
   ]
 };
 // Production gulp for minification
-gulp.task('heroku:production', ['html-prod','config']);
+gulp.task('heroku:production', ['html-prod', 'config']);
 
-gulp.task('html-prod', function() {
+gulp.task('html-prod', function () {
   gulp.src('./client/www/index.html')
-  //To set environment variables in-line
-  .pipe(preprocess({context: { NODE_ENV: 'development', DEBUG: true, CSS:'<link href=\"css/unlyst.css\" rel=\"stylesheet\">'}}))
+    //To set variables in-line based on environment
+  .pipe(preprocess({
+    context: {
+      NODE_ENV: process.env.NODE_ENV,
+      DEBUG: true,
+      CSS: '<link href=\"css/unlyst.css\" rel=\"stylesheet\">'
+    }
+  }))
   .pipe(gulp.dest('./client/www/'))
 });
 
-gulp.task('config', function() {
+gulp.task('config', function () {
   gulp.src('./client/www/js/controllers.js')
-  .pipe(preprocess({context: { NODE_ENV: 'development', FIREBASE:'https://fiery-heat-1976.firebaseio.com/valuations-prod'}})) //To set environment variables in-line
-  .pipe(gulp.dest('./client/www/js/'))
+  .pipe(preprocess({
+    context: {
+      NODE_ENV: process.env.NODE_ENV,
+      FIREBASE: 'https://fiery-heat-1976.firebaseio.com/valuations-prod'
+    }
+  }))
+  .pipe(gulp.dest('./client/test/js/'))
 });
 
 // This does not work on heroku somehow, but work locally
