@@ -118,7 +118,9 @@ angular.module('starter.controllers', ["firebase"])
       $scope.totalScore += $scope.score;
       $scope.playCount++;
       $scope.avgScore = $scope.totalScore / $scope.playCount;
-      valuationDB.child(i).push(parseInt($scope.home.valuation));
+      if(!$scope.stopRecording) {
+        valuationDB.child(i).push(parseInt($scope.home.valuation));
+      }
     };
 
     $scope.next = function () {
