@@ -6,8 +6,8 @@
     <div class="slider-nav-btn-right">
       <button ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></button>
     </div>
-    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override"
-                   auto-play show-pager="false" active-slide="activeSlide">
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" auto-play show-pager="false"
+                   active-slide="activeSlide">
       <ion-slide>
         <div ng-include src="'templates/home-details/map.html'"></div>
       </ion-slide>
@@ -24,5 +24,10 @@
     <div ng-include src="'templates/home-details/slide-nav.html'"></div>
     <div ng-include src="'templates/home-details/address.html'"></div>
     <div ng-include src="'templates/price-slider.html'"></div>
+    <div class="col col-center text-center">
+      <label class="checkbox" ng-model="recordmode">
+        <input type="checkbox">
+      </label>
+    </div>
   </ion-content>
 </ion-view>
