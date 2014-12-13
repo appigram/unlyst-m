@@ -60,6 +60,8 @@ angular.module('starter.controllers', ["firebase"])
   $scope.defaults = {
     scrollWheelZoom: false
   };
+  //test mode
+  $scope.stopRecording = false;
 
   //init firebase
   houseDB.$loaded().then(function () {
