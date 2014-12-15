@@ -20,21 +20,52 @@ angular.module('starter.controllers', ["firebase"])
 }
 ])
 
-.controller('DashCtrl', function ($scope) {
+.controller('MapCtrl', function ($scope) {
+  $scope.layers = {
+    baselayers: {
+      //googleRoadmap: {
+      //  name: 'Google Streets',
+      //  layerType: 'ROADMAP',
+      //  type: 'google'
+      //},
+      mapbox_terrain: {
+        "name": "Mapbox Terrain",
+        "url": "http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZG9uZ21pbmdsaXkiLCJhIjoiQ2tnWV9BayJ9.HEq2tSy-Jvid21sQNIUBRQ",
+        "type": "xyz",
+        "layerOptions": {
+          "apikey": "pk.eyJ1IjoiZG9uZ21pbmdsaXkiLCJhIjoiQ2tnWV9BayJ9.HEq2tSy-Jvid21sQNIUBRQ",
+          "mapid": "dongmingliy.kgb4m90f"
+        }
+      }
+    }
+  };
+  $scope.defaults = {
+    scrollWheelZoom: false
+  };
+
+  $scope.$on('updatemap', function (event, args) {
+
+    $scope.map = {
+      lat: $scope.$parent.map.lat,
+      lng: $scope.$parent.map.lng,
+      zoom: $scope.$parent.defaultzoom
+    };
+
+    $scope.markers = {
+      osloMarker: {
+        lat: $scope.$parent.map.lat,
+        lng: $scope.$parent.map.lng,
+        focus: true,
+        draggable: false
+      }
+
+    };
+    $scope.$apply();
+  });
 })
 
-.controller('FriendsCtrl', function ($scope, Friends) {
-  $scope.friends = Friends.all();
-})
 
-.controller('FriendDetailCtrl', function ($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
-
-.controller('AccountCtrl', function ($scope) {
-})
-
-.controller('HomeCtrl', function ($scope, houseDB, $ionicModal, $ionicSlideBoxDelegate,valuationDB) {
+.controller('HomeCtrl', function ($scope,$rootScope, houseDB, $ionicModal, $ionicSlideBoxDelegate,valuationDB) {
   $scope.activeSlide = 3;
   //bind model to scoep; set valuation
   $scope.home = {};
@@ -46,20 +77,8 @@ angular.module('starter.controllers', ["firebase"])
   $scope.playCount = 0;
   $scope.avgScore = 0;
 
-  $scope.toronto = {};
-  $scope.markers = {};
-  $scope.layers = {
-    baselayers: {
-      googleRoadmap: {
-        name: 'Google Streets',
-        layerType: 'ROADMAP',
-        type: 'google'
-      }
-    }
-  };
-  $scope.defaults = {
-    scrollWheelZoom: false
-  };
+  $scope.map = {};
+  $scope.defaultzoom = 15;
   //test mode
   $scope.stopRecording = false;
 
@@ -86,22 +105,22 @@ angular.module('starter.controllers', ["firebase"])
     $scope.hideDetail = true;
     $scope.expertvalue = houses[i].expertvalue;
     $scope.crowdvalue = houses[i].crowdvalue;
-    $scope.lat = houses[i].lat;
-    $scope.lng = houses[i].lng;
-    $scope.toronto = {
-      lat: $scope.lat,
-      lng: $scope.lng,
-      zoom: 12
+    $scope.map.lat = houses[i].lat;
+    $scope.map.lng = houses[i].lng;
+    $scope.map = {
+      lat: $scope.map.lat,
+      lng: $scope.map.lng,
+      zoom: $scope.defaultzoom
     };
     $scope.markers = {
       osloMarker: {
-        lat: $scope.lat,
-        lng: $scope.lng,
-        //message: "WalkScore:98",
+        lat: $scope.map.lat,
+        lng: $scope.map.lng,
         focus: true,
         draggable: false
       }
     };
+    $scope.$broadcast('updateMap',$scope.map);
 
     $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
       $scope.modal = modal;
@@ -186,22 +205,8 @@ angular.module('starter.controllers', ["firebase"])
           $scope.hideDetail = true;
           $scope.expertvalue = houses[i].expertvalue;
           $scope.crowdvalue = houses[i].crowdvalue;
-          $scope.lat = houses[i].lat;
-          $scope.lng = houses[i].lng;
-          $scope.toronto = {
-            lat: $scope.lat,
-            lng: $scope.lng,
-            zoom: 12
-          };
-          $scope.markers = {
-            osloMarker: {
-              lat: $scope.lat,
-              lng: $scope.lng,
-              //message: "WalkScore:98",
-              focus: true,
-              draggable: false
-            }
-          };
+          $scope.map.lat = houses[i].lat;
+          $scope.map.lng = houses[i].lng;
         }
         else {
           i = 0;
@@ -224,23 +229,10 @@ angular.module('starter.controllers', ["firebase"])
           $scope.hideDetail = true;
           $scope.expertvalue = houses[i].expertvalue;
           $scope.crowdvalue = houses[i].crowdvalue;
-          $scope.lat = houses[i].lat;
-          $scope.lng = houses[i].lng;
-          $scope.toronto = {
-            lat: $scope.lat,
-            lng: $scope.lng,
-            zoom: 12
-          };
-          $scope.markers = {
-            osloMarker: {
-              lat: $scope.lat,
-              lng: $scope.lng,
-              //message: "WalkScore:98",
-              focus: true,
-              draggable: false
-            }
-          };
+          $scope.map.lat = houses[i].lat;
+          $scope.map.lng = houses[i].lng;
         }
+        $scope.$broadcast('updatemap',$scope.map);
       }, 100);
 
     };
