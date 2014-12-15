@@ -1,28 +1,9 @@
 angular.module('starter.controllers', ["firebase"])
 
-.factory('houseDB', ["$firebase", function ($firebase) {
-  var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/unlyst/");
-  var sync = $firebase(ref);
-  return sync.$asArray();
-}
-])
-
-.factory('valuationDB', ["$firebase", function () {
-  //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
-  var configValue = '/* @echo FIREBASE */';
-
-  /* @if NODE_ENV='development' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/valuations';
-  /* @endif */
-
-  var ref = new Firebase(configValue);
-  return ref;
-}
-])
-
 .controller('MapCtrl', function ($scope) {
   $scope.layers = {
     baselayers: {
+      //If we want to switch to google maps or both:
       //googleRoadmap: {
       //  name: 'Google Streets',
       //  layerType: 'ROADMAP',
@@ -64,8 +45,7 @@ angular.module('starter.controllers', ["firebase"])
   });
 })
 
-
-.controller('HomeCtrl', function ($scope,$rootScope, houseDB, $ionicModal, $ionicSlideBoxDelegate,valuationDB) {
+.controller('HomeCtrl', function ($scope,houseDB, $ionicModal, $ionicSlideBoxDelegate,valuationDB,utility) {
   $scope.activeSlide = 3;
   //bind model to scoep; set valuation
   $scope.home = {};
@@ -84,7 +64,7 @@ angular.module('starter.controllers', ["firebase"])
 
   //init firebase
   houseDB.$loaded().then(function () {
-    var houses = houseDB;
+    var houses = utility.shuffle(houseDB);
     var i = 0;
     $scope.likes = 20;
     $scope.imgurl = houses[i].img;

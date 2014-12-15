@@ -35,7 +35,7 @@ gulp.task('html-prod', function () {
 });
 
 gulp.task('config', function () {
-  gulp.src('./client/www/js/controllers.js')
+  gulp.src('./client/www/js/services.js')
   .pipe(preprocess({
     context: {
       NODE_ENV: process.env.NODE_ENV,
