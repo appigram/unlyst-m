@@ -87,6 +87,7 @@ angular.module('starter.controllers', ["firebase"])
     $scope.crowdvalue = houses[i].crowdvalue;
     $scope.map.lat = houses[i].lat;
     $scope.map.lng = houses[i].lng;
+    console.log($scope.houseId);
     $scope.map = {
       lat: $scope.map.lat,
       lng: $scope.map.lng,
@@ -120,7 +121,7 @@ angular.module('starter.controllers', ["firebase"])
       $scope.playCount++;
       $scope.avgScore = $scope.totalScore / $scope.playCount;
       if(!$scope.stopRecording) {
-        valuationDB.child(i).push(parseInt($scope.home.valuation));
+        valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
       }
     };
 
