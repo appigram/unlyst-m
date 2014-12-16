@@ -41,7 +41,9 @@ angular.module('starter.controllers', ["firebase"])
       }
 
     };
-    $scope.$apply();
+    setTimeout(function(){
+      $scope.$apply();
+    },0);
   });
 })
 
@@ -49,21 +51,17 @@ angular.module('starter.controllers', ["firebase"])
   $scope.activeSlide = 3;
   //bind model to scoep; set valuation
   $scope.home = {};
-
-  $scope.valuation = $scope.home.valuation;
+  $scope.home.valuation = 100000;
   $scope.score = 0;
   $scope.Math = window.Math;
-  $scope.totalScore = 0;
-  $scope.playCount = 0;
-  $scope.avgScore = 0;
 
   $scope.map = {};
   $scope.defaultzoom = 15;
   //test mode
   $scope.stopRecording = false;
-
   //init firebase
   houseDB.$loaded().then(function () {
+
     var houses = utility.shuffle(houseDB);
     var i = 0;
     $scope.likes = 20;
@@ -85,9 +83,9 @@ angular.module('starter.controllers', ["firebase"])
     $scope.hideDetail = true;
     $scope.expertvalue = houses[i].expertvalue;
     $scope.crowdvalue = houses[i].crowdvalue;
+    //map
     $scope.map.lat = houses[i].lat;
     $scope.map.lng = houses[i].lng;
-    console.log($scope.houseId);
     $scope.map = {
       lat: $scope.map.lat,
       lng: $scope.map.lng,
@@ -101,8 +99,21 @@ angular.module('starter.controllers', ["firebase"])
         draggable: false
       }
     };
-    $scope.$broadcast('updateMap',$scope.map);
 
+    //price slider
+    $scope.home.minValuation = 100000;
+    $scope.home.maxValuation = utility.maxCondoValue(houses[i].size);
+
+    // need to use this method and ng-init to bind the initial value. There's a bug in the range slider in ionic.
+    $scope.getDefaultValue = function() {
+      //need the timeout and apply to make it work
+      setTimeout(function(){
+        $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
+        $scope.$apply();
+      },100);
+    };
+    $scope.getDefaultValue();
+    $scope.$broadcast('updateMap',$scope.map);
     $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
       $scope.modal = modal;
 
@@ -112,6 +123,9 @@ angular.module('starter.controllers', ["firebase"])
       // The animation we want to use for the modal entrance
       //animation: 'slide-in-up'
     });
+
+
+
     $scope.submitScore = function () {
       $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
       if ($scope.score < 0) {
@@ -120,6 +134,7 @@ angular.module('starter.controllers', ["firebase"])
       $scope.totalScore += $scope.score;
       $scope.playCount++;
       $scope.avgScore = $scope.totalScore / $scope.playCount;
+      $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
       if(!$scope.stopRecording) {
         valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
       }
@@ -188,6 +203,9 @@ angular.module('starter.controllers', ["firebase"])
           $scope.crowdvalue = houses[i].crowdvalue;
           $scope.map.lat = houses[i].lat;
           $scope.map.lng = houses[i].lng;
+          $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
+          $scope.home.minValuation = 100000;
+          $scope.home.maxValuation = utility.maxCondoValue(houses[i].size);
         }
         else {
           i = 0;
@@ -211,7 +229,9 @@ angular.module('starter.controllers', ["firebase"])
           $scope.expertvalue = houses[i].expertvalue;
           $scope.crowdvalue = houses[i].crowdvalue;
           $scope.map.lat = houses[i].lat;
-          $scope.map.lng = houses[i].lng;
+          $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
+          $scope.home.minValuation = 100000;
+          $scope.home.maxValuation = utility.maxCondoValue(houses[i].size);
         }
         $scope.$broadcast('updatemap',$scope.map);
       }, 100);

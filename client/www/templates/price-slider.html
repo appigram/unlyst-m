@@ -3,11 +3,13 @@
   <!--Note noFractionCurrency is a temporary work arround until ionic updates to beta 14 or later,
   which uses angularjs 1.3, then we can use | currency:undefined:0-->
   <div class="text-center">
-    <h4>{{home.valuation | noFractionCurrency}}</h4>
+    <h4>{{home.valuation | noFractionCurrency}}
+      <span style="font-size: x-small">&nbsp;(${{home.valuation/houseSize | number : 0}}/sf)</span>
+    </h4>
   </div>
   <div class="range range-positive">
-    <input type="range" name="price" min="100000" max="900000" step="1000" ng-init="home.valuation=500000" ng-model="home.valuation"
-           class="assertive">
+    <input type="range" name="price" min="{{home.minValuation}}" max="{{home.maxValuation}}" ng-init="getDefaultValue()"
+           step="1000" ng-model="home.valuation" class="assertive">
   </div>
   <div class="row row-center">
     <div class="col col-bottom text-center">
