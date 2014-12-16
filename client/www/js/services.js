@@ -9,6 +9,7 @@ angular.module('starter.services', [])
 
 .factory('valuationDB', ["$firebase", function () {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
+  //Do not remove the comments below. 
   var configValue;
   /* @if NODE_ENV='production' */
   configValue = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';

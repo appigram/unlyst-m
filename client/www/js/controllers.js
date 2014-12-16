@@ -64,37 +64,23 @@ angular.module('starter.controllers', ["firebase"])
 
     var houses = utility.shuffle(houseDB);
     var i = 0;
+
+    $scope.property = houses[i];
+
     $scope.likes = 20;
-    $scope.imgurl = houses[i].img;
-    $scope.bedRmNum = houses[i].bedRmNum;
-    $scope.bathRmNum = houses[i].bathRmNum;
-    $scope.houseType = houses[i].houseType;
-    $scope.houseSize = houses[i].size;
-    $scope.lotSize = houses[i].landSize;
-    $scope.stories = houses[i].stories;
-    $scope.orientation = houses[i].orientation;
-    $scope.parking = houses[i].parkingNum;
-    $scope.parkingType = houses[i].parkingType;
-    $scope.outdoorSpace = houses[i].outdoorSpace;
-    $scope.buildYr = 2014 - houses[i].buildYr;
-    $scope.address = houses[i].address1;
-    $scope.neighborhood = houses[i].neighborhood;
-    $scope.city = houses[i].city;
+    $scope.buildYr = 2014 - $scope.property.buildYr;
     $scope.hideDetail = true;
-    $scope.expertvalue = houses[i].expertvalue;
-    $scope.crowdvalue = houses[i].crowdvalue;
-    //map
-    $scope.map.lat = houses[i].lat;
-    $scope.map.lng = houses[i].lng;
+    $scope.crowdvalue = $scope.property.crowdvalue;
+
     $scope.map = {
-      lat: $scope.map.lat,
-      lng: $scope.map.lng,
+      lat: $scope.property.lat,
+      lng: $scope.property.lng,
       zoom: $scope.defaultzoom
     };
     $scope.markers = {
       osloMarker: {
-        lat: $scope.map.lat,
-        lng: $scope.map.lng,
+        lat: $scope.property.lat,
+        lng: $scope.property.lng,
         focus: true,
         draggable: false
       }
@@ -174,7 +160,6 @@ angular.module('starter.controllers', ["firebase"])
       }, 200);
 
       var length = houses.length;
-      console.log("no: " + i);
       $scope.hideDetail = true;
       //need a delay so the next home's value won't be displayed while the modal hides itself
       //there should a better way to do this
@@ -182,56 +167,27 @@ angular.module('starter.controllers', ["firebase"])
         //prevent the next score to be shown
         if (i < length - 1) {
           i++;
+          $scope.property = houses[i];
           $scope.likes = 20;
-          $scope.imgurl = houses[i].img;
-          $scope.bedRmNum = houses[i].bedRmNum;
-          $scope.bathRmNum = houses[i].bathRmNum;
-          $scope.houseType = houses[i].houseType;
-          $scope.houseSize = houses[i].size;
-          $scope.lotSize = houses[i].landSize;
-          $scope.stories = houses[i].stories;
-          $scope.orientation = houses[i].orientation;
-          $scope.parking = houses[i].parkingNum;
-          $scope.parkingType = houses[i].parkingType;
-          $scope.outdoorSpace = houses[i].outdoorSpace;
-          $scope.buildYr = 2014 - houses[i].buildYr;
-          $scope.address = houses[i].address1;
-          $scope.neighborhood = houses[i].neighborhood;
-          $scope.city = houses[i].city;
+          $scope.buildYr = 2014 - $scope.property.buildYr;
           $scope.hideDetail = true;
-          $scope.expertvalue = houses[i].expertvalue;
-          $scope.crowdvalue = houses[i].crowdvalue;
-          $scope.map.lat = houses[i].lat;
-          $scope.map.lng = houses[i].lng;
-          $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
-          $scope.home.minValuation = 100000;
-          $scope.home.maxValuation = utility.maxCondoValue(houses[i].size);
+          $scope.crowdvalue = $scope.property.crowdvalue;
+          $scope.map.lat = $scope.property.lat;
+          $scope.map.lng = $scope.property.lng;
+          $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
+          $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
         }
         else {
           i = 0;
+          $scope.property = houses[i];
           $scope.likes = 20;
-          $scope.imgurl = houses[i].img;
-          $scope.bedRmNum = houses[i].bedRmNum;
-          $scope.bathRmNum = houses[i].bathRmNum;
-          $scope.houseType = houses[i].houseType;
-          $scope.houseSize = houses[i].size;
-          $scope.lotSize = houses[i].landSize;
-          $scope.stories = houses[i].stories;
-          $scope.orientation = houses[i].orientation;
-          $scope.parking = houses[i].parkingNum;
-          $scope.parkingType = houses[i].parkingType;
-          $scope.outdoorSpace = houses[i].outdoorSpace;
-          $scope.buildYr = 2014 - houses[i].buildYr;
-          $scope.address = houses[i].address1;
-          $scope.neighborhood = houses[i].neighborhood;
-          $scope.city = houses[i].city;
+          $scope.buildYr = 2014 - $scope.property.buildYr;
           $scope.hideDetail = true;
-          $scope.expertvalue = houses[i].expertvalue;
-          $scope.crowdvalue = houses[i].crowdvalue;
-          $scope.map.lat = houses[i].lat;
-          $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
-          $scope.home.minValuation = 100000;
-          $scope.home.maxValuation = utility.maxCondoValue(houses[i].size);
+          $scope.crowdvalue = $scope.property.crowdvalue;
+          $scope.map.lat = $scope.property.lat;
+          $scope.map.lng = $scope.property.lng;
+          $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
+          $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
         }
         $scope.$broadcast('updatemap',$scope.map);
       }, 100);
