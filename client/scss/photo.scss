@@ -1,0 +1,13 @@
+@import "variables";
+
+.photoSection {
+    height:238px;
+    figcaption{
+        height: 34px;
+        width: 100%;
+        background: rgba(0,0,0,.6);
+        position: absolute;
+        bottom: 0;
+        transition: .7s background linear;
+    }
+}

@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ["firebase"])
+angular.module('starter.controllers', ["firebase","xeditable"])
 
 .controller('MapCtrl', function ($scope) {
   $scope.layers = {
@@ -59,6 +59,9 @@ angular.module('starter.controllers', ["firebase"])
   $scope.defaultzoom = 15;
   //test mode
   $scope.stopRecording = false;
+  $scope.user = {
+    name: ''
+  };
   //init firebase
   houseDB.$loaded().then(function () {
 
