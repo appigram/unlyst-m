@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('starter.filters',[])
 
 .filter('noFractionCurrency',
 ['$filter', '$locale',
