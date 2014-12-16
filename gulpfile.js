@@ -19,7 +19,7 @@ var paths = {
   ]
 };
 // Production gulp for minification
-gulp.task('heroku:production', ['html-prod', 'config'])
+gulp.task('heroku:production', ['html-prod', 'config']);
 
 gulp.task('heroku:development', ['html-dev', 'config']);
 
