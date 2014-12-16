@@ -19,9 +19,24 @@ var paths = {
   ]
 };
 // Production gulp for minification
-gulp.task('heroku:production', ['html-prod', 'config']);
+gulp.task('heroku:production', ['html-prod', 'config'])
+
+gulp.task('heroku:development', ['html-dev', 'config']);
 
 gulp.task('html-prod', function () {
+  gulp.src('./client/www/index.html')
+    //To set variables in-line based on environment
+  .pipe(preprocess({
+    context: {
+      NODE_ENV: process.env.NODE_ENV,
+      DEBUG: true,
+      CSS: '<link href=\"css/unlyst.min.css\" rel=\"stylesheet\">'
+    }
+  }))
+  .pipe(gulp.dest('./client/www/'))
+});
+
+gulp.task('html-dev', function () {
   gulp.src('./client/www/index.html')
     //To set variables in-line based on environment
   .pipe(preprocess({

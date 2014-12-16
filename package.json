@@ -32,7 +32,6 @@
         "gulp-preprocess": "^1.2.0"
     },
     "scripts": {
-        "prestart":"gulp heroku:production",
         "start": "node server.js"
     }
 }
