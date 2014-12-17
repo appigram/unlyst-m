@@ -3,22 +3,29 @@ angular.module('starter.services', [])
 .factory('houseDB', ["$firebase", function ($firebase) {
   var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/unlyst/");
   var sync = $firebase(ref);
-  return sync.$asArray();
+  sync.$asArray()
+  return ref;
 }
 ])
 
 .factory('valuationDB', ["$firebase", function () {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
+  //Do not remove the comments below. 
   var configValue;
+  /* @if NODE_ENV='production' */
+  configValue = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
+  /* @endif */
 
+  /* @if NODE_ENV='development' */
   configValue = 'https://fiery-heat-1976.firebaseio.com/valuations';
+  /* @endif */
 
   var ref = new Firebase(configValue);
   return ref;
 }
 ])
 
-.factory('utility', [function () {
+.factory('utility', [function ($scope) {
   return {
     shuffle: function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex;
@@ -37,6 +44,17 @@ angular.module('starter.services', [])
       }
 
       return array;
+    },
+    defaultCondoValue: function calculateDefaultValue(size) {
+      return size*500;
+    },
+    maxCondoValue: function calculateDefaultValue(size) {
+      //var randomScale = window.Math.floor((window.Math.random() * -0.2) + 0.2);
+      if(size*1000 > 1000000) {
+        return size*1000;
+      }
+      //mininum value of 1 mil
+      return 1000000;
     }
   };
 }]);
