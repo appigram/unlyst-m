@@ -48,6 +48,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+   .state('tab.addHome', {
+      url: '/addhome',
+      views: {
+        'tab-addHome': {
+          templateUrl: 'templates/addhome.html',
+          controller: 'addHomeCtrl'
+        }
+      }
+   })
   .state('tab.friends', {
     url: '/friends',
     views: {
@@ -66,7 +75,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
   .state('tab.account', {
     url: '/account',
     views: {
