@@ -62,8 +62,10 @@ angular.module('starter.controllers', ["firebase", "xeditable"])
   $scope.defaultzoom = 15;
   //test mode
   $scope.stopRecording = false;
+
   var sync = $firebase(houseDB);
   var houseRef = sync.$asArray();
+
   //init firebase
   houseRef.$loaded().then(function () {
 
@@ -125,6 +127,8 @@ angular.module('starter.controllers', ["firebase", "xeditable"])
         return true;
       }, 100)
     }
+
+    $scope.totalScore = $scope.playCount = 0;
 
     $scope.submitScore = function () {
       $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
