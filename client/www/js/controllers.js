@@ -62,6 +62,7 @@ angular.module('starter.controllers', ["firebase","xeditable"])
   $scope.user = {
     name: ''
   };
+  
   //init firebase
   houseDB.$loaded().then(function () {
 
@@ -114,7 +115,7 @@ angular.module('starter.controllers', ["firebase","xeditable"])
     });
 
 
-
+    $scope.totalScore = $scope.playCount = 0;
     $scope.submitScore = function () {
       $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
       if ($scope.score < 0) {
