@@ -138,9 +138,22 @@ angular.module('starter.controllers', ["firebase", "xeditable"])
       $scope.totalScore += $scope.score;
       $scope.playCount++;
       $scope.avgScore = $scope.totalScore / $scope.playCount;
-      $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
       if (!$scope.stopRecording) {
         valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
+        // 2.5 means off by 50%
+        if ($scope.score > 2) {
+          var house = houseDB.child(houses[i].$id);
+          var reputationRef = '/totalReputation';
+          var newrepuationTotal = houseRef[i].totalReputation + $scope.score * 10;
+          var crowdRef = '/crowdvalue';
+          var newCrowdValue = (houseRef[i].crowdvalue * houseRef[i].totalReputation +
+          $scope.home.valuation * $scope.score * 10) / newrepuationTotal;
+          console.log('your valuation:' + $scope.home.valuation);
+          console.log('old crowd value:' + $scope.crowdvalue);
+          console.log('new crowd value:' + newCrowdValue);
+          house.child(reputationRef).set(newrepuationTotal);
+          house.child(crowdRef).set(newCrowdValue);
+        }
       }
     };
 
