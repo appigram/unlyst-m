@@ -1,0 +1,26 @@
+<ion-view title="Add Home">
+    <ion-content>
+        <div> big logo!</div>
+        <div>
+            <p>Adding your home to Unlyst will provide you with realtime valuation and allow you yo see who's interested
+                in buying your home. It's east, safe and free. It's like listing your home for sale, except you're not
+                Take control of your largest asset</p>
+            <p>To start, please enter your address.</p>
+        </div>
+        <br>
+
+        <div class="list list-inset">
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="e.g. 1 Yonge Street (only Toronto addresses)" ng-model="address"><br>
+            </label>
+        </div>
+        <div class="list list-inset">
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="Suite Number (if applicable)" ng-model = "suiteNumber">
+            </label>
+        </div>
+        <input type = "checkbox" ng-model="hideAddress"> Hide my exact address from users<br>
+        <button class="button button-median button-assertive" ng-click="goToPg2()">NEXT</button>
+        <br><br>{{test + address}}
+    </ion-content>
+</ion-view>

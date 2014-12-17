@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'firebase',
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ui.router', 'firebase',
   'leaflet-directive', 'xeditable'])
 
 .run(function ($ionicPlatform) {
@@ -29,14 +29,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
-    // setup an abstract state for the tabs directive
-    //.state('tab', {
-    //  url: "/tab",
-    //  abstract: true,
-    //  templateUrl: "templates/tabs.html"
-    //})
-
     // Each tab has its own nav history stack:
 
   .state('home', {
@@ -49,43 +41,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-   .state('tab.addHome', {
-      url: '/addhome',
+   .state('addHome', {
+      url: '/addHome',
       views: {
-        'tab-addHome': {
+        'addHome': {
           templateUrl: 'templates/addhome.html',
-          controller: 'addHomeCtrl'
+          controller: 'AddHomeCtrl'
+        },
+        'addHome2': {
+          templateUrl: 'templates/home.html',
+          controller: 'HomeCtrl'
         }
       }
    })
-  .state('tab.friends', {
-    url: '/friends',
-    views: {
-      'tab-friends': {
-        templateUrl: 'templates/tab-friends.html',
-        controller: 'FriendsCtrl'
-      }
-    }
-  })
 
-  .state('tab.friend-detail', {
-    url: '/friend/:friendId',
-    views: {
-      'tab-friends': {
-        templateUrl: 'templates/friend-detail.html',
-        controller: 'FriendDetailCtrl'
-      }
-    }
-  })
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
+   .state('addHome2', {
+      url: '/addHome2',
+        views: {
+          'addHome2': {
+            templateUrl: 'templates/home.html',
+            controller: 'HomeCtrl'
+          }
+        }
+      });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
