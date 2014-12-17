@@ -3,7 +3,8 @@ angular.module('starter.services', [])
 .factory('houseDB', ["$firebase", function ($firebase) {
   var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/unlyst-test/");
   var sync = $firebase(ref);
-  return sync.$asArray();
+  sync.$asArray()
+  return ref;
 }
 ])
 

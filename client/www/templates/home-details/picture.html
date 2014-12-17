@@ -1,6 +1,11 @@
 <figure class="text-center photoSection">
   <img ng-src="{{image.url}}" height="238px"/>
-  <figcaption ng-show="image.caption!=''">
-    <h5 class="light"><a href="#" editable-text="user.name">&nbsp;{{ image.caption || "empty" }}</a></h5>
+  <figcaption>
+    <h5 class="light" ng-show="AdminMode">
+      <a editable-text="image.caption" onbeforesave="saveCaption($data, $index)">
+        &nbsp;{{ image.caption || "empty" }}
+      </a>
+      <h5 class="light" ng-show="!AdminMode">{{image.caption}}</h5>
+    </h5>
   </figcaption>
 </figure>

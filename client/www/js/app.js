@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'firebase',
-  'leaflet-directive','xeditable'])
+  'leaflet-directive', 'xeditable'])
 
 .run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
@@ -39,10 +39,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
+  .state('home', {
     url: '/',
     views: {
-      'tab-dash': {
+      'home': {
         templateUrl: 'templates/home.html',
         controller: 'HomeCtrl'
       }
@@ -58,6 +58,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+
   .state('tab.friend-detail', {
     url: '/friend/:friendId',
     views: {
@@ -82,7 +83,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $urlRouterProvider.otherwise('/');
   //remove # from url
   if (window.history && window.history.pushState) {
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true).hashPrefix('!');;
   }
 
 })
