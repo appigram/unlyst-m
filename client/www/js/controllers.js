@@ -1,5 +1,4 @@
-angular.module('starter.controllers', ["firebase", "xeditable"])
-
+angular.module('starter.controllers', [])
 .controller('MapCtrl', function ($scope) {
   $scope.layers = {
     baselayers: {
@@ -225,5 +224,18 @@ angular.module('starter.controllers', ["firebase", "xeditable"])
 
     };
   });
+})
 
-});
+.controller('AddHomeCtrl', function($scope, $state) {
+
+  console.log("AddHomeCtrl");
+  $scope.address ="";
+  $scope.suiteNumber = "";
+  $scope.hideAddress = false;
+  $scope.test = $scope.address + ":" + $scope.suiteNumber + ":" + $scope.hideAddress;
+
+      $scope.goToPg2 = function () {
+  $state.go('addHome2');
+  };
+
+    });
