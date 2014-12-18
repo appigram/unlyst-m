@@ -222,7 +222,7 @@ angular.module('starter.controllers', [])
   $scope.test = $scope.address + ":" + $scope.suiteNumber + ":" + $scope.hideAddress;
 
       $scope.goToPg2 = function () {
-  $state.go('home');
+  $state.go('addHome2');
   };
 
     });

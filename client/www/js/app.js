@@ -47,10 +47,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         'addHome': {
           templateUrl: 'templates/addhome.html',
           controller: 'AddHomeCtrl'
-        },
-        'addHome2': {
-          templateUrl: 'templates/home.html',
-          controller: 'HomeCtrl'
         }
       }
    })
@@ -59,8 +55,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       url: '/addHome2',
         views: {
           'addHome2': {
-            templateUrl: 'templates/home.html',
-            controller: 'HomeCtrl'
+            templateUrl: 'templates/addhome2.html',
+            controller: 'AddHomeCtrl'
           }
         }
       });
