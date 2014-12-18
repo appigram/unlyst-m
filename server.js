@@ -26,5 +26,5 @@ app.listen(app.get('port'), function () {
 });
 
 app.use(function(req, res) {
-    res.sendfile(__dirname + '/client/www/index.html');
+    res.sendfile(__dirname + '/client/www/view/index.html');
 });

@@ -107,7 +107,7 @@ angular.module('starter.controllers', [])
     $scope.getDefaultValue();
 
     $scope.$broadcast('updateMap', $scope.map);
-    $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
+    $ionicModal.fromTemplateUrl('view/buyer/modal.html', function (modal) {
       $scope.modal = modal;
 
     }, {

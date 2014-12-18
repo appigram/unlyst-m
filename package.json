@@ -29,7 +29,10 @@
         "gulp-imagemin":"^2.0.0",
         "imagemin-pngquant": "^4.0.0",
         "gulp-changed": "^1.1.0",
-        "gulp-preprocess": "^1.2.0"
+        "gulp-preprocess": "^1.2.0",
+        "gulp-nodemon":"^1.0.4",
+        "gulp-livereload": "^3.0.2",
+        "gulp-sourcemaps": "^1.2.8"
     },
     "scripts": {
         "start": "node server.js"

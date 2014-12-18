@@ -13,7 +13,7 @@ angular.module('starter.routes', [])
     url: '/',
     views: {
       'home': {
-        templateUrl: 'templates/home.html',
+        templateUrl: 'view/buyer/home.html',
         controller: 'HomeCtrl'
       }
     }
@@ -23,7 +23,7 @@ angular.module('starter.routes', [])
     url: '/addHome',
     views: {
       'addHome': {
-        templateUrl: 'templates/addhome.html',
+        templateUrl: 'view/seller/addhome.html',
         controller: 'AddHomeCtrl'
       }
     }
@@ -33,7 +33,7 @@ angular.module('starter.routes', [])
     url: '/addHome2',
     views: {
       'addHome2': {
-        templateUrl: 'templates/addhome2.html',
+        templateUrl: 'view/seller/addhome2.html',
         controller: 'AddHomeCtrl'
       }
     }
@@ -42,9 +42,7 @@ angular.module('starter.routes', [])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
   //remove # from url
-  if (window.history && window.history.pushState) {
-    $locationProvider.html5Mode(true).hashPrefix('!');
-    ;
-  }
+  //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
+  //$locationProvider.html5Mode(true).hashPrefix('!');
 
 })
