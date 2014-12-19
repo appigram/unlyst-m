@@ -7,7 +7,7 @@
   <author email="louis@unlyst.com" href="http://www.unlyst.com/">
       Unlyst Team
     </author>
-  <content src="view/index.html"/>
+  <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
