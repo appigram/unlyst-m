@@ -47,7 +47,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HomeCtrl', function ($scope, houseDB, $ionicModal, $ionicSlideBoxDelegate, valuationDB, utility, $firebase, $location) {
-  $scope.activeSlide = 3;
+  //$scope.activeSlide = 3;
+  $scope.activeSlide = 0;
+  
   //bind model to scoep; set valuation
   $scope.home = {};
   $scope.home.valuation = 100000;
@@ -163,12 +165,12 @@ angular.module('starter.controllers', [])
       $ionicSlideBoxDelegate.previous();
     };
 
-    $scope.activeSlide = 3;
-    $ionicSlideBoxDelegate.update();
 
+    $ionicSlideBoxDelegate.update();
 
     // Called each time the slide changes
     $scope.slideHasChanged = function (index) {
+      $ionicSlideBoxDelegate.slide(index);
       $scope.activeSlide = index;
       $ionicSlideBoxDelegate.update();
     };
@@ -181,11 +183,27 @@ angular.module('starter.controllers', [])
       //$scope.clickNext();
     });
 
+    //moved from slide-nav.html; there probably a simpler way to do this.
+    $scope.isTabActive = function(tab) {
+        var numSlides = $ionicSlideBoxDelegate.count();
+        if(tab=='photo-tab') {
+            return $scope.activeSlide < numSlides - 3;
+        }
+        else if(tab=='info-tab') {
+            return $scope.activeSlide==numSlides-2 || $scope.activeSlide==numSlides-3;
+        }
+        else if(tab=='map-tab') {
+            return $scope.activeSlide == numSlides-1;
+        }
+        return false;
+    };
+      
     $scope.clickNext = function () {
       setTimeout(function () {
         //hack: need to call slide twice because images are in ng-repeat's css is not applied.
-        $ionicSlideBoxDelegate.slide(2);
-        $ionicSlideBoxDelegate.slide(3);
+        //$ionicSlideBoxDelegate.slide(2);
+        //$ionicSlideBoxDelegate.slide(3);
+        $ionicSlideBoxDelegate.slide(0);
         $ionicSlideBoxDelegate.update();
       }, 200);
 
