@@ -37,6 +37,15 @@ angular.module('starter.routes', [])
         controller: 'AddHomeCtrl'
       }
     }
+  })
+  .state('addHome3', {
+    url: '/addHome3',
+    views: {
+      'addHome2': {
+        templateUrl: 'view/seller/addhome3.html',
+        controller: 'AddHomeCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
