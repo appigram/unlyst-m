@@ -1,7 +1,17 @@
 angular.module('starter.services', [])
 
 .factory('houseDB', ["$firebase", function ($firebase) {
-  var ref = new Firebase("https://fiery-heat-1976.firebaseio.com/unlyst/");
+  //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
+  //Do not remove the comments below.
+  var configValue;
+  /* @if NODE_ENV='production' */
+  configValue = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
+  /* @endif */
+
+  /* @if NODE_ENV='development' */
+  configValue = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
+  /* @endif */
+  var ref = new Firebase(configValue);
   var sync = $firebase(ref);
   sync.$asArray()
   return ref;

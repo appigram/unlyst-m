@@ -5,8 +5,41 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ui.router', 'firebase',
-  'leaflet-directive', 'xeditable'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'starter.services', 'starter.filters',
+  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable'])
+
+//interceptor for http request. Show loading icon.
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push(function ($rootScope) {
+    return {
+      request: function (config) {
+        $rootScope.$broadcast('loading:show');
+        return config;
+      },
+      response: function (response) {
+        $rootScope.$broadcast('loading:hide');
+        return response;
+      }
+    }
+  })
+})
+
+.run(function ($rootScope, $ionicLoading) {
+  $rootScope.$on('loading:show', function () {
+    $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+  });
+
+  $rootScope.$on('loading:hide', function () {
+      $ionicLoading.hide();
+  });
+
+})
 
 .run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
@@ -22,96 +55,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
-    // Each tab has its own nav history stack:
-
-  .state('home', {
-    url: '/',
-    views: {
-      'home': {
-        templateUrl: 'templates/home.html',
-        controller: 'HomeCtrl'
-      }
-    }
-  })
-
-   .state('addHome', {
-      url: '/addHome',
-      views: {
-        'addHome': {
-          templateUrl: 'templates/addhome.html',
-          controller: 'AddHomeCtrl'
-        }
-      }
-   })
-
-   .state('addHome2', {
-      url: '/addHome2',
-      views: {
-        'addHome2': {
-            templateUrl: 'templates/addhome2.html',
-            controller: 'AddHomeCtrl'
-        }
-      }
-      })
-      .state('addHome3', {
-        url: '/addHome3',
-        views: {
-          'addHome3': {
-            templateUrl: 'templates/addhome3.html',
-            controller: 'AddHomeCtrl'
-          }
-        }
-      });
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/');
-  //remove # from url
-  if (window.history && window.history.pushState) {
-    $locationProvider.html5Mode(true).hashPrefix('!');;
-  }
-})
-.directive('noScroll', function ($document) {
-
-  return {
-    restrict: 'A',
-    link: function ($scope, $element, $attr) {
-
-      $document.on('touchmove', function (e) {
-        e.preventDefault();
-      });
-    }
-  }
-})
-// interceptor for http request. Show loading icon.
-//.config(function ($httpProvider) {
-//  $httpProvider.interceptors.push(function ($rootScope) {
-//    return {
-//      request: function (config) {
-//        $rootScope.$broadcast('loading:show')
-//        return config
-//      },
-//      response: function (response) {
-//        $rootScope.$broadcast('loading:hide')
-//        return response
-//      }
-//    }
-//  })
-//})
-//
-//.run(function ($rootScope, $ionicLoading) {
-//  $rootScope.$on('loading:show', function () {
-//    $ionicLoading.show({template: 'foo'})
-//  })
-//
-//  $rootScope.$on('loading:hide', function () {
-//    $ionicLoading.hide()
-//  })
-//})
 

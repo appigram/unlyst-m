@@ -11,3 +11,11 @@
         transition: .7s background linear;
     }
 }
+
+.slider-nav-btn-left, .slider-nav-btn-right  {
+    position:absolute; top: 100px;z-index: 5; font-size:16px; cursor: hand;
+}
+
+.slider-nav-btn-right {
+    right:0%;
+}

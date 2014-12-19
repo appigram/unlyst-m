@@ -107,14 +107,14 @@ angular.module('starter.controllers', [])
     $scope.getDefaultValue();
 
     $scope.$broadcast('updateMap', $scope.map);
-    $ionicModal.fromTemplateUrl('templates/modal.html', function (modal) {
+    $ionicModal.fromTemplateUrl('view/buyer/modal.html', function (modal) {
       $scope.modal = modal;
 
     }, {
       // Use our scope for the scope of the modal to keep it simple
-      scope: $scope
+      scope: $scope,
       // The animation we want to use for the modal entrance
-      //animation: 'slide-in-up'
+      animation: 'fade-in'
     });
 
     $scope.saveCaption = function (data, imgIndex) {
