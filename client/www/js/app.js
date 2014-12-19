@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'starter.services', 'starter.filters',
+angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
   'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable'])
 
 //interceptor for http request. Show loading icon.
@@ -54,5 +54,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'st
     }
   });
 })
-
+//
+//.config(function($stateProvider, $urlRouterProvider) {
+//
+//  $stateProvider
+//  .state('signin', {
+//    url: '/sign-in',
+//    templateUrl: 'view/user/login.html',
+//    controller: 'HomeCtrl'
+//  })
+//
+//  $urlRouterProvider.otherwise('/sign-in');
+//
+//})
 

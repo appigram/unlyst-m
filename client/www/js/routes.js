@@ -11,32 +11,26 @@ angular.module('starter.routes', [])
 
   .state('home', {
     url: '/',
-    views: {
-      'home': {
-        templateUrl: 'view/buyer/home.html',
-        controller: 'HomeCtrl'
-      }
-    }
+    templateUrl: 'view/buyer/home.html',
+    controller: 'HomeCtrl'
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'view/user/login.html',
+    controller: 'AddHomeCtrl'
   })
 
   .state('addHome', {
     url: '/addHome',
-    views: {
-      'addHome': {
-        templateUrl: 'view/seller/addhome.html',
-        controller: 'AddHomeCtrl'
-      }
-    }
+    templateUrl: 'view/seller/addhome.html',
+    controller: 'AddHomeCtrl'
   })
 
   .state('addHome2', {
     url: '/addHome2',
-    views: {
-      'addHome2': {
-        templateUrl: 'view/seller/addhome2.html',
-        controller: 'AddHomeCtrl'
-      }
-    }
+    templateUrl: 'view/seller/addhome2.html',
+    controller: 'AddHomeCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback
@@ -45,4 +39,4 @@ angular.module('starter.routes', [])
   //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
   //$locationProvider.html5Mode(true).hashPrefix('!');
 
-})
+});
