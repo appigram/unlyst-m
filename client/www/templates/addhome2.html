@@ -1,14 +1,82 @@
-<ion-view title="Home Info">
+<ion-view title="Photos">
     <ion-content>
         <div>
-            <p>Adding your home to Unlyst will provide you with realtime valuation and allow you yo see who's interested
-                in buying your home. It's east, safe and free. It's like listing your home for sale, except you're not
-                Take control of your largest asset</p>
-            <p>To start, please enter your address.</p>
+            <p>Now it's the time to enter a bit more information about your home so that the market can figure out
+                what it's worth!</p>
         </div>
         <br>
+        <div>
+            <select>
+                <option value="condominium">Condominium</option>
+                <option value="semiHouse">Semi-detached House</option>
+                <option value="detachedHouse">Detached House</option>
+                <option value="townHouse">Townhouse</option>
+            </select>
+        </div>
 
-        <input type = "checkbox" ng-model="hideAddress"> Hide my exact address from users<br>
-        <button class="button button-median button-assertive" ng-click="goToPg2()">NEXT</button>
+        <div class="list list-inset">
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="Building Name (If applicable)" ng-model="buildName"><br>
+            </label>
+        </div>
+        <div class="list list-inset">
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="Size in square feet(finished areas only)" ng-model="size"><br>
+            </label>
+        </div>
+        <div>
+            <select>
+                <option value="" default selected>Bedrooms</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <select>
+                <option value="" default selected>Bathrooms</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+        <div>
+            <select>
+                <option value="" default selected>Parking Type</option>
+                <option value="1">Garage</option>
+                <option value="2">Undergrand</option>
+            </select>
+            <select>
+                <option value="" default selected>Parking Spaces</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+        <div class="list list-inset">
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="Maintenance Fee Per Month" ng-model="size"><br>
+            </label>
+        </div>
+        <div>
+            Additional Spaces (check all that apply)<br>
+            <input type = "checkbox" name = "addtionalSpace" value="Den"> Den<br>
+            <input type = "checkbox" name = "addtionalSpace" value="Study"> Study<br>
+            <input type = "checkbox" name = "addtionalSpace" value="Sunroom"> Sunroom
+        </div>
+        <div>
+            Outdoor Spaces (check all that apply)<br>
+            <input type = "checkbox" name = "outdoorSpace" value="Backyard"> Backyard<br>
+            <input type = "checkbox" name = "outdoorSpace" value="Balcony"> Balcony<br>
+            <input type = "checkbox" name = "outdoorSpace" value="Terrace"> Terrace
+        </div>
+        <div>
+            Orientation (check all that apply)<br>
+            <input type = "checkbox" name = "orientation" value="North"> North<br>
+            <input type = "checkbox" name = "orientation" value="East"> East<br>
+            <input type = "checkbox" name = "orientation" value="South"> South<br>
+            <input type = "checkbox" name = "orientation" value="West"> West<br>
+        </div>
+        <button class="button button-median button-assertive" ng-click="goToPg3()">NEXT</button><br>
+        Step 2 of 3
     </ion-content>
 </ion-view>

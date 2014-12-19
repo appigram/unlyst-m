@@ -53,9 +53,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
    .state('addHome2', {
       url: '/addHome2',
-        views: {
-          'addHome2': {
+      views: {
+        'addHome2': {
             templateUrl: 'templates/addhome2.html',
+            controller: 'AddHomeCtrl'
+        }
+      }
+      })
+      .state('addHome3', {
+        url: '/addHome3',
+        views: {
+          'addHome3': {
+            templateUrl: 'templates/addhome3.html',
             controller: 'AddHomeCtrl'
           }
         }
@@ -67,7 +76,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   if (window.history && window.history.pushState) {
     $locationProvider.html5Mode(true).hashPrefix('!');;
   }
-
 })
 .directive('noScroll', function ($document) {
 

@@ -234,8 +234,14 @@ angular.module('starter.controllers', [])
   $scope.hideAddress = false;
   $scope.test = $scope.address + ":" + $scope.suiteNumber + ":" + $scope.hideAddress;
 
-      $scope.goToPg2 = function () {
-  $state.go('addHome2');
+  $scope.goToPg2 = function () {
+    $state.go('addHome2');
   };
-
+  $scope.goToPg3 = function () {
+    $state.go('addHome3');
+  };
+  $scope.addhome = function () {
+    console.log("add home");
+    $state.go('home');
+  };
     });
