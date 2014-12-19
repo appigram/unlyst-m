@@ -1,4 +1,4 @@
-angular.module('starter.account', [])
+starterControllers
 
 .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData) {
 
@@ -6,31 +6,45 @@ angular.module('starter.account', [])
 
   /* FOR DEV PURPOSES */
   $scope.user = {
-    email: "johndoe@gmail.com",
-    password: "password"
+    email: "louis@unlyst.com",
+    password: "unlyst"
   };
 
   $scope.signIn = function (user) {
-
+    console.log(fireBaseData.ref());
     $rootScope.show('Logging In...');
 
     /* Check user fields*/
-    if(!user || !user.email || !user.password){
-      $rootScope.alertPopup('Error','Email or Password is incorrect!');
+    if (!user || !user.email || !user.password) {
+      $rootScope.alertPopup('Error', 'Email or Password is incorrect!');
       return;
     }
 
     /* All good, let's authentify */
     fireBaseData.ref().authWithPassword({
-      email    : user.email,
-      password : user.password
-    }, function(error, authData) {
+      email: user.email,
+      password: user.password
+    }, function (error, authData) {
       if (error === null) {
         $rootScope.hide();
-        $state.go('tabs.dashboard');
+        $state.go('home');
       } else {
+        switch (error.code) {
+          case "INVALID_EMAIL":
+            console.log("The specified user account email is invalid.");
+            break;
+          case "INVALID_PASSWORD":
+            console.log("The specified user account password is incorrect.");
+            break;
+          case "INVALID_USER":
+            console.log("The specified user account does not exist.");
+            break;
+          default:
+            console.log("Error logging user in:", error);
+
+        }
         $rootScope.hide();
-        $rootScope.alertPopup('Error','Email or Password is incorrect!');
+        $rootScope.alertPopup('Error', 'Email or Password is incorrect!');
       }
     });
   };
@@ -82,7 +96,7 @@ angular.module('starter.account', [])
       /* SAVE PROFILE DATA */
       var usersRef = fireBaseData.refRoomMates();
       var myUser = usersRef.child(escapeEmailAddress(user.email));
-      myUser.set($scope.temp, function(){
+      myUser.set($scope.temp, function () {
         $rootScope.hide();
         $state.go('introduction');
       });
@@ -90,15 +104,15 @@ angular.module('starter.account', [])
     }).catch(function (error) {
       if (error.code == 'INVALID_EMAIL') {
         $rootScope.hide();
-        $rootScope.notify('Error','Invalid Email.');
+        $rootScope.notify('Error', 'Invalid Email.');
       }
       else if (error.code == 'EMAIL_TAKEN') {
         $rootScope.hide();
-        $rootScope.notify('Error','Email already taken.');
+        $rootScope.notify('Error', 'Email already taken.');
       }
       else {
         $rootScope.hide();
-        $rootScope.notify('Error','Oops. Something went wrong.');
+        $rootScope.notify('Error', 'Oops. Something went wrong.');
       }
     });
   };

@@ -3,37 +3,37 @@ angular.module('starter.services', [])
 .factory('fireBaseData', ["$firebase", function ($firebase) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
-  var configValue;
+  var homeInfo;
+  var valuationData;
+  var refConfig = 'https://fiery-heat-1976.firebaseio.com'
   /* @if NODE_ENV='production' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
+  homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
+  valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
   /* @endif */
 
   /* @if NODE_ENV='development' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
+  homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
+  valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations';
   /* @endif */
-  var ref = new Firebase(configValue);
-  var sync = $firebase(ref);
-  sync.$asArray()
-  return ref;
+
+  var ref = new Firebase(refConfig);
+  var refHomes = new Firebase(homeInfo);
+  var refValuation = new Firebase(valuationData);
+
+  return {
+    ref: function () {
+      return ref;
+    },
+    refValuation: function () {
+      return refValuation;
+    },
+    refHomes: function () {
+      return refHomes;
+    }
+  };
 }
 ])
 
-.factory('valuationDB', ["$firebase", function () {
-  //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
-  //Do not remove the comments below. 
-  var configValue;
-  /* @if NODE_ENV='production' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
-  /* @endif */
-
-  /* @if NODE_ENV='development' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/valuations';
-  /* @endif */
-
-  var ref = new Firebase(configValue);
-  return ref;
-}
-])
 
 .factory('utility', [function ($scope) {
   return {

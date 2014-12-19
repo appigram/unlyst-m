@@ -5,9 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
-  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable','starter.account'])
+var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
+  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable'])
+var starterControllers = angular.module('starter.controllers', []);
 
+starter
 //interceptor for http request. Show loading icon.
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push(function ($rootScope) {
@@ -39,6 +41,15 @@ angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'sta
       $ionicLoading.hide();
   });
 
+  $rootScope.show = function (text) {
+    $rootScope.loading = $ionicLoading.show({
+      template: '<i class="icon ion-looping"></i><br>' + text,
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+  };
 })
 
 .run(function ($ionicPlatform) {

@@ -1,5 +1,4 @@
-angular.module('starter.controllers', [])
-
+starterControllers
 .controller('MapCtrl', function ($scope) {
   $scope.layers = {
     baselayers: {
@@ -47,7 +46,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, valuationDB, utility, $firebase, $location) {
+.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase, $location) {
   //$scope.activeSlide = 3;
   $scope.activeSlide = 0;
 
@@ -65,13 +64,13 @@ angular.module('starter.controllers', [])
   //test mode
   $scope.stopRecording = false;
 
-  var sync = $firebase(fireBaseData);
-  var houseRef = sync.$asArray();
+  var homesDB = $firebase(fireBaseData.refHomes());
+  var homeRef = homesDB.$asArray();
 
   //init firebase
-  houseRef.$loaded().then(function () {
+  homeRef.$loaded().then(function () {
 
-    var houses = utility.shuffle(houseRef);
+    var houses = utility.shuffle(homeRef);
     var i = 0;
 
     $scope.property = houses[i];
@@ -121,7 +120,7 @@ angular.module('starter.controllers', [])
     });
 
     $scope.saveCaption = function (data, imgIndex) {
-      var house = fireBaseData.child(houses[i].$id);
+      var house = homeRef.child(houses[i].$id);
       var captionRef = 'img/' + imgIndex + '/caption';
       house.child(captionRef).set(data);
       setTimeout(function () {
@@ -144,11 +143,11 @@ angular.module('starter.controllers', [])
         valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
         // 2.5 means off by 50%
         if ($scope.score > 2) {
-          var house = fireBaseData.child(houses[i].$id);
+          var house = homeRef.child(houses[i].$id);
           var reputationRef = '/totalReputation';
-          var newrepuationTotal = houseRef[i].totalReputation + $scope.score * 10;
+          var newrepuationTotal = homeRef[i].totalReputation + $scope.score * 10;
           var crowdRef = '/crowdvalue';
-          var newCrowdValue = (houseRef[i].crowdvalue * houseRef[i].totalReputation +
+          var newCrowdValue = (homeRef[i].crowdvalue * homeRef[i].totalReputation +
           $scope.home.valuation * $scope.score * 10) / newrepuationTotal;
           console.log('your valuation:' + $scope.home.valuation);
           console.log('old crowd value:' + $scope.crowdvalue);
