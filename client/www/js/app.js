@@ -13,12 +13,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'st
   $httpProvider.interceptors.push(function ($rootScope) {
     return {
       request: function (config) {
-        $rootScope.$broadcast('loading:show')
-        return config
+        $rootScope.$broadcast('loading:show');
+        return config;
       },
       response: function (response) {
-        $rootScope.$broadcast('loading:hide')
-        return response
+        $rootScope.$broadcast('loading:hide');
+        return response;
       }
     }
   })
@@ -36,7 +36,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'st
   });
 
   $rootScope.$on('loading:hide', function () {
-    $ionicLoading.hide();
+      $ionicLoading.hide();
   });
 
 })
