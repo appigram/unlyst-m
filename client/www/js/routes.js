@@ -1,6 +1,6 @@
 angular.module('starter.routes', [])
 
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -18,7 +18,12 @@ angular.module('starter.routes', [])
   .state('login', {
     url: '/login',
     templateUrl: 'view/user/login.html',
-    controller: 'AddHomeCtrl'
+    controller: 'LoginCtrl'
+  })
+  .state('register', {
+    url: '/register',
+    templateUrl: 'view/user/register.html',
+    controller: 'RegisterCtrl'
   })
 
   .state('addHome', {

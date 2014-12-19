@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
-  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable'])
+  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable','starter.account'])
 
 //interceptor for http request. Show loading icon.
 .config(function ($httpProvider) {

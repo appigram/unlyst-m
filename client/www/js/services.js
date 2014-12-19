@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('houseDB', ["$firebase", function ($firebase) {
+.factory('fireBaseData', ["$firebase", function ($firebase) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var configValue;

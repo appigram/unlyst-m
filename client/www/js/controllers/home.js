@@ -1,4 +1,5 @@
 angular.module('starter.controllers', [])
+
 .controller('MapCtrl', function ($scope) {
   $scope.layers = {
     baselayers: {
@@ -46,10 +47,10 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('HomeCtrl', function ($scope, houseDB, $ionicModal, $ionicSlideBoxDelegate, valuationDB, utility, $firebase, $location) {
+.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, valuationDB, utility, $firebase, $location) {
   //$scope.activeSlide = 3;
   $scope.activeSlide = 0;
-  
+
   //bind model to scoep; set valuation
   $scope.home = {};
   $scope.home.valuation = 100000;
@@ -64,7 +65,7 @@ angular.module('starter.controllers', [])
   //test mode
   $scope.stopRecording = false;
 
-  var sync = $firebase(houseDB);
+  var sync = $firebase(fireBaseData);
   var houseRef = sync.$asArray();
 
   //init firebase
@@ -120,7 +121,7 @@ angular.module('starter.controllers', [])
     });
 
     $scope.saveCaption = function (data, imgIndex) {
-      var house = houseDB.child(houses[i].$id);
+      var house = fireBaseData.child(houses[i].$id);
       var captionRef = 'img/' + imgIndex + '/caption';
       house.child(captionRef).set(data);
       setTimeout(function () {
@@ -143,7 +144,7 @@ angular.module('starter.controllers', [])
         valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
         // 2.5 means off by 50%
         if ($scope.score > 2) {
-          var house = houseDB.child(houses[i].$id);
+          var house = fireBaseData.child(houses[i].$id);
           var reputationRef = '/totalReputation';
           var newrepuationTotal = houseRef[i].totalReputation + $scope.score * 10;
           var crowdRef = '/crowdvalue';
@@ -184,20 +185,20 @@ angular.module('starter.controllers', [])
     });
 
     //moved from slide-nav.html; there probably a simpler way to do this.
-    $scope.isTabActive = function(tab) {
-        var numSlides = $ionicSlideBoxDelegate.count();
-        if(tab=='photo-tab') {
-            return $scope.activeSlide < numSlides - 3;
-        }
-        else if(tab=='info-tab') {
-            return $scope.activeSlide==numSlides-2 || $scope.activeSlide==numSlides-3;
-        }
-        else if(tab=='map-tab') {
-            return $scope.activeSlide == numSlides-1;
-        }
-        return false;
+    $scope.isTabActive = function (tab) {
+      var numSlides = $ionicSlideBoxDelegate.count();
+      if (tab == 'photo-tab') {
+        return $scope.activeSlide < numSlides - 3;
+      }
+      else if (tab == 'info-tab') {
+        return $scope.activeSlide == numSlides - 2 || $scope.activeSlide == numSlides - 3;
+      }
+      else if (tab == 'map-tab') {
+        return $scope.activeSlide == numSlides - 1;
+      }
+      return false;
     };
-      
+
     $scope.clickNext = function () {
       setTimeout(function () {
         //hack: need to call slide twice because images are in ng-repeat's css is not applied.
@@ -244,16 +245,16 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('AddHomeCtrl', function($scope, $state) {
+.controller('AddHomeCtrl', function ($scope, $state) {
 
   console.log("AddHomeCtrl");
-  $scope.address ="";
+  $scope.address = "";
   $scope.suiteNumber = "";
   $scope.hideAddress = false;
   $scope.test = $scope.address + ":" + $scope.suiteNumber + ":" + $scope.hideAddress;
 
-      $scope.goToPg2 = function () {
-  $state.go('addHome2');
+  $scope.goToPg2 = function () {
+    $state.go('addHome2');
   };
 
-    });
+})
