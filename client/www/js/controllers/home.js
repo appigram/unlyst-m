@@ -132,6 +132,7 @@ starterControllers
     $scope.totalScore = $scope.playCount = 0;
 
     $scope.submitScore = function () {
+      $scope.crowdvalue = $scope.property.crowdvalue;
       $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
       if ($scope.score < 0) {
         $scope.score = 0;
@@ -215,28 +216,20 @@ starterControllers
         //prevent the next score to be shown
         if (i < length - 1) {
           i++;
-          $scope.property = houses[i];
-          $scope.likes = 20;
-          $scope.buildYr = 2014 - $scope.property.buildYr;
-          $scope.hideDetail = true;
-          $scope.crowdvalue = $scope.property.crowdvalue;
-          $scope.map.lat = $scope.property.lat;
-          $scope.map.lng = $scope.property.lng;
-          $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
-          $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
         }
         else {
           i = 0;
-          $scope.property = houses[i];
-          $scope.likes = 20;
-          $scope.buildYr = 2014 - $scope.property.buildYr;
-          $scope.hideDetail = true;
-          $scope.crowdvalue = $scope.property.crowdvalue;
-          $scope.map.lat = $scope.property.lat;
-          $scope.map.lng = $scope.property.lng;
-          $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
-          $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
         }
+        $scope.property = houses[i];
+        $scope.likes = 20;
+        $scope.buildYr = 2014 - $scope.property.buildYr;
+        $scope.hideDetail = true;
+        //prevent the next score to be shown
+        //$scope.crowdvalue = $scope.property.crowdvalue;
+        $scope.map.lat = $scope.property.lat;
+        $scope.map.lng = $scope.property.lng;
+        $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
+        $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
         $scope.$broadcast('updatemap', $scope.map);
       }, 100);
 
