@@ -20,6 +20,7 @@
         "express": "~4.4.1",
         "body-parser": "~1.3.0",
         "method-override": "~2.0.1",
+        "aws-sdk": "*",
         "gulp": "^3.5.6",
         "gulp-sass": "^0.7.1",
         "gulp-concat": "^2.2.0",

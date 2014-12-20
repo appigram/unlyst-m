@@ -4,6 +4,9 @@ var express = require('express'),
     sessions = require('./server/routes/sessions'),
     app = express();
 
+var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
+var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
+var S3_BUCKET = process.env.S3_BUCKET;
 app.use(bodyParser());          // pull information from html in POST
 app.use(methodOverride());      // simulate DELETE and PUT
 
@@ -28,3 +31,9 @@ app.listen(app.get('port'), function () {
 app.use(function(req, res) {
     res.sendfile(__dirname + '/client/www/view/index.html');
 });
+
+//app.post('/upload', function (req,res){
+//    console.log("in post");
+//    console.log(req.body);
+//});
+

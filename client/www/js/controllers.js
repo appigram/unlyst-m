@@ -226,7 +226,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('AddHomeCtrl', function($scope, $state) {
+.controller('AddHomeCtrl', ['$scope', '$http', '$state', function($scope, $http, $state, imageDB) {
 
   console.log("AddHomeCtrl");
   $scope.address ="";
@@ -244,4 +244,68 @@ angular.module('starter.controllers', [])
     console.log("add home");
     $state.go('home');
   };
-    });
+
+  $scope.creds = {
+    bucket: 'unlyst',
+    access_key: 'AKIAILDO7FWEDSP4NQEA',
+    secret_key: '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'
+  };
+
+  $scope.uploadFiles = [];
+  $scope.uploadFile = function(files){
+    $scope.uploadFiles.push(files[0]);
+    //$scope.$parent.file = files[0];
+    //$scope.$apply();
+    console.log($scope.uploadFiles);
+
+  };
+
+  $scope.uploadImg = function () {
+    AWS.config.update({ accessKeyId: $scope.creds.access_key, secretAccessKey: $scope.creds.secret_key });
+    AWS.config.region = 'us-east-1';
+    var bucket = new AWS.S3();//({ params: { Bucket: $scope.creds.bucket} });
+
+    for (var i = 0; i < $scope.uploadFiles.length; i++) {
+      var file = $scope.uploadFiles[i];
+      if(file) {
+        var params = {Bucket: $scope.creds.bucket, Key: "test/" + i + ".png", ACL: 'public-read', ContentType: file.type, Body: file, ServerSideEncryption: 'AES256' };
+
+        bucket.putObject(params, function(err, data) {
+          if(err) {
+            // There Was An Error With Your S3 Config
+            alert(err.message);
+            return false;
+          }
+          else {
+            // Success!
+            alert('Upload Done');
+          }
+        })
+        .on('httpUploadProgress',function(progress) {
+          // Log Progress Information
+          console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+        });
+      }
+      else {
+        // No File Selected
+        alert('No File Selected');
+      }
+    }
+
+   /* var req = {
+      url:'/upload',
+      data: $scope.file,
+      method: 'POST',
+      withCredentials:true,
+      header: {'Content-Type': undefined},
+      transformRequest: angular.identity
+      //headers: {},
+    };
+    $http(req).success(function(data) {
+      console.log("OK", data);
+    }).error(function(err){
+      console.log(err);
+    })*/
+  };
+
+}]);

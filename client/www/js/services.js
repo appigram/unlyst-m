@@ -12,8 +12,6 @@ angular.module('starter.services', [])
   configValue = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
   /* @endif */
   var ref = new Firebase(configValue);
-  var sync = $firebase(ref);
-  sync.$asArray()
   return ref;
 }
 ])

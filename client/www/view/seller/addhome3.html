@@ -15,10 +15,10 @@
         </div>
         <div>
             <div>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
+                <input type="file" name="file1" onchange = "angular.element(this).scope().uploadFile(this.files)">1
+                <input type="file" name="file2" onchange = "angular.element(this).scope().uploadFile(this.files)">2
+                <input type="file" name="file3" onchange = "angular.element(this).scope().uploadFile(this.files)">3
+                <input type="file" name="file4" onchange = "angular.element(this).scope().uploadFile(this.files)">4
             </div>
             <div>
                 <button>5</button>
@@ -27,7 +27,15 @@
                 <button>8</button>
             </div>
         </div>
-        <button class="button button-median button-assertive" ng-click="addhome()">Add Home</button><br>
+        <button class="button button-median button-assertive" ng-click="uploadImg()">Add Home</button><br>
         Step 3 of 3
+
+
+        <form name = "imgForm" enctype = "multipart/form-data" ng-submit = "uploadImg()">
+            <input type="file" name="file" onchange = "angular.element(this).scope().uploadFile(this.files)">
+            <input type = "submit" value="submit">
+        </form>
+
+
     </ion-content>
 </ion-view>
