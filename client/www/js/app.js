@@ -26,7 +26,10 @@ starter
   })
 })
 
-.run(function ($rootScope, $ionicLoading) {
+.run(function ($rootScope, $ionicLoading,$ionicPopup) {
+  //not logged in icon
+  $rootScope.userLogin = 'ion-log-in';
+
   $rootScope.$on('loading:show', function () {
     $ionicLoading.show({
       content: 'Loading',
@@ -40,6 +43,17 @@ starter
   $rootScope.$on('loading:hide', function () {
       $ionicLoading.hide();
   });
+
+  $rootScope.notify = function(title,text) {
+    var alertPopup = $ionicPopup.alert({
+      title: title ? title : 'Error',
+      template: text
+    });
+  };
+
+  $rootScope.hide = function (text) {
+    $ionicLoading.hide();
+  };
 
   $rootScope.show = function (text) {
     $rootScope.loading = $ionicLoading.show({

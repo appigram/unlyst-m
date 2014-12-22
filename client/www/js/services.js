@@ -5,20 +5,25 @@ angular.module('starter.services', [])
   //Do not remove the comments below.
   var homeInfo;
   var valuationData;
-  var refConfig = 'https://fiery-heat-1976.firebaseio.com'
+  var refUserConfig;
+  var refConfig = 'https://fiery-heat-1976.firebaseio.com';
+
   /* @if NODE_ENV='production' */
   homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
   valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
+  refUserConfig = "https://fiery-heat-1976.firebaseio.com/user/";
   /* @endif */
 
   /* @if NODE_ENV='development' */
   homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
   valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations';
+  refUserConfig = "https://fiery-heat-1976.firebaseio.com/user-test/";
   /* @endif */
 
   var ref = new Firebase(refConfig);
   var refHomes = new Firebase(homeInfo);
   var refValuation = new Firebase(valuationData);
+  var refUser = new Firebase(refUserConfig);
 
   return {
     ref: function () {
@@ -29,11 +34,12 @@ angular.module('starter.services', [])
     },
     refHomes: function () {
       return refHomes;
+    },
+    refUsers: function () {
+      return refUser;
     }
   };
-}
-])
-
+}])
 
 .factory('utility', [function ($scope) {
   return {
@@ -56,15 +62,15 @@ angular.module('starter.services', [])
       return array;
     },
     defaultCondoValue: function calculateDefaultValue(size) {
-      return size*500;
+      return size * 500;
     },
     maxCondoValue: function calculateDefaultValue(size) {
       //var randomScale = window.Math.floor((window.Math.random() * -0.2) + 0.2);
-      if(size*1000 > 1000000) {
-        return size*1000;
+      if (size * 1000 > 1000000) {
+        return size * 1000;
       }
       //mininum value of 1 mil
       return 1000000;
     }
-  };
-}]);
+  }
+}])

@@ -40,13 +40,10 @@ starterControllers
       }
 
     };
-    setTimeout(function () {
-      $scope.$apply();
-    }, 0);
   });
 })
 
-.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase, $location) {
+.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout) {
   //$scope.activeSlide = 3;
   $scope.activeSlide = 0;
 
@@ -66,7 +63,7 @@ starterControllers
 
   var homesDB = $firebase(fireBaseData.refHomes());
   var homeRef = homesDB.$asArray();
-
+  var valuationDB = fireBaseData.refValuation();
   //init firebase
   homeRef.$loaded().then(function () {
 
@@ -100,10 +97,9 @@ starterControllers
 
     // need to use this method and ng-init to bind the initial value. There's a bug in the range slider in ionic.
     $scope.getDefaultValue = function () {
-      //need the timeout and apply to make it work
-      setTimeout(function () {
+      //need the timeout to make it work
+      $timeout(function () {
         $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
-        $scope.$apply();
       }, 100);
     };
     $scope.getDefaultValue();
@@ -120,10 +116,10 @@ starterControllers
     });
 
     $scope.saveCaption = function (data, imgIndex) {
-      var house = homeRef.child(houses[i].$id);
+      var house = homesDB.child(houses[i].$id);
       var captionRef = 'img/' + imgIndex + '/caption';
       house.child(captionRef).set(data);
-      setTimeout(function () {
+      $timeout(function () {
         $ionicSlideBoxDelegate.update();
         return true;
       }, 100)
@@ -133,6 +129,7 @@ starterControllers
 
     $scope.submitScore = function () {
       $scope.crowdvalue = $scope.property.crowdvalue;
+      console.log($scope.crowdvalue);
       $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
       if ($scope.score < 0) {
         $scope.score = 0;
@@ -144,11 +141,12 @@ starterControllers
         valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
         // 2.5 means off by 50%
         if ($scope.score > 2) {
-          var house = homeRef.child(houses[i].$id);
+          var house = homesDB.child(houses[i].$id);
           var reputationRef = '/totalReputation';
-          var newrepuationTotal = homeRef[i].totalReputation + $scope.score * 10;
+          //TODO: move score calculation to ultility
+          var newrepuationTotal = homesDB[i].totalReputation + $scope.score * 10;
           var crowdRef = '/crowdvalue';
-          var newCrowdValue = (homeRef[i].crowdvalue * homeRef[i].totalReputation +
+          var newCrowdValue = (homesDB[i].crowdvalue * homesDB[i].totalReputation +
           $scope.home.valuation * $scope.score * 10) / newrepuationTotal;
           console.log('your valuation:' + $scope.home.valuation);
           console.log('old crowd value:' + $scope.crowdvalue);
@@ -166,7 +164,6 @@ starterControllers
       $ionicSlideBoxDelegate.previous();
     };
 
-
     $ionicSlideBoxDelegate.update();
 
     // Called each time the slide changes
@@ -180,11 +177,7 @@ starterControllers
       $ionicSlideBoxDelegate.slide(index);
       $ionicSlideBoxDelegate.update();
     };
-    $scope.$on('modal.hidden', function () {
-      //$scope.clickNext();
-    });
 
-    //moved from slide-nav.html; there probably a simpler way to do this.
     $scope.isTabActive = function (tab) {
       var numSlides = $ionicSlideBoxDelegate.count();
       if (tab == 'photo-tab') {
@@ -200,38 +193,29 @@ starterControllers
     };
 
     $scope.clickNext = function () {
-      setTimeout(function () {
-        //hack: need to call slide twice because images are in ng-repeat's css is not applied.
-        //$ionicSlideBoxDelegate.slide(2);
-        //$ionicSlideBoxDelegate.slide(3);
-        $ionicSlideBoxDelegate.slide(0);
-        $ionicSlideBoxDelegate.update();
-      }, 200);
+
+      $ionicSlideBoxDelegate.slide(0);
+      $ionicSlideBoxDelegate.update();
 
       var length = houses.length;
       $scope.hideDetail = true;
-      //need a delay so the next home's value won't be displayed while the modal hides itself
-      //there should a better way to do this
-      setTimeout(function () {
-        //prevent the next score to be shown
-        if (i < length - 1) {
-          i++;
-        }
-        else {
-          i = 0;
-        }
-        $scope.property = houses[i];
-        $scope.likes = 20;
-        $scope.buildYr = 2014 - $scope.property.buildYr;
-        $scope.hideDetail = true;
-        //prevent the next score to be shown
-        //$scope.crowdvalue = $scope.property.crowdvalue;
-        $scope.map.lat = $scope.property.lat;
-        $scope.map.lng = $scope.property.lng;
-        $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
-        $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
-        $scope.$broadcast('updatemap', $scope.map);
-      }, 100);
+
+      if (i < length - 1) {
+        i++;
+      } else {
+        i = 0;
+      }
+      $scope.property = houses[i];
+      $scope.likes = 20;
+      $scope.buildYr = 2014 - $scope.property.buildYr;
+      $scope.hideDetail = true;
+      //prevent the next score to be shown
+      //$scope.crowdvalue = $scope.property.crowdvalue;
+      $scope.map.lat = $scope.property.lat;
+      $scope.map.lng = $scope.property.lng;
+      $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
+      $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
+      $scope.$broadcast('updatemap', $scope.map);
 
     };
   });

@@ -1,14 +1,10 @@
 starterControllers
 
-.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData) {
+.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
 
   $scope.hideBackButton = true;
 
-  /* FOR DEV PURPOSES */
-  $scope.user = {
-    email: "louis@unlyst.com",
-    password: "unlyst"
-  };
+  $scope.user = {  };
 
   $scope.signIn = function (user) {
     console.log(fireBaseData.ref());
@@ -26,8 +22,11 @@ starterControllers
       password: user.password
     }, function (error, authData) {
       if (error === null) {
+        console.log(authData.password.email);
+        $rootScope.userLogin = 'ion-person';
         $rootScope.hide();
         $state.go('home');
+
       } else {
         switch (error.code) {
           case "INVALID_EMAIL":
@@ -51,16 +50,10 @@ starterControllers
 
 })
 
-.controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData) {
-  $scope.hideBackButton = true;
+.controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData,$firebaseAuth) {
 
-  /* FOR DEV PURPOSES */
-  $scope.user = {
-    firstname: "John",
-    surname: "Doe",
-    email: "johndoe@gmail.com",
-    password: "password"
-  };
+  $scope.hideBackButton = true;
+  $scope.user = {  };
 
   $scope.createUser = function (user) {
     var firstname = user.firstname;
@@ -94,11 +87,12 @@ starterControllers
       }
 
       /* SAVE PROFILE DATA */
-      var usersRef = fireBaseData.refRoomMates();
+      var usersRef = fireBaseData.refUsers();
       var myUser = usersRef.child(escapeEmailAddress(user.email));
+      console.log(myUser);
       myUser.set($scope.temp, function () {
         $rootScope.hide();
-        $state.go('introduction');
+        $state.go('login');
       });
 
     }).catch(function (error) {
@@ -116,4 +110,20 @@ starterControllers
       }
     });
   };
-})
+});
+
+function escapeEmailAddress(email) {
+  if (!email)
+    return false
+  email = email.toLowerCase();
+  email = email.replace(/\./g, ',');
+  return email;
+}
+
+function unescapeEmailAddress(email) {
+  if (!email)
+    return false
+  email = email.toLowerCase();
+  email = email.replace(/\,/g, '.');
+  return email;
+}
