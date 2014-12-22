@@ -6,6 +6,13 @@ starterControllers
 
   $scope.user = {  };
 
+  function onLoginSuccess(authData) {
+    $rootScope.notify("Authenticated successfully!");
+    $rootScope.userLogin = 'ion-person';
+    $rootScope.userid = authData.id;
+    $rootScope.hide();
+    $state.go('home');
+  }
 
   $scope.signIn = function (user) {
     $rootScope.show('Logging In...');
@@ -22,11 +29,7 @@ starterControllers
       password: user.password
     }, function (error, authData) {
       if (error === null) {
-        $rootScope.userLogin = 'ion-person';
-        $rootScope.userid = authData.id;
-        $rootScope.hide();
-        $state.go('home');
-
+        onLoginSuccess(authData);
       } else {
         switch (error.code) {
           case "INVALID_EMAIL":
@@ -53,12 +56,7 @@ starterControllers
       if (error) {
         $rootScope.notify("Login Failed!", error);
       } else {
-        $rootScope.notify("Authenticated successfully!",error);
-        console.log(authData);
-        $rootScope.userLogin = 'ion-person';
-        $rootScope.userid = authData.id;
-        $rootScope.hide();
-        $state.go('home');
+        onLoginSuccess(authData);
       }
     }, {
       //http://graph.facebook.com/userid/picture
@@ -66,12 +64,23 @@ starterControllers
     });
   };
 
+  $scope.googleLogin = function () {
+    fireBaseData.ref().authWithOAuthPopup("google", function(error, authData) {
+      if (error) {
+        $rootScope.notify("Login Failed!", error);
+      } else {
+        onLoginSuccess(authData);
+      }
+    }, {
+      scope: "email"
+    });
+  };
   /* LOGOUT BUTTON */
   $scope.logout = function () {
     $ionicHistory.clearCache();
     fireBaseData.ref().unauth();
     $rootScope.checkSession();
-    $rootScope.notify("Logged out successfully!",error);
+    $rootScope.notify("Logged out successfully!");
   };
 
   $rootScope.checkSession = function () {

@@ -1,19 +1,24 @@
 <ion-view cache-view="false">
   <ion-content class="padding-top">
-    <div class="list">
-      <label class="item item-input">
-        <span class="input-label">Email</span>
-        <input type="text" ng-model="user.email">
-      </label>
-      <label class="item item-input">
-        <span class="input-label">Password</span>
-        <input type="password" ng-model="user.password">
-      </label>
-    </div>
     <div class="padding">
-      <button class="button button-block button-positive" ng-click="facebookLogin()" nav-clear>
+      <button class="button button-block button-positive icon-left ion-social-facebook" nav-clear
+              ng-click="facebookLogin()" style="background: #4c66a4;">
         Log in with Facebook
       </button>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-assertive icon-left ion-social-google" nav-clear
+              ng-click="googleLogin()" style="">
+        Log in with Google+
+      </button>
+    </div>
+    <div class="text-center">Log in with Email and Password</div>
+    <div class="list">
+      <label class="item item-input"> <span class="input-label">Email</span>
+        <input type="text" ng-model="user.email">
+      </label> <label class="item item-input"> <span class="input-label">Password</span>
+      <input type="password" ng-model="user.password">
+    </label>
     </div>
     <div class="padding">
       <button class="button button-block button-positive" ng-click="signIn(user)" nav-clear>
