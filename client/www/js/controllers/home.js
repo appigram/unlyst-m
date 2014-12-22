@@ -61,13 +61,13 @@ starterControllers
   //test mode
   $scope.stopRecording = false;
 
-  var homesDB = $firebase(fireBaseData.refHomes());
-  var homeRef = homesDB.$asArray();
+  var homesDB = fireBaseData.refHomes();
+  var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
   var valuationDB = fireBaseData.refValuation();
   //init firebase
-  homeRef.$loaded().then(function () {
+  homesRef.$loaded().then(function () {
 
-    var houses = utility.shuffle(homeRef);
+    var houses = utility.shuffle(homesRef);
     var i = 0;
 
     $scope.property = houses[i];
@@ -140,12 +140,13 @@ starterControllers
         valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
         // 2.5 means off by 50%
         if ($scope.score > 2) {
+
           var house = homesDB.child(houses[i].$id);
           var reputationRef = '/totalReputation';
           //TODO: move score calculation to ultility
-          var newrepuationTotal = homesDB[i].totalReputation + $scope.score * 10;
+          var newrepuationTotal = houses[i].totalReputation + $scope.score * 10;
           var crowdRef = '/crowdvalue';
-          var newCrowdValue = (homesDB[i].crowdvalue * homesDB[i].totalReputation +
+          var newCrowdValue = (houses[i].crowdvalue * houses[i].totalReputation +
           $scope.home.valuation * $scope.score * 10) / newrepuationTotal;
           console.log('your valuation:' + $scope.home.valuation);
           console.log('old crowd value:' + $scope.crowdvalue);

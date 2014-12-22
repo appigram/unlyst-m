@@ -1,5 +1,5 @@
 <ion-view cache-view="false">
-  <ion-content  ng-controller="LoginCtrl" class="padding-top">
+  <ion-content class="padding-top">
     <div class="list">
       <label class="item item-input">
         <span class="input-label">Email</span>
@@ -11,14 +11,22 @@
       </label>
     </div>
     <div class="padding">
+      <button class="button button-block button-positive" ng-click="facebookLogin()" nav-clear>
+        Log in with Facebook
+      </button>
+    </div>
+    <div class="padding">
       <button class="button button-block button-positive" ng-click="signIn(user)" nav-clear>
         Log in
       </button>
       <p class="text-center">
-        <a ui-sref="register" class="button button-block button-assertive">
+        <a ui-sref="register" class="button button-block button-positive">
           Register
         </a>
       </p>
+      <button class="button button-block button-clear" ng-click="logout()" nav-clear>
+        Logout
+      </button>
     </div>
   </ion-content>
 </ion-view>

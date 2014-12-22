@@ -6,6 +6,7 @@ starterControllers
 
   $scope.user = {  };
 
+
   $scope.signIn = function (user) {
     $rootScope.show('Logging In...');
 
@@ -22,6 +23,7 @@ starterControllers
     }, function (error, authData) {
       if (error === null) {
         $rootScope.userLogin = 'ion-person';
+        $rootScope.userid = authData.id;
         $rootScope.hide();
         $state.go('home');
 
@@ -46,6 +48,43 @@ starterControllers
     });
   };
 
+  $scope.facebookLogin = function () {
+    fireBaseData.ref().authWithOAuthPopup("facebook", function(error, authData) {
+      if (error) {
+        $rootScope.notify("Login Failed!", error);
+      } else {
+        $rootScope.notify("Authenticated successfully!",error);
+        console.log(authData);
+        $rootScope.userLogin = 'ion-person';
+        $rootScope.userid = authData.id;
+        $rootScope.hide();
+        $state.go('home');
+      }
+    }, {
+      //http://graph.facebook.com/userid/picture
+      scope: "email"
+    });
+  };
+
+  /* LOGOUT BUTTON */
+  $scope.logout = function () {
+    $ionicHistory.clearCache();
+    fireBaseData.ref().unauth();
+    $rootScope.checkSession();
+    $rootScope.notify("Logged out successfully!",error);
+  };
+
+  $rootScope.checkSession = function () {
+    $rootScope.authData = fireBaseData.ref().getAuth();
+    if ($rootScope.authData) {
+      $rootScope.hide();
+      $state.go('home');
+
+    }else{
+      $rootScope.hide();
+      $state.go('login');
+    }
+  };
 })
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData,$firebaseAuth) {
@@ -81,7 +120,7 @@ starterControllers
         email: user.email,
         created: Date.now(),
         updated: Date.now()
-      }
+      };
 
       /* SAVE PROFILE DATA */
       var usersRef = fireBaseData.refUsers();
