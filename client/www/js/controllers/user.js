@@ -7,7 +7,6 @@ starterControllers
   $scope.user = {  };
 
   $scope.signIn = function (user) {
-    console.log(fireBaseData.ref());
     $rootScope.show('Logging In...');
 
     /* Check user fields*/
@@ -22,7 +21,6 @@ starterControllers
       password: user.password
     }, function (error, authData) {
       if (error === null) {
-        console.log(authData.password.email);
         $rootScope.userLogin = 'ion-person';
         $rootScope.hide();
         $state.go('home');
@@ -30,16 +28,16 @@ starterControllers
       } else {
         switch (error.code) {
           case "INVALID_EMAIL":
-            console.log("The specified user account email is invalid.");
+            $rootScope.notify("The specified user account email is invalid.");
             break;
           case "INVALID_PASSWORD":
-            console.log("The specified user account password is incorrect.");
+            $rootScope.notify("The specified user account password is incorrect.");
             break;
           case "INVALID_USER":
-            console.log("The specified user account does not exist.");
+            $rootScope.notify("The specified user account does not exist.");
             break;
           default:
-            console.log("Error logging user in:", error);
+            $rootScope.notify("Error logging user in:", error);
 
         }
         $rootScope.hide();
@@ -70,7 +68,6 @@ starterControllers
 
     var auth = $firebaseAuth(fireBaseData.ref());
     auth.$createUser(email, password).then(function (error) {
-      console.log("User created successfully!");
       return auth.$authWithPassword({
         email: email,
         password: password
@@ -89,7 +86,6 @@ starterControllers
       /* SAVE PROFILE DATA */
       var usersRef = fireBaseData.refUsers();
       var myUser = usersRef.child(escapeEmailAddress(user.email));
-      console.log(myUser);
       myUser.set($scope.temp, function () {
         $rootScope.hide();
         $state.go('login');

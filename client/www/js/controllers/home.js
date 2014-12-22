@@ -129,7 +129,6 @@ starterControllers
 
     $scope.submitScore = function () {
       $scope.crowdvalue = $scope.property.crowdvalue;
-      console.log($scope.crowdvalue);
       $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
       if ($scope.score < 0) {
         $scope.score = 0;
