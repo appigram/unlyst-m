@@ -44,7 +44,7 @@ starterControllers
 })
 
 .controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout) {
-  //$scope.activeSlide = 3;
+  
   $scope.activeSlide = 0;
 
   //bind model to scoep; set valuation
@@ -157,6 +157,9 @@ starterControllers
       }
     };
 
+    $scope.numInfoSlides = 3;
+    $scope.numPhotoSlides = $ionicSlideBoxDelegate.count() - $scope.numInfoSlides - 1;
+      
     $scope.next = function () {
       $ionicSlideBoxDelegate.next();
     };
@@ -181,10 +184,10 @@ starterControllers
     $scope.isTabActive = function (tab) {
       var numSlides = $ionicSlideBoxDelegate.count();
       if (tab == 'photo-tab') {
-        return $scope.activeSlide < numSlides - 3;
+        return $scope.activeSlide < numSlides - $scope.numInfoSlides - 1;
       }
       else if (tab == 'info-tab') {
-        return $scope.activeSlide == numSlides - 2 || $scope.activeSlide == numSlides - 3;
+        return $scope.activeSlide < numSlides - 1 && $scope.activeSlide >= numSlides - $scope.numInfoSlides - 1;
       }
       else if (tab == 'map-tab') {
         return $scope.activeSlide == numSlides - 1;
