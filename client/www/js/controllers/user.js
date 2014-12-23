@@ -4,7 +4,9 @@ starterControllers
 
   $scope.hideBackButton = true;
 
-  $scope.user = {  };
+  $rootScope.user = {  };
+  $rootScope.user.username = $scope.user.username;
+  $rootScope.user.password = $scope.user.password;
 
   function onLoginSuccess(authData) {
     $rootScope.notify("Authenticated successfully!");
@@ -97,9 +99,7 @@ starterControllers
 })
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData,$firebaseAuth) {
-
   $scope.hideBackButton = true;
-  $scope.user = {  };
 
   $scope.createUser = function (user) {
     var firstname = user.firstname;

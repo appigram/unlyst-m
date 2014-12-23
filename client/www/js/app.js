@@ -77,6 +77,11 @@ starter
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    if(typeof analytics !== "undefined") {
+      analytics.startTrackerWithId("UA-57937417-1");
+    } else {
+      console.log("Google Analytics Unavailable");
+    }
   });
 })
 //
