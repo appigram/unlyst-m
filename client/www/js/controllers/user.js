@@ -132,6 +132,10 @@ starterControllers
     var auth = $firebaseAuth(fireBaseData.ref());
     var saveUserProfile = function (authData) {
       authData.updated = Firebase.ServerValue.TIMESTAMP;
+      var temp = {};
+      temp.firstname = user.firstname;
+      temp.lastname = user.surname;
+      authData.user = temp;
       /* SAVE PROFILE DATA */
       var usersRef = fireBaseData.refUsers();
       usersRef.child(authData.uid).set(authData, function() {
