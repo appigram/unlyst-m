@@ -46,7 +46,7 @@ starterControllers
 .controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout) {
   
   $scope.activeSlide = 0;
-
+  
   //bind model to scoep; set valuation
   $scope.home = {};
   $scope.home.valuation = 100000;
@@ -156,9 +156,6 @@ starterControllers
         }
       }
     };
-
-    $scope.numInfoSlides = 3;
-    $scope.numPhotoSlides = $ionicSlideBoxDelegate.count() - $scope.numInfoSlides - 1;
       
     $scope.next = function () {
       $ionicSlideBoxDelegate.next();
@@ -168,33 +165,44 @@ starterControllers
     };
 
     $ionicSlideBoxDelegate.update();
-
+    
     // Called each time the slide changes
     $scope.slideHasChanged = function (index) {
       $ionicSlideBoxDelegate.slide(index);
       $scope.activeSlide = index;
       $ionicSlideBoxDelegate.update();
+      updateTabs();
     };
 
-    $scope.slideToIndex = function (index) {
-      $ionicSlideBoxDelegate.slide(index);
-      $ionicSlideBoxDelegate.update();
-    };
-
-    $scope.isTabActive = function (tab) {
-      var numSlides = $ionicSlideBoxDelegate.count();
-      if (tab == 'photo-tab') {
-        return $scope.activeSlide < numSlides - $scope.numInfoSlides - 1;
-      }
-      else if (tab == 'info-tab') {
-        return $scope.activeSlide < numSlides - 1 && $scope.activeSlide >= numSlides - $scope.numInfoSlides - 1;
-      }
-      else if (tab == 'map-tab') {
-        return $scope.activeSlide == numSlides - 1;
-      }
-      return false;
-    };
-
+    //for tabs showing correctly
+    $scope.numSlides = 0;
+    $scope.numInfoSlides = 3;
+    $scope.curPhotoSlide = $scope.curInfoSlide = '';
+    function updateTabs() {
+        //$ionicSlideBoxDelegate.update();
+        $scope.numSlides = $ionicSlideBoxDelegate.count();
+        $scope.curPhotoSlide = $scope.curInfoSlide = '';
+        if($scope.isPhotoSlide()) {
+            var curSlide = $scope.activeSlide + 1;
+            $scope.curPhotoSlide = curSlide + '/' + $scope.property.img.length;
+        }
+        else if($scope.isInfoSlide()) {
+            var curSlide = $scope.activeSlide - $scope.property.img.length + 1;
+            $scope.curInfoSlide = curSlide + '/' + $scope.numInfoSlides;
+        }
+    }
+    
+    $scope.isPhotoSlide = function() {
+        return $scope.activeSlide < $scope.numSlides - $scope.numInfoSlides - 1; 
+    }
+    $scope.isInfoSlide = function() {
+        return $scope.activeSlide < $scope.numSlides - 1 
+            && $scope.activeSlide >= $scope.numSlides - $scope.numInfoSlides - 1;
+    }
+    $scope.isMapSlide = function() {
+        return $scope.activeSlide == $scope.numSlides - 1;
+    }
+    
     $scope.clickNext = function () {
 
       $ionicSlideBoxDelegate.slide(0);
@@ -220,7 +228,15 @@ starterControllers
       $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
       $scope.$broadcast('updatemap', $scope.map);
 
+      updateTabs();
     };
+      
+    //need a timeout for slidebox to load so that tabs display correctly 
+    setTimeout(function(){   
+      $ionicSlideBoxDelegate.update();
+      updateTabs();
+    },100);
+      
   });
 })
 

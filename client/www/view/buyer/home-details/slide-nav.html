@@ -1,15 +1,15 @@
 <div class="tab-custom-slider">
   <div class="tabs-striped tabs-color-assertive">
     <div class="tabs tabs-icon-left">
-      <a class="tab-item" href="#" ng-click="slideHasChanged(0)" ng-class="{'active': isTabActive('photo-tab')}">
+      <a class="tab-item" href="#" ng-click="slideHasChanged(0)" ng-class="{'active': isPhotoSlide()}">
         <i class="icon ion-images"></i>
-        Photos
+        {{curPhotoSlide}}
       </a>
-      <a class="tab-item" href="#"  ng-click="slideHasChanged(count-numInfoSlides-1)" ng-class="{'active': isTabActive('info-tab')}">
+      <a class="tab-item" href="#"  ng-click="slideHasChanged(count-numInfoSlides-1)" ng-class="{'active': isInfoSlide()}">
         <i class="icon ion-information-circled"></i>
-        Info
+        {{curInfoSlide}}
       </a>
-      <a class="tab-item" href="#"  ng-click="slideHasChanged(count-1)" ng-class="{'active': isTabActive('map-tab')}">
+      <a class="tab-item" href="#"  ng-click="slideHasChanged(count-1)" ng-class="{'active': isMapSlide()}">
         <i class="icon ion-map"></i>
         Maps
       </a>
