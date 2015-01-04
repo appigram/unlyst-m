@@ -1,82 +1,107 @@
-<ion-view title="Photos">
+<ion-view>
     <ion-content>
+        <div> big logo!</div>
+        <br>
         <div>
             <p>Now it's the time to enter a bit more information about your home so that the market can figure out
                 what it's worth!</p>
         </div>
         <br>
         <div>
-            <select>
-                <option value="condominium">Condominium</option>
-                <option value="semiHouse">Semi-detached House</option>
-                <option value="detachedHouse">Detached House</option>
-                <option value="townHouse">Townhouse</option>
+            Home Type:
+            <select ng-model = "home.homeType"
+                    ng-options="homeType.value as homeType.name for homeType in homeSchema.homeTypes">
+            </select>
+            building Type:
+            <select ng-model = "home.buildingType"
+                    ng-options="buildingType.value as buildingType.name for buildingType in homeSchema.buildingTypes">
             </select>
         </div>
 
         <div class="list list-inset">
             <label class="item item-input item-input-wrapper">
-                <input type="text" placeholder="Building Name (If applicable)" ng-model="buildName"><br>
+                <input type="text" placeholder="Building Name (If applicable)" ng-model="home.buildName"><br>
             </label>
         </div>
         <div class="list list-inset">
             <label class="item item-input item-input-wrapper">
-                <input type="text" placeholder="Size in square feet(finished areas only)" ng-model="size"><br>
+                <input type="text" placeholder="Size in square feet(finished areas only)" ng-model="home.size"><br>
             </label>
         </div>
         <div>
-            <select>
-                <option value="" default selected>Bedrooms</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+            # of bdroom
+            <select ng-model = "home.bedroomNum"
+                    ng-options = "bedroomNum for bedroomNum in homeSchema.bedRooms">
             </select>
-            <select>
-                <option value="" default selected>Bathrooms</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+            # of bathroom
+            <select ng-model = "home.bathroomNum"
+                    ng-options = "bathroomNum for bathroomNum in homeSchema.bathRooms">
             </select>
         </div>
         <div>
-            <select>
-                <option value="" default selected>Parking Type</option>
-                <option value="1">Garage</option>
-                <option value="2">Undergrand</option>
+            Parking Type:
+            <select ng-model = "home.parkingType"
+                    ng-options = "type.value as type.name for type in homeSchema.parkingType">
             </select>
-            <select>
-                <option value="" default selected>Parking Spaces</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+            parking Space:
+            <select ng-model = "home.parkingSpace"
+                    ng-options = "space for space in homeSchema.parkingSpace">
             </select>
         </div>
         <div class="list list-inset">
             <label class="item item-input item-input-wrapper">
-                <input type="text" placeholder="Maintenance Fee Per Month" ng-model="size"><br>
+                <input type="text" placeholder="Maintenance Fee Per Month" ng-model="home.maintenanceFee"><br>
+            </label>
+        </div>
+        <div class="list list-inset">
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="Year build" ng-model="home.yearBuilt"><br>
             </label>
         </div>
         <div>
             Additional Spaces (check all that apply)<br>
-            <input type = "checkbox" name = "addtionalSpace" value="Den"> Den<br>
-            <input type = "checkbox" name = "addtionalSpace" value="Study"> Study<br>
-            <input type = "checkbox" name = "addtionalSpace" value="Sunroom"> Sunroom
+            <label ng-repeat = "space in homeSchema.additionalSpace">
+                <input type = "checkbox"
+                       value="{{space}}"
+                       ng-click = "toggleSelection(space, home.additionalSpace)"
+                > {{space}}<br>
+            </label>
+        </div>
+        <div>
+            Storage Locker
+            <input type = "checkbox"
+                   ng-model="home.storageLocker"
+             >
         </div>
         <div>
             Outdoor Spaces (check all that apply)<br>
-            <input type = "checkbox" name = "outdoorSpace" value="Backyard"> Backyard<br>
-            <input type = "checkbox" name = "outdoorSpace" value="Balcony"> Balcony<br>
-            <input type = "checkbox" name = "outdoorSpace" value="Terrace"> Terrace
+            <label ng-repeat = "space in homeSchema.outdoorSpace">
+                <input type = "checkbox"
+                       value="{{space.value}}"
+                       ng-click = "toggleSelection(space.value, home.outdoorSpace)"
+            > {{space.name}}<br>
+            </label>
         </div>
         <div>
-            Orientation (check all that apply)<br>
-            <input type = "checkbox" name = "orientation" value="North"> North<br>
-            <input type = "checkbox" name = "orientation" value="East"> East<br>
-            <input type = "checkbox" name = "orientation" value="South"> South<br>
-            <input type = "checkbox" name = "orientation" value="West"> West<br>
+        Orientation (check all that apply)<br>
+        <label ng-repeat = "orientation in homeSchema.orientation">
+            <input type = "checkbox"
+                   value="{{orientation}}"
+                   ng-click = "toggleSelection(orientation, home.orientation)"
+            > {{orientation}}<br>
+        </label>
+    </div>
+        <div>
+            Building Amenities (check all that apply)<br>
+            <label ng-repeat = "amenity in homeSchema.amenity">
+                <input type = "checkbox"
+                       value="{{amenity.value}}"
+                       ng-click = "toggleSelection(amenity.value, home.amenity)"
+                > {{amenity.name}}<br>
+            </label>
         </div>
         <button class="button button-median button-assertive" ng-click="goToPg3()">NEXT</button><br>
         Step 2 of 3
+        {{home}}
     </ion-content>
 </ion-view>

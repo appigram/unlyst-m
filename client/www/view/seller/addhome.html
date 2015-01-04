@@ -11,17 +11,25 @@
 
         <div class="list list-inset">
             <label class="item item-input item-input-wrapper">
-                <input type="text" placeholder="e.g. 1 Yonge Street (only Toronto addresses)" ng-model="address"><br>
+                <input type="text" placeholder="e.g. 1 Yonge Street (only Toronto addresses)" ng-model="home.address"><br>
             </label>
         </div>
         <div class="list list-inset">
             <label class="item item-input item-input-wrapper">
-                <input type="text" placeholder="Suite Number (if applicable)" ng-model = "suiteNumber">
+                <input type="text" placeholder="Suite Number (if applicable)" ng-model = "home.suiteNumber">
+            </label>
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="Postal Code" ng-model = "home.postalCode">
             </label>
         </div>
-        <input type = "checkbox" ng-model="hideAddress"> Hide my exact address from users<br>
+        <div class="list list-inset">
+            <label class="item item-input item-input-wrapper">
+                <input type="text" placeholder="Neighborhood" ng-model = "home.neighborhood">
+            </label>
+        </div>
+        <input type = "checkbox" ng-model="home.hideAddress"> Hide my exact address from users<br>
         <button class="button button-median button-assertive" ng-click="goToPg2()">NEXT</button><br>
         Step 1 of 3
-        <br><br>{{test + address}}
+        <br><br>{{home}}
     </ion-content>
 </ion-view>
