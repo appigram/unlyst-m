@@ -175,32 +175,28 @@ starterControllers
     };
 
     //for tabs showing correctly
-    $scope.numSlides = 0;
-    $scope.numInfoSlides = 3;
+    var numSlides = 0;
     $scope.curPhotoSlide = $scope.curInfoSlide = '';
-    function updateTabs() {
+    var updateTabs = function() {
         //$ionicSlideBoxDelegate.update();
-        $scope.numSlides = $ionicSlideBoxDelegate.count();
+        numSlides = $ionicSlideBoxDelegate.count();
         $scope.curPhotoSlide = $scope.curInfoSlide = '';
-        if($scope.isPhotoSlide()) {
+        if(isPhotoSlide()) {
             var curSlide = $scope.activeSlide + 1;
             $scope.curPhotoSlide = curSlide + '/' + $scope.property.img.length;
         }
-        else if($scope.isInfoSlide()) {
+        else if(isInfoSlide()) {
             var curSlide = $scope.activeSlide - $scope.property.img.length + 1;
-            $scope.curInfoSlide = curSlide + '/' + $scope.numInfoSlides;
+            $scope.curInfoSlide = curSlide + '/' + 3;
         }
     }
     
-    $scope.isPhotoSlide = function() {
-        return $scope.activeSlide < $scope.numSlides - $scope.numInfoSlides - 1; 
+    var isPhotoSlide = function() {
+        return $scope.activeSlide < numSlides - 3 - 1; 
     }
-    $scope.isInfoSlide = function() {
-        return $scope.activeSlide < $scope.numSlides - 1 
-            && $scope.activeSlide >= $scope.numSlides - $scope.numInfoSlides - 1;
-    }
-    $scope.isMapSlide = function() {
-        return $scope.activeSlide == $scope.numSlides - 1;
+    var isInfoSlide = function() {
+        return $scope.activeSlide < numSlides - 1 
+            && $scope.activeSlide >= numSlides - 3 - 1;
     }
     
     $scope.clickNext = function () {
