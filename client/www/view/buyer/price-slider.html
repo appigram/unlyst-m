@@ -1,8 +1,8 @@
 <div class="priceslider">
   <h5 class="text-center graycolor ">How much is this home worth today?</h5>
   <div class="text-center">
-    <h4>{{home.valuation}}
-      <small><span style="font-size: smaller">&nbsp;(${{home.valuation/property.size | number : 0}}/sf)</span></small>
+    <h4>{{home.valuation | currency:undefined:0}}
+      <span style="font-size: smaller">&nbsp;({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)</span>
     </h4>
   </div>
   <div class="range range-positive">
