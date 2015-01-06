@@ -23,7 +23,8 @@ var paths = {
     './client/www/lib/leaflet/dist/leaflet.css'
   ],
   html: [
-    './client/www/view/**/*.html'
+    './client/www/view/**/*.html',
+    './client/www/*.html'
   ],
   js: [
     './client/www/js/**/*.js'

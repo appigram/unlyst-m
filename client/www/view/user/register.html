@@ -10,13 +10,16 @@
     </label> <label class="item item-input"> <span class="input-label">Password</span>
       <input type="password" ng-model="user.password">
     </label>
+      </label> <label class="item item-input"> <span class="input-label">Confirm Password</span>
+      <input type="password">
+    </label>
     </div>
     <div class="padding">
-      <button class="button button-block button-positive" ng-click="createUser(user)">
+      <button class="button button-block button-assertive" ng-click="createUser(user)">
         Sign Up
       </button>
       <p class="text-center">
-        <a ui-sref="login">Log in</a>
+        <a ui-sref="login" style="color:darkgray"><strong>Log in</strong></a>
       </p>
     </div>
   </ion-content>

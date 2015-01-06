@@ -61,12 +61,14 @@
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <a nav-direction="enter" ui-sref="login">
-      <div class="button icon ion-person" ng-class="userLogin">Login</div>
+      <div class="button icon ion-person" ng-show="true" ng-class="userLogin">Login</div>
+      <div class="button icon ion-person"  ng-show="false">Log out</div>
     </a>
   </ion-nav-buttons>
+
   <ion-nav-buttons side="left">
-    <a nav-direction="enter" ui-sref="addHome">
-      <button class="button button-clear icon ion-plus"></button>
+    <a nav-direction="enter">
+      <button class="button button-clear icon ion-navicon-round"></button>
     </a>
   </ion-nav-buttons>
 </ion-nav-bar>
@@ -78,4 +80,4 @@
 </ion-tab>
 </body>
 </html>
-l>
+
