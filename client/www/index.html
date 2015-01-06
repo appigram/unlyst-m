@@ -5,7 +5,8 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <title>Unlyst</title>
   <!-- index.html will be processed to production.html based on the NODE_ENV, see gulp -->
-  <!-- Do not remove the following comments. We use gulp-preprocess to process the comments--><!-- @echo CSS -->
+  <!-- Do not remove the following comments. We use gulp-preprocess to process the comments-->
+  <!-- @echo CSS -->
   <!-- @if NODE_ENV = 'development' -->
   <link href="css/unlyst.css" rel="stylesheet">
   <!-- @endif -->
@@ -60,7 +61,7 @@
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <a nav-direction="enter" ui-sref="login">
-      <button class="button button-clear icon" ng-class="userLogin"></button>
+      <div class="button icon ion-person" ng-class="userLogin">Login</div>
     </a>
   </ion-nav-buttons>
   <ion-nav-buttons side="left">
@@ -71,15 +72,10 @@
 </ion-nav-bar>
 <!--
   The views will be rendered in the <ion-nav-view> directive below
-  Templates are in the /templates folder (but you could also
-  have templates inline in this html file if you'd like).--><!--<ion-nav-view></ion-nav-view>-->
-<!--<div ng-include src="'templates/home.html'"></div> --><!--<div ng-include src="'templates/addhome.html'"></div>-->
-<!--<div ng-controller="HomeCtrl" ng-include src="'templates/home-details/map.html'"></div>-->
+  Templates are in the /view folder (but you could also
+  have templates inline in this html file if you'd like).-->
 <ion-nav-view></ion-nav-view>
 </ion-tab>
-<!--<div ui-view="home"></div>-->
-<div ui-view="addHome"></div>
-<div ui-view="addHome2"></div>
-<div ui-view="addHome3"></div>
 </body>
 </html>
+l>

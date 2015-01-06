@@ -1,18 +1,24 @@
 <ion-view>
   <ion-content class="padding-top">
+    <div class="text-center">Log in with a social account or email address</div>
     <div class="padding">
       <button class="button button-block button-positive icon-left ion-social-facebook" nav-clear
               ng-click="facebookLogin()" style="background: #4c66a4;">
-        Log in with Facebook
+        Facebook
+      </button>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive icon-left ion-social-twitter" nav-clear
+              ng-click="twitterLogin()" style="background: #4099FF;">
+        Twitter
       </button>
     </div>
     <div class="padding">
       <button class="button button-block button-assertive icon-left ion-social-google" nav-clear
               ng-click="googleLogin()" style="">
-        Log in with Google+
+        Google+
       </button>
     </div>
-    <div class="text-center">Log in with Email and Password</div>
     <div class="list">
       <label class="item item-input"> <span class="input-label">Email</span>
         <input type="text" ng-model="user.email">
@@ -21,17 +27,13 @@
     </label>
     </div>
     <div class="padding">
-      <button class="button button-block button-positive" ng-click="signIn(user)" nav-clear>
+      <button class="button button-block button-assertive" ng-click="signIn(user)" nav-clear>
         Log in
       </button>
-      <p class="text-center">
-        <a ui-sref="register" class="button button-block button-positive">
-          Register
-        </a>
-      </p>
-      <button class="button button-block button-clear" ng-click="logout()" nav-clear>
-        Logout
-      </button>
+      <div class="text-center">Or</div>
+      <div class="text-center">
+        <a ui-sref="register">Register</a>&nbsp;with your email address
+      </div>
     </div>
   </ion-content>
 </ion-view>

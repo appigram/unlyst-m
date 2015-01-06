@@ -93,6 +93,16 @@ starterControllers
       scope: "email,profile"
     });
   };
+  $scope.twitterLogin = function () {
+    fireBaseData.ref().authWithOAuthPopup("twitter", function (error, authData) {
+      if (error) {
+        $rootScope.notify("Login Failed!", error);
+        console.log(authData);
+      } else {
+        onLoginSuccess(authData);
+      }
+    });
+  };
   /* LOGOUT BUTTON */
   $scope.logout = function () {
     $ionicHistory.clearCache();
