@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
-  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable'])
+  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable']);
 var starterControllers = angular.module('starter.controllers', []);
 
 starter
@@ -83,7 +83,7 @@ starter
       console.log("Google Analytics Unavailable");
     }
   });
-})
+});
 //
 //.config(function($stateProvider, $urlRouterProvider) {
 //

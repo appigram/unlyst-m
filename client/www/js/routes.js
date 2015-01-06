@@ -33,8 +33,14 @@ angular.module('starter.routes', [])
   })
 
   .state('addHome2', {
-    url: '/addHome2',
+    url: '/addHome2', 
     templateUrl: 'view/seller/addhome2.html',
+    controller: 'AddHomeCtrl'
+  })
+      
+  .state('addHome3', {
+    url: '/addHome3',
+    templateUrl: 'view/seller/addhome3.html',
     controller: 'AddHomeCtrl'
   });
 

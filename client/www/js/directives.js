@@ -10,5 +10,4 @@ angular.module('starter.directives', [])
       });
     }
   }
-})
-
+});

@@ -236,16 +236,203 @@ starterControllers
   });
 })
 
-.controller('AddHomeCtrl', function ($scope, $state) {
+    .controller('AddHomeCtrl', ['$scope', '$http', '$state', function($scope, $http, $state, imageDB) {
 
-  console.log("AddHomeCtrl");
-  $scope.address = "";
-  $scope.suiteNumber = "";
-  $scope.hideAddress = false;
-  $scope.test = $scope.address + ":" + $scope.suiteNumber + ":" + $scope.hideAddress;
+      console.log("AddHomeCtrl");
+      $scope.homeSchema = {
+        homeTypes : [
+          {
+            name: "Condominium",
+            value: "condominium"
+          },
+          {
+            name: "Semi-datached House",
+            value: "semiHouse"
+          },
+          {
+            name: "Detached House",
+            value: "detachedHouse"
+          },
+          {
+            name: "Townhouse",
+            value: "townHouse"
+          }
+        ],
+        buildingTypes : [
+          {
+            name: "High-rise",
+            value: "highRise"
+          },
+          {
+            name: "Mid-rise",
+            value: "midRise"
+          },
+          {
+            name: "Low-rise",
+            value: "lowRise"
+          }
+        ],
+        bedRooms: [0,1,2,3,4],
+        bathRooms: [0,1,2,3,4],
+        additionalSpace: ['Den','Sunroom'],
+        parkingType: [
+          {
+            name: "n/a",
+            value: "na"
+          },
+          {
+            name: "Underground Garage",
+            value: "underGroundGrg"
+          },
+          {
+            name: "Above Ground Garage",
+            value: "AboveGroundGrg"
+          },
+          {
+            name: "Driveway",
+            value: "driveway"
+          }
+        ],
+        parkingSpace: [0,1,2,3,4],
+        outdoorSpace: [
+          {
+            name: "Balcony",
+            value: "balcony"
+          },
+          {
+            name: "Terrace",
+            value: "terrace"
+          },
+          {
+            name: "Juliet balcony",
+            value: "julietBalcony"
+          }
+        ],
+        orientation: ["North", "East", "South","West"],
+        amenity: [
+          {
+            name: "Pool",
+            value: "pool"
+          },
+          {
+            name: "Gym",
+            value: "gym"
+          },
+          {
+            name: "Sauna",
+            value: "sauna"
+          },
+          {
+            name: "Steam",
+            value: "steam"
+          },
+          {
+            name: "Spa",
+            value: "spa"
+          },
+          {
+            name: "Rooftop",
+            value: "rooftop"
+          },
+          {
+            name: "BBQ",
+            value: "bbq"
+          },
+          {
+            name: "Pet Wash",
+            value: "petWash"
+          },
+          {
+            name: "Concierge",
+            value: "concierge"
+          },
+          {
+            name: "Party Room",
+            value: "partyRoom"
+          }
+        ]
+      };
 
-  $scope.goToPg2 = function () {
-    $state.go('addHome2');
-  };
+      $scope.home = {
+        address: "",
+        suiteNumber : "",
+        city : "Toronto",
+        province:"ON",
+        postalCode: "",
+        neighborhood: "",
+        hideAddress: false,
+        homeType: $scope.homeSchema.homeTypes[0].value,
+        buildingType: $scope.homeSchema.buildingTypes[0].value,
+        buildingName: "",
+        size: '',
+        bedroomNum: $scope.homeSchema.bedRooms[0],
+        bathroomNum: $scope.homeSchema.bathRooms[0],
+        additionalSpace: [],
+        parkingType: $scope.homeSchema.parkingType[0].value,
+        parkingSpace: 0,
+        storageLocker: false,
+        outdoorSpace:[],
+        orientation:[],
+        amenity: [],
+        yearBuilt: '',
+        maintenanceFee: ''
+      };
 
-})
+      $scope.toggleSelection = function(item, selectionArr) {
+        var idx = selectionArr.indexOf(item);
+        // is currently selected
+        if (idx > -1) {
+          selectionArr.splice(idx, 1);
+        }
+        // is newly selected
+        else {
+          selectionArr.push(item)
+        }
+      };
+
+      $scope.goToPg2 = function () {
+        $state.go('addHome2');
+      };
+      $scope.goToPg3 = function () {
+        $state.go('addHome3');
+      };
+      $scope.addhome = function () {
+        console.log("add home");
+        $state.go('home');
+      };
+
+      $scope.uploadFiles = [];
+      $scope.uploadFile = function(files){
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        $scope.uploadFiles.push(fd);
+      };
+
+      $scope.uploadImg = function () {
+        for (var i = 0; i < $scope.uploadFiles.length; i++) {
+          var file = $scope.uploadFiles[i];
+          console.log(file);
+          if(file) {
+            var req = {
+              url:'/upload',
+              data: file,
+              method: 'POST',
+              withCredentials:true,
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+            };
+
+            $http(req).success(function(data) {
+              console.log("OK", data);
+            }).error(function(err){
+              console.log(err);
+            });
+          }
+          else {
+            // No File Selected
+            alert('No File Selected');
+          }
+        }
+
+      };
+}]);
