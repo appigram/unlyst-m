@@ -3,7 +3,6 @@ var express = require('express'),
     methodOverride = require('method-override'),
     sessions = require('./server/routes/sessions'),
     multer = require('multer'),
-    fs = require('fs'),
     aws = require("aws-sdk"),
     app = express();
 
@@ -14,12 +13,11 @@ var S3_BUCKET = process.env.S3_BUCKET || 'unlyst';
 //app.use(bodyParser());          // pull information from html in POST
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
-app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
 app.use(methodOverride());      // simulate DELETE and PUT
 
 app.use(multer({
-                dest:'./upload/'
-                }));
+    inMemory: true
+}));
 
 app.use(express.static('client/www'));
 
@@ -43,9 +41,9 @@ app.get('*', function(req,res) {
 });
 
 aws.config.update({
-                    accessKeyId: AWS_ACCESS_KEY ,
-                    secretAccessKey: AWS_SECRET_KEY
-                 });
+    accessKeyId: AWS_ACCESS_KEY ,
+    secretAccessKey: AWS_SECRET_KEY
+});
 
 aws.config.region = 'us-east-1';
 var s3 = new aws.S3();
@@ -53,40 +51,29 @@ var s3 = new aws.S3();
 app.post('/upload', function (req,res){
     console.log("in post");
     var path = req.files.file.path;
-    console.log("path: " + path);
-    fs.readFile(path, function(err,file_buffer){
-        console.log("file");
-        var params = {
-            Bucket: S3_BUCKET,
-            Key: "test/" + "testing" + ".jpg",
-            ACL: 'public-read',
-            ContentType: 'image/jpeg',//req.files.type,
-            Body: file_buffer,
-            ServerSideEncryption: 'AES256'
-        };
-
-        s3.putObject(params, function(err, data) {
-            if(err) {
-                // There Was An Error With Your S3 Config
-                console.log("ERROR: " + err.message);
-                return false;
-            }
-            else {
-                // Success!
-                console.log('Upload Done');
-                console.log(data);
+    var params = {
+        Bucket: S3_BUCKET,
+        Key: "test/" + "testing" + ".jpg",
+        ACL: 'public-read',
+        ContentType: 'image/jpeg',
+        Body:req.files.file.buffer,
+        ServerSideEncryption: 'AES256'
+    };
+    s3.putObject(params, function(err, data) {
+        if(err) {
+            // There Was An Error With Your S3 Config
+            return false;
+        } else {
+            // Success!
+            console.log(data);
             }
         })
-            .on('httpUploadProgress',function(progress) {
-                // Log Progress Information
-                console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
-            });
-
-    });
-    console.log(req.files);
-    console.log(typeof(req.files));
+        .on('httpUploadProgress',function(progress) {
+            // Log Progress Information
+            console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+        });
     res.json(req.files);
-
+    res.end("ok");
 });
 
 app.listen(app.get('port'), function () {

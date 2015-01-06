@@ -396,16 +396,9 @@ angular.module('starter.controllers', [])
     var fd = new FormData();
     fd.append("file", files[0]);
     $scope.uploadFiles.push(fd);
-    console.log(files[0]);
-    console.log($scope.uploadFiles);
   };
-
-
+      
   $scope.uploadImg = function () {
-
-    console.log("start to upload files.......");
-    console.log($scope.uploadFiles);
-
     for (var i = 0; i < $scope.uploadFiles.length; i++) {
       var file = $scope.uploadFiles[i];
       console.log(file);
