@@ -1,6 +1,6 @@
 angular.module('starter.routes', [])
 
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -11,41 +11,37 @@ angular.module('starter.routes', [])
 
   .state('home', {
     url: '/',
-    views: {
-      'home': {
-        templateUrl: 'view/buyer/home.html',
-        controller: 'HomeCtrl'
-      }
-    }
+    templateUrl: 'view/buyer/home.html',
+    controller: 'HomeCtrl'
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'view/user/login.html',
+    controller: 'LoginCtrl'
+  })
+  .state('register', {
+    url: '/register',
+    templateUrl: 'view/user/register.html',
+    controller: 'RegisterCtrl'
   })
 
   .state('addHome', {
     url: '/addHome',
-    views: {
-      'addHome': {
-        templateUrl: 'view/seller/addhome.html',
-        controller: 'AddHomeCtrl'
-      }
-    }
+    templateUrl: 'view/seller/addhome.html',
+    controller: 'AddHomeCtrl'
   })
 
   .state('addHome2', {
-    url: '/addHome2',
-    views: {
-      'addHome2': {
-        templateUrl: 'view/seller/addhome2.html',
-        controller: 'AddHomeCtrl'
-      }
-    }
+    url: '/addHome2', 
+    templateUrl: 'view/seller/addhome2.html',
+    controller: 'AddHomeCtrl'
   })
+      
   .state('addHome3', {
     url: '/addHome3',
-    views: {
-      'addHome2': {
-        templateUrl: 'view/seller/addhome3.html',
-        controller: 'AddHomeCtrl'
-      }
-    }
+    templateUrl: 'view/seller/addhome3.html',
+    controller: 'AddHomeCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback
@@ -54,4 +50,4 @@ angular.module('starter.routes', [])
   //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
   //$locationProvider.html5Mode(true).hashPrefix('!');
 
-})
+});

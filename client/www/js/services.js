@@ -1,37 +1,45 @@
 angular.module('starter.services', [])
 
-.factory('houseDB', ["$firebase", function ($firebase) {
+.factory('fireBaseData', ["$firebase", function ($firebase) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
-  var configValue;
+  var homeInfo;
+  var valuationData;
+  var refUserConfig;
+  var refConfig = 'https://fiery-heat-1976.firebaseio.com';
+
   /* @if NODE_ENV='production' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
+  homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
+  valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
+  refUserConfig = "https://fiery-heat-1976.firebaseio.com/user/";
   /* @endif */
 
   /* @if NODE_ENV='development' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
-  /* @endif */
-  var ref = new Firebase(configValue);
-  return ref;
-}
-])
-
-.factory('valuationDB', ["$firebase", function () {
-  //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
-  //Do not remove the comments below. 
-  var configValue;
-  /* @if NODE_ENV='production' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
+  homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
+  valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations';
+  refUserConfig = "https://fiery-heat-1976.firebaseio.com/user-test/";
   /* @endif */
 
-  /* @if NODE_ENV='development' */
-  configValue = 'https://fiery-heat-1976.firebaseio.com/valuations';
-  /* @endif */
+  var ref = new Firebase(refConfig);
+  var refHomes = new Firebase(homeInfo);
+  var refValuation = new Firebase(valuationData);
+  var refUser = new Firebase(refUserConfig);
 
-  var ref = new Firebase(configValue);
-  return ref;
-}
-])
+  return {
+    ref: function () {
+      return ref;
+    },
+    refValuation: function () {
+      return refValuation;
+    },
+    refHomes: function () {
+      return refHomes;
+    },
+    refUsers: function () {
+      return refUser;
+    }
+  };
+}])
 
 .factory('utility', [function ($scope) {
   return {
@@ -54,15 +62,15 @@ angular.module('starter.services', [])
       return array;
     },
     defaultCondoValue: function calculateDefaultValue(size) {
-      return size*500;
+      return size * 500;
     },
     maxCondoValue: function calculateDefaultValue(size) {
       //var randomScale = window.Math.floor((window.Math.random() * -0.2) + 0.2);
-      if(size*1000 > 1000000) {
-        return size*1000;
+      if (size * 1000 > 1000000) {
+        return size * 1000;
       }
       //mininum value of 1 mil
       return 1000000;
     }
-  };
-}]);
+  }
+}])

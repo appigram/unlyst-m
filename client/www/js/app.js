@@ -5,9 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'starter.services', 'starter.filters',
+var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
   'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable'])
+var starterControllers = angular.module('starter.controllers', []);
 
+starter
 //interceptor for http request. Show loading icon.
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push(function ($rootScope) {
@@ -24,7 +26,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'st
   })
 })
 
-.run(function ($rootScope, $ionicLoading) {
+.run(function ($rootScope, $ionicLoading,$ionicPopup) {
+  //not logged in icon
+  $rootScope.userLogin = 'ion-log-in';
+
   $rootScope.$on('loading:show', function () {
     $ionicLoading.show({
       content: 'Loading',
@@ -39,6 +44,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'st
       $ionicLoading.hide();
   });
 
+  $rootScope.notify = function(title,text) {
+    var alertPopup = $ionicPopup.alert({
+      title: title ? title : 'Error',
+      template: text
+    });
+  };
+
+  $rootScope.hide = function (text) {
+    $ionicLoading.hide();
+  };
+
+  $rootScope.show = function (text) {
+    $rootScope.loading = $ionicLoading.show({
+      template: '<i class="icon ion-looping"></i><br>' + text,
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+  };
 })
 
 .run(function ($ionicPlatform) {
@@ -52,7 +77,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.routes', 'st
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    if(typeof analytics !== "undefined") {
+      analytics.startTrackerWithId("UA-57937417-1");
+    } else {
+      console.log("Google Analytics Unavailable");
+    }
   });
 })
-
+//
+//.config(function($stateProvider, $urlRouterProvider) {
+//
+//  $stateProvider
+//  .state('signin', {
+//    url: '/sign-in',
+//    templateUrl: 'view/user/login.html',
+//    controller: 'HomeCtrl'
+//  })
+//
+//  $urlRouterProvider.otherwise('/sign-in');
+//
+//})
 

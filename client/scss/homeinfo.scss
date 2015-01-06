@@ -6,7 +6,7 @@ $slider-height: 238px;
   .tabs {
     position: relative !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.30);
-    height: 35px;
+    height: 40px;
     line-height: 40px;
     padding: 0;
   }
@@ -17,12 +17,12 @@ $slider-height: 238px;
   min-height: $slider-height;
   height: 100%;
   h3 {
-    color: $light;
+    color: $dark;
     margin-top: 1px;
     margin-bottom: 1px;
   }
   h6 {
-    color: $gray-verylight;
+    color: $gray-dark;
     margin-top: 1px;
     margin-bottom: 1px;
   }
@@ -31,11 +31,11 @@ $slider-height: 238px;
 .home-detail-info {
   letter-spacing: 1px;
   span {
-    color: $gray-lighter;
+    color: $gray-dark;
     font-weight: 300;
   }
   h6 {
-    color: $light;
+    color: $dark;
     margin-top: 4px;
     margin-bottom: 4px;
     font-weight: 600;
@@ -44,7 +44,7 @@ $slider-height: 238px;
 
 .valdIcon {
   width: 32px;
-
+  filter: #{"invert(1)"};
 }
 
 .iconheight {

@@ -1,8 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body></body>
-</html>
+<ion-view>
+  <ion-content class="padding-top">
+    <div class="padding">
+      <button class="button button-block button-positive icon-left ion-social-facebook" nav-clear
+              ng-click="facebookLogin()" style="background: #4c66a4;">
+        Log in with Facebook
+      </button>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-assertive icon-left ion-social-google" nav-clear
+              ng-click="googleLogin()" style="">
+        Log in with Google+
+      </button>
+    </div>
+    <div class="text-center">Log in with Email and Password</div>
+    <div class="list">
+      <label class="item item-input"> <span class="input-label">Email</span>
+        <input type="text" ng-model="user.email">
+      </label> <label class="item item-input"> <span class="input-label">Password</span>
+      <input type="password" ng-model="user.password">
+    </label>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="signIn(user)" nav-clear>
+        Log in
+      </button>
+      <p class="text-center">
+        <a ui-sref="register" class="button button-block button-positive">
+          Register
+        </a>
+      </p>
+      <button class="button button-block button-clear" ng-click="logout()" nav-clear>
+        Logout
+      </button>
+    </div>
+  </ion-content>
+</ion-view>
