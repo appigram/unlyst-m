@@ -37,7 +37,7 @@ app.set('port', process.env.PORT || 5000);
 //    res.sendFile(__dirname + '/client/www/view/index.html');
 //});
 app.get('*', function(req,res) {
-    res.sendFile(__dirname + '/client/www/view/index.html');
+    res.sendFile(__dirname + '/client/www/index.html');
 });
 
 aws.config.update({
@@ -49,8 +49,6 @@ aws.config.region = 'us-east-1';
 var s3 = new aws.S3();
 
 app.post('/upload', function (req,res){
-    console.log("in post");
-    var path = req.files.file.path;
     var params = {
         Bucket: S3_BUCKET,
         Key: "test/" + "testing" + ".jpg",
