@@ -1,4 +1,7 @@
 function getNameFromAuthData(authData) {
+  if(authData===null){
+    return null;
+  }
   if(authData.provider ==='google'){
     return authData.google.displayName.split(' ')[0];
   }
