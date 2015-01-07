@@ -31,6 +31,7 @@ starterControllers
     $rootScope.userLogin = 'ion-person';
     $rootScope.userid = authData.id;
     $rootScope.authData = authData;
+    $rootScope.userDisplayName = getNameFromAuthData(authData);
     $rootScope.hide();
     $state.go('home');
   }
