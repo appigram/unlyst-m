@@ -3,22 +3,16 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
+// 'ionic.contrib.ui.tinderCards' is found in ionic.tdcards.js
 angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
 
-
-.config(function($stateProvider, $urlRouterProvider) {
-
-})
-
-.directive('noScroll', function($document) {
+.directive('noScroll', function() {
 
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
 
-      $document.on('touchmove', function(e) {
+      $element.on('touchmove', function(e) {
         e.preventDefault();
       });
     }
@@ -26,14 +20,11 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
 })
 
 .controller('CardsCtrl', function($scope, TDCardDelegate) {
-  console.log('CARDS CTRL');
   var cardTypes = [
     { image: 'max.jpg' },
     { image: 'ben.png' },
     { image: 'perry.jpg' },
   ];
-
-  $scope.cards = Array.prototype.slice.call(cardTypes, 0);
 
   $scope.cardDestroyed = function(index) {
     $scope.cards.splice(index, 1);
@@ -42,8 +33,11 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
   $scope.addCard = function() {
     var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
     newCard.id = Math.random();
-    $scope.cards.push(angular.extend({}, newCard));
+    $scope.cards.unshift(angular.extend({}, newCard));
   }
+  
+  $scope.cards = [];
+  for(var i = 0; i < 3; i++) $scope.addCard();
 })
 
 .controller('CardCtrl', function($scope, TDCardDelegate) {

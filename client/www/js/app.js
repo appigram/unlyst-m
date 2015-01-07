@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
-  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable']);
+  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable','angulartics', 'angulartics.google.analytics']);
 var starterControllers = angular.module('starter.controllers', []);
 
 starter
@@ -80,7 +80,7 @@ starter
     if(typeof analytics !== "undefined") {
       analytics.startTrackerWithId("UA-57937417-1");
     } else {
-      console.log("Google Analytics Unavailable");
+      console.log("Google Analytics Unavailable for IOS/Android");
     }
   });
 });
