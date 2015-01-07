@@ -72,8 +72,8 @@
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <a nav-direction="enter" ui-sref="login">
-      <div class="button icon ion-person" ng-show="true" ng-class="userLogin">Login</div>
-      <div class="button icon ion-person"  ng-show="false">Log out</div>
+      <div class="button icon ion-person" ng-show="userDisplayName == null" ng-class="userLogin">Login</div>
+      <div class="button icon ion-person"  ng-show="userDisplayName!=null">{{userDisplayName}}</div>
     </a>
   </ion-nav-buttons>
 

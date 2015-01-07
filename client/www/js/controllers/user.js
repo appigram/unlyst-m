@@ -1,3 +1,17 @@
+function getNameFromAuthData(authData) {
+  if(authData.provider ==='google'){
+    return authData.google.displayName.split(' ')[0];
+  }
+  if(authData.provider ==='facebook'){
+    return authData.facebook.displayName.split(' ')[0];
+  }
+  if(authData.provider ==='twitter'){
+    return authData.twitter.displayName.split(' ')[0];
+  }
+  if(authData.provider ==='password'){
+    return authData.user.firstname;
+  }
+}
 starterControllers
 
 .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
@@ -13,6 +27,7 @@ starterControllers
     $rootScope.notify("Authenticated successfully!");
     $rootScope.userLogin = 'ion-person';
     $rootScope.userid = authData.id;
+    $rootScope.authData = authData;
     $rootScope.hide();
     $state.go('home');
   }
@@ -21,16 +36,14 @@ starterControllers
     authData.updated = Firebase.ServerValue.TIMESTAMP;
     /* SAVE PROFILE DATA */
     var usersRef = fireBaseData.refUsers();
+    //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
     usersRef.child(authData.uid).set(authData);
-    //usersRef.child(authData.uid).once('value', function (snapshot){
-    //  if(snapshot.val() === null){
-    //    usersRef.child(authData.uid).set(authData);
-    //  }
-    //});
+
   };
   //TODO: make sure users cannot log in again after already logged in. only log out.
-  var authenticated = fireBaseData.ref().getAuth();
-  console.log(authenticated);
+  $rootScope.authData = fireBaseData.ref().getAuth();
+  $rootScope.userDisplayName = getNameFromAuthData($rootScope.authData);
+  console.log($rootScope.authData);
 
   $scope.signIn = function (user) {
     $rootScope.show('Logging In...');

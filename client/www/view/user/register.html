@@ -2,16 +2,15 @@
   <ion-content ng-controller="RegisterCtrl" class="padding-top">
     <div class="list">
       <label class="item item-input"> <span class="input-label">First Name</span>
-        <input type="text" ng-model="user.firstname">
+        <input type="text" ng-model="user.firstname" name="firstname" ng-minlength="1" ng-maxlength="30">
       </label> <label class="item item-input"> <span class="input-label">Last Name</span>
-      <input type="text" ng-model="user.surname">
+      <input type="text" ng-model="user.surname" name="lastname" ng-minlength="1" ng-maxlength="30">
     </label> <label class="item item-input"> <span class="input-label">Email</span>
-      <input type="email" ng-model="user.email">
+      <input type="email" ng-model="user.email" ng-minlength="5" ng-maxlength="30" required>
     </label> <label class="item item-input"> <span class="input-label">Password</span>
-      <input type="password" ng-model="user.password">
-    </label>
-      </label> <label class="item item-input"> <span class="input-label">Confirm Password</span>
-      <input type="password">
+      <input type="password" ng-model="user.password" ng-minlength="5" ng-maxlength="30" required>
+    </label></label> <label class="item item-input"> <span class="input-label">Confirm Password</span>
+      <input type="password" ng-minlength="5" ng-maxlength="30" required>
     </label>
     </div>
     <div class="padding">
@@ -22,5 +21,7 @@
         <a ui-sref="login" style="color:darkgray"><strong>Log in</strong></a>
       </p>
     </div>
+    <div ng-messages="userForm.emailAddress.$error"
+         ng-messages-include="error-messages.html"></div>
   </ion-content>
 </ion-view>
