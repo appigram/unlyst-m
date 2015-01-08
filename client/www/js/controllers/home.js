@@ -44,9 +44,9 @@ starterControllers
 })
 
 .controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout) {
-  
+
   $scope.activeSlide = 0;
-  
+
   //bind model to scoep; set valuation
   $scope.home = {};
   $scope.home.valuation = 100000;
@@ -156,7 +156,7 @@ starterControllers
         }
       }
     };
-      
+
     $scope.next = function () {
       $ionicSlideBoxDelegate.next();
     };
@@ -165,7 +165,7 @@ starterControllers
     };
 
     $ionicSlideBoxDelegate.update();
-    
+
     // Called each time the slide changes
     $scope.slideHasChanged = function (index) {
       $ionicSlideBoxDelegate.slide(index);
@@ -190,15 +190,15 @@ starterControllers
             $scope.curInfoSlide = curSlide + '/' + 3;
         }
     }
-    
+
     var isPhotoSlide = function() {
-        return $scope.activeSlide < numSlides - 3 - 1; 
+        return $scope.activeSlide < numSlides - 3 - 1;
     }
     var isInfoSlide = function() {
-        return $scope.activeSlide < numSlides - 1 
+        return $scope.activeSlide < numSlides - 1
             && $scope.activeSlide >= numSlides - 3 - 1;
     }
-    
+
     $scope.clickNext = function () {
 
       $ionicSlideBoxDelegate.slide(0);
@@ -226,13 +226,13 @@ starterControllers
 
       updateTabs();
     };
-      
+
     //need a timeout for slidebox to load so that tabs display correctly 
-    setTimeout(function(){   
+    setTimeout(function(){
       $ionicSlideBoxDelegate.update();
       updateTabs();
     },100);
-      
+
   });
 })
 

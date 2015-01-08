@@ -34,6 +34,7 @@
   <!-- TODO:concat and minify js -->
   <script src="js/app.js"></script>
   <script src="js/routes.js"></script>
+  <script src="js/controllers/header.js"></script>
   <script src="js/controllers/home.js"></script>
   <script src="js/controllers/user.js"></script>
   <script src="js/directives.js"></script>
@@ -60,7 +61,7 @@
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
-<ion-nav-bar class="bar-assertive nav-title-slide-ios7">
+<ion-nav-bar class="bar-assertive nav-title-slide-ios7" ng-controller="HeaderCtrl">
   <!--<ion-nav-back-button class="button-clear">-->
     <!--<i class="ion-arrow-left-c"></i>-->
     <!--Back-->
@@ -72,8 +73,10 @@
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <a nav-direction="enter" ui-sref="login">
-      <div class="button icon ion-person" ng-show="userDisplayName == null" ng-class="userLogin">Login</div>
-      <div class="button icon ion-person"  ng-show="userDisplayName!=null">{{userDisplayName}}</div>
+      <div class="button icon ion-person" ng-show="getUserDisplayName() == null" ng-class="userLogin">Login</div>
+    </a>
+    <a>
+      <div class="button icon ion-person"  ng-show="getUserDisplayName() != null">{{getUserDisplayName()}}</div>
     </a>
   </ion-nav-buttons>
 

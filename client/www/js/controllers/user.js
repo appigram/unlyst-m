@@ -1,20 +1,3 @@
-function getNameFromAuthData(authData) {
-  if(authData===null){
-    return null;
-  }
-  if(authData.provider ==='google'){
-    return authData.google.displayName.split(' ')[0];
-  }
-  if(authData.provider ==='facebook'){
-    return authData.facebook.displayName.split(' ')[0];
-  }
-  if(authData.provider ==='twitter'){
-    return authData.twitter.displayName.split(' ')[0];
-  }
-  if(authData.provider ==='password'){
-    return authData.user.firstname;
-  }
-}
 starterControllers
 
 .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
@@ -31,12 +14,12 @@ starterControllers
     $rootScope.userLogin = 'ion-person';
     $rootScope.userid = authData.id;
     $rootScope.authData = authData;
-    $rootScope.userDisplayName = getNameFromAuthData(authData);
+    $rootScope.$apply();
     $rootScope.hide();
     $state.go('home');
   }
 
-  function saveUserProfile(authData) {
+  function saveUserProfile( authData) {
     authData.updated = Firebase.ServerValue.TIMESTAMP;
     /* SAVE PROFILE DATA */
     var usersRef = fireBaseData.refUsers();
@@ -45,16 +28,13 @@ starterControllers
 
   };
   //TODO: make sure users cannot log in again after already logged in. only log out.
-  $rootScope.authData = fireBaseData.ref().getAuth();
-  $rootScope.userDisplayName = getNameFromAuthData($rootScope.authData);
-  console.log($rootScope.authData);
 
   $scope.signIn = function (user) {
     $rootScope.show('Logging In...');
 
     /* Check user fields*/
     if (!user || !user.email || !user.password) {
-      $rootScope.alertPopup('Error', 'Email or Password is incorrect!');
+      $rootScope.notify('Error', 'Email or Password is incorrect!');
       return;
     }
 
@@ -81,7 +61,7 @@ starterControllers
 
         }
         $rootScope.hide();
-        $rootScope.alertPopup('Error', 'Email or Password is incorrect!');
+        $rootScope.notify('Error', 'Email or Password is incorrect!');
       }
     });
   };
@@ -114,7 +94,6 @@ starterControllers
     fireBaseData.ref().authWithOAuthPopup("twitter", function (error, authData) {
       if (error) {
         $rootScope.notify("Login Failed!", error);
-        console.log(authData);
       } else {
         onLoginSuccess(authData);
       }
@@ -165,10 +144,11 @@ starterControllers
       authData.user = temp;
       /* SAVE PROFILE DATA */
       var usersRef = fireBaseData.refUsers();
-      usersRef.child(authData.uid).set(authData, function() {
+      usersRef.child(authData.uid).set(authData, function () {
         $rootScope.hide();
         $state.go('login')
-        $rootScope.notify('Enter your email and password to login. ');;
+        $rootScope.notify('Enter your email and password to login. ');
+        ;
       });
     };
     auth.$createUser(email, password).then(function (error) {
