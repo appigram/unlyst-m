@@ -34,6 +34,7 @@ starterControllers
 
     /* Check user fields*/
     if (!user || !user.email || !user.password) {
+      $rootScope.hide();
       $rootScope.notify('Error', 'Email or Password is incorrect!');
       return;
     }
@@ -58,10 +59,8 @@ starterControllers
             break;
           default:
             $rootScope.notify("Error logging user in:", error);
-
         }
         $rootScope.hide();
-        $rootScope.notify('Error', 'Email or Password is incorrect!');
       }
     });
   };
@@ -99,25 +98,8 @@ starterControllers
       }
     });
   };
-  /* LOGOUT BUTTON */
-  $scope.logout = function () {
-    $ionicHistory.clearCache();
-    fireBaseData.ref().unauth();
-    $rootScope.checkSession();
-    $rootScope.notify("Logged out successfully!");
-  };
 
-  $rootScope.checkSession = function () {
-    $rootScope.authData = fireBaseData.ref().getAuth();
-    if ($rootScope.authData) {
-      $rootScope.hide();
-      $state.go('home');
 
-    } else {
-      $rootScope.hide();
-      $state.go('login');
-    }
-  };
 })
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth) {
@@ -146,9 +128,8 @@ starterControllers
       var usersRef = fireBaseData.refUsers();
       usersRef.child(authData.uid).set(authData, function () {
         $rootScope.hide();
-        $state.go('login')
-        $rootScope.notify('Enter your email and password to login. ');
-        ;
+        $state.go('home');
+        $rootScope.notify('Registered successfully.');
       });
     };
     auth.$createUser(email, password).then(function (error) {

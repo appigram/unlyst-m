@@ -1,27 +1,35 @@
 <ion-view>
   <ion-content ng-controller="RegisterCtrl" class="padding-top">
-    <div class="list">
-      <label class="item item-input"> <span class="input-label">First Name</span>
-        <input type="text" ng-model="user.firstname" name="firstname" ng-minlength="1" ng-maxlength="30">
-      </label> <label class="item item-input"> <span class="input-label">Last Name</span>
-      <input type="text" ng-model="user.surname" name="lastname" ng-minlength="1" ng-maxlength="30">
-    </label> <label class="item item-input"> <span class="input-label">Email</span>
-      <input type="email" ng-model="user.email" ng-minlength="5" ng-maxlength="30" required>
-    </label> <label class="item item-input"> <span class="input-label">Password</span>
-      <input type="password" ng-model="user.password" ng-minlength="5" ng-maxlength="30" required>
-    </label></label> <label class="item item-input"> <span class="input-label">Confirm Password</span>
-      <input type="password" ng-minlength="5" ng-maxlength="30" required>
-    </label>
+    <md-input-container flex>
+      <label>First Name</label>
+      <input ng-model="user.firstname" name="firstname" minlength="2" required>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Last Name</label>
+      <input ng-model="user.surname" name="surname" minlength="2" required>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Email</label>
+      <input ng-model="user.email" name="email" minlength="5" required>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Password</label>
+      <input ng-model="user.password" type="password" name="password" minlength="6" required>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Confirm Password</label>
+      <input name="confirm-password" type="password" minlength="6" required>
+    </md-input-container>
+    <div class="text-center padding">
+      <md-button class="md-raised md-warn"  ng-click="createUser(user)">
+        Sign up
+      </md-button>
     </div>
-    <div class="padding">
-      <button class="button button-block button-assertive" ng-click="createUser(user)">
-        Sign Up
-      </button>
-      <p class="text-center">
-        <a ui-sref="login" style="color:darkgray"><strong>Log in</strong></a>
-      </p>
+    <div class="text-center padding">
+      <md-button class="md-flat" ui-sref="login">
+        Log in
+      </md-button>
     </div>
-    <div ng-messages="userForm.emailAddress.$error"
-         ng-messages-include="error-messages.html"></div>
+    <div ng-messages="userForm.emailAddress.$error" ng-messages-include="error-messages.html"></div>
   </ion-content>
 </ion-view>

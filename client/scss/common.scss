@@ -71,3 +71,19 @@
 .graycolor{
   color:gray;
 }
+
+//Overriding angular material
+body{
+  font-size:16px !important;
+}
+.md-button {
+  padding: 0.5em 2em !important;
+}
+.md-button, .md-header-items-container, .md-action {
+  text-transform: none !important;
+}
+h4,h5,h6{
+  margin: 0.3em 0 !important;
+}
+.text-center         { text-align: center; }
+//Overriding angular material
