@@ -74,3 +74,37 @@ angular.module('starter.services', [])
     }
   }
 }])
+
+.factory('utility', [function ($scope) {
+      return {
+        shuffle: function shuffle(array) {
+          var currentIndex = array.length, temporaryValue, randomIndex;
+
+          // While there remain elements to shuffle...
+          while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+          }
+
+          return array;
+        },
+        defaultCondoValue: function calculateDefaultValue(size) {
+          return size * 500;
+        },
+        maxCondoValue: function calculateDefaultValue(size) {
+          //var randomScale = window.Math.floor((window.Math.random() * -0.2) + 0.2);
+          if (size * 1000 > 1000000) {
+            return size * 1000;
+          }
+          //mininum value of 1 mil
+          return 1000000;
+        }
+      }
+    }])
