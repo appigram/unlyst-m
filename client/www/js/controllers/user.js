@@ -11,7 +11,6 @@ starterControllers
   function onLoginSuccess(authData) {
     saveUserProfile(authData);
     $rootScope.notify("Authenticated successfully!");
-    $rootScope.userLogin = 'ion-person';
     $rootScope.userid = authData.id;
     $rootScope.authData = authData;
     $rootScope.$apply();
