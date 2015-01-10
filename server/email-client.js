@@ -12,7 +12,7 @@ var mandrill_client = new mandrill.Mandrill(MANDRILL_API_KEY);
 exports.sendMail = function(to, callback) {
     var params = {
         "message": {
-            "from_email":FROM_EMAIL,
+            "from_email":email_from,
             "to":[{"email":to}],
             "subject": email_subject,
             "text": email_content
