@@ -34,7 +34,6 @@ starterControllers
 
     /* Check user fields*/
     if (!user || !user.email || !user.password) {
-      $rootScope.hide();
       $rootScope.notify('Error', 'Email or Password is incorrect!');
       return;
     }
@@ -59,8 +58,10 @@ starterControllers
             break;
           default:
             $rootScope.notify("Error logging user in:", error);
+
         }
         $rootScope.hide();
+        $rootScope.notify('Error', 'Email or Password is incorrect!');
       }
     });
   };
@@ -98,11 +99,28 @@ starterControllers
       }
     });
   };
+  /* LOGOUT BUTTON */
+  $scope.logout = function () {
+    $ionicHistory.clearCache();
+    fireBaseData.ref().unauth();
+    $rootScope.checkSession();
+    $rootScope.notify("Logged out successfully!");
+  };
 
+  $rootScope.checkSession = function () {
+    $rootScope.authData = fireBaseData.ref().getAuth();
+    if ($rootScope.authData) {
+      $rootScope.hide();
+      $state.go('home');
 
+    } else {
+      $rootScope.hide();
+      $state.go('login');
+    }
+  };
 })
 
-.controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth) {
+.controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth, $http) {
   $scope.hideBackButton = true;
 
   $scope.createUser = function (user) {
@@ -110,7 +128,7 @@ starterControllers
     var surname = user.surname;
     var email = user.email;
     var password = user.password;
-
+    
     if (!firstname || !surname || !email || !password) {
       $rootScope.notify("Please enter valid credentials");
       return false;
@@ -128,10 +146,28 @@ starterControllers
       var usersRef = fireBaseData.refUsers();
       usersRef.child(authData.uid).set(authData, function () {
         $rootScope.hide();
-        $state.go('home');
-        $rootScope.notify('Registered successfully.');
+        $state.go('login')
+        $rootScope.notify('Enter your email and password to login. ');
+        ;
       });
     };
+    var sendEmail = function() {
+        var req = {
+            url: '/sendmail',
+            method: 'POST',
+            data: {'email': email},
+            headers: {'Content-Type': 'application/json'},
+        };
+        $http(req).success(function(res) {
+          if (res && res[0].status == 'sent') {
+            console.log('email sent to ' + res[0].email);
+          } else {
+            console.log('email not sent');
+          }
+        }).error(function(err){
+          console.log(err);
+        });
+    }
     auth.$createUser(email, password).then(function (error) {
       return auth.$authWithPassword({
         email: email,
@@ -139,6 +175,7 @@ starterControllers
       });
     })
     .then(saveUserProfile)
+    .then(sendEmail)
     .catch(function (error) {
       $rootScope.hide();
       if (error.code == 'INVALID_EMAIL') {
