@@ -26,7 +26,9 @@ starter
   })
 })
 
-.run(function ($rootScope, $ionicLoading,$ionicPopup) {
+.run(function ($rootScope, $ionicLoading,$ionicPopup, $state, $stateParams) {
+  $rootScope.$state = $state;
+  $rootScope.$stateParams = $stateParams;
   //not logged in icon
   $rootScope.userLogin = 'ion-log-in';
 

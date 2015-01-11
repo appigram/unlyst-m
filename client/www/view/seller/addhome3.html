@@ -1,20 +1,19 @@
-<ion-view title="Home Info">
-    <ion-content>
-        <div>
-            <p>Now for the most important part -- photos! Without photos the market will not be able to accurately
-                value your home. The more photos the better.</p>
-        </div>
-        <br>
-        <div>
-            <p>Click or tap below to upload photos.</p>
-        </div>
+<div>
+    <p>Now for the most important part -- photos! Without photos the market will not be able to accurately
+        value your home. The more photos the better.</p>
+</div>
+<br>
+<div>
+    <p>Click or tap below to upload photos.</p>
+</div>
 
-        <div> BIG LOGO</div>
-        <div>
-            <p>Photos uploaded</p>
-        </div>
-        <div>
-            <div>
+<div> BIG LOGO</div>
+<div>
+    <p>Photos uploaded</p>
+</div>
+<div>
+
+    <div>
                 <input type="file" name="file1" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">1
                 <input type="file" name="file2" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">2
                 <input type="file" name="file3" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">3
@@ -27,8 +26,6 @@
                 <button>8</button>
             </div>
         </div>
-        <button class="button button-median button-assertive" ng-click="submitForm()">Add Home</button><br>
+        <button class="button button-median button-assertive" ng-click="addhome()">Add Home</button><br>
         Step 3 of 3
         {{home}}
-    </ion-content>
-</ion-view>

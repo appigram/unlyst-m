@@ -1,55 +1,5 @@
 <ion-view>
     <ion-content style="top:45px">
-        <div class="">
-            <img srcss="img/logo_no_text.png">
-        </div>
-        <div>
-            <p>Adding your home to Unlyst will provide you with realtime valuation and allow you yo see who's interested
-                in buying your home. It's east, safe and free. It's like listing your home for sale, except you're not
-                Take control of your largest asset</p>
-            <p>To start, please enter your address.</p>
-        </div>
-        <br>
-
-        <div class="list list-inset">
-                <label class="item item-input item-input-wrapper">
-                    <input type="text" placeholder="e.g. 1 Yonge Street (only Toronto addresses)" ng-model="home.address"><br>
-                </label>
-        </div>
-        <div class="list list-inset">
-            <div class="row">
-                    <label class="item item-input item-input-wrapper">
-                        <input type="text" placeholder="Suite Number (if applicable)" ng-model = "home.suiteNumber">
-                    </label>    dfdfsf
-                    <label class="item item-input item-input-wrapper">
-                        <input type="text" placeholder="Postal Code" ng-model = "home.postalCode">
-                    </label>
-            </div>
-        </div>
-
-        <div class="list list-inset">
-            <div class="row">
-                <label class="item item-input item-input-wrapper">
-                    <input type="text" placeholder="Neighborhood" ng-model = "home.neighborhood">
-                </label>
-        </div>
-        </div>
-        <div class="list item-checkbox" classs="item item-checkbox">
-            <label   class = "checkbox">
-                <input type = "checkbox" ng-model="home.hideAddress">
-            </label>Hide my exact address from users
-        </div>
-        <div class="list">
-            <div class="col col-33 col-offset-33">
-                <button class="button button-median button-assertive icon-right ion-chevron-right"
-                        ng-click="goToPg2()">NEXT
-                </button>
-            </div>
-        </div>
-        <div class="col col-33 col-offset-33">
-            Step 1 of 3
-        </div>
-        <br><br>
-        {{home}}
+        <div ui-view=""></div>
     </ion-content>
 </ion-view>
