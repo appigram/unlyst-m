@@ -1,17 +1,18 @@
 var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var autoprefixer = require('gulp-autoprefixer');
-var imagemin = require('gulp-imagemin');
-var pngquant = require('imagemin-pngquant');
-var changed = require('gulp-changed');
-var preprocess = require('gulp-preprocess');
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-var livereload = require('gulp-livereload');
-var nodemon = require('gulp-nodemon');
+    concat = require('gulp-concat');
+    sass = require('gulp-sass');
+    minifyCss = require('gulp-minify-css');
+    rename = require('gulp-rename');
+    autoprefixer = require('gulp-autoprefixer');
+    imagemin = require('gulp-imagemin');
+    pngquant = require('imagemin-pngquant');
+    changed = require('gulp-changed');
+    preprocess = require('gulp-preprocess');
+    concat = require('gulp-concat');
+    sourcemaps = require('gulp-sourcemaps');
+    livereload = require('gulp-livereload');
+    nodemon = require('gulp-nodemon');
+    open = require("gulp-open");
 
 var paths = {
   clean: [
@@ -22,46 +23,55 @@ var paths = {
     './client/www/lib/leaflet/dist/leaflet.css'
   ],
   html: [
-    './client/www/view/**/*.html'
+    './client/www/view/**/*.html',
+    './client/www/*.html'
   ],
   js: [
     './client/www/js/**/*.js'
   ]
 };
 
+gulp.task('default', ['sass','watch','nodemon','open']);
 
-gulp.task('default', ['sass','watch','nodemon']);
-
-gulp.task('sass', function (done) {
+gulp.task('sass', function () {
   gulp.src(paths.sass)
-  //.pipe(sourcemaps.init())
+  .pipe(sourcemaps.init())
   .pipe(sass())
-  //.pipe(autoprefixer({                  // Autoprefix for target browsers
-  //  browsers: ['last 2 versions'],
-  //  cascade: true
-  //}))
+  .pipe(autoprefixer({                  // Autoprefix for target browsers
+    browsers: ['last 2 versions'],
+    cascade: true
+  }))
   .pipe(concat('unlyst.css'))
-  //.pipe(sourcemaps.write())
-  .pipe(gulp.dest('./client/www/css/'));
-  //.pipe(minifyCss({
-  //  keepSpecialComments: 0
-  //}))
-  //.pipe(rename({extname: '.min.css'}))
-  //.pipe(gulp.dest('./client/www/css/'))
-  //.pipe(livereload())
-  //.on('end', done);
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('./client/www/css/'))
+  .pipe(livereload());
 });
 
+gulp.task('html', function () {
+  gulp.src(paths.html)
+  .pipe(livereload());
+});
 
-//
-//gulp.task('sass-minify', function () {
-//  gulp.src('./client/www/css/unlyst.css')
-//  .pipe(minifyCss({
-//    keepSpecialComments: 0
-//  }))
-//  .pipe(rename({extname: '.min.css'}))
-//  .pipe(gulp.dest('./client/www/css/'));
-//});
+gulp.task('js', function () {
+  gulp.src(paths.js)
+  .pipe(livereload());
+});
+
+gulp.task('sass-minify', function () {
+  gulp.src(paths.sass)
+  .pipe(sass())
+  .pipe(autoprefixer({                  // Autoprefix for target browsers
+    browsers: ['last 2 versions'],
+    cascade: true
+  }))
+  .pipe(concat('unlyst.css'))
+  .pipe(gulp.dest('./client/www/css/'))
+  .pipe(minifyCss({
+    keepSpecialComments: 0
+  }))
+  .pipe(rename({extname: '.min.css'}))
+  .pipe(gulp.dest('./client/www/css/'))
+});
 
 gulp.task('images', function () {
   return gulp.src('./image/**/*')
@@ -75,12 +85,13 @@ gulp.task('images', function () {
 });
 
 gulp.task('watch', function () {
-  //livereload.listen();
+  livereload.listen();
   gulp.watch(paths.sass, ['sass']);
-  //gulp.watch(paths.html, []);
-  //gulp.watch(paths.js, []);
+  gulp.watch(paths.html, ['html']);
+  gulp.watch(paths.js, ['js']);
 
 });
+
 
 /**
  * Nodemon Task
@@ -102,27 +113,40 @@ gulp.task('nodemon', function (cb) {
       'client/node_modules/**',
       'client/www/css/**'
     ]
-  })
-  .on('start', function () {
-    setTimeout(function () {
-      if (!called) {
-        called = true;
-        cb();
-      }
-    }, 1000);  // wait for start
-  })
-  .on('restart', function () {
-    setTimeout(function () {
-      livereload.changed('/');
-    }, 1000);  // wait for restart
   });
+  //.on('start', function () {
+  //  setTimeout(function () {
+  //    if (!called) {
+  //      called = true;
+  //      cb();
+  //    }
+  //  }, 1000);  // wait for start
+  //})
+  //.on('restart', function () {
+  //  setTimeout(function () {
+  //    livereload.changed('/');
+  //  }, 1000);  // wait for restart
+  //});
 });
 
+gulp.task("open", function(){
+  gulp.src("./client/www/index.html")
+  .pipe(open());
+});
+gulp.task("open", function(){
+  var options = {
+    url: "http://localhost:5000",
+    app: "chrome"
+  };
+  // A file must be specified or gulp will skip the task
+  gulp.src("./client/www/index.html")
+  .pipe(open("", options));
+});
 //Production tasks below
 // Production gulp for minification
-gulp.task('heroku:production', ['html-prod', 'config']);
+gulp.task('heroku:production', ['html-prod', 'config','sass-minify']);
 
-gulp.task('heroku:development', ['html-dev', 'config']);
+gulp.task('heroku:development', ['html-dev', 'config','sass-minify']);
 
 gulp.task('html-prod', function () {
   gulp.src('./client/www/index.html')

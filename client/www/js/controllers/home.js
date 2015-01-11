@@ -43,10 +43,11 @@ starterControllers
   });
 })
 
-.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout) {
-  
+.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase,
+                                  $location, $timeout,$rootScope) {
+
   $scope.activeSlide = 0;
-  
+
   //bind model to scoep; set valuation
   $scope.home = {};
   $scope.home.valuation = 100000;
@@ -127,6 +128,16 @@ starterControllers
 
     $scope.totalScore = $scope.playCount = 0;
 
+    var refUserRep= fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
+    refUserRep.on("value", function(snapshot) {
+      console.log("updated value here:" + snapshot.val());
+      if($rootScope.authData!=null){
+        $rootScope.authData.reputation = snapshot.val();
+      }
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+
     $scope.submitScore = function () {
       $scope.crowdvalue = $scope.property.crowdvalue;
       $scope.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
@@ -137,26 +148,28 @@ starterControllers
       $scope.playCount++;
       $scope.avgScore = $scope.totalScore / $scope.playCount;
       if (!$scope.stopRecording) {
-        valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
+        //valuationDB.child(houses[i].$id).push(parseInt($scope.home.valuation));
         // 2.5 means off by 50%
-        if ($scope.score > 2) {
+        //if ($scope.score > 2) {
 
-          var house = homesDB.child(houses[i].$id);
-          var reputationRef = '/totalReputation';
-          //TODO: move score calculation to ultility
-          var newrepuationTotal = houses[i].totalReputation + $scope.score * 10;
-          var crowdRef = '/crowdvalue';
-          var newCrowdValue = (houses[i].crowdvalue * houses[i].totalReputation +
-          $scope.home.valuation * $scope.score * 10) / newrepuationTotal;
-          console.log('your valuation:' + $scope.home.valuation);
-          console.log('old crowd value:' + $scope.crowdvalue);
-          console.log('new crowd value:' + newCrowdValue);
-          house.child(reputationRef).set(newrepuationTotal);
-          house.child(crowdRef).set(newCrowdValue);
-        }
+          //var house = homesDB.child(houses[i].$id);
+          //var reputationRef = '/totalReputation';
+          ////TODO: move score calculation to ultility
+          //var newrepuationTotal = houses[i].totalReputation + $scope.score * 10;
+          //var crowdRef = '/crowdvalue';
+          //var newCrowdValue = (houses[i].crowdvalue * houses[i].totalReputation +
+          //$scope.home.valuation * $scope.score * 10) / newrepuationTotal;
+          //console.log('your valuation:' + $scope.home.valuation);
+          //console.log('old crowd value:' + $scope.crowdvalue);
+          //console.log('new crowd value:' + newCrowdValue);
+          //house.child(reputationRef).set(newrepuationTotal);
+          //house.child('/crowdvalues').push($scope.home.valuation);
+          //new function to save everything
+          fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
+        //}
       }
     };
-      
+
     $scope.next = function () {
       $ionicSlideBoxDelegate.next();
     };
@@ -165,7 +178,7 @@ starterControllers
     };
 
     $ionicSlideBoxDelegate.update();
-    
+
     // Called each time the slide changes
     $scope.slideHasChanged = function (index) {
       $ionicSlideBoxDelegate.slide(index);
@@ -190,15 +203,15 @@ starterControllers
             $scope.curInfoSlide = curSlide + '/' + 3;
         }
     }
-    
+
     var isPhotoSlide = function() {
-        return $scope.activeSlide < numSlides - 3 - 1; 
+        return $scope.activeSlide < numSlides - 3 - 1;
     }
     var isInfoSlide = function() {
-        return $scope.activeSlide < numSlides - 1 
+        return $scope.activeSlide < numSlides - 1
             && $scope.activeSlide >= numSlides - 3 - 1;
     }
-    
+
     $scope.clickNext = function () {
 
       $ionicSlideBoxDelegate.slide(0);
@@ -226,13 +239,13 @@ starterControllers
 
       updateTabs();
     };
-      
+
     //need a timeout for slidebox to load so that tabs display correctly 
-    setTimeout(function(){   
+    setTimeout(function(){
       $ionicSlideBoxDelegate.update();
       updateTabs();
     },100);
-      
+
   });
 })
 

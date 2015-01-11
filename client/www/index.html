@@ -5,11 +5,13 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <title>Unlyst</title>
   <!-- index.html will be processed to production.html based on the NODE_ENV, see gulp -->
-  <!-- Do not remove the following comments. We use gulp-preprocess to process the comments--><!-- @echo CSS -->
+  <!-- Do not remove the following comments. We use gulp-preprocess to process the comments-->
+  <!-- @echo CSS -->
   <!-- @if NODE_ENV = 'development' -->
   <link href="css/unlyst.css" rel="stylesheet">
   <!-- @endif -->
   <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/angular-material/angular-material.min.css" rel="stylesheet">
   <!-- ionic/angularjs js --><!--<script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>-->
   <script src="lib/ionic/js/ionic.bundle.min.js"></script>
   <!-- Firebase -->
@@ -25,12 +27,15 @@
   <link href="lib/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
   <script src="lib/angular-xeditable/dist/js/xeditable.min.js"></script>
   <!-- cordova script (this will be a 404 during development) -->
-  <script src="cordova.js"></script>
+  <!--<script src="cordova.js"></script>-->
   <!-- AWS SDK-->
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.4.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <!-- TODO:concat and minify js -->
   <script src="js/app.js"></script>
   <script src="js/routes.js"></script>
+  <script src="js/controllers/header.js"></script>
   <script src="js/controllers/home.js"></script>
   <script src="js/controllers/user.js"></script>
   <script src="js/directives.js"></script>
@@ -41,41 +46,62 @@
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.4.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <!-- Angular Material Dependencies -->
+  <script src="//cdn.jsdelivr.net/hammerjs/2.0.4/hammer.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js"></script>
+
+  <!-- Angular Material Javascript now available via Google CDN; version 0.6 used here -->
+  <!--<script src="lib/angular-material/angular-material.min.js"></script>-->
+  <script src="//rawgit.com/angular/bower-material/master/angular-material.js"></script>
+  <!-- Google Analytics-->
+  <script src="lib/angulartics/dist/angulartics.min.js"></script>
+  <script src="lib/angulartics/dist/angulartics-ga.min.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-57937417-1', 'auto');
+  </script>
 </head>
 <body ng-app="starter" class="mainContainer" animation="slide-left-right-ios7">
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
-<ion-nav-bar class="bar-assertive nav-title-slide-ios7">
+<ion-nav-bar class="bar-assertive nav-title-slide-ios7" ng-controller="HeaderCtrl">
   <!--<ion-nav-back-button class="button-clear">-->
     <!--<i class="ion-arrow-left-c"></i>-->
     <!--Back-->
   <!--</ion-nav-back-button>-->
   <ion-nav-title>
     <a nav-direction="enter" ui-sref="home">Unlyst
-      <h6 class="title light" style="position:absolute;top:16px !important; font-size:10px !important;">beta</h6>
+      <h6 class="title light" style="position:absolute;top:13px !important; font-size:10px !important;">beta</h6>
     </a>
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <a nav-direction="enter" ui-sref="login">
-      <button class="button button-clear icon" ng-class="userLogin"></button>
+      <div class="button icon ion-person" ng-show="authData == null" ng-class="userLogin">Login</div>
+    </a>
+    <a nav-direction="enter" ui-sref="login">
+      <div class="button icon ion-person" ng-show="authData != null">{{getUserDisplayName()}}</div>
     </a>
   </ion-nav-buttons>
   <ion-nav-buttons side="left">
-    <a nav-direction="enter" ui-sref="addHome">
-      <button class="button button-clear icon ion-plus"></button>
+    <a nav-direction="enter">
+      <button class="button button-clear icon ion-navicon-round"></button>
     </a>
+  </ion-nav-buttons>
+    <!--<a nav-direction="enter">-->
+      <!--<button class="button button-clear icon ion-navicon-round" ng-click="popover.show($event)" ></button>-->
+    <!--</a>-->
   </ion-nav-buttons>
 </ion-nav-bar>
 <!--
   The views will be rendered in the <ion-nav-view> directive below
-  Templates are in the /templates folder (but you could also
-  have templates inline in this html file if you'd like).--><!--<ion-nav-view></ion-nav-view>-->
-<!--<div ng-include src="'templates/home.html'"></div> --><!--<div ng-include src="'templates/addhome.html'"></div>-->
-<!--<div ng-controller="HomeCtrl" ng-include src="'templates/home-details/map.html'"></div>-->
-<ion-nav-view>
-</ion-nav-view>
+  Templates are in the /view folder (but you could also
+  have templates inline in this html file if you'd like).-->
+<ion-nav-view></ion-nav-view>
 </ion-tab>
-<!--<div ui-view="home"></div>-->
 </body>
 </html>

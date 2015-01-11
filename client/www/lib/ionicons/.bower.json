@@ -35,7 +35,6 @@
     "commit": "aca3e9a719af5ab85758174f3a38eab6f672523d"
   },
   "_source": "git://github.com/driftyco/ionicons.git",
-  "_target": "~2.0.0",
-  "_originalSource": "ionicons",
-  "_direct": true
+  "_target": "^2.0.0",
+  "_originalSource": "ionicons"
 }

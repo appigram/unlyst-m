@@ -16,6 +16,6 @@
     "commit": "5302b979c7f620d0b62a982999e9590d06d705f3"
   },
   "_source": "git://github.com/driftyco/collide.git",
-  "_target": "1.0.0-beta.3",
+  "_target": "^1.0.0-beta.3",
   "_originalSource": "collide"
 }

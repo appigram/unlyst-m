@@ -5,8 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services', 'starter.filters',
-  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable']);
+var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services',
+  'starter.filters',  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable','angulartics',
+  'angulartics.google.analytics', 'ngMaterial']);
+
 var starterControllers = angular.module('starter.controllers', []);
 
 starter
@@ -29,8 +31,6 @@ starter
 .run(function ($rootScope, $ionicLoading,$ionicPopup, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
-  //not logged in icon
-  $rootScope.userLogin = 'ion-log-in';
 
   $rootScope.$on('loading:show', function () {
     $ionicLoading.show({
@@ -67,6 +67,10 @@ starter
     });
   };
 })
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+  .primaryColor('blue');
+})
 
 .run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
@@ -82,21 +86,10 @@ starter
     if(typeof analytics !== "undefined") {
       analytics.startTrackerWithId("UA-57937417-1");
     } else {
-      console.log("Google Analytics Unavailable");
+      console.log("Google Analytics Unavailable for IOS/Android");
     }
-  });
+  })
 });
-//
-//.config(function($stateProvider, $urlRouterProvider) {
-//
-//  $stateProvider
-//  .state('signin', {
-//    url: '/sign-in',
-//    templateUrl: 'view/user/login.html',
-//    controller: 'HomeCtrl'
-//  })
-//
-//  $urlRouterProvider.otherwise('/sign-in');
-//
-//})
+
+
 

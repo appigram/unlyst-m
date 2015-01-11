@@ -228,24 +228,25 @@ textarea {
   height: auto;
 }
 
+//TODO: until we put ionic.scss into scss folder and customize it and remove the "form" import
 // Everything else
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"] {
-  border: 0;
-}
+//textarea,
+//input[type="text"],
+//input[type="password"],
+//input[type="datetime"],
+//input[type="datetime-local"],
+//input[type="date"],
+//input[type="month"],
+//input[type="time"],
+//input[type="week"],
+//input[type="number"],
+//input[type="email"],
+//input[type="url"],
+//input[type="search"],
+//input[type="tel"],
+//input[type="color"] {
+//  border: 0;
+//}
 
 // Position radios and checkboxes better
 input[type="radio"],

@@ -6,6 +6,8 @@ var express = require('express'),
     aws = require("aws-sdk"),
     app = express();
 
+var mailer = require('./server/email-client');
+
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY || 'AKIAILDO7FWEDSP4NQEA';
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY || '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';
 var S3_BUCKET = process.env.S3_BUCKET || 'unlyst';
@@ -41,6 +43,7 @@ app.set('port', process.env.PORT || 5000);
 //app.use(function(req, res) {
 //    res.sendFile(__dirname + '/client/www/view/index.html');
 //});
+
 app.get('*', function(req,res) {
     res.sendFile(__dirname + '/client/www/index.html');
 });
@@ -81,6 +84,17 @@ app.post('/upload', function (req,res){
             console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
         });
     //res.json(req.files);
+});
+
+app.post('/sendmail', function (req,res) {
+    var mail_to = req.body.email;
+    if(mail_to) {
+        mailer.sendMail(mail_to, function(data) {
+            res.json(data);
+        });
+    } else {
+        console.log('no email given');
+    }
 });
 
 app.listen(app.get('port'), function () {
