@@ -28,7 +28,9 @@ starter
   })
 })
 
-.run(function ($rootScope, $ionicLoading,$ionicPopup) {
+.run(function ($rootScope, $ionicLoading,$ionicPopup, $state, $stateParams) {
+  $rootScope.$state = $state;
+  $rootScope.$stateParams = $stateParams;
 
   $rootScope.$on('loading:show', function () {
     $ionicLoading.show({

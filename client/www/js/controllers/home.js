@@ -249,122 +249,14 @@ starterControllers
   });
 })
 
-    .controller('AddHomeCtrl', ['$scope', '$http', '$state', function($scope, $http, $state, imageDB) {
+    .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
 
       console.log("AddHomeCtrl");
-      $scope.homeSchema = {
-        homeTypes : [
-          {
-            name: "Condominium",
-            value: "condominium"
-          },
-          {
-            name: "Semi-datached House",
-            value: "semiHouse"
-          },
-          {
-            name: "Detached House",
-            value: "detachedHouse"
-          },
-          {
-            name: "Townhouse",
-            value: "townHouse"
-          }
-        ],
-        buildingTypes : [
-          {
-            name: "High-rise",
-            value: "highRise"
-          },
-          {
-            name: "Mid-rise",
-            value: "midRise"
-          },
-          {
-            name: "Low-rise",
-            value: "lowRise"
-          }
-        ],
-        bedRooms: [0,1,2,3,4],
-        bathRooms: [0,1,2,3,4],
-        additionalSpace: ['Den','Sunroom'],
-        parkingType: [
-          {
-            name: "n/a",
-            value: "na"
-          },
-          {
-            name: "Underground Garage",
-            value: "underGroundGrg"
-          },
-          {
-            name: "Above Ground Garage",
-            value: "AboveGroundGrg"
-          },
-          {
-            name: "Driveway",
-            value: "driveway"
-          }
-        ],
-        parkingSpace: [0,1,2,3,4],
-        outdoorSpace: [
-          {
-            name: "Balcony",
-            value: "balcony"
-          },
-          {
-            name: "Terrace",
-            value: "terrace"
-          },
-          {
-            name: "Juliet balcony",
-            value: "julietBalcony"
-          }
-        ],
-        orientation: ["North", "East", "South","West"],
-        amenity: [
-          {
-            name: "Pool",
-            value: "pool"
-          },
-          {
-            name: "Gym",
-            value: "gym"
-          },
-          {
-            name: "Sauna",
-            value: "sauna"
-          },
-          {
-            name: "Steam",
-            value: "steam"
-          },
-          {
-            name: "Spa",
-            value: "spa"
-          },
-          {
-            name: "Rooftop",
-            value: "rooftop"
-          },
-          {
-            name: "BBQ",
-            value: "bbq"
-          },
-          {
-            name: "Pet Wash",
-            value: "petWash"
-          },
-          {
-            name: "Concierge",
-            value: "concierge"
-          },
-          {
-            name: "Party Room",
-            value: "partyRoom"
-          }
-        ]
-      };
+      $state.go("addHome.addHome1")
+      var homesDB = fireBaseData.refHomes();
+      var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
+
+      $scope.homeSchema = homeSchema;
 
       $scope.home = {
         address: "",
@@ -388,8 +280,81 @@ starterControllers
         orientation:[],
         amenity: [],
         yearBuilt: '',
-        maintenanceFee: ''
+        maintenanceFee: '',
+        houseId: -1,
+        img:[]
       };
+
+      $scope.uploadFiles = [];
+
+      $scope.uploadFile = function(files){
+        console.log(files[0]);
+        var fd = new FormData();
+        fd.append("file", files[0]);
+            $scope.uploadFiles.push(fd);
+      };
+
+        //put upload function and inside promise
+        /*homesRef.$loaded().then(function() {
+
+          var length = homesRef.length;
+          var id = homesRef[length-1].houseId;
+          if (id >= length-1 ){
+            //set houseID for new home
+            $scope.home.houseId  = id + 1;
+            //prepare for image upload
+            $scope.uploadFile = function(files, name){
+              console.log(files);
+              console.log("houseID: " + $scope.home.houseId);
+              console.log(files[0]);
+              var fd = new FormData();
+              fd.append("file", files[0]);
+              fd.append("houseId", $scope.home.houseId);
+              fd.append("imageNum",name);
+              $scope.uploadFiles.push(fd);
+            };
+
+            $scope.submitForm = function () {
+              for (var i = 0; i < $scope.uploadFiles.length; i++) {
+                var file = $scope.uploadFiles[i];
+                if(file) {
+                  var req = {
+                    url:'/upload',
+                    data: file,
+                    method: 'POST',
+                    withCredentials:true,
+                    headers: {'Content-Type': undefined},
+                    transformRequest: angular.identity
+                  };
+
+                  $http(req).success(function(data) {
+                    var imgObj = {
+                      caption:'',
+                      url: ''
+                    }
+                    console.log("OK", data);
+                    imgObj.url = data;
+                    $scope.home.img.push ({
+                                             "caption" : "",
+                                              "url" : data
+                                            });
+                  }).error(function(err){
+                    console.log(err);
+                  });
+                }else {
+                  // No File Selected
+                  alert('No File Selected');
+                }
+              }
+            };
+
+          } else {
+            console.log("Error: house ID is not correct!")
+          }
+
+        });*/
+
+
 
       $scope.toggleSelection = function(item, selectionArr) {
         var idx = selectionArr.indexOf(item);
@@ -404,48 +369,19 @@ starterControllers
       };
 
       $scope.goToPg2 = function () {
-        $state.go('addHome2');
+        console.log("gotopage2");
+        $state.go('addHome.addHome2');
       };
       $scope.goToPg3 = function () {
-        $state.go('addHome3');
+        console.log("goto hom3");
+        $state.go('addHome.addHome3');
       };
       $scope.addhome = function () {
         console.log("add home");
-        $state.go('home');
+        $state.go('addHome');
       };
 
-      $scope.uploadFiles = [];
-      $scope.uploadFile = function(files){
-        var fd = new FormData();
-        fd.append("file", files[0]);
-        $scope.uploadFiles.push(fd);
-      };
-
-      $scope.uploadImg = function () {
-        for (var i = 0; i < $scope.uploadFiles.length; i++) {
-          var file = $scope.uploadFiles[i];
-          console.log(file);
-          if(file) {
-            var req = {
-              url:'/upload',
-              data: file,
-              method: 'POST',
-              withCredentials:true,
-              headers: {'Content-Type': undefined},
-              transformRequest: angular.identity
-            };
-
-            $http(req).success(function(data) {
-              console.log("OK", data);
-            }).error(function(err){
-              console.log(err);
-            });
-          }
-          else {
-            // No File Selected
-            alert('No File Selected');
-          }
-        }
+      $scope.submitHomes = function () {
 
       };
 }]);

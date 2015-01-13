@@ -30,18 +30,21 @@ angular.module('starter.routes', [])
     url: '/addHome',
     templateUrl: 'view/seller/addhome.html',
     controller: 'AddHomeCtrl'
-  })
+   })
 
-  .state('addHome2', {
-    url: '/addHome2', 
-    templateUrl: 'view/seller/addhome2.html',
-    controller: 'AddHomeCtrl'
+   .state('addHome.addHome1', {
+     url: '/addHome1',
+     templateUrl: 'view/seller/addhome1.html'//,
+      })
+
+  .state('addHome.addHome2', {
+    url: '/addHome2',
+    templateUrl: 'view/seller/addhome2.html'//,
   })
       
-  .state('addHome3', {
+  .state('addHome.addHome3', {
     url: '/addHome3',
-    templateUrl: 'view/seller/addhome3.html',
-    controller: 'AddHomeCtrl'
+    templateUrl: 'view/seller/addhome3.html'
   });
 
   // if none of the above states are matched, use this as the fallback
