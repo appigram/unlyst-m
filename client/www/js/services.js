@@ -241,7 +241,9 @@ angular.module('starter.services', [])
             name: "Party Room",
             value: "partyRoom"
           }
-        ]
+        ],
+        lat:0,
+        lng:0
       };
       return homeSchema;
-}])
+}]);

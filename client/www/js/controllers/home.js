@@ -295,7 +295,7 @@ starterControllers
       };
 
         //put upload function and inside promise
-        /*homesRef.$loaded().then(function() {
+        homesRef.$loaded().then(function() {
 
           var length = homesRef.length;
           var id = homesRef[length-1].houseId;
@@ -331,7 +331,7 @@ starterControllers
                     var imgObj = {
                       caption:'',
                       url: ''
-                    }
+                    };
                     console.log("OK", data);
                     imgObj.url = data;
                     $scope.home.img.push ({
@@ -341,18 +341,17 @@ starterControllers
                   }).error(function(err){
                     console.log(err);
                   });
-                }else {
+                } else {
                   // No File Selected
                   alert('No File Selected');
                 }
               }
             };
-
           } else {
             console.log("Error: house ID is not correct!")
           }
 
-        });*/
+        });
 
 
 
@@ -382,6 +381,5 @@ starterControllers
       };
 
       $scope.submitHomes = function () {
-
       };
 }]);
