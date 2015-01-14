@@ -136,7 +136,7 @@ starterControllers
         $ionicSlideBoxDelegate.update();
         return true;
       }, 100)
-    }
+    };
 
     $scope.totalScore = $scope.playCount = 0;
     if($rootScope.authData!=null){
@@ -215,15 +215,15 @@ starterControllers
             var curSlide = $scope.activeSlide - $scope.property.img.length + 1;
             $scope.curInfoSlide = curSlide + '/' + 3;
         }
-    }
+    };
 
     var isPhotoSlide = function() {
         return $scope.activeSlide < numSlides - 3 - 1;
-    }
+    };
     var isInfoSlide = function() {
         return $scope.activeSlide < numSlides - 1
             && $scope.activeSlide >= numSlides - 3 - 1;
-    }
+    };
 
     $scope.clickNext = function () {
 
@@ -265,7 +265,7 @@ starterControllers
     .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
 
       console.log("AddHomeCtrl");
-      $state.go("addHome.addHome1");
+      //$state.go("addHome.addHome1");
       var homesDB = fireBaseData.refHomes();
       var homesRef = $firebase(homesDB).$asArray();
 
