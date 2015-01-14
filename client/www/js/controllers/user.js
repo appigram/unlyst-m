@@ -98,25 +98,7 @@ starterControllers
       }
     });
   };
-  /* LOGOUT BUTTON */
-  $scope.logout = function () {
-    $ionicHistory.clearCache();
-    fireBaseData.ref().unauth();
-    $rootScope.checkSession();
-    $rootScope.notify("Logged out successfully!");
-  };
 
-  $rootScope.checkSession = function () {
-    $rootScope.authData = fireBaseData.ref().getAuth();
-    if ($rootScope.authData) {
-      $rootScope.hide();
-      $state.go('home');
-
-    } else {
-      $rootScope.hide();
-      $state.go('login');
-    }
-  };
 })
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth, $http) {

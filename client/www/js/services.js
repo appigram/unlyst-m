@@ -40,7 +40,7 @@ angular.module('starter.services', [])
     },
     saveValuation: function saveValuation(valuation, authData, property) {
 
-      if(refUser==null){
+      if(refUser==null || authData == null){
         return;
       }
 

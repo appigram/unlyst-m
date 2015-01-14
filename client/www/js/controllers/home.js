@@ -44,7 +44,7 @@ starterControllers
 })
 
 .controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase,
-                                  $location, $timeout,$rootScope) {
+                                  $location, $timeout,$rootScope,$mdDialog) {
 
   $scope.activeSlide = 0;
 
@@ -72,7 +72,7 @@ starterControllers
     var i = 0;
 
     $scope.property = houses[i];
-
+    console.log($scope.property.$id);
     $scope.likes = 20;
     $scope.buildYr = 2014 - $scope.property.buildYr;
     $scope.hideDetail = true;
@@ -106,6 +106,18 @@ starterControllers
     $scope.getDefaultValue();
 
     $scope.$broadcast('updateMap', $scope.map);
+    $scope.showAdvanced = function(ev) {
+      $mdDialog.show({
+        controller: 'MapCtrl',
+        templateUrl: 'view/buyer/modal.html',
+        targetEvent: ev,
+      })
+      .then(function(answer) {
+        //$scope.alert = 'You said the information was "' + answer + '".';
+      }, function() {
+        //$scope.alert = 'You cancelled the dialog.';
+      });
+    };
     $ionicModal.fromTemplateUrl('view/buyer/modal.html', function (modal) {
       $scope.modal = modal;
 
@@ -127,16 +139,17 @@ starterControllers
     }
 
     $scope.totalScore = $scope.playCount = 0;
-
-    var refUserRep= fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
-    refUserRep.on("value", function(snapshot) {
-      console.log("updated value here:" + snapshot.val());
-      if($rootScope.authData!=null){
-        $rootScope.authData.reputation = snapshot.val();
-      }
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
+    if($rootScope.authData!=null){
+      var refUserRep= fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
+      refUserRep.on("value", function(snapshot) {
+        console.log("updated value here:" + snapshot.val());
+        if($rootScope.authData!=null){
+          $rootScope.authData.reputation = snapshot.val();
+        }
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+    }
 
     $scope.submitScore = function () {
       $scope.crowdvalue = $scope.property.crowdvalue;
