@@ -129,6 +129,54 @@ angular.module('starter.services', [])
   }
 }])
 
+.factory('geocoding', [function ($scope){
+    var geocoder = new google.maps.Geocoder();
+    //hard coded for now
+    var city = 'Toronto';
+    // geocoding API request
+    var getResult = function(processResult) {
+        return function (address, callback) {
+            address = address + ', ' + city;
+            console.log('address: ' + address);
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                var result;
+                if (status == google.maps.GeocoderStatus.OK) {
+                    result = processResult(results);
+                } else {
+                    console.log(status);
+                }
+                if ( typeof callback == 'function') {
+                    callback(result);
+                }
+            });
+        }
+    };
+    var parseResult = function(results) {
+        var coordinates = results[0].geometry.location;
+        var components = results[0].address_components;
+        var postal_code, neighborhood;
+        for (var i = 0; i < components.length; i+=1) {
+            if(components[i].types.indexOf('neighborhood') >= 0) {
+                neighborhood = components[i].long_name;
+            }
+            if(components[i].types.indexOf('postal_code') >= 0) {
+                postal_code = components[i].long_name;
+            }
+        }
+        return {
+            lat: coordinates.lat(),
+            lng: coordinates.lng(),
+            postal_code: postal_code,
+            neighborhood: neighborhood,
+            full_address: results[0].formatted_address
+        }
+    };
+    return {
+        //getData will find lat, lng, postalcode, neighbohood of a given address
+        getData: getResult(parseResult)
+    }
+}])
+
 .factory('homeSchema', [function ($scope) {
   var homeSchema = {
     homeTypes: [

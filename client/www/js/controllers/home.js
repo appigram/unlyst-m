@@ -52,9 +52,8 @@ starterControllers
   };
 })
 
-.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase,
+.controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, geocoding, $firebase,
                                   $location, $timeout, $rootScope, $mdDialog) {
-
   $scope.activeSlide = 0;
 
   //bind model to scoep; set valuation
