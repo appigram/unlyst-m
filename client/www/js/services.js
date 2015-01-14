@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('fireBaseData', ["$firebase", function ($firebase,$rootScope) {
+.factory('fireBaseData', ["$firebase", function ($firebase, $rootScope) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var homeInfo;
@@ -40,24 +40,24 @@ angular.module('starter.services', [])
     },
     saveValuation: function saveValuation(valuation, authData, property) {
 
-      if(refUser==null || authData == null){
+      if (refUser == null || authData == null) {
         return;
       }
 
-      if(authData.reputation == null){
+      if (authData.reputation == null) {
         authData.reputation = 0;
       }
 
-      var accuracy = 100 - Math.abs((property.crowdvalue - valuation) / property.crowdvalue)*100;
+      var accuracy = 100 - Math.abs((property.crowdvalue - valuation) / property.crowdvalue) * 100;
 
-      if(accuracy < 0) {
+      if (accuracy < 0) {
         accuracy = 0;
       }
 
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
         "homeID": property.$id,
-        "homeValue":property.crowdvalue,
+        "homeValue": property.crowdvalue,
         "homeReputation": property.totalReputation,
         "userID": authData.uid,
         "userSubmittedValue": parseInt(valuation),
@@ -71,14 +71,14 @@ angular.module('starter.services', [])
       // log base 1.1 seems like a good place to start
       var userReputation;
       var adjustedScore;
-      if(accuracy-70 <= 0 ){
+      if (accuracy - 70 <= 0) {
         adjustedScore = 0;
       } else {
-        adjustedScore = (accuracy-70)/10;
+        adjustedScore = (accuracy - 70) / 10;
         console.log("adjusted score: " + adjustedScore);
         userReputation = Math.log(adjustedScore + authData.reputation) / Math.log(1.1);
         //if total reputation is less than 1, it will be negative
-        if(userReputation==null || userReputation<0){
+        if (userReputation == null || userReputation < 0) {
           userReputation = 0;
         }
       }
@@ -130,118 +130,118 @@ angular.module('starter.services', [])
 }])
 
 .factory('homeSchema', [function ($scope) {
-      var homeSchema = {
-        homeTypes : [
-          {
-            name: "Condominium",
-            value: "condominium"
-          },
-          {
-            name: "Semi-datached House",
-            value: "semiHouse"
-          },
-          {
-            name: "Detached House",
-            value: "detachedHouse"
-          },
-          {
-            name: "Townhouse",
-            value: "townHouse"
-          }
-        ],
-        buildingTypes : [
-          {
-            name: "High-rise",
-            value: "highRise"
-          },
-          {
-            name: "Mid-rise",
-            value: "midRise"
-          },
-          {
-            name: "Low-rise",
-            value: "lowRise"
-          }
-        ],
-        bedRooms: [0,1,2,3,4],
-        bathRooms: [0,1,2,3,4],
-        additionalSpace: ['Den','Sunroom'],
-        parkingType: [
-          {
-            name: "n/a",
-            value: "na"
-          },
-          {
-            name: "Underground Garage",
-            value: "underGroundGrg"
-          },
-          {
-            name: "Above Ground Garage",
-            value: "AboveGroundGrg"
-          },
-          {
-            name: "Driveway",
-            value: "driveway"
-          }
-        ],
-        parkingSpace: [0,1,2,3,4],
-        outdoorSpace: [
-          {
-            name: "Balcony",
-            value: "balcony"
-          },
-          {
-            name: "Terrace",
-            value: "terrace"
-          },
-          {
-            name: "Juliet balcony",
-            value: "julietBalcony"
-          }
-        ],
-        orientation: ["North", "East", "South","West"],
-        amenity: [
-          {
-            name: "Pool",
-            value: "pool"
-          },
-          {
-            name: "Gym",
-            value: "gym"
-          },
-          {
-            name: "Sauna",
-            value: "sauna"
-          },
-          {
-            name: "Steam",
-            value: "steam"
-          },
-          {
-            name: "Spa",
-            value: "spa"
-          },
-          {
-            name: "Rooftop",
-            value: "rooftop"
-          },
-          {
-            name: "BBQ",
-            value: "bbq"
-          },
-          {
-            name: "Pet Wash",
-            value: "petWash"
-          },
-          {
-            name: "Concierge",
-            value: "concierge"
-          },
-          {
-            name: "Party Room",
-            value: "partyRoom"
-          }
-        ]
-      };
-      return homeSchema;
+  var homeSchema = {
+    homeTypes: [
+      {
+        name: "Condominium",
+        value: "condominium"
+      },
+      {
+        name: "Semi-datached House",
+        value: "semiHouse"
+      },
+      {
+        name: "Detached House",
+        value: "detachedHouse"
+      },
+      {
+        name: "Townhouse",
+        value: "townHouse"
+      }
+    ],
+    buildingTypes: [
+      {
+        name: "High-rise",
+        value: "highRise"
+      },
+      {
+        name: "Mid-rise",
+        value: "midRise"
+      },
+      {
+        name: "Low-rise",
+        value: "lowRise"
+      }
+    ],
+    bedRooms: [0, 1, 2, 3, 4],
+    bathRooms: [0, 1, 2, 3, 4],
+    additionalSpace: ['Den', 'Sunroom'],
+    parkingType: [
+      {
+        name: "n/a",
+        value: "na"
+      },
+      {
+        name: "Underground Garage",
+        value: "underGroundGrg"
+      },
+      {
+        name: "Above Ground Garage",
+        value: "AboveGroundGrg"
+      },
+      {
+        name: "Driveway",
+        value: "driveway"
+      }
+    ],
+    parkingSpace: [0, 1, 2, 3, 4],
+    outdoorSpace: [
+      {
+        name: "Balcony",
+        value: "balcony"
+      },
+      {
+        name: "Terrace",
+        value: "terrace"
+      },
+      {
+        name: "Juliet balcony",
+        value: "julietBalcony"
+      }
+    ],
+    orientation: ["North", "East", "South", "West"],
+    amenity: [
+      {
+        name: "Pool",
+        value: "pool"
+      },
+      {
+        name: "Gym",
+        value: "gym"
+      },
+      {
+        name: "Sauna",
+        value: "sauna"
+      },
+      {
+        name: "Steam",
+        value: "steam"
+      },
+      {
+        name: "Spa",
+        value: "spa"
+      },
+      {
+        name: "Rooftop",
+        value: "rooftop"
+      },
+      {
+        name: "BBQ",
+        value: "bbq"
+      },
+      {
+        name: "Pet Wash",
+        value: "petWash"
+      },
+      {
+        name: "Concierge",
+        value: "concierge"
+      },
+      {
+        name: "Party Room",
+        value: "partyRoom"
+      }
+    ]
+  };
+  return homeSchema;
 }])

@@ -38,13 +38,22 @@ starterControllers
         focus: true,
         draggable: false
       }
-
     };
   });
 })
 
+.controller('ModalCtrl', function ($scope, $mdDialog) {
+  $scope.hide = function () {
+    $mdDialog.hide();
+  };
+
+  $scope.cancel = function () {
+    $mdDialog.cancel();
+  };
+})
+
 .controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, $firebase,
-                                  $location, $timeout,$rootScope,$mdDialog) {
+                                  $location, $timeout, $rootScope, $mdDialog) {
 
   $scope.activeSlide = 0;
 
@@ -106,16 +115,14 @@ starterControllers
     $scope.getDefaultValue();
 
     $scope.$broadcast('updateMap', $scope.map);
-    $scope.showAdvanced = function(ev) {
+    $scope.showAdvanced = function (ev) {
       $mdDialog.show({
-        controller: 'MapCtrl',
+        controller: 'ModalCtrl',
         templateUrl: 'view/buyer/modal.html',
-        targetEvent: ev,
+        targetEvent: ev
       })
-      .then(function(answer) {
-        //$scope.alert = 'You said the information was "' + answer + '".';
-      }, function() {
-        //$scope.alert = 'You cancelled the dialog.';
+      .then(function () {
+        $scope.clickNext();
       });
     };
     $ionicModal.fromTemplateUrl('view/buyer/modal.html', function (modal) {
@@ -139,11 +146,11 @@ starterControllers
     }
 
     $scope.totalScore = $scope.playCount = 0;
-    if($rootScope.authData!=null){
-      var refUserRep= fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
-      refUserRep.on("value", function(snapshot) {
+    if ($rootScope.authData != null) {
+      var refUserRep = fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
+      refUserRep.on("value", function (snapshot) {
         console.log("updated value here:" + snapshot.val());
-        if($rootScope.authData!=null){
+        if ($rootScope.authData != null) {
           $rootScope.authData.reputation = snapshot.val();
         }
       }, function (errorObject) {
@@ -165,20 +172,20 @@ starterControllers
         // 2.5 means off by 50%
         //if ($scope.score > 2) {
 
-          //var house = homesDB.child(houses[i].$id);
-          //var reputationRef = '/totalReputation';
-          ////TODO: move score calculation to ultility
-          //var newrepuationTotal = houses[i].totalReputation + $scope.score * 10;
-          //var crowdRef = '/crowdvalue';
-          //var newCrowdValue = (houses[i].crowdvalue * houses[i].totalReputation +
-          //$scope.home.valuation * $scope.score * 10) / newrepuationTotal;
-          //console.log('your valuation:' + $scope.home.valuation);
-          //console.log('old crowd value:' + $scope.crowdvalue);
-          //console.log('new crowd value:' + newCrowdValue);
-          //house.child(reputationRef).set(newrepuationTotal);
-          //house.child('/crowdvalues').push($scope.home.valuation);
-          //new function to save everything
-          fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
+        //var house = homesDB.child(houses[i].$id);
+        //var reputationRef = '/totalReputation';
+        ////TODO: move score calculation to ultility
+        //var newrepuationTotal = houses[i].totalReputation + $scope.score * 10;
+        //var crowdRef = '/crowdvalue';
+        //var newCrowdValue = (houses[i].crowdvalue * houses[i].totalReputation +
+        //$scope.home.valuation * $scope.score * 10) / newrepuationTotal;
+        //console.log('your valuation:' + $scope.home.valuation);
+        //console.log('old crowd value:' + $scope.crowdvalue);
+        //console.log('new crowd value:' + newCrowdValue);
+        //house.child(reputationRef).set(newrepuationTotal);
+        //house.child('/crowdvalues').push($scope.home.valuation);
+        //new function to save everything
+        fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
         //}
       }
     };
@@ -203,26 +210,26 @@ starterControllers
     //for tabs showing correctly
     var numSlides = 0;
     $scope.curPhotoSlide = $scope.curInfoSlide = '';
-    var updateTabs = function() {
-        //$ionicSlideBoxDelegate.update();
-        numSlides = $ionicSlideBoxDelegate.count();
-        $scope.curPhotoSlide = $scope.curInfoSlide = '';
-        if(isPhotoSlide()) {
-            var curSlide = $scope.activeSlide + 1;
-            $scope.curPhotoSlide = curSlide + '/' + $scope.property.img.length;
-        }
-        else if(isInfoSlide()) {
-            var curSlide = $scope.activeSlide - $scope.property.img.length + 1;
-            $scope.curInfoSlide = curSlide + '/' + 3;
-        }
+    var updateTabs = function () {
+      //$ionicSlideBoxDelegate.update();
+      numSlides = $ionicSlideBoxDelegate.count();
+      $scope.curPhotoSlide = $scope.curInfoSlide = '';
+      if (isPhotoSlide()) {
+        var curSlide = $scope.activeSlide + 1;
+        $scope.curPhotoSlide = curSlide + '/' + $scope.property.img.length;
+      }
+      else if (isInfoSlide()) {
+        var curSlide = $scope.activeSlide - $scope.property.img.length + 1;
+        $scope.curInfoSlide = curSlide + '/' + 3;
+      }
     }
 
-    var isPhotoSlide = function() {
-        return $scope.activeSlide < numSlides - 3 - 1;
+    var isPhotoSlide = function () {
+      return $scope.activeSlide < numSlides - 3 - 1;
     }
-    var isInfoSlide = function() {
-        return $scope.activeSlide < numSlides - 1
-            && $scope.activeSlide >= numSlides - 3 - 1;
+    var isInfoSlide = function () {
+      return $scope.activeSlide < numSlides - 1
+      && $scope.activeSlide >= numSlides - 3 - 1;
     }
 
     $scope.clickNext = function () {
@@ -254,147 +261,145 @@ starterControllers
     };
 
     //need a timeout for slidebox to load so that tabs display correctly 
-    setTimeout(function(){
+    setTimeout(function () {
       $ionicSlideBoxDelegate.update();
       updateTabs();
-    },100);
+    }, 100);
 
   });
 })
 
-    .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
+.controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function ($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
 
-      console.log("AddHomeCtrl");
-      $state.go("addHome.addHome1")
-      var homesDB = fireBaseData.refHomes();
-      var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
+  console.log("AddHomeCtrl");
+  $state.go("addHome.addHome1")
+  var homesDB = fireBaseData.refHomes();
+  var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
 
-      $scope.homeSchema = homeSchema;
+  $scope.homeSchema = homeSchema;
 
-      $scope.home = {
-        address: "",
-        suiteNumber : "",
-        city : "Toronto",
-        province:"ON",
-        postalCode: "",
-        neighborhood: "",
-        hideAddress: false,
-        homeType: $scope.homeSchema.homeTypes[0].value,
-        buildingType: $scope.homeSchema.buildingTypes[0].value,
-        buildingName: "",
-        size: '',
-        bedroomNum: $scope.homeSchema.bedRooms[0],
-        bathroomNum: $scope.homeSchema.bathRooms[0],
-        additionalSpace: [],
-        parkingType: $scope.homeSchema.parkingType[0].value,
-        parkingSpace: 0,
-        storageLocker: false,
-        outdoorSpace:[],
-        orientation:[],
-        amenity: [],
-        yearBuilt: '',
-        maintenanceFee: '',
-        houseId: -1,
-        img:[]
-      };
+  $scope.home = {
+    address: "",
+    suiteNumber: "",
+    city: "Toronto",
+    province: "ON",
+    postalCode: "",
+    neighborhood: "",
+    hideAddress: false,
+    homeType: $scope.homeSchema.homeTypes[0].value,
+    buildingType: $scope.homeSchema.buildingTypes[0].value,
+    buildingName: "",
+    size: '',
+    bedroomNum: $scope.homeSchema.bedRooms[0],
+    bathroomNum: $scope.homeSchema.bathRooms[0],
+    additionalSpace: [],
+    parkingType: $scope.homeSchema.parkingType[0].value,
+    parkingSpace: 0,
+    storageLocker: false,
+    outdoorSpace: [],
+    orientation: [],
+    amenity: [],
+    yearBuilt: '',
+    maintenanceFee: '',
+    houseId: -1,
+    img: []
+  };
 
-      $scope.uploadFiles = [];
+  $scope.uploadFiles = [];
 
-      $scope.uploadFile = function(files){
-        console.log(files[0]);
-        var fd = new FormData();
-        fd.append("file", files[0]);
-            $scope.uploadFiles.push(fd);
-      };
+  $scope.uploadFile = function (files) {
+    console.log(files[0]);
+    var fd = new FormData();
+    fd.append("file", files[0]);
+    $scope.uploadFiles.push(fd);
+  };
 
-        //put upload function and inside promise
-        /*homesRef.$loaded().then(function() {
+  //put upload function and inside promise
+  /*homesRef.$loaded().then(function() {
 
-          var length = homesRef.length;
-          var id = homesRef[length-1].houseId;
-          if (id >= length-1 ){
-            //set houseID for new home
-            $scope.home.houseId  = id + 1;
-            //prepare for image upload
-            $scope.uploadFile = function(files, name){
-              console.log(files);
-              console.log("houseID: " + $scope.home.houseId);
-              console.log(files[0]);
-              var fd = new FormData();
-              fd.append("file", files[0]);
-              fd.append("houseId", $scope.home.houseId);
-              fd.append("imageNum",name);
-              $scope.uploadFiles.push(fd);
-            };
+   var length = homesRef.length;
+   var id = homesRef[length-1].houseId;
+   if (id >= length-1 ){
+   //set houseID for new home
+   $scope.home.houseId  = id + 1;
+   //prepare for image upload
+   $scope.uploadFile = function(files, name){
+   console.log(files);
+   console.log("houseID: " + $scope.home.houseId);
+   console.log(files[0]);
+   var fd = new FormData();
+   fd.append("file", files[0]);
+   fd.append("houseId", $scope.home.houseId);
+   fd.append("imageNum",name);
+   $scope.uploadFiles.push(fd);
+   };
 
-            $scope.submitForm = function () {
-              for (var i = 0; i < $scope.uploadFiles.length; i++) {
-                var file = $scope.uploadFiles[i];
-                if(file) {
-                  var req = {
-                    url:'/upload',
-                    data: file,
-                    method: 'POST',
-                    withCredentials:true,
-                    headers: {'Content-Type': undefined},
-                    transformRequest: angular.identity
-                  };
+   $scope.submitForm = function () {
+   for (var i = 0; i < $scope.uploadFiles.length; i++) {
+   var file = $scope.uploadFiles[i];
+   if(file) {
+   var req = {
+   url:'/upload',
+   data: file,
+   method: 'POST',
+   withCredentials:true,
+   headers: {'Content-Type': undefined},
+   transformRequest: angular.identity
+   };
 
-                  $http(req).success(function(data) {
-                    var imgObj = {
-                      caption:'',
-                      url: ''
-                    }
-                    console.log("OK", data);
-                    imgObj.url = data;
-                    $scope.home.img.push ({
-                                             "caption" : "",
-                                              "url" : data
-                                            });
-                  }).error(function(err){
-                    console.log(err);
-                  });
-                }else {
-                  // No File Selected
-                  alert('No File Selected');
-                }
-              }
-            };
+   $http(req).success(function(data) {
+   var imgObj = {
+   caption:'',
+   url: ''
+   }
+   console.log("OK", data);
+   imgObj.url = data;
+   $scope.home.img.push ({
+   "caption" : "",
+   "url" : data
+   });
+   }).error(function(err){
+   console.log(err);
+   });
+   }else {
+   // No File Selected
+   alert('No File Selected');
+   }
+   }
+   };
 
-          } else {
-            console.log("Error: house ID is not correct!")
-          }
+   } else {
+   console.log("Error: house ID is not correct!")
+   }
 
-        });*/
+   });*/
 
+  $scope.toggleSelection = function (item, selectionArr) {
+    var idx = selectionArr.indexOf(item);
+    // is currently selected
+    if (idx > -1) {
+      selectionArr.splice(idx, 1);
+    }
+    // is newly selected
+    else {
+      selectionArr.push(item)
+    }
+  };
 
+  $scope.goToPg2 = function () {
+    console.log("gotopage2");
+    $state.go('addHome.addHome2');
+  };
+  $scope.goToPg3 = function () {
+    console.log("goto hom3");
+    $state.go('addHome.addHome3');
+  };
+  $scope.addhome = function () {
+    console.log("add home");
+    $state.go('addHome');
+  };
 
-      $scope.toggleSelection = function(item, selectionArr) {
-        var idx = selectionArr.indexOf(item);
-        // is currently selected
-        if (idx > -1) {
-          selectionArr.splice(idx, 1);
-        }
-        // is newly selected
-        else {
-          selectionArr.push(item)
-        }
-      };
+  $scope.submitHomes = function () {
 
-      $scope.goToPg2 = function () {
-        console.log("gotopage2");
-        $state.go('addHome.addHome2');
-      };
-      $scope.goToPg3 = function () {
-        console.log("goto hom3");
-        $state.go('addHome.addHome3');
-      };
-      $scope.addhome = function () {
-        console.log("add home");
-        $state.go('addHome');
-      };
-
-      $scope.submitHomes = function () {
-
-      };
+  };
 }]);
