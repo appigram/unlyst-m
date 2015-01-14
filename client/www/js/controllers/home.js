@@ -252,9 +252,9 @@ starterControllers
     .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
 
       console.log("AddHomeCtrl");
-      $state.go("addHome.addHome1")
+      $state.go("addHome.addHome1");
       var homesDB = fireBaseData.refHomes();
-      var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
+      var homesRef = $firebase(homesDB).$asArray();
 
       $scope.homeSchema = homeSchema;
 
@@ -338,6 +338,11 @@ starterControllers
                                              "caption" : "",
                                               "url" : data
                                             });
+                    //start to push.....
+                    //homesDB.child($scope.home.houseId).set($scope.home)
+                    homesRef.$add($scope.home).then(function(ref){
+                      console.log("return is:  " + ref);
+                    });
                   }).error(function(err){
                     console.log(err);
                   });
@@ -377,7 +382,7 @@ starterControllers
       };
       $scope.addhome = function () {
         console.log("add home");
-        $state.go('addHome');
+        $state.go('addHome.addHome1');
       };
 
       $scope.submitHomes = function () {

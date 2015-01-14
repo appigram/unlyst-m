@@ -58,7 +58,7 @@ var s3 = new aws.S3();
 
 app.post('/upload', function (req,res){
     console.log(req.body);
-    var file_name =req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+    var file_name ='images/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
     console.log(req.files);
     var params = {
         Bucket: S3_BUCKET,
