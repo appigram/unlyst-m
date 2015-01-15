@@ -1,6 +1,6 @@
 starterControllers
 
-.controller('ModalCtrl', function ($scope, $mdDialog) {
+.controller('ModalCtrl', function ($scope, $mdDialog, valuation) {
   $scope.hide = function () {
     $mdDialog.hide();
     $scope.clickNext();
@@ -10,6 +10,7 @@ starterControllers
     $mdDialog.cancel();
     $scope.clickNext();
   };
+  $scope.valuation = valuation;
 
 })
 
@@ -78,17 +79,6 @@ starterControllers
       $ionicSlideBoxDelegate.update();
       $scope.$broadcast('updateTabs');
     }, 100);
-    //modal popup
-    $scope.postValuationPopup = function (ev) {
-      $mdDialog.show({
-        controller: 'ModalCtrl',
-        templateUrl: 'view/buyer/modal.html',
-        targetEvent: ev
-      })
-      .then(function () {
-        $scope.clickNext();
-      });
-    };
 
     $scope.saveCaption = function (data, imgIndex) {
       var house = homesDB.child(houses[i].$id);
@@ -114,7 +104,7 @@ starterControllers
     $scope.valuation = {};
 
     $scope.submitScore = function () {
-      $scope.crowdvalue = $scope.property.crowdvalue;
+      $scope.valuation.crowdvalue = $scope.property.crowdvalue;
       $scope.valuation.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
       if ($scope.valuation.score < 0) {
         $scope.valuation.score = 0;
@@ -123,6 +113,22 @@ starterControllers
       if (!$scope.stopRecording) {
         fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
       }
+    };
+
+    //modal popup
+    $scope.postValuationPopup = function (ev) {
+      $mdDialog.show({
+        controller: 'ModalCtrl',
+        templateUrl: 'view/buyer/modal.html',
+        locals: {
+          valuation: $scope.valuation
+        }
+      })
+      .then(function () {
+        $scope.clickNext();
+      }, function () {
+        $scope.clickNext();
+      });
     };
 
     $scope.clickNext = function () {
