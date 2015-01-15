@@ -42,14 +42,8 @@ starterControllers
   });
 })
 
-.controller('ModalCtrl', function ($scope, $mdDialog) {
-  $scope.hide = function () {
-    $mdDialog.hide();
-  };
+.controller('SliderCtrl', function ($scope, $mdDialog) {
 
-  $scope.cancel = function () {
-    $mdDialog.cancel();
-  };
 })
 
 .controller('HomeCtrl', function ($scope, fireBaseData, $ionicModal, $ionicSlideBoxDelegate, utility, geocoding, $firebase,
@@ -80,7 +74,6 @@ starterControllers
     var i = 0;
 
     $scope.property = houses[i];
-    console.log($scope.property.$id);
     $scope.likes = 20;
     $scope.buildYr = 2014 - $scope.property.buildYr;
     $scope.hideDetail = true;
@@ -114,9 +107,11 @@ starterControllers
     $scope.getDefaultValue();
 
     $scope.$broadcast('updateMap', $scope.map);
-    $scope.showAdvanced = function (ev) {
+
+    //modal popup
+    $scope.postValuationPopup = function (ev) {
       $mdDialog.show({
-        controller: 'ModalCtrl',
+        controller: 'HomeCtrl',
         templateUrl: 'view/buyer/modal.html',
         targetEvent: ev
       })
@@ -124,15 +119,13 @@ starterControllers
         $scope.clickNext();
       });
     };
-    $ionicModal.fromTemplateUrl('view/buyer/modal.html', function (modal) {
-      $scope.modal = modal;
+    $scope.hide = function () {
+      $mdDialog.hide();
+    };
 
-    }, {
-      // Use our scope for the scope of the modal to keep it simple
-      scope: $scope,
-      // The animation we want to use for the modal entrance
-      animation: 'fade-in'
-    });
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    };
 
     $scope.saveCaption = function (data, imgIndex) {
       var house = homesDB.child(houses[i].$id);
