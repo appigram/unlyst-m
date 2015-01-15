@@ -15,7 +15,7 @@ var gulp = require('gulp');
     open = require("gulp-open");
     jshint = require('gulp-jshint');
     uglify = require('gulp-uglify');
-
+    plumber = require('gulp-plumber');
 var paths = {
   clean: [
     './client/scss/**/*.scss'
@@ -95,6 +95,7 @@ gulp.task('images', function () {
 gulp.task('scripts', function () {
   return gulp.src(paths.js)               // Read .js files
   .pipe(sourcemaps.init())
+  .pipe(plumber())
   .pipe(concat('unlyst'+ '.js'))          // Concatenate .js files
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('./client/www/js'))
