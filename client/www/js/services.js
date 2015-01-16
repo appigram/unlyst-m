@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('fireBaseData', ["$firebase", function ($firebase,$rootScope) {
+.factory('fireBaseData', ["$firebase", function ($firebase, $rootScope) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var homeInfo;
@@ -40,24 +40,24 @@ angular.module('starter.services', [])
     },
     saveValuation: function saveValuation(valuation, authData, property) {
 
-      if(refUser==null || authData == null){
+      if (refUser == null || authData == null) {
         return;
       }
 
-      if(authData.reputation == null){
+      if (authData.reputation == null) {
         authData.reputation = 0;
       }
 
-      var accuracy = 100 - Math.abs((property.crowdvalue - valuation) / property.crowdvalue)*100;
+      var accuracy = 100 - Math.abs((property.crowdvalue - valuation) / property.crowdvalue) * 100;
 
-      if(accuracy < 0) {
+      if (accuracy < 0) {
         accuracy = 0;
       }
 
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
         "homeID": property.$id,
-        "homeValue":property.crowdvalue,
+        "homeValue": property.crowdvalue,
         "homeReputation": property.totalReputation,
         "userID": authData.uid,
         "userSubmittedValue": parseInt(valuation),
@@ -69,19 +69,41 @@ angular.module('starter.services', [])
       var newrepuationTotal = property.totalReputation + accuracy;
       //Each valuation can assign a score from 0-10. Use 7 as the base, so the maximum score of a valuation is 0-3.
       // log base 1.1 seems like a good place to start
-      var userReputation;
-      var adjustedScore;
-      if(accuracy-70 <= 0 ){
-        adjustedScore = 0;
-      } else {
-        adjustedScore = (accuracy-70)/10;
-        console.log("adjusted score: " + adjustedScore);
-        userReputation = Math.log(adjustedScore + authData.reputation) / Math.log(1.1);
-        //if total reputation is less than 1, it will be negative
-        if(userReputation==null || userReputation<0){
-          userReputation = 0;
-        }
+//      var userReputation;
+//      var adjustedScore;
+//      if (accuracy - 70 <= 0) {
+//        adjustedScore = 0;
+//      } else {
+//        adjustedScore = (accuracy - 70) / 10;
+//        console.log("adjusted score: " + adjustedScore);
+//        userReputation = Math.log(adjustedScore + authData.reputation) / Math.log(1.1);
+//        //if total reputation is less than 1, it will be negative
+//        if (userReputation == null || userReputation < 0) {
+//          userReputation = 0;
+//        }
+//      }
+        
+      //paramaters used to update reputation
+      var base = 1.1,
+          scale = 1.2,
+          passAccuracy = 70,
+          maxReputation = 100;
+      // adjuststed score between -30 and 30
+      var adjustedScore = accuracy - passAccuracy;
+      if (adjustedScore < passAccuracy - 100) {
+          adjustedScore = passAccuracy - 100;
       }
+      // add new score to previous total 
+      var userScore = (authData.reputation) ? Math.pow(base, authData.reputation/scale) + adjustedScore : adjustedScore;
+      if (userScore < base) {
+         userScore = base;
+      }
+      // recompute reputation with log
+      var userReputation = Math.log(userScore) / Math.log(base) * scale;
+      if (userReputation > maxReputation) {
+          userReputation = maxReputation;
+      }
+        
       console.log("old reputation: " + authData.reputation);
       console.log("user new reputation: " + userReputation);
 

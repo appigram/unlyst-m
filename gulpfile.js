@@ -13,7 +13,9 @@ var gulp = require('gulp');
     livereload = require('gulp-livereload');
     nodemon = require('gulp-nodemon');
     open = require("gulp-open");
-
+    jshint = require('gulp-jshint');
+    uglify = require('gulp-uglify');
+    plumber = require('gulp-plumber');
 var paths = {
   clean: [
     './client/scss/**/*.scss'
@@ -27,12 +29,15 @@ var paths = {
     './client/www/*.html'
   ],
   js: [
-    './client/www/js/**/*.js'
+    './client/www/js/**/*.js',
+    '!./client/www/js/unlyst.js',
+    '!./client/www/js/unlyst.min.js'
   ]
 };
 
-gulp.task('default', ['sass','watch','nodemon','open']);
+gulp.task('default', ['sass','scripts','watch','nodemon','open']);
 
+//build scss
 gulp.task('sass', function () {
   gulp.src(paths.sass)
   .pipe(sourcemaps.init())
@@ -47,16 +52,14 @@ gulp.task('sass', function () {
   .pipe(livereload());
 });
 
+//reload html
 gulp.task('html', function () {
   gulp.src(paths.html)
   .pipe(livereload());
 });
 
-gulp.task('js', function () {
-  gulp.src(paths.js)
-  .pipe(livereload());
-});
 
+//minify css for test and production servers only
 gulp.task('sass-minify', function () {
   gulp.src(paths.sass)
   .pipe(sass())
@@ -73,6 +76,7 @@ gulp.task('sass-minify', function () {
   .pipe(gulp.dest('./client/www/css/'))
 });
 
+//minify all images
 gulp.task('images', function () {
   return gulp.src('./image/**/*')
   .pipe(changed('./client/www/img')) //changed only works on different directories and identical files
@@ -84,11 +88,34 @@ gulp.task('images', function () {
   .pipe(gulp.dest('./client/www/img'));
 });
 
+/**
+ * Process Scripts
+ */
+
+gulp.task('scripts', function () {
+  return gulp.src(paths.js)               // Read .js files
+  .pipe(sourcemaps.init())
+  .pipe(plumber())
+  .pipe(concat('unlyst'+ '.js'))          // Concatenate .js files
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('./client/www/js'))
+  .pipe(rename({ suffix: '.min' }))       // Add .min suffix
+  .pipe(uglify())                         // Minify the .js
+  .pipe(gulp.dest('./client/www/js'))         // Save minified .js
+  .pipe(livereload());                    // Initiate a reload
+});
+
+gulp.task('lint', function () {
+  return gulp.src(paths.js)               // Read .js files
+  .pipe(jshint())                       // lint .js files
+  .pipe(jshint.reporter());
+});
+
 gulp.task('watch', function () {
   livereload.listen();
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.html, ['html']);
-  gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.js, ['scripts']);
 
 });
 
@@ -130,10 +157,6 @@ gulp.task('nodemon', function (cb) {
 });
 
 gulp.task("open", function(){
-  gulp.src("./client/www/index.html")
-  .pipe(open());
-});
-gulp.task("open", function(){
   var options = {
     url: "http://localhost:5000",
     app: "chrome"
@@ -142,11 +165,14 @@ gulp.task("open", function(){
   gulp.src("./client/www/index.html")
   .pipe(open("", options));
 });
+
+
+
 //Production tasks below
 // Production gulp for minification
-gulp.task('heroku:production', ['html-prod', 'config','sass-minify']);
+gulp.task('heroku:production', ['html-prod', 'config','sass-minify','scripts']);
 
-gulp.task('heroku:development', ['html-dev', 'config','sass-minify']);
+gulp.task('heroku:development', ['html-dev', 'config','sass-minify','scripts']);
 
 gulp.task('html-prod', function () {
   gulp.src('./client/www/index.html')

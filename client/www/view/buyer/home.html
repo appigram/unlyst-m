@@ -1,35 +1,32 @@
 <ion-view>
   <ion-content>
-    <div class="slider-nav-btn-left">
-      <button ng-click="previous()" class="button button-dark button-small button-outline ion-chevron-left"></button>
+    <div ng-controller="SliderCtrl">
+      <div class="slider-nav-btn-left">
+        <button ng-click="previous()" class="button button-dark button-small button-outline ion-chevron-left"></button>
+      </div>
+      <div class="slider-nav-btn-right">
+        <button ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></button>
+      </div>
+      <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" auto-play show-pager="false"
+                     active-slide="activeSlide">
+        <ion-slide ng-repeat="image in property.img">
+          <div ng-include src="'view/buyer/home-details/picture.html'"></div>
+        </ion-slide>
+        <ion-slide>
+          <div ng-include src="'view/buyer/home-details/info-detail.html'"></div>
+        </ion-slide>
+        <ion-slide>
+          <div ng-include src="'view/buyer/home-details/info-detail2.html'"></div>
+        </ion-slide>
+        <ion-slide>
+          <div ng-include src="'view/buyer/home-details/info-detail3.html'"></div>
+        </ion-slide>
+        <ion-slide>
+          <div ng-include src="'view/buyer/home-details/map.html'"></div>
+        </ion-slide>
+      </ion-slide-box>
+      <div ng-include src="'view/buyer/slide-nav.html'"></div>
     </div>
-    <div class="slider-nav-btn-right">
-      <button ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></button>
-    </div>
-    <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" auto-play show-pager="false"
-                   active-slide="activeSlide">
-      <ion-slide ng-repeat="image in property.img">
-        <div ng-include src="'view/buyer/home-details/picture.html'"></div>
-      </ion-slide>
-<!--
-      <ion-slide>
-        <div ng-include src="'view/buyer/home-details/info-general.html'"></div>
-      </ion-slide>
--->
-      <ion-slide>
-        <div ng-include src="'view/buyer/home-details/info-detail.html'"></div>
-      </ion-slide>
-      <ion-slide>
-        <div ng-include src="'view/buyer/home-details/info-detail2.html'"></div>
-      </ion-slide>
-      <ion-slide>
-        <div ng-include src="'view/buyer/home-details/info-detail3.html'"></div>
-      </ion-slide>
-      <ion-slide>
-        <div ng-include src="'view/buyer/home-details/map.html'"></div>
-      </ion-slide>
-    </ion-slide-box>
-    <div ng-include src="'view/buyer/home-details/slide-nav.html'"></div>
     <div ng-include src="'view/buyer/home-details/address.html'"></div>
     <div ng-include src="'view/buyer/price-slider.html'"></div>
     <div class="col col-center text-center">

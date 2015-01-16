@@ -28,3 +28,5 @@ client/www/lib
 
 #compiled css
 client/www/css/**
+client/www/js/unlyst.js
+client/www/js/unlyst.min.js

@@ -1,30 +1,20 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog aria-label="Current Unlysted Value" class="padding">
   <md-content>
-    <md-subheader class="md-sticky-no-effect">Mango (Fruit)</md-subheader>
+    <h2 class="md-sticky-no-effect">Current Unlysted Value</h2>
+    <div class="text-center">
+      <h5>{{valuation.score | scoreMessage}}</h5>
+      <h3 class="text-underscore">{{valuation.score | number : 0}}</h3>
+      <h5>points awarded</h5>
+      <h1 class="text-underscore"><strong>{{valuation.crowdvalue | currency:undefined:0}}</strong></h1>
+      <h5>unlysted value</h5>
+      <h3 class="text-underscore">{{valuation.score | number : 0}}</h3>
+      <h5>your average</h5>
+    </div>
+    <div class="row" layout-align="space-between center">
+      <md-button aria-label="like" class="md-raised md-warn ion-star corner-round modal-button"></md-button>
+      <md-button class="md-raised md-warn modal-button" ng-click="hide();">
+        View Next Home
+      </md-button>
+    </div>
   </md-content>
-  <h1 class="title">Current Unlysted Value</h1>
-  <!--button-clear makes the icon bigger--><!--
-  <button class="button button-custom button-clear" ng-click="modal.hide()">
-  <icon class="icon ion-close"></icon>
-  </button>
-  -->
-  <div class="text-center card">
-    <h5>{{score | scoreMessage}}</h5>
-    <h3 class="text-underscore">{{score | number : 0}}</h3>
-    <h5>points awarded</h5>
-    <h1 class="text-underscore"><strong>{{crowdvalue | currency:undefined:0}}</strong></h1>
-    <h5>unlysted value</h5>
-    <h3 class="text-underscore">{{avgScore | number: 2}}</h3>
-    <h5>your average</h5>
-  </div>
-  <div class="row">
-    <div class="col-20 col-offset-20">
-      <button class="button button-assertive ion-star corner-round"></button>
-    </div>
-    <div class="col-60">
-      <button ng-click="modal.hide();clickNext();" class="button button-assertive corner-round">View Next Home
-      </button>
-    </div>
-  </div>
-</md-dialog><!--<ion-modal-view class="corner-round" style="width: 90%; height: 50%; top: 1%; left: 5%; right: 5%; bottom: 5%; min-height:450px;max-width:400px;">--><!--<ion-header-bar class="bar bar-header bar-assertive corner-round-top">--><!--<h1 class="title">Current Unlysted Value</h1>--><!--&lt;!&ndash;button-clear makes the icon bigger&ndash;&gt;--><!--&lt;!&ndash;--><!--<button class="button button-custom button-clear" ng-click="modal.hide()">--><!--<icon class="icon ion-close"></icon>--><!--</button>--><!--&ndash;&gt;--><!--</ion-header-bar>--><!--<ion-content has-header="true" padding="true">--><!--<div class="text-center card">--><!--<h5>{{score | scoreMessage}}</h5>--><!--<h3 class="text-underscore">{{score | number : 0}}</h3>--><!--<h5>points awarded</h5>--><!--<h1 class="text-underscore"><strong>{{crowdvalue | currency:undefined:0}}</strong></h1>--><!--<h5>unlysted value</h5>--><!--<h3 class="text-underscore">{{avgScore | number: 2}}</h3>--><!--<h5>your average</h5>--><!--</div>--><!--<div class="row">--><!--<div class="col-20 col-offset-20">--><!--<button class="button button-assertive ion-star corner-round"></button>--><!--</div>--><!--<div class="col-60">--><!--<button ng-click="modal.hide();clickNext();" class="button button-assertive corner-round">View Next Home--><!--</button>--><!--</div>--><!--</div>--><!--</ion-content>--><!--</ion-modal-view>--><!--<div class="modal-body text-center">--><!--<h1><strong>{{expertvalue}}</strong></h1>--><!--<h5>{{scoremsg}}</h5>--><!--<h5>+ {{score}} points</h5>--><!--<h5>Points Improve Your Reputation</h5>--><!--</div>--><!--<div class="modal-footer text-center">--><!--<button id="nexthome" type="button" data-dismiss="modal" ng-click="clickNext()"--><!--class="btn btn-primary center-block">View Next Home--><!--</button>--><!--</div>-->
-
+</md-dialog>

@@ -75,20 +75,16 @@
             <input type="text" ng-model="home.yearBuilt">
         </md-input-container>
     </md-content>
-</div>
-<div class= "list list-inset">
-            <div class = "">Additional Spaces (check all that apply)</div>
-                <div class = "item item-checkbox" ng-repeat = "space in homeSchema.additionalSpace">
-                    <label class = "checkbox">
-                        <input type = "checkbox"
-                               value="{{space}}"
-                               ng-click = "toggleSelection(space, home.additionalSpace)"
-                        >
-                    </label>{{space}}
-                </div>
-        </div>
-<div class="list list-inset">
-            <div class="item item-toggle">
+
+    <div class = "">Additional Spaces (check all that apply)</div>
+        <md-checkbox ng-repeat="space in homeSchema.additionalSpace"
+                     aria-label = "{{space}}"
+                     value="{{space}}"
+                     ng-click = "toggleSelection(space, home.additionalSpace)"
+        >
+            {{space}}
+        </md-checkbox>
+    <div class=" item item-toggle">
                 Storage Locker
                 <label class="toggle toggle-assertive">
                     <input type = "checkbox"
@@ -98,49 +94,44 @@
                         <div class="handle"></div>
                     </div>
                 </label>
-            </div>
-        </div>
-<div class="list list-inset">
-            <div>Outdoor Spaces (check all that apply)</div>
-            <div class = "item item-checkbox" ng-repeat="space in homeSchema.outdoorSpace">
-                <label class="checkbox">
-                    <input type = "checkbox"
+    </div>
+    <br>
+    <div>Outdoor Spaces (check all that apply)</div>
+                    <md-checkbox ng-repeat="space in homeSchema.outdoorSpace"
+                           aria-label="{{space.name}}"
                            value="{{space.value}}"
                            ng-click = "toggleSelection(space.value, home.outdoorSpace)"
                     >
-                </label>{{space.name}}
+                        {{space.name}}
+                    </md-checkbox>
+
+    <div> Orientation (check all that apply)</div>
+                <md-checkbox ng-repeat = "orientation in homeSchema.orientation"
+                                 aria-label = "{{orientation}}"
+                                 value="{{orientation}}"
+                                ng-click = "toggleSelection(orientation, home.orientation)"
+                >
+                    {{orientation}}
+                </md-checkbox>
             </div>
-        </div>
-<div class="list list-inset">
-        <div> Orientation (check all that apply)</div>
-            <div class = "item item-checkbox"  ng-repeat = "orientation in homeSchema.orientation">
-                <label class="checkbox">
-                    <input type = "checkbox"
-                           value="{{orientation}}"
-                           ng-click = "toggleSelection(orientation, home.orientation)"
-                    >
-                </label>{{orientation}}
-            </div>
-        </div>
-<div class="list list-inset">
-            <div>Building Amenities (check all that apply)</div>
-            <div class = "item item-checkbox" ng-repeat = "amenity in homeSchema.amenity">
-                <label class = "checkbox">
-                    <input type = "checkbox"
+    <div>Building Amenities (check all that apply)</div>
+                    <md-checkbox ng-repeat = "amenity in homeSchema.amenity"
+                           aria-label = "{{amenity.name}}"
                            value="{{amenity.value}}"
                            ng-click = "toggleSelection(amenity.value, home.amenity)"
                     >
-                </label>{{amenity.name}}<br>
-            </div>
-        </div>
-<div class="list">
+                        {{amenity.name}}
+                    </md-checkbox>
+</div>
+
+<div class="list list-inset">
             <div class="col col-33 col-offset-33">
-                <button class="button button-median button-assertive icon-right ion-chevron-right" ng-click="goToPg3()"
-                        >NEXT
-                </button>
+                <md-button class="md-raised md-warn" ng-click="goToPg3()">
+                    NEXT
+                </md-button>
             </div>
+        <div class="col col-33 col-offset-33">
+            Step 2 of 3
         </div>
-<div class="col col-33 col-offset-33">
-        Step 2 of 3
-        </div>
+</div>    
         {{home}}
