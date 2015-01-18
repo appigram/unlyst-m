@@ -16,20 +16,31 @@ var gulp = require('gulp');
     jshint = require('gulp-jshint');
     uglify = require('gulp-uglify');
     plumber = require('gulp-plumber');
+
 var paths = {
   clean: [
-    './client/scss/**/*.scss'
+    './client/www/css/unlyst.css',
+    './client/www/css/unlyst.min.css',
+    './client/www/js/unlyst.js',
+    './client/www/js/unlyst.min.js'
   ],
   sass: [
     './client/scss/**/*.scss',
     './client/www/lib/leaflet/dist/leaflet.css'
   ],
   html: [
-    './client/www/view/**/*.html',
-    './client/www/*.html'
+    './client/www/**/*.html',
+    '!./client/lib/**/*.html'
   ],
   js: [
+  //TODO: fix app.js to be the first file to load
+    './client/www/app.js',
+    './client/www/header.js',
+    './client/www/add-home/**/*.js',
+    './client/www/auth/**/*.js',
+    './client/www/display-home/**/*.js',
     './client/www/js/**/*.js',
+    '!./client/lib/**/*.js',
     '!./client/www/js/unlyst.js',
     '!./client/www/js/unlyst.min.js'
   ]
