@@ -127,6 +127,7 @@ angular.module('starter.services', [])
       //mininum value of 1 mil
       return 1000000;
     },
+    // exp = base + base*scale + base*scale^2 + ... + base*scale^rep
     reputationToExp: function reputationToExp(rep, base, scale) {
         base = base || 10;
         scale = scale || 1.1;
