@@ -1,9 +1,0 @@
-{
-    "jscodehints.detectedExclusions": [
-        "/Users/zhangziyezhangziye/workspace/github/unlyst/client/www/lib/leaflet-plugins/layer/tile/Google.js",
-        "/Users/zhangziyezhangziye/workspace/github/unlyst/client/www/js/controllers.js",
-        "/Users/zhangziyezhangziye/workspace/github/unlyst/client/www/js/directives.js",
-        "/Users/zhangziyezhangziye/workspace/github/unlyst/client/gulpfile.js",
-        "/Users/zhangziyezhangziye/workspace/github/unlyst/server.js"
-    ]
-}
