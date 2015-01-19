@@ -34,14 +34,8 @@ var paths = {
   ],
   js: [
   //TODO: fix app.js to be the first file to load
-    './client/www/app.js',
-    './client/www/js/**/*.js',
-    './client/www/header.js',
-    './client/www/add-home/**/*.js',
-    './client/www/auth/**/*.js',
-    './client/www/display-home/**/*.js',
-    '!./client/www/js/unlyst.js',
-    '!./client/www/js/unlyst.min.js'
+    './client/www/src/common/app.js',
+    './client/www/src/**/*.js'
   ]
 };
 
