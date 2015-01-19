@@ -26,7 +26,6 @@ node_modules
 client/www/lib/
 .env
 
-#compiled css
-client/www/css/**
-client/www/js/unlyst.js
-client/www/js/unlyst.min.js
+#compiled css and js
+client/www/dist/css/**
+client/www/dist/js/**

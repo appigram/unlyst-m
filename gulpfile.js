@@ -19,10 +19,10 @@ var gulp = require('gulp');
 
 var paths = {
   clean: [
-    './client/www/css/unlyst.css',
-    './client/www/css/unlyst.min.css',
-    './client/www/js/unlyst.js',
-    './client/www/js/unlyst.min.js'
+    './client/www/dist/css/unlyst.css',
+    './client/www/dist/css/unlyst.min.css',
+    './client/www/dist/js/unlyst.js',
+    './client/www/dist/js/unlyst.min.js'
   ],
   sass: [
     './client/scss/**/*.scss',
@@ -33,7 +33,7 @@ var paths = {
     '!./client/lib/**/*.html'
   ],
   js: [
-  //TODO: fix app.js to be the first file to load
+    //TODO: fix app.js to be the first file to load
     './client/www/src/common/app.js',
     './client/www/src/**/*.js'
   ]
@@ -52,7 +52,7 @@ gulp.task('sass', function () {
   }))
   .pipe(concat('unlyst.css'))
   .pipe(sourcemaps.write())
-  .pipe(gulp.dest('./client/www/css/'))
+  .pipe(gulp.dest('./client/www/dist/css/'))
   .pipe(livereload());
 });
 
@@ -72,24 +72,24 @@ gulp.task('sass-minify', function () {
     cascade: true
   }))
   .pipe(concat('unlyst.css'))
-  .pipe(gulp.dest('./client/www/css/'))
+  .pipe(gulp.dest('./client/www/dist/css/'))
   .pipe(minifyCss({
     keepSpecialComments: 0
   }))
   .pipe(rename({extname: '.min.css'}))
-  .pipe(gulp.dest('./client/www/css/'))
+  .pipe(gulp.dest('./client/www/dist/css/'))
 });
 
 //minify all images
 gulp.task('images', function () {
   return gulp.src('./image/**/*')
-  .pipe(changed('./client/www/img')) //changed only works on different directories and identical files
+  .pipe(changed('./client/www/dist/img')) //changed only works on different directories and identical files
   .pipe(imagemin({
     progressive: true,
     svgoPlugins: [{removeViewBox: false}],
     use: [pngquant()]
   }))
-  .pipe(gulp.dest('./client/www/img'));
+  .pipe(gulp.dest('./client/www/dist/img'));
 });
 
 /**
@@ -102,10 +102,10 @@ gulp.task('scripts', function () {
   .pipe(plumber())
   .pipe(concat('unlyst'+ '.js'))          // Concatenate .js files
   .pipe(sourcemaps.write())
-  .pipe(gulp.dest('./client/www/js'))
+  .pipe(gulp.dest('./client/www/dist/js'))
   .pipe(rename({ suffix: '.min' }))       // Add .min suffix
   .pipe(uglify())                         // Minify the .js
-  .pipe(gulp.dest('./client/www/js'))         // Save minified .js
+  .pipe(gulp.dest('./client/www/dist/js'))         // Save minified .js
   .pipe(livereload());                    // Initiate a reload
 });
 
@@ -142,7 +142,7 @@ gulp.task('nodemon', function (cb) {
       'node_modules/**',
       'client/www/lib/**',
       'client/node_modules/**',
-      'client/www/css/**'
+      'client/www/dist/css/**'
     ]
   });
   //.on('start', function () {

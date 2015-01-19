@@ -1,5 +1,4 @@
 starterControllers
-
 .controller('HeaderCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state) {
   //authentication
   $rootScope.authData = fireBaseData.ref().getAuth();
