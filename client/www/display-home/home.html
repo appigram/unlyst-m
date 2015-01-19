@@ -10,25 +10,25 @@
       <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" auto-play show-pager="false"
                      active-slide="activeSlide">
         <ion-slide ng-repeat="image in property.img">
-          <div ng-include src="'view/buyer/home-details/picture.html'"></div>
+          <div ng-include src="'display-home/home-details/picture.html'"></div>
         </ion-slide>
         <ion-slide>
-          <div ng-include src="'view/buyer/home-details/info-detail.html'"></div>
+          <div ng-include src="'display-home/home-details/info-detail.html'"></div>
         </ion-slide>
         <ion-slide>
-          <div ng-include src="'view/buyer/home-details/info-detail2.html'"></div>
+          <div ng-include src="'display-home/home-details/info-detail2.html'"></div>
         </ion-slide>
         <ion-slide>
-          <div ng-include src="'view/buyer/home-details/info-detail3.html'"></div>
+          <div ng-include src="'display-home/home-details/info-detail3.html'"></div>
         </ion-slide>
         <ion-slide>
-          <div ng-include src="'view/buyer/home-details/map.html'"></div>
+          <div ng-include src="'display-home/home-details/map.html'"></div>
         </ion-slide>
       </ion-slide-box>
-      <div ng-include src="'view/buyer/slide-nav.html'"></div>
+      <div ng-include src="'display-home/slides/slide-nav.html'"></div>
     </div>
-    <div ng-include src="'view/buyer/home-details/address.html'"></div>
-    <div ng-include src="'view/buyer/price-slider.html'"></div>
+    <div ng-include src="'display-home/home-details/address.html'"></div>
+    <div ng-include src="'display-home/price-slider.html'"></div>
     <div class="col col-center text-center">
       <label class="checkbox" ng-model="recordmode">
         <input type="checkbox">

@@ -25,7 +25,7 @@ starterControllers
   };
 
   //console.log($rootScope.authData);
-  $ionicPopover.fromTemplateUrl('view/user/popover.html', {
+  $ionicPopover.fromTemplateUrl('auth/popover.html', {
     scope: $scope
   }).then(function (popover) {
     $scope.popover = popover;

@@ -117,18 +117,18 @@ starterControllers
 
     //modal popup
     $scope.postValuationPopup = function (ev) {
-      $mdDialog.show({
-        controller: 'ModalCtrl',
-        templateUrl: 'view/buyer/modal.html',
-        locals: {
-          valuation: $scope.valuation
-        }
-      })
-      .then(function () {
-        $scope.clickNext();
-      }, function () {
-        $scope.clickNext();
-      });
+      //$mdDialog.show({
+      //  controller: 'ModalCtrl',
+      //  templateUrl: 'view/buyer/modal.html',
+      //  locals: {
+      //    valuation: $scope.valuation
+      //  }
+      //})
+      //.then(function () {
+      //  $scope.clickNext();
+      //}, function () {
+      //  $scope.clickNext();
+      //});
     };
 
     $scope.clickNext = function () {

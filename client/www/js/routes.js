@@ -11,40 +11,40 @@ angular.module('starter.routes', [])
 
   .state('home', {
     url: '/',
-    templateUrl: 'view/buyer/home.html',
+    templateUrl: 'display-home/home.html',
     controller: 'HomeCtrl'
   })
 
   .state('login', {
     url: '/login',
-    templateUrl: 'view/user/login.html',
+    templateUrl: 'auth/login.html',
     controller: 'LoginCtrl'
   })
   .state('register', {
     url: '/register',
-    templateUrl: 'view/user/register.html',
+    templateUrl: 'auth/register.html',
     controller: 'RegisterCtrl'
   })
 
   .state('addHome', {
     url: '/addHome',
-    templateUrl: 'view/seller/addhome.html',
+    templateUrl: 'add-home/addhome.html',
     controller: 'AddHomeCtrl'
    })
 
    .state('addHome.addHome1', {
      url: '/addHome1',
-     templateUrl: 'view/seller/addhome1.html'//,
+     templateUrl: 'add-home/addhome1.html'//,
       })
 
   .state('addHome.addHome2', {
     url: '/addHome2',
-    templateUrl: 'view/seller/addhome2.html'//,
+    templateUrl: 'add-home/addhome2.html'//,
   })
       
   .state('addHome.addHome3', {
     url: '/addHome3',
-    templateUrl: 'view/seller/addhome3.html'
+    templateUrl: 'add-home/addhome3.html'
   });
 
   // if none of the above states are matched, use this as the fallback
