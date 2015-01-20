@@ -22,7 +22,13 @@ starterControllers
       return $rootScope.authData.user.firstname;
     }
   };
-
+  $rootScope.getReputationIcon = function () {
+    var number = Math.round($rootScope.authData.reputation);
+    if(number <10){
+      number = '0' + number;
+    }
+    return 'http://google-maps-icons.googlecode.com/files/red' + number + '.png'
+  };
   //console.log($rootScope.authData);
   $ionicPopover.fromTemplateUrl('src/auth/popover.html', {
     scope: $scope

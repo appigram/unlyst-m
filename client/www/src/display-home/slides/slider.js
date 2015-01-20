@@ -1,6 +1,6 @@
 starterControllers
 
-.controller('SliderCtrl', function ($scope,$rootScope, $ionicSlideBoxDelegate) {
+.controller('SliderCtrl', function ($scope, $rootScope, $ionicSlideBoxDelegate,$timeout) {
   $scope.activeSlide = 0;
   $scope.next = function () {
     $ionicSlideBoxDelegate.next();
@@ -11,7 +11,7 @@ starterControllers
 
   $ionicSlideBoxDelegate.update();
 
-  var updateTabs =function () {
+  var updateTabs = function () {
     numSlides = $ionicSlideBoxDelegate.count();
     $scope.curPhotoSlide = $scope.curInfoSlide = '';
     if (isPhotoSlide()) {
@@ -36,13 +36,18 @@ starterControllers
   var numSlides = 0;
   $scope.curPhotoSlide = $scope.curInfoSlide = '';
 
-
   var isPhotoSlide = function () {
     return $scope.activeSlide < numSlides - 3 - 1;
-  }
+  };
   var isInfoSlide = function () {
     return $scope.activeSlide < numSlides - 1
     && $scope.activeSlide >= numSlides - 3 - 1;
-  }
+  };
+  $scope.$on('updateTabs', function() {
+    $timeout(function () {
+      $ionicSlideBoxDelegate.update();
+      updateTabs();
+    }, 0);
+  });
 
 });

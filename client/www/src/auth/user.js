@@ -11,8 +11,6 @@ starterControllers
   function onLoginSuccess(authData) {
     saveUserProfile(authData);
     $rootScope.notify("Authenticated successfully!");
-    $rootScope.userid = authData.id;
-    $rootScope.authData = authData;
     $rootScope.$apply();
     $rootScope.hide();
     $state.go('home');
@@ -23,10 +21,15 @@ starterControllers
     /* SAVE PROFILE DATA */
     var usersRef = fireBaseData.refUsers();
     //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
-    usersRef.child(authData.uid).set(authData);
+    usersRef.child(authData.uid).child('profile').set(authData);
 
+    usersRef.child(authData.uid).on("value", function (snapshot) {
+      console.log(snapshot.val());
+      $rootScope.authData = snapshot.val();
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
   };
-  //TODO: make sure users cannot log in again after already logged in. only log out.
 
   $scope.signIn = function (user) {
     $rootScope.show('Logging In...');
@@ -129,7 +132,6 @@ starterControllers
         $rootScope.hide();
         $state.go('login')
         $rootScope.notify('Enter your email and password to login. ');
-        ;
       });
     };
     var sendEmail = function() {
