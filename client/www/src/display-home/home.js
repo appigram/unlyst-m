@@ -69,8 +69,8 @@ starterControllers
       $timeout(function () {
         $ionicSlideBoxDelegate.update();
         return true;
-      }, 10);
-    };
+      }, 100);
+    }
 
     if ($rootScope.authData != null) {
       var refUserRep = fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
@@ -152,4 +152,5 @@ starterControllers
     };
 
   });
-})
+});
+
