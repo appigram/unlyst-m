@@ -235,7 +235,7 @@ angular.module('starter.services', [])
         ],
         bedRooms: [0,1,2,3,4],
         bathRooms: [0,1,2,3,4],
-        additionalSpace: ['Den','Sunroom'],
+        additionalSpace: ['Den','study', 'Sunroom', 'Storage locker'],
         parkingType: [
           {
             name: "n/a",
@@ -304,8 +304,12 @@ angular.module('starter.services', [])
             value: "petWash"
           },
           {
-            name: "Concierge",
-            value: "concierge"
+            name: "Concierge(24 hour)",
+            value: "conciergeFullTime"
+          },
+          {
+            name: "Concierge(Part-time)",
+            value: "conciergePartTime"
           },
           {
             name: "Party Room",

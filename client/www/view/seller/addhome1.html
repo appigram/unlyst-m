@@ -1,21 +1,15 @@
 <div class="list list-inset">
-    <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
     <md-content class="md-padding">
     <p>
-        Adding your home to Unlyst will provide you with realtime valuation and allow you yo see who's interested
-        in buying your home. It's east, safe and free. It's like listing your home for sale, except you're not
-        Take control of your largest asset
+        Get a market-tested valuation and a list of people who are interested in buying your home right now.
     </p>
         <br>
     <p>
-        To start, please enter your address.
+        Let's get started!
     </p>
     </md-content>
-    </md-whiteframe>
-</div>
 
-<div class="list list-inset">
-    <md-content class="md-padding" layout="row" layout-sm="column">
+    <md-content class="md-padding">
     <md-input-container flex>
         <label>Home Address (Only Toronto Addresses)</label>
         <input type="text" ng-model="home.address"><br>
@@ -36,8 +30,14 @@
 </div>
 
 <div class="list list-inset">
-    <md-checkbox ng-model="home.hideAddress" aria-label="hideAdress">
-        Hide my exact address
+    <md-checkbox ng-model="home.hideAddress" aria-label="hideAddress">
+        Make my suite number private(optional)
+    </md-checkbox>
+</div>
+
+<div class="list list-inset">
+    <md-checkbox ng-model="home.ownerCertify" aria-label="hideAddress">
+        I certify that I am the or one of the owners of this property(required)
     </md-checkbox>
 </div>
 

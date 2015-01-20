@@ -162,13 +162,13 @@ starterControllers
 
 .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function ($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
 
-      console.log("AddHomeCtrl");
-      //$state.go("addHome.addHome1");
-      var homesDB = fireBaseData.refHomes();
-      var homesRef = $firebase(homesDB).$asArray();
+  console.log("AddHomeCtrl");
+  $state.go("addHome.addHome1");
+  var homesDB = fireBaseData.refHomes();
+  var homesRef = $firebase(homesDB).$asArray();
 
   $scope.homeSchema = homeSchema;
-
+  console.log(homeSchema);
   $scope.home = {
     address: "",
     suiteNumber: "",
@@ -177,6 +177,7 @@ starterControllers
     postalCode: "",
     neighborhood: "",
     hideAddress: false,
+    ownerCertify: false,
     homeType: $scope.homeSchema.homeTypes[0].value,
     buildingType: $scope.homeSchema.buildingTypes[0].value,
     buildingName: "",
@@ -186,7 +187,6 @@ starterControllers
     additionalSpace: [],
     parkingType: $scope.homeSchema.parkingType[0].value,
     parkingSpace: 0,
-    storageLocker: false,
     outdoorSpace: [],
     orientation: [],
     amenity: [],
@@ -206,8 +206,8 @@ starterControllers
   };
 
         //put upload function and inside promise
-        homesRef.$loaded().then(function() {
-
+  homesRef.$loaded().then(function() {
+          console.log("load homeref ....")
           var length = homesRef.length;
           var id = homesRef[length-1].houseId;
           if (id >= length-1 ){

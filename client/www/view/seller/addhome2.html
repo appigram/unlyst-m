@@ -1,6 +1,4 @@
 <div class="list list-inset">
-    <div> big logo!</div>
-    <br>
     <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
     <md-content class="md-padding">
         <p>Now it's the time to enter a bit more information about your home so that the market can figure out
@@ -71,7 +69,7 @@
             <input type="text" ng-model="home.maintenanceFee">
         </md-input-container>
         <md-input-container flex>
-            <label>Year build:</label>
+            <label>Year built/Completed:</label>
             <input type="text" ng-model="home.yearBuilt">
         </md-input-container>
     </md-content>
@@ -84,17 +82,7 @@
         >
             {{space}}
         </md-checkbox>
-    <div class=" item item-toggle">
-                Storage Locker
-                <label class="toggle toggle-assertive">
-                    <input type = "checkbox"
-                           ng-model="home.storageLocker"
-                    >
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-    </div>
+    {{homeSchema.additionalSpace}}
     <br>
     <div>Outdoor Spaces (check all that apply)</div>
                     <md-checkbox ng-repeat="space in homeSchema.outdoorSpace"
@@ -133,5 +121,5 @@
         <div class="col col-33 col-offset-33">
             Step 2 of 3
         </div>
-</div>    
+</div>
         {{home}}
