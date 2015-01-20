@@ -3,12 +3,12 @@ starterControllers
 .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function ($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
 
   console.log("AddHomeCtrl");
-  $state.go("addHome.addHome1")
+  $state.go("addHome.addHome1");
   var homesDB = fireBaseData.refHomes();
-  var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
+  var homesRef = $firebase(homesDB).$asArray();
 
   $scope.homeSchema = homeSchema;
-
+  console.log(homeSchema);
   $scope.home = {
     address: "",
     suiteNumber: "",
@@ -17,6 +17,7 @@ starterControllers
     postalCode: "",
     neighborhood: "",
     hideAddress: false,
+    ownerCertify: false,
     homeType: $scope.homeSchema.homeTypes[0].value,
     buildingType: $scope.homeSchema.buildingTypes[0].value,
     buildingName: "",
@@ -26,7 +27,6 @@ starterControllers
     additionalSpace: [],
     parkingType: $scope.homeSchema.parkingType[0].value,
     parkingSpace: 0,
-    storageLocker: false,
     outdoorSpace: [],
     orientation: [],
     amenity: [],
@@ -46,66 +46,72 @@ starterControllers
   };
 
   //put upload function and inside promise
-  /*homesRef.$loaded().then(function() {
+  homesRef.$loaded().then(function() {
+    console.log("load homeref ....")
+    var length = homesRef.length;
+    var id = homesRef[length-1].houseId;
+    if (id >= length-1 ){
+      //set houseID for new home
+      $scope.home.houseId  = id + 1;
+      //prepare for image upload
+      $scope.uploadFile = function(files, name){
+        console.log(files);
+        console.log("houseID: " + $scope.home.houseId);
+        console.log(files[0]);
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        fd.append("houseId", $scope.home.houseId);
+        fd.append("imageNum",name);
+        $scope.uploadFiles.push(fd);
+      };
 
-   var length = homesRef.length;
-   var id = homesRef[length-1].houseId;
-   if (id >= length-1 ){
-   //set houseID for new home
-   $scope.home.houseId  = id + 1;
-   //prepare for image upload
-   $scope.uploadFile = function(files, name){
-   console.log(files);
-   console.log("houseID: " + $scope.home.houseId);
-   console.log(files[0]);
-   var fd = new FormData();
-   fd.append("file", files[0]);
-   fd.append("houseId", $scope.home.houseId);
-   fd.append("imageNum",name);
-   $scope.uploadFiles.push(fd);
-   };
+      $scope.submitForm = function () {
+        for (var i = 0; i < $scope.uploadFiles.length; i++) {
+          var file = $scope.uploadFiles[i];
+          if(file) {
+            var req = {
+              url:'/upload',
+              data: file,
+              method: 'POST',
+              withCredentials:true,
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+            };
 
-   $scope.submitForm = function () {
-   for (var i = 0; i < $scope.uploadFiles.length; i++) {
-   var file = $scope.uploadFiles[i];
-   if(file) {
-   var req = {
-   url:'/upload',
-   data: file,
-   method: 'POST',
-   withCredentials:true,
-   headers: {'Content-Type': undefined},
-   transformRequest: angular.identity
-   };
+            $http(req).success(function(data) {
+              var imgObj = {
+                caption:'',
+                url: ''
+              };
+              console.log("OK", data);
+              imgObj.url = data;
+              $scope.home.img.push ({
+                "caption" : "",
+                "url" : data
+              });
+              //start to push.....
+              //homesDB.child($scope.home.houseId).set($scope.home)
+              homesRef.$add($scope.home).then(function(ref){
+                console.log("return is:  " + ref);
+              });
+            }).error(function(err){
+              console.log(err);
+            });
+          } else {
+            // No File Selected
+            alert('No File Selected');
+          }
+        }
+      };
+    } else {
+      console.log("Error: house ID is not correct!")
+    }
 
-   $http(req).success(function(data) {
-   var imgObj = {
-   caption:'',
-   url: ''
-   }
-   console.log("OK", data);
-   imgObj.url = data;
-   $scope.home.img.push ({
-   "caption" : "",
-   "url" : data
-   });
-   }).error(function(err){
-   console.log(err);
-   });
-   }else {
-   // No File Selected
-   alert('No File Selected');
-   }
-   }
-   };
+  });
 
-   } else {
-   console.log("Error: house ID is not correct!")
-   }
 
-   });*/
 
-  $scope.toggleSelection = function (item, selectionArr) {
+  $scope.toggleSelection = function(item, selectionArr) {
     var idx = selectionArr.indexOf(item);
     // is currently selected
     if (idx > -1) {
@@ -127,10 +133,9 @@ starterControllers
   };
   $scope.addhome = function () {
     console.log("add home");
-    $state.go('addHome');
+    $state.go('addHome.addHome1');
   };
 
   $scope.submitHomes = function () {
-
   };
 }]);
