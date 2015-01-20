@@ -119,7 +119,7 @@ starterControllers
     $scope.postValuationPopup = function (ev) {
       $mdDialog.show({
         controller: 'ModalCtrl',
-        templateUrl: 'view/buyer/modal.html',
+        templateUrl: 'src/display-home/modal.html',
         locals: {
           valuation: $scope.valuation
         }

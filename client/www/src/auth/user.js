@@ -137,7 +137,7 @@ starterControllers
             url: '/sendmail',
             method: 'POST',
             data: {'email': email},
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'}
         };
         $http(req).success(function(res) {
           if (res && res[0].status == 'sent') {

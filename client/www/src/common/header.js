@@ -1,5 +1,4 @@
 starterControllers
-
 .controller('HeaderCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state) {
   //authentication
   $rootScope.authData = fireBaseData.ref().getAuth();
@@ -25,7 +24,7 @@ starterControllers
   };
 
   //console.log($rootScope.authData);
-  $ionicPopover.fromTemplateUrl('view/user/popover.html', {
+  $ionicPopover.fromTemplateUrl('src/auth/popover.html', {
     scope: $scope
   }).then(function (popover) {
     $scope.popover = popover;

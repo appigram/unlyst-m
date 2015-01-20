@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('fireBaseData', ["$firebase", function ($firebase, $rootScope) {
+.factory('fireBaseData', ['$firebase', 'utility', function ($firebase, utility) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var homeInfo;
@@ -38,8 +38,7 @@ angular.module('starter.services', [])
     refUsers: function () {
       return refUser;
     },
-    saveValuation: function saveValuation(valuation, authData, property) {
-
+    saveValuation: function saveValuation(value, authData, property) {
       if (refUser == null || authData == null) {
         return;
       }
@@ -48,58 +47,28 @@ angular.module('starter.services', [])
         authData.reputation = 0;
       }
 
-      var accuracy = 100 - Math.abs((property.crowdvalue - valuation) / property.crowdvalue) * 100;
+      var accuracy = 100 - Math.abs((property.crowdvalue - value) / property.crowdvalue) * 100;
 
       if (accuracy < 0) {
         accuracy = 0;
       }
-
-      var valuation = {
-        "created": Firebase.ServerValue.TIMESTAMP,
-        "homeID": property.$id,
-        "homeValue": property.crowdvalue,
-        "homeReputation": property.totalReputation,
-        "userID": authData.uid,
-        "userSubmittedValue": parseInt(valuation),
-        "userReputation": authData.reputation,
-        "accuracy": accuracy
-      };
-      console.log(accuracy);
+      console.log('accuracy: ' + accuracy);
 
       var newrepuationTotal = property.totalReputation + accuracy;
-      //Each valuation can assign a score from 0-10. Use 7 as the base, so the maximum score of a valuation is 0-3.
-      // log base 1.1 seems like a good place to start
-//      var userReputation;
-//      var adjustedScore;
-//      if (accuracy - 70 <= 0) {
-//        adjustedScore = 0;
-//      } else {
-//        adjustedScore = (accuracy - 70) / 10;
-//        console.log("adjusted score: " + adjustedScore);
-//        userReputation = Math.log(adjustedScore + authData.reputation) / Math.log(1.1);
-//        //if total reputation is less than 1, it will be negative
-//        if (userReputation == null || userReputation < 0) {
-//          userReputation = 0;
-//        }
-//      }
         
       //paramaters used to update reputation
-      var base = 1.1,
-          scale = 1.2,
-          passAccuracy = 70,
+      var passAccuracy = 70,
           maxReputation = 100;
       // adjuststed score between -30 and 30
       var adjustedScore = accuracy - passAccuracy;
       if (adjustedScore < passAccuracy - 100) {
           adjustedScore = passAccuracy - 100;
       }
-      // add new score to previous total 
-      var userScore = (authData.reputation) ? Math.pow(base, authData.reputation/scale) + adjustedScore : adjustedScore;
-      if (userScore < base) {
-         userScore = base;
+      var userExp = (authData.reputation) ? utility.reputationToExp(authData.reputation) + adjustedScore : adjustedScore;
+      if (userExp < 0) {
+          userExp = 0;
       }
-      // recompute reputation with log
-      var userReputation = Math.log(userScore) / Math.log(base) * scale;
+      var userReputation = utility.expToReputation(userExp);
       if (userReputation > maxReputation) {
           userReputation = maxReputation;
       }
@@ -107,6 +76,16 @@ angular.module('starter.services', [])
       console.log("old reputation: " + authData.reputation);
       console.log("user new reputation: " + userReputation);
 
+      var valuation = {
+        "created": Firebase.ServerValue.TIMESTAMP,
+        "homeID": property.$id,
+        "homeValue": property.crowdvalue,
+        "homeReputation": property.totalReputation,
+        "userID": authData.uid,
+        "userSubmittedValue": parseInt(value),
+        "userReputation": authData.reputation,
+        "accuracy": accuracy
+      };
       refValuation.push(valuation);
       refUser.child(authData.uid + '/valuations').push(valuation);
       refUser.child(authData.uid + '/reputation').set(userReputation);
@@ -147,6 +126,19 @@ angular.module('starter.services', [])
       }
       //mininum value of 1 mil
       return 1000000;
+    },
+    // exp = base + base*scale + base*scale^2 + ... + base*scale^rep
+    reputationToExp: function reputationToExp(rep, base, scale) {
+        base = base || 10;
+        scale = scale || 1.1;
+        var exp = base * (Math.pow(scale, rep) - 1) / (scale - 1);
+        return exp;
+    },
+    expToReputation: function expToReputation(exp, base, scale) {
+        base = base || 10;
+        scale = scale || 1.1;
+        var rep = Math.log(exp * (scale-1) / base + 1) / Math.log(scale);
+        return rep;
     }
   }
 }])
