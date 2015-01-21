@@ -43,11 +43,11 @@ angular.module('starter.services', [])
         return;
       }
 
-      if (authData.reputation == null) {
-        authData.reputation = 0;
+      if (!authData.reputation) {
+        authData.reputation = 10;
       }
 
-      var accuracy = 100 - Math.abs((property.crowdvalue - value) / property.crowdvalue) * 100;
+      var accuracy = utility.getAccuracy(value, property.crowdvalue);
 
       if (accuracy < 0) {
         accuracy = 0;
@@ -55,27 +55,12 @@ angular.module('starter.services', [])
       console.log('accuracy: ' + accuracy);
 
       var newrepuationTotal = property.totalReputation + accuracy;
-        
-      //paramaters used to update reputation
-      var passAccuracy = 70,
-          maxReputation = 100;
-      // adjuststed score between -30 and 30
-      var adjustedScore = accuracy - passAccuracy;
-      if (adjustedScore < passAccuracy - 100) {
-          adjustedScore = passAccuracy - 100;
-      }
-      var userExp = (authData.reputation) ? utility.reputationToExp(authData.reputation) + adjustedScore : adjustedScore;
-      if (userExp < 0) {
-          userExp = 0;
-      }
-      var userReputation = utility.expToReputation(userExp);
-      if (userReputation > maxReputation) {
-          userReputation = maxReputation;
-      }
+      var userReputation = utility.updateReputation(accuracy, authData.reputation);
         
       console.log("old reputation: " + authData.reputation);
       console.log("user new reputation: " + userReputation);
 
+      authData.reputation = userReputation;
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
         "homeID": property.$id,
@@ -129,16 +114,43 @@ angular.module('starter.services', [])
     },
     // exp = base + base*scale + base*scale^2 + ... + base*scale^rep
     reputationToExp: function reputationToExp(rep, base, scale) {
-        base = base || 10;
+        base = base || 5;
         scale = scale || 1.1;
         var exp = base * (Math.pow(scale, rep) - 1) / (scale - 1);
         return exp;
     },
     expToReputation: function expToReputation(exp, base, scale) {
-        base = base || 10;
+        base = base || 5;
         scale = scale || 1.1;
         var rep = Math.log(exp * (scale-1) / base + 1) / Math.log(scale);
         return rep;
+    },
+    updateReputation: function updateReputation(accuracy, reputation) {
+        //paramaters used to update reputation
+        var passAccuracy = 70,
+            maxReputation = 100,
+            initialValue = 10;
+        if(!reputation) {
+            return initialValue;
+        }
+        // adjuststed score between -30 and 30
+        var adjustedScore = accuracy - passAccuracy;
+        if (adjustedScore < passAccuracy - 100) {
+            adjustedScore = passAccuracy - 100;
+        }
+        var userExp = (reputation) ? this.reputationToExp(reputation) + adjustedScore : adjustedScore;
+        if (userExp < 0) {
+            userExp = 0;
+        }
+        var newReputation = this.expToReputation(userExp);
+        if (newReputation > maxReputation) {
+            newReputation = maxReputation;
+        }
+        return newReputation;
+    },
+    getAccuracy: function getAccuracy(userValue, crowdValue) {
+        var accuracy = (1 - Math.abs(userValue - crowdValue) / crowdValue) * 100;
+        return accuracy;
     }
   }
 }])
