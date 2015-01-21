@@ -7,6 +7,7 @@ var express = require('express'),
     app = express();
 
 var mailer = require('./server/email-client');
+var elasticSearch = require('./server/elastic-search');
 
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY || 'AKIAILDO7FWEDSP4NQEA';
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY || '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';
@@ -96,7 +97,11 @@ app.post('/sendmail', function (req,res) {
         console.log('no email given');
     }
 });
-
+app.post('/search', function (req,res) {
+  var query = req.body.query;
+  res.json('test');
+  console.log('search posted');
+});
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
