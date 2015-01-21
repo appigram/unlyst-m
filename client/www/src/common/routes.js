@@ -34,18 +34,22 @@ angular.module('starter.routes', [])
 
    .state('addHome.addHome1', {
      url: '/addHome1',
-     templateUrl: 'src/add-home/addhome1.html'//,
+     templateUrl: 'src/add-home/addhome1.html'
       })
 
   .state('addHome.addHome2', {
     url: '/addHome2',
-    templateUrl: 'src/add-home/addhome2.html'//,
+    templateUrl: 'src/add-home/addhome2.html'
   })
       
   .state('addHome.addHome3', {
     url: '/addHome3',
     templateUrl: 'src/add-home/addhome3.html'
-  });
+  })
+   .state('addHome.addHome4', {
+    url: '/addHome4',
+    templateUrl: 'src/add-home/addhome4.html'
+   });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');

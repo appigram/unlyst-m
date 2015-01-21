@@ -1,0 +1,34 @@
+<div class="list list-inset">
+<div>
+    <p>Now for the most important part -- photos! Without photos the market will not be able to accurately
+        value your home. The more photos the better.</p>
+</div>
+<br>
+<div>
+    <p>Click or tap below to upload photos.</p>
+</div>
+
+<div> BIG LOGO</div>
+<div>
+    <p>Photos uploaded</p>
+</div>
+
+        <input type="file" name="file1" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">1
+        <input type="file" name="file2" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">2
+        <input type="file" name="file3" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">3
+        <input type="file" name="file4" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">4
+        <input type="file" name="file5" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">5
+        <input type="file" name="file6" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">6
+        <input type="file" name="file7" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">7
+        <input type="file" name="file8" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">8
+</div>
+<div class="list list-inset">
+    <div class="col col-33 col-offset-33">
+        <md-button class="md-raised md-warn"
+                   ng-click="submitForm()">Add Home
+        </md-button>
+        Step 4 of 4
+    </div>
+</div>
+<br>
+    {{home}}

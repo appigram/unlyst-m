@@ -1,28 +1,34 @@
-<div>
-    <p>Now for the most important part -- photos! Without photos the market will not be able to accurately
-        value your home. The more photos the better.</p>
-</div>
-<br>
-<div>
-    <p>Click or tap below to upload photos.</p>
-</div>
-
-<div> BIG LOGO</div>
-<div>
-    <p>Photos uploaded</p>
-</div>
-<div>
-
+<div class="list list-inset">
     <div>
-        <input type="file" name="file1" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">1
-        <input type="file" name="file2" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">2
-        <input type="file" name="file3" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">3
-        <input type="file" name="file4" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">4
-        <input type="file" name="file5" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">5
-        <input type="file" name="file6" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">6
-        <input type="file" name="file7" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">7
-        <input type="file" name="file8" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">8
+        <p>What's the minimum that someone would
+            need to offer you in order for you to sell your home?</p>
     </div>
-        <button class="button button-median button-assertive" ng-click="submitForm()">Add Home</button><br>
-        Step 3 of 3
-        {{home}}
+    <br>
+    <div>
+    <p>This number is strictly confidential. It'll only be used to match
+    you with potential buyers who are interested in homes like yours and
+        have specified that they would pay the price you want.</p>
+    </div>
+    <br>
+    <div>
+        <p> Your Unlyst Price can as high or low as you would like, and
+            it can be changed later. If you don't have a price, simply leave it blank.</p>
+    </div>
+    <md-content class="md-padding">
+        <md-input-container flex>
+            <label>Your Unlyst Price (confidential)</label>
+            <input type="text" ng-model="home.unlystPrice"><br>
+        </md-input-container>
+    </md-content>
+</div>
+<div class="list list-inset">
+    <div class="col col-33 col-offset-33">
+        <md-button class="md-raised md-warn" n
+                   g-click="goToPg4()">
+            NEXT
+        </md-button>
+    </div>
+    <div class="col col-33 col-offset-33">
+        Step 3 of 4
+    </div>
+</div>
