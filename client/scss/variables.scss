@@ -25,6 +25,9 @@ $gray:                   lighten($gray-base, 33.5%); // #555
 $gray-light:             lighten($gray-base, 46.7%); // #777
 $gray-lighter:           lighten($gray-base, 85.0%); //
 $gray-verylight:         lighten($gray-base, 93.5%); // #eee
+$phone: 480px;
+$tablet: 768px;
+$desktop: 1024px;
 
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "../www/lib/ionic/scss/_variables";

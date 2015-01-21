@@ -1,21 +1,47 @@
 @import "variables";
 
 .photoSection {
-    height:238px;
-    figcaption{
-        height: 34px;
-        width: 100%;
-        background: rgba(0,0,0,.6);
-        position: absolute;
-        bottom: 0;
-        transition: .7s background linear;
-    }
+  figcaption {
+    height: 34px;
+    width: 100%;
+    background: rgba(0, 0, 0, .6);
+    position: absolute;
+    bottom: 0;
+    transition: .7s background linear;
+  }
 }
 
-.slider-nav-btn-left, .slider-nav-btn-right  {
-    position:absolute; top: 100px;z-index: 5; font-size:16px; cursor: hand;
+.resp-slider-height {
+  height: 238px;
+  @media screen and (min-width: $phone) {
+    height: 238px;
+  }
+  @media screen and (min-width: $tablet) {
+    height: 400px;
+  }
+  @media screen and (min-width: $desktop) {
+    height: 550px;
+  }
+}
+
+.slider-nav-btn-left, .slider-nav-btn-right {
+  position: absolute;
+  top: 100px;
+  z-index: 5;
+  font-size: 16px;
+  cursor: hand;
+  height:238px;
+  @media screen and (min-width: $phone) {
+    top:100px;
+  }
+  @media screen and (min-width: $tablet) {
+    top:160px;
+  }
+  @media screen and (min-width: $desktop) {
+    top:220px;
+  }
 }
 
 .slider-nav-btn-right {
-    right:0%;
+  right: 0%;
 }

@@ -129,7 +129,7 @@ starterControllers
         i = 0;
       }
       //if user already reached their trial or they just reached their trial
-      if ($scope.reachedTrial === true || (i % 4 === 3 && $scope.authData == null)) {
+      if (($scope.reachedTrial === true && $scope.authData !== null) || (i % 4 === 3 && $scope.authData == null)) {
         $scope.reachedTrial = true;
         $state.go('login');
         $rootScope.notify('You have evaluated 3 homes! Please log in to see your unlyst reputation!');
