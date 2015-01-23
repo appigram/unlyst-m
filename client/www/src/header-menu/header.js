@@ -1,5 +1,5 @@
 starterControllers
-.controller('HeaderCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state) {
+.controller('HeaderCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state,$mdSidenav) {
   //authentication
   $rootScope.authData = fireBaseData.ref().getAuth();
   $rootScope.getUserDisplayName = function () {
@@ -49,6 +49,9 @@ starterControllers
     $rootScope.hide();
     $state.go('home');
 
+  };
+  $scope.toggleLeftMenu = function() {
+    $mdSidenav('left').toggle();
   };
 });
 
