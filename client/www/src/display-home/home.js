@@ -136,7 +136,7 @@ starterControllers
         console.log($scope.authData);
         $scope.reachedTrial = true;
         $state.go('login');
-        $rootScope.notify('You have valued 3 homes! Please log in to start to earn unlyst reputation!');
+        $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
         return;
       }
 

@@ -33,7 +33,7 @@ else {
   exports.ES_HOST  = process.env.ES_HOST || 'https://app.bonsai.io/heroku/resources/ginkgo-5710626';
 
   // ElasticSearch server's host port
-  exports.ES_PORT  = process.env.ES_PORT || '9200';
+  exports.ES_PORT  = process.env.ES_PORT || '443';
 
   // ElasticSearch username for http auth
   exports.ES_USER  = process.env.ES_USER || null;
