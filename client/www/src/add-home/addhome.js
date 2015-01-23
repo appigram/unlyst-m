@@ -1,53 +1,53 @@
 starterControllers
 
 .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function ($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
+        console.log("AddHomeCtrl");
 
-  console.log("AddHomeCtrl");
-  $state.go("addHome.addHome1");
-  var homesDB = fireBaseData.refHomes();
-  var homesRef = $firebase(homesDB).$asArray();
-
-  $scope.homeSchema = homeSchema;
-  console.log(homeSchema);
-  $scope.home = {
-    address: "",
-    suiteNumber: "",
-    city: "Toronto",
-    province: "ON",
-    postalCode: "",
-    neighborhood: "",
-    hideAddress: false,
-    ownerCertify: false,
-    homeType: $scope.homeSchema.homeTypes[0].value,
-    buildingType: $scope.homeSchema.buildingTypes[0].value,
-    buildingName: "",
-    size: '',
-    bedroomNum: $scope.homeSchema.bedRooms[0],
-    bathroomNum: $scope.homeSchema.bathRooms[0],
-    additionalSpace: [],
-    parkingType: $scope.homeSchema.parkingType[0].value,
-    parkingSpace: 0,
-    outdoorSpace: [],
-    orientation: [],
-    amenity: [],
-    yearBuilt: '',
-    maintenanceFee: '',
-    houseId: -1,
-    img: []
-  };
-
-  $scope.uploadFiles = [];
-
-  $scope.uploadFile = function (files) {
-    console.log(files[0]);
-    var fd = new FormData();
-    fd.append("file", files[0]);
-    $scope.uploadFiles.push(fd);
-  };
-
+        var homesDB = fireBaseData.refHomes();
+        var homesRef = $firebase(homesDB).$asArray();
   //put upload function and inside promise
   homesRef.$loaded().then(function() {
-    console.log("load homeref ....")
+      //$state.go("addHome.addHome1");
+      $scope.homeSchema = homeSchema;
+      console.log(homeSchema);
+      $scope.home = {
+          address: "",
+          suiteNumber: "",
+          city: "Toronto",
+          province: "ON",
+          postalCode: "",
+          neighborhood: "",
+          hideAddress: false,
+          ownerCertify: false,
+          homeType: $scope.homeSchema.homeTypes[0].value,
+          buildingType: $scope.homeSchema.buildingTypes[0].value,
+          buildingName: "",
+          size: '',
+          bedroomNum: $scope.homeSchema.bedRooms[0],
+          bathroomNum: $scope.homeSchema.bathRooms[0],
+          additionalSpace: [],
+          parkingType: $scope.homeSchema.parkingType[0].value,
+          parkingSpace: 0,
+          outdoorSpace: [],
+          orientation: [],
+          amenity: [],
+          yearBuilt: '',
+          maintenanceFee: '',
+          unlystPrice: '',
+          houseId: -1,
+          img: []
+      };
+
+      $scope.uploadFiles = [];
+
+      $scope.uploadFile = function (files) {
+          console.log(files[0]);
+          var fd = new FormData();
+          fd.append("file", files[0]);
+          $scope.uploadFiles.push(fd);
+      };
+
+    console.log("load homeref ....");
     var length = homesRef.length;
     var id = homesRef[length-1].houseId;
     if (id >= length-1 ){
@@ -106,36 +106,38 @@ starterControllers
     } else {
       console.log("Error: house ID is not correct!")
     }
+      $scope.toggleSelection = function(item, selectionArr) {
+          var idx = selectionArr.indexOf(item);
+          // is currently selected
+          if (idx > -1) {
+              selectionArr.splice(idx, 1);
+          }
+          // is newly selected
+          else {
+              selectionArr.push(item)
+          }
+      };
+
+      $scope.goToPg1 = function () {
+          console.log("gotopage1");
+          $state.go('addHome.addHome1');
+      };
+      $scope.goToPg2 = function () {
+          console.log("gotopage2");
+          $state.go('addHome.addHome2');
+      };
+      $scope.goToPg3 = function () {
+          console.log("goto hom3");
+          $state.go('addHome.addHome3');
+      };
+      $scope.goToPg4 = function () {
+          console.log("goto hom4");
+          $state.go('addHome.addHome4');
+      };
+      $scope.addhome = function () {
+          console.log("add home");
+          $state.go('addHome.addHome1');
+      };
 
   });
-
-
-
-  $scope.toggleSelection = function(item, selectionArr) {
-    var idx = selectionArr.indexOf(item);
-    // is currently selected
-    if (idx > -1) {
-      selectionArr.splice(idx, 1);
-    }
-    // is newly selected
-    else {
-      selectionArr.push(item)
-    }
-  };
-
-  $scope.goToPg2 = function () {
-    console.log("gotopage2");
-    $state.go('addHome.addHome2');
-  };
-  $scope.goToPg3 = function () {
-    console.log("goto hom3");
-    $state.go('addHome.addHome3');
-  };
-  $scope.addhome = function () {
-    console.log("add home");
-    $state.go('addHome.addHome1');
-  };
-
-  $scope.submitHomes = function () {
-  };
 }]);

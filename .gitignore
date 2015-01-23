@@ -2,6 +2,8 @@ node_modules/
 .*.sw*
 .idea/
 .idea/workspace.xml
+clent/www/js/
+client/www/css/
 
 # OS/Editor
 ###################
