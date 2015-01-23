@@ -185,7 +185,7 @@ gulp.task('html-prod', function () {
     context: {
       NODE_ENV: process.env.NODE_ENV,
       LIVE: true,
-      CSS: '<link href=\"css/unlyst.min.css\" rel=\"stylesheet\">'
+      CSS: '<link href=\"dist/css/unlyst.min.css\" rel=\"stylesheet\">'
     }
   }))
   .pipe(gulp.dest('./client/www/'))
@@ -198,7 +198,7 @@ gulp.task('html-dev', function () {
     context: {
       NODE_ENV: process.env.NODE_ENV,
       LIVE: true,
-      CSS: '<link href=\"css/unlyst.css\" rel=\"stylesheet\">'
+      CSS: '<link href=\"dist/css/unlyst.css\" rel=\"stylesheet\">'
     }
   }))
   .pipe(gulp.dest('./client/www/'))
