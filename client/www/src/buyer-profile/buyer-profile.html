@@ -1,0 +1,26 @@
+<ion-view>
+  <ion-content class="padding-top" ng-controller="SearchCtrl">
+    <div layout="column" layout-align="center center">
+      <div class="padding text-center">
+        <h3>Tell us what kind of home you are looking for and we'll do the rest!</h3>
+      </div>
+      <md-input-container>
+        <label>Condominium</label>
+        <input label="Condominium" name="Condominium">
+      </md-input-container>
+      <md-input-container>
+        <label>Mininum square footage(interior space)</label>
+        <input label="squarefoot" ng-model="search.sqaurefoot" name="squarefoot">
+      </md-input-container>
+      <md-input-container>
+        <select class="md-input" ng-model="select"
+                ng-options="value for value in list" style="width:300px"></select>
+        <select class="md-input" ng-model="select" ng-options="value for value in list"></select>
+      </md-input-container>
+      <div style="padding-top:40px;">
+        <md-button class="md-warn md-raised">Next</md-button>
+        <h5 class="gray-light">Step 1 of 2</h5>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

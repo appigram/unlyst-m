@@ -49,7 +49,12 @@ angular.module('starter.routes', [])
    .state('addHome.addHome4', {
     url: '/addHome4',
     templateUrl: 'src/add-home/addhome4.html'
-   });
+   })
+  .state('buyer', {
+    url: '/buyer',
+    templateUrl: 'src/buyer-profile/buyer-profile.html',
+    controller: 'SearchCtrl'
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
