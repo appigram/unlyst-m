@@ -7,6 +7,7 @@ var express = require('express'),
     app = express();
 
 var mailer = require('./server/email-client');
+var elasticSearch = require('./server/elastic-search');
 
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY || 'AKIAILDO7FWEDSP4NQEA';
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY || '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';
@@ -96,7 +97,37 @@ app.post('/sendmail', function (req,res) {
         console.log('no email given');
     }
 });
-
+app.post('/search', function (req,res) {
+  var query = req.body.query;
+  res.json('test');
+  console.log('search posted');
+});
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
+});
+
+
+var ElasticClient = require('elasticsearchclient'),
+conf          = require('./server/config'),
+fbutil        = require('./server/lib/fbutil'),
+PathMonitor   = require('./server/lib/PathMonitor'),
+SearchQueue   = require('./server/lib/SearchQueue');
+
+// connect to ElasticSearch
+var esc = new ElasticClient({
+  host: conf.ES_HOST,
+  port: conf.ES_PORT,
+//   pathPrefix: 'optional pathPrefix',
+  secure: false,
+  //Optional basic HTTP Auth
+  auth: conf.ES_USER? {
+    username: conf.ES_USER,
+    password: conf.ES_PASS
+  } : null
+});
+console.log('Connected to ElasticSearch host %s:%s'.grey, conf.ES_HOST, conf.ES_PORT);
+
+fbutil.auth(conf.FB_URL, conf.FB_TOKEN).done(function() {
+  PathMonitor.process(esc, conf.FB_URL, conf.paths, conf.FB_PATH);
+  SearchQueue.init(esc, conf.FB_URL, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
 });

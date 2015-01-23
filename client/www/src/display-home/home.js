@@ -1,6 +1,6 @@
 starterControllers
 
-.controller('HomeCtrl', function ($scope, $rootScope, fireBaseData, $ionicSlideBoxDelegate, utility, geocoding, $firebase,
+.controller('HomeCtrl', function ($scope, $rootScope, fireBaseData, $ionicSlideBoxDelegate, utility, $firebase,
                                   $location, $timeout, $mdDialog, $state) {
 
   //bind model to scoep; set valuation
@@ -29,7 +29,6 @@ starterControllers
     $scope.likes = 20;
     $scope.buildYr = 2014 - $scope.property.buildYr;
     $scope.hideDetail = true;
-    $scope.crowdvalue = $scope.property.crowdvalue;
 
     $scope.map = {
       lat: $scope.property.lat,
@@ -88,13 +87,17 @@ starterControllers
 
     $scope.submitScore = function () {
       $scope.valuation.crowdvalue = $scope.property.crowdvalue;
-      $scope.valuation.score = 10 - Math.abs(($scope.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
+      $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
+      $scope.valuation.reputation = 'N/A';
+      $scope.valuation.score = 10 - Math.abs(($scope.property.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
       if ($scope.valuation.score < 0) {
         $scope.valuation.score = 0;
       }
       console.log('your score:' + $scope.valuation.score);
-      if (!$scope.stopRecording) {
+        
+      if (!$scope.stopRecording && $scope.authData) {
         fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
+        $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
       }
     };
 
@@ -129,7 +132,7 @@ starterControllers
         i = 0;
       }
       //if user already reached their trial or they just reached their trial
-      if ($scope.reachedTrial === true || (i % 4 === 3 && $scope.authData == null)) {
+      if (($scope.reachedTrial === true && $scope.authData !== null) || (i % 4 === 3 && $scope.authData == null)) {
         $scope.reachedTrial = true;
         $state.go('login');
         $rootScope.notify('You have evaluated 3 homes! Please log in to see your unlyst reputation!');

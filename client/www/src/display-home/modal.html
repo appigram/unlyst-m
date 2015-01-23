@@ -1,14 +1,14 @@
 <md-dialog aria-label="Current Unlysted Value" class="padding">
   <md-content>
-    <h2 class="md-sticky-no-effect">Current Unlysted Value</h2>
+    <h3 class="md-sticky-no-effect">Current Unlysted Value</h3>
     <div class="text-center">
       <h5>{{valuation.score | scoreMessage}}</h5>
-      <h3 class="text-underscore">{{valuation.score | number : 0}}</h3>
-      <h5>points awarded</h5>
-      <h1 class="text-underscore"><strong>{{valuation.crowdvalue | currency:undefined:0}}</strong></h1>
-      <h5>unlysted value</h5>
-      <h3 class="text-underscore">{{valuation.score | number : 0}}</h3>
-      <h5>your average</h5>
+      <h3 class="text-underscore">{{valuation.crowdvalue | currency:undefined:0}}</h3>
+      <h5>crowd value</h5>
+      <h3 class="text-underscore"><strong>{{valuation.accuracy | number : 0}}%</strong></h3>
+      <h5>your accuracy</h5>
+      <h3 class="text-underscore">{{valuation.reputation}}</h3>
+      <h5>your reputation</h5>
     </div>
     <div class="row" layout-align="space-between center">
       <md-button aria-label="like" class="md-raised md-warn ion-star corner-round modal-button"></md-button>

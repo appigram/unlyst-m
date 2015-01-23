@@ -8,7 +8,7 @@
         <button ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></button>
       </div>
       <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" auto-play show-pager="false"
-                     active-slide="activeSlide">
+                     active-slide="activeSlide" style="max-height: 600px;" layout-align="center center">
         <ion-slide ng-repeat="image in property.img">
           <div ng-include src="'src/display-home/home-details/picture.html'"></div>
         </ion-slide>
