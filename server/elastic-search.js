@@ -1,25 +1,24 @@
-var Firebase = require('firebase');
-var ElasticClient = require('elasticsearchclient')
+var ElasticClient = require('elasticsearchclient'),
+    conf          = require('./config'),
+    fbutil        = require('./lib/fbutil'),
+    PathMonitor   = require('./lib/PathMonitor'),
+    SearchQueue   = require('./lib/SearchQueue');
 
-// initialize our ElasticSearch API
-var client = new ElasticClient({ host: 'https://app.bonsai.io/heroku/resources/ginkgo-5710626', port: 443 });
+// connect to ElasticSearch
+var esc = new ElasticClient({
+  host: conf.ES_HOST,
+  port: conf.ES_PORT,
+//   pathPrefix: 'optional pathPrefix',
+  secure: false,
+  //Optional basic HTTP Auth
+  auth: conf.ES_USER? {
+    username: conf.ES_USER,
+    password: conf.ES_PASS
+  } : null
+});
+console.log('Connected to ElasticSearch host %s:%s'.grey, conf.ES_HOST, conf.ES_PORT);
 
-// listen for changes to Firebase data
-var fb = new Firebase('fiery-heat-1976.firebaseio.com/unlyst-test');
-fb.on('child_added',   createOrUpdateIndex);
-fb.on('child_changed', createOrUpdateIndex);
-fb.on('child_removed', removeIndex);
-
-function createOrUpdateIndex(snap) {
-  console.log('creating index');
-  client.index(this.index, this.type, snap.val(), snap.key())
-  .on('data', function(data) { console.log('indexed ', snap.key()); })
-  .on('error', function(err) { console.log('error: ', err);});
-}
-
-function removeIndex(snap) {
-  client.deleteDocument(this.index, this.type, snap.key(), function(error, data) {
-    if( error ) console.error('failed to delete', snap.key(), error);
-    else console.log('deleted', snap.key());
-  });
-}
+fbutil.auth(conf.FB_URL, conf.FB_TOKEN).done(function() {
+  PathMonitor.process(esc, conf.FB_URL, conf.paths, conf.FB_PATH);
+  SearchQueue.init(esc, conf.FB_URL, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
+});

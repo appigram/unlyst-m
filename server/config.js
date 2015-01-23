@@ -10,11 +10,11 @@
  ***************************************************/
 
 // Your Firebase instance where we will listen and write search results
-exports.FB_URL   = 'https://' + 'fiery-heat-1976' + '.firebaseio.com/unlyst-test';
+exports.FB_URL   = 'https://' + 'fiery-heat-1976' + '.firebaseio.com';
 
 // Either your Firebase secret or a token you create with no expiry, used to authenticate
 // To Firebase and access search data.
-exports.FB_TOKEN = process.env.FB_TOKEN || null;
+exports.FB_TOKEN = process.env.FB_TOKEN || 'QxkuNmqMLhWzs46A9fooyWHudNPQpVQ1g3OXZHFr';
 
 // The path in your Firebase where clients will write search requests
 exports.FB_REQ   = process.env.FB_REQ || 'search/request';
@@ -33,7 +33,7 @@ else {
   exports.ES_HOST  = process.env.ES_HOST || 'https://app.bonsai.io/heroku/resources/ginkgo-5710626';
 
   // ElasticSearch server's host port
-  exports.ES_PORT  = process.env.ES_PORT || '443';
+  exports.ES_PORT  = process.env.ES_PORT || '9200';
 
   // ElasticSearch username for http auth
   exports.ES_USER  = process.env.ES_USER || null;
@@ -63,8 +63,8 @@ else {
 exports.paths = [
   {
     path:  "users",
-    index: "firebase",
-    type:  "user"
+    index: "unlyst-test",
+    type:  "unlyst-test"
   },
   {
     path:  "messages",
