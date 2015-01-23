@@ -128,7 +128,7 @@ starterControllers
       if (i < length - 1) {
         i++;
       } else {
-        $rootScope.notify('You have evaluated all homes on unlyst!');
+        $rootScope.notify('You have valued all homes on unlyst!');
         i = 0;
       }
       //if user already reached their trial or they just reached their trial
@@ -136,7 +136,7 @@ starterControllers
         console.log($scope.authData);
         $scope.reachedTrial = true;
         $state.go('login');
-        $rootScope.notify('You have evaluated 3 homes! Please log in to see your unlyst reputation!');
+        $rootScope.notify('You have valued 3 homes! Please log in to start to earn unlyst reputation!');
         return;
       }
 
