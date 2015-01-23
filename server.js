@@ -12,19 +12,14 @@ var elasticSearch = require('./server/elastic-search');
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY || 'AKIAILDO7FWEDSP4NQEA';
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY || '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';
 var S3_BUCKET = process.env.S3_BUCKET || 'unlyst';
-var GLOABLE_CDN = "http://img.unlyst.co/image/homes/";
+var GLOBAL_CDN = "http://img.unlyst.co/";
 //app.use(bodyParser());          // pull information from html in POST
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(methodOverride());      // simulate DELETE and PUT
 
 app.use(multer({
-    inMemory: true,
-    rename: function(fieldname, filename){
-        console.log(fieldname);
-        console.log(filename);
-        return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
-    }
+    inMemory: true
 }));
 
 app.use(express.static('client/www'));
@@ -77,7 +72,7 @@ app.post('/upload', function (req,res){
         } else {
             // Success!
             console.log("Success");
-            res.end(GLOABLE_CDN + file_name);
+            res.end(GLOBAL_CDN + file_name);
             }
         })
         .on('httpUploadProgress',function(progress) {
