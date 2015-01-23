@@ -118,6 +118,10 @@ starterControllers
           }
       };
 
+      $scope.goToPg1 = function () {
+          console.log("gotopage1");
+          $state.go('addHome.addHome1');
+      };
       $scope.goToPg2 = function () {
           console.log("gotopage2");
           $state.go('addHome.addHome2');
