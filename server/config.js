@@ -25,8 +25,9 @@ exports.FB_RES   = process.env.FB_RES || 'search/response';
 /** ElasticSearch Settings
  *********************************************/
 
-if( process.env.BONSAI_URL ) {
-  processBonsaiUrl(exports, process.env.BONSAI_URL);
+var BONSAI_URL = process.env.BONSAI_URL || 'https://qt8ovgqm:v43iwft0bi6jl89l@ginkgo-5710626.us-east-1.bonsai.io';
+if( BONSAI_URL ) {
+  processBonsaiUrl(exports, BONSAI_URL);
 }
 else {
   // ElasticSearch server's host URL
@@ -91,7 +92,7 @@ process.env.NODE_ENV === 'production'?
 function processBonsaiUrl(exports, url) {
   var matches = url.match(/^https?:\/\/([^:]+):([^@]+)@([^/]+)\/?$/);
   exports.ES_HOST = matches[3];
-  exports.ES_PORT = 80;
+  exports.ES_PORT = 9200;
   exports.ES_USER = matches[1];
   exports.ES_PASS = matches[2];
   console.log('Configured using BONSAI_URL environment variable', url, exports);
