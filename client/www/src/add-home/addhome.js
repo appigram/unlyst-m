@@ -66,41 +66,48 @@ starterControllers
       };
 
       $scope.submitForm = function () {
-        for (var i = 0; i < $scope.uploadFiles.length; i++) {
-          var file = $scope.uploadFiles[i];
-          if(file) {
-            var req = {
-              url:'/upload',
-              data: file,
-              method: 'POST',
-              withCredentials:true,
-              headers: {'Content-Type': undefined},
-              transformRequest: angular.identity
-            };
+          var count = 0;
+        if ($scope.uploadFiles.length >0 ) {
 
-            $http(req).success(function(data) {
-              var imgObj = {
-                caption:'',
-                url: ''
-              };
-              console.log("OK", data);
-              imgObj.url = data;
-              $scope.home.img.push ({
-                "caption" : "",
-                "url" : data
-              });
-              //start to push.....
-              //homesDB.child($scope.home.houseId).set($scope.home)
-              homesRef.$add($scope.home).then(function(ref){
-                console.log("return is:  " + ref);
-              });
-            }).error(function(err){
-              console.log(err);
-            });
-          } else {
-            // No File Selected
+            for (var i = 0; i < $scope.uploadFiles.length; i++) {
+                var file = $scope.uploadFiles[i];
+                if (file) {
+                    var req = {
+                        url: '/upload',
+                        data: file,
+                        method: 'POST',
+                        withCredentials: true,
+                        headers: {'Content-Type': undefined},
+                        transformRequest: angular.identity
+                    };
+
+                    $http(req).success(function (data) {
+                        var imgObj = {
+                            caption: '',
+                            url: ''
+                        };
+                        console.log("OK", data);
+                        imgObj.url = data;
+                        $scope.home.img.push({
+                            "caption": "",
+                            "url": data
+                        });
+                        count++;
+                        console.log("i: " + count + " of" + ($scope.uploadFiles.length - 1 ));
+                        if (count === ($scope.uploadFiles.length)) {
+                            homesRef.$add($scope.home).then(function (ref) {
+                                console.log("return is:  " + ref);
+                            });
+                        }
+                    }).error(function (err) {
+                        console.log(err);
+                    });
+                } else {
+                    alert('empty File Selected');
+                }
+            }
+        } else {
             alert('No File Selected');
-          }
         }
       };
     } else {
