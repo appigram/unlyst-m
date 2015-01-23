@@ -24,7 +24,6 @@ starterControllers
     usersRef.child(authData.uid).child('profile').set(authData);
 
     usersRef.child(authData.uid).on("value", function (snapshot) {
-      console.log(snapshot.val());
       $rootScope.authData = snapshot.val();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -101,8 +100,6 @@ starterControllers
       }
     });
   };
-
-
 
 })
 

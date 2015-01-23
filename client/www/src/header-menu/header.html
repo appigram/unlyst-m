@@ -1,7 +1,7 @@
 <div ng-controller="HeaderCtrl">
   <md-toolbar class="md-warn" md-scroll-shrink style="height:40px; min-height: 40px;">
     <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
-      <button class="button button-clear icon ion-navicon-round" ng-click="toggleLeftMenu()"></button>
+      <button class="button button-clear icon ion-navicon-round" ng-click="toggleLeftMenu()" style="color:white"></button>
       <md-button ui-sref="home">
         <h3>Unlyst</h3>
       </md-button>
@@ -9,14 +9,15 @@
       </md-button>
       <div ng-show="authData != null" class="pull-right">
         <md-button class="" ui-sref="login">
-          {{ authData.reputation | number: 0}} &nbsp; {{getUserDisplayName()}}
+          {{ authData.reputation | number: 0}} &nbsp; {{getUserDisplayName(false)}}
         </md-button>
       </div>
     </div>
   </md-toolbar>
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
     <md-toolbar class="md-warn md-hue-2 padding" style="min-height: 45px;">
-      <h5 class="">Unlyst</h5>
+      <img width="60px" ng-src="{{getUserProfilePicture()}}"/>
+      <h5>{{ authData.reputation | number: 0}} &nbsp; {{getUserDisplayName(true)}} {{ authData && ' ' || 'Unlyst' }}</h5>
     </md-toolbar>
     <md-content>
       <md-list>

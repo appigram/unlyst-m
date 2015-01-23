@@ -52,7 +52,11 @@
       </div>
     </div>
     <div class="text-center" ng-show="authData!=null">
-      <h3>Welcome {{ getUserDisplayName(); }}!</h3>
+      <h3>Welcome {{ getUserDisplayName(true); }}!</h3>
+      <div class="padding">
+        <img width="80px" ng-src="{{getUserProfilePicture()}}"/>
+      </div>
+      <h4>Your reputation: {{ authData.reputation | number: 0}}</h4>
       <md-button class="md-raised gray-light" ng-click="logout()">
         Log out
       </md-button>
