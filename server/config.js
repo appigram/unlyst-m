@@ -63,16 +63,11 @@ else {
 
 exports.paths = [
   {
-    path:  "users",
-    index: "unlyst-test",
-    type:  "unlyst-test"
-  },
-  {
-    path:  "messages",
+    path:  "unlyst-test",
     index: "firebase",
-    type:  "message",
-    fields: ['msg', 'name'],
-    filter: function(data) { return data.name !== 'system'; }
+    type:  "homes",
+//    fields: ['msg', 'name'],
+//    filter: function(data) { return data.name !== 'system'; }
   }
 ];
 
