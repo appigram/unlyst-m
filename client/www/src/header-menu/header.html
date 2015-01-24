@@ -17,7 +17,8 @@
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
     <md-toolbar class="md-warn md-hue-2 padding" style="min-height: 45px;" layout="column" layout-align="center center">
       <img width="60px" ng-src="{{getUserProfilePicture()}}"/>
-      <h5>{{ authData.reputation | number: 0}} &nbsp; {{getUserDisplayName(true)}} {{ authData && ' ' || 'Unlyst' }}</h5>
+      <div class="ribbon  ribbon--orange">{{ authData.reputation | number: 0}} &nbsp;</div>
+      <h5> {{getUserDisplayName(true)}} {{ authData && ' ' || 'Unlyst' }}</h5>
     </md-toolbar>
     <md-content>
       <md-list>

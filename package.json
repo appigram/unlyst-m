@@ -43,7 +43,8 @@
         "elasticsearchclient": "^0.5.3",
         "firebase": "^2.1.1",
         "colors": "~0.6.2",
-        "JQDeferred": "~1.9.1"
+        "JQDeferred": "~1.9.1",
+        "compression": "*"
     },
     "scripts": {
         "start": "node server.js"
