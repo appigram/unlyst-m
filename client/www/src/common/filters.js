@@ -29,7 +29,7 @@ angular.module('starter.filters',[])
       'You’re a star',
       'That was so close!',//9
       'Nailed it!'];
-    var scoreAdjusted = Math.round(score);
+    var scoreAdjusted = Math.round(score/10);
     return scoreMsg[scoreAdjusted];
   }
 }]);

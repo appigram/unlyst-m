@@ -91,15 +91,18 @@ starterControllers
       $scope.valuation.crowdvalue = $scope.property.crowdvalue;
       $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
       $scope.valuation.reputation = 'N/A';
-      $scope.valuation.score = 10 - Math.abs(($scope.property.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
-      if ($scope.valuation.score < 0) {
-        $scope.valuation.score = 0;
-      }
-      console.log('your score:' + $scope.valuation.score);
+//      $scope.valuation.score = 10 - Math.abs(($scope.property.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
+//      if ($scope.valuation.score < 0) {
+//        $scope.valuation.score = 0;
+//      }
+//      console.log('your score:' + $scope.valuation.score);
         
       if (!$scope.stopRecording && $scope.authData) {
+        var oldReputation = $scope.authData.reputation || 10;
         fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
+        var change = $scope.authData.reputation - oldReputation;
         $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
+        $scope.valuation.reputationChange = (change > 0) ? '+' + change.toFixed(1) : change.toFixed(1);
       }
     };
 

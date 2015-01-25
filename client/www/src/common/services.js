@@ -57,10 +57,6 @@ angular.module('starter.services', [])
       var newrepuationTotal = property.totalReputation + accuracy;
       var userReputation = utility.updateReputation(accuracy, authData.reputation);
         
-      console.log("old reputation: " + authData.reputation);
-      console.log("user new reputation: " + userReputation);
-
-      authData.reputation = userReputation;
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
         "homeID": property.$id,
@@ -76,6 +72,7 @@ angular.module('starter.services', [])
       refUser.child(authData.uid + '/reputation').set(userReputation);
       refHomes.child(property.$id + '/valuations').push(valuation);
       refHomes.child(property.$id + '/totalReputation').set(newrepuationTotal);
+        
       return 1;
     }
   };
@@ -150,6 +147,9 @@ angular.module('starter.services', [])
     },
     getAccuracy: function getAccuracy(userValue, crowdValue) {
         var accuracy = (1 - Math.abs(userValue - crowdValue) / crowdValue) * 100;
+        if(accuracy < 0) {
+            accuracy = 0;
+        }
         return accuracy;
     }
   }
