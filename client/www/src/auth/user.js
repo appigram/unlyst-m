@@ -105,21 +105,7 @@ starterControllers
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth, $http) {
   $scope.hideBackButton = true;
-  var req = {
-    url: '/search',
-    method: 'POST',
-    data: {'query': 'test'},
-    headers: {'Content-Type': 'application/json'}
-  };
-  $http(req).success(function(res) {
-    if (res && res[0].status == 'sent') {
-      console.log('email sent to ' + res[0].email);
-    } else {
-      console.log('email not sent');
-    }
-  }).error(function(err){
-    console.log(err);
-  });
+  
   $scope.createUser = function (user) {
     var firstname = user.firstname;
     var surname = user.surname;
