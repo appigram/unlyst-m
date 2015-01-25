@@ -7,7 +7,7 @@ starterControllers
   //put upload function and inside promise
   homesRef.$loaded().then(function() {
       $scope.numbers = [1, 2, 3, 4, 5, 6];
-      //$state.go("addHome.addHome1");
+      $state.go("addHome.addHome1");
       $scope.homeSchema = homeSchema;
       console.log(homeSchema);
       $scope.home = {
