@@ -1,16 +1,19 @@
 <div class="list list-inset">
-    <div>
-        <p>Now for the most important part -- photos! Without photos the market will not be able to accurately
-            value your home. The more photos the better.</p>
-    </div>
+    <md-content class="md-padding">
+        <span class="addHomeTextBig">
+            Now for the most important part: photos! Without photos the market will not be able to accurately
+            value your home. The more photos the better.
+            <br>
+            <br>
+            Click or tap below to upload photos.
+        </span>
+    </md-content>
     <br>
-    <div>
-        <p>Click or tap below to upload photos.</p>
-    </div>
-    <br>
-    <div class="col col-33 col-offset-33">
-        <img src="../dist/img/add_Pic_icon.png">
-    </div>
+    <md-content class="md-padding">
+        <div class="col col-33 col-offset-33">
+            <img src="../dist/img/add_Pic_icon.png">
+        </div>
+    </md-content>
     <br>
     <input type="file" name="file1" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">1
     <input type="file" name="file2" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">2

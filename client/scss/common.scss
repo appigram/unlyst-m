@@ -91,7 +91,11 @@ h4,h5,h6{
 @font-face {
   font-family:'Avenir Next Regular';
   src: url('../font/AvenirNext-Regular.woff');
-  font-weight: bold;
+}
+
+@font-face {
+  font-family:'Avenir Next UltraLight';
+  src: url('../font/AvenirNext-UltraLight.woff');
 }
 
 md-input-container select.md-input {
@@ -116,4 +120,49 @@ md-input-container select.md-input:focus::-ms-value {
 
 md-input-container select.md-input::-ms-expand {
   display: none;
+}
+
+input.md-input.ng-invalid.ng-dirty {
+  outline: none;
+  border-bottom:2px solid red;
+  width:100%;
+}
+
+.addHomeTextSmall {
+  font-family: 'Avenir Next Regular';
+  font-size: 100%;
+  line-height:1.1;
+}
+
+.addHomeTextBig {
+  font-family: 'Avenir Next UltraLight';
+  color: black;
+  font-size: 170%;
+  line-height:1.1;
+}
+
+.homeInfoForm {
+  font-family: 'Avenir Next Regular';
+}
+
+.homeInfoForm md-input-container label {
+  padding-left: 16px;
+}
+
+.homeInfoForm md-checkbox {
+  font-size: 80%;
+  line-height: 0;
+}
+
+.homeInfoForm .checkboxRow {
+  Padding: 0;
+}
+.homeInfoForm .checkboxRow .checkCol md-checkbox {
+  margin: 0;
+}
+
+md-content .item-select {
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
 }

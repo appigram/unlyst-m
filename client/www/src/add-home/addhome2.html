@@ -1,125 +1,165 @@
 <div class="list list-inset">
-    <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
     <md-content class="md-padding">
-        <p>Now it's the time to enter a bit more information about your home so that the market can figure out
-                what it's worth!
-        </p>
-    </md-content>
-    </md-whiteframe>
-</div>
-<div class = "list list-inset">
-    <label class="item item-input item-select">
-        <div class="input-label">
-            Home Type:
-        </div>
-        <select ng-model = "home.homeType"
-                ng-options="homeType.value as homeType.name for homeType in homeSchema.homeTypes">
-        </select>
-    </label>
-    <br>
-    <label class="item item-input item-select">
-        <div class="input-label">
-            building Type:
-        </div>
-        <select ng-model = "home.buildingType"
-                ng-options="buildingType.value as buildingType.name for buildingType in homeSchema.buildingTypes">
-        </select>
-    </label>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container flex>
-            <label>Building Name (If applicable):</label>
-            <input type="text" ng-model="home.buildName">
-        </md-input-container>
-        <md-input-container flex>
-            <label>Size in square feet(finished areas only):</label>
-            <input type="text" ng-model="home.size">
-        </md-input-container>
-    </md-content>
-    <label class="item item-input item-select">
-        <div class = "input-label">Number of bedroom</div>
-        <select ng-model = "home.bedroomNum"
-                ng-options = "bedroomNum for bedroomNum in homeSchema.bedRooms">
-        </select>
-    </label>
-    <br>
-    <label class="item item-input item-select">
-        <div class = "input-label">Number of bathroom</div>
-        <select ng-model = "home.bathroomNum"
-                ng-options = "bathroomNum for bathroomNum in homeSchema.bathRooms">
-        </select>
-    </label>
-    <br>
-    <label class="item item-input item-select">
-        <div class = "input-label">Parking Type:</div>
-        <select ng-model = "home.parkingType"
-                ng-options = "type.value as type.name for type in homeSchema.parkingType">
-        </select>
-    </label>
-    <br>
-    <label class="item item-input item-select">
-        <div class = "input-label">parking Space:</div>
-        <select ng-model = "home.parkingSpace"
-                ng-options = "space for space in homeSchema.parkingSpace">
-        </select>
-    </label>
-    <br>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container flex>
-            <label>Maintenance Fee Per Month:</label>
-            <input type="text" ng-model="home.maintenanceFee">
-        </md-input-container>
-        <md-input-container flex>
-            <label>Year built/Completed:</label>
-            <input type="text" ng-model="home.yearBuilt">
-        </md-input-container>
+        <span  class= "addHomeTextBig">
+            Now it's the time to enter a bit more information about your home so that the market can figure out
+            what it's worth!
+            <br>
+            <br>
+        </span>
     </md-content>
 
-    <div class = "">Additional Spaces (check all that apply)</div>
-        <md-checkbox ng-repeat="space in homeSchema.additionalSpace"
-                     aria-label = "{{space}}"
-                     value="{{space}}"
-                     ng-click = "toggleSelection(space, home.additionalSpace)"
-        >
-            {{space}}
-        </md-checkbox>
-    {{homeSchema.additionalSpace}}
-    <br>
-    <div>Outdoor Spaces (check all that apply)</div>
-                    <md-checkbox ng-repeat="space in homeSchema.outdoorSpace"
-                           aria-label="{{space.name}}"
-                           value="{{space.value}}"
-                           ng-click = "toggleSelection(space.value, home.outdoorSpace)"
-                    >
-                        {{space.name}}
-                    </md-checkbox>
-
-    <div> Orientation (check all that apply)</div>
-                <md-checkbox ng-repeat = "orientation in homeSchema.orientation"
-                                 aria-label = "{{orientation}}"
-                                 value="{{orientation}}"
-                                ng-click = "toggleSelection(orientation, home.orientation)"
-                >
-                    {{orientation}}
-                </md-checkbox>
+    <form class="homeInfoForm">
+        <md-content class="md-padding">
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Home Type:
             </div>
-    <div>Building Amenities (check all that apply)</div>
-                    <md-checkbox ng-repeat = "amenity in homeSchema.amenity"
-                           aria-label = "{{amenity.name}}"
-                           value="{{amenity.value}}"
-                           ng-click = "toggleSelection(amenity.value, home.amenity)"
-                    >
-                        {{amenity.name}}
-                    </md-checkbox>
+            <select ng-model = "home.homeType" disabled
+                    ng-options="homeType.value as homeType.name for homeType in homeSchema.homeTypes">
+            </select>
+        </label>
+        </md-content>
+
+        <md-content class="md-padding">
+         <div class="list">
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Building Type:
+            </div>
+            <select ng-model = "home.buildingType"
+                    ng-options="buildingType.value as buildingType.name for buildingType in homeSchema.buildingTypes">
+            </select>
+        </label>
+         </div>
+        </md-content>
+
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Building Name (If applicable):</label>
+                <input type="text" ng-model="home.buildName">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Size in square feet(finished areas only):</label>
+                <input type="text" ng-model="home.size">
+            </md-input-container>
+        </md-content>
+
+        <md-content>
+            <div class="row">
+                <div class = "col">
+                    <label class="item item-input item-select">
+                        <div class = "input-label">Bedroom</div>
+                        <select ng-model = "home.bedroomNum"
+                                ng-options = "bedroomNum for bedroomNum in homeSchema.bedRooms">
+                        </select>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input item-select">
+                        <div class = "input-label">Bathroom</div>
+                        <select ng-model = "home.bathroomNum"
+                                ng-options = "bathroomNum for bathroomNum in homeSchema.bathRooms">
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </md-content>
+
+        <md-content class="md-padding">
+        <label class="item item-input item-select">
+            <div class = "input-label">Parking Type:</div>
+            <select ng-model = "home.parkingType"
+                    ng-options = "type.value as type.name for type in homeSchema.parkingType">
+            </select>
+        </label>
+        </md-content>
+
+        <md-content class="md-padding">
+        <label class="item item-input item-select">
+            <div class = "input-label">parking Space:</div>
+            <select ng-model = "home.parkingSpace"
+                    ng-options = "space for space in homeSchema.parkingSpace">
+            </select>
+        </label>
+        </md-content>
+
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Maintenance Fee Per Month:</label>
+                <input type="text" ng-model="home.maintenanceFee">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Year built/Completed:</label>
+                <input type="text" ng-model="home.yearBuilt">
+            </md-input-container>
+        </md-content>
+
+        <md-content class="md-padding">
+            <label>Additional Spaces (check all that apply)</label>
+            <md-checkbox ng-repeat="space in homeSchema.additionalSpace"
+                         aria-label = "{{space}}"
+                         value="{{space}}"
+                         ng-click = "toggleSelection(space, home.additionalSpace)">
+                {{space}}
+            </md-checkbox>
+        </md-content>
+
+        <md-content class="md-padding">
+            <label>Outdoor Spaces (check all that apply)</label>
+            <md-checkbox ng-repeat="space in homeSchema.outdoorSpace"
+                         aria-label="{{space.name}}"
+                         value="{{space.value}}"
+                         ng-click = "toggleSelection(space.value, home.outdoorSpace)">
+                {{space.name}}
+            </md-checkbox>
+        </md-content>
+
+        <md-content class="md-padding">
+            <label>Orientation (check all that apply)</label>
+            <md-checkbox ng-repeat = "orientation in homeSchema.orientation"
+                         aria-label = "{{orientation}}"
+                         value="{{orientation}}"
+                         ng-click = "toggleSelection(orientation, home.orientation)">
+                {{orientation}}
+            </md-checkbox>
+        </md-content>
+
+        <md-content class="md-padding">
+            <label> Building Amenities (check all that apply)</label>
+            <div ng-repeat = "amenity in homeSchema.amenity">
+                <div class="row checkboxRow" ng-if="$even">
+                    <div class ="col checkCol">
+                        <md-checkbox aria-label = "{{homeSchema.amenity[$index].name}}"
+                                     value="{{homeSchema.amenity[$index].value}}"
+                                     ng-click = "toggleSelection(homeSchema.amenity[$index].value, home.amenity)">
+                            {{homeSchema.amenity[$index].name}}
+                        </md-checkbox>
+                    </div>
+                    <div class ="col checkCol">
+                        <md-checkbox  aria-label = "{{homeSchema.amenity[$index+1].name}}"
+                                      value="{{homeSchema.amenity[$index+1].value}}"
+                                      ng-click = "toggleSelection(homeSchema.amenity[$index+1].value, home.amenity)">
+                            {{homeSchema.amenity[$index+1].name}}
+                        </md-checkbox>
+                    </div>
+                </div>
+            </div>
+        </md-content>
+    </form>
 </div>
 
 <div class="list list-inset">
-    <div class="col col-offset-20">
+    <div class="row">
+    <div class="col col-offset-10 col-30">
         <md-button class="md-raised md-warn" ng-click="goToPg1()">
             PREV
         </md-button>
+    </div>
+    <div class="col">
         <md-button class="md-raised md-warn" ng-click="goToPg3()">
             NEXT
         </md-button>
+    </div>
     </div>
         <div class="col col-33 col-offset-33">
             Step 2 of 4
