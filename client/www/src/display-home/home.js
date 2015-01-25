@@ -26,10 +26,12 @@ starterControllers
     var i = 0;
 
     $scope.property = houses[i];
-    $scope.likes = 20;
-    $scope.buildYr = 2014 - $scope.property.buildYr;
     $scope.hideDetail = true;
-
+    if($scope.property.suiteNumber){
+      $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
+    } else {
+      $scope.property.addressString = $scope.property.address;
+    }
     $scope.map = {
       lat: $scope.property.lat,
       lng: $scope.property.lng,
@@ -141,13 +143,15 @@ starterControllers
       }
 
       $scope.property = houses[i];
-      $scope.likes = 20;
-      $scope.buildYr = 2014 - $scope.property.buildYr;
       $scope.hideDetail = true;
-      //prevent the next score to be shown
-      //$scope.crowdvalue = $scope.property.crowdvalue;
       $scope.map.lat = $scope.property.lat;
       $scope.map.lng = $scope.property.lng;
+
+      if($scope.property.suiteNumber){
+        $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
+      } else {
+        $scope.property.addressString = $scope.property.address;
+      }
       $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
       $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
       $scope.$broadcast('updatemap', $scope.map);
