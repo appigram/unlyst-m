@@ -1,21 +1,14 @@
 @import "variables";
 
 .ribbon {
-  line-height: 0.8em;
-  font-size: 2em;
-  text-transform: uppercase;
   text-align: center;
-  font-weight: bold;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
-  letter-spacing: -2px;
   display: block;
-  width: 6rem;
-  height: 4rem;
+  width: 1.5em;
+  height: 1.5em;
   background: linear-gradient(to bottom, #999999 0%, #cccccc 100%);
   color: white;
-  margin: 1em 0.5em 0;
-  float: left;
-  padding-top: 1rem;
+  padding-top: 0.3em;
   position: relative;
   -webkit-filter: drop-shadow(0 0.5rem 0.3em rgba(0, 0, 0, 0.5));
   transform: translate3d(0, 0, 0);
@@ -24,11 +17,11 @@
   content: "";
   width: 0;
   height: 0;
-  border-right: 3rem solid transparent;
-  border-left: 3rem solid transparent;
-  border-top: 1.5rem solid #CCCCCC;
+  border-right: 0.8em solid transparent;
+  border-left: 0.8em solid transparent;
+  border-top: 0.5em solid #CCCCCC;
   position: absolute;
-  top: 5rem;
+  top: 1.5em;
   left: 0;
 }
 .ribbon.ribbon--red {
@@ -41,7 +34,7 @@
   background: linear-gradient(to bottom, #e7711b 0%, #f7981d 100%);
 }
 .ribbon.ribbon--orange:after {
-  border-top: 1.5rem solid #F7981D;
+  border-top: 0.5rem solid #F7981D;
 }
 .ribbon.ribbon--yellow {
   background: linear-gradient(to bottom, #f1ca3a 0%, #f6eb3b 100%);

@@ -26,7 +26,7 @@ angular.module('starter.directives', [])
     link: function(scope, element, attrs, model) {
       var options = {
         types: [],
-        componentRestrictions: {}
+        componentRestrictions: {'country':'ca'}
       };
       scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
 
