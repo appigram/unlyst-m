@@ -2,11 +2,11 @@ starterControllers
 
 .controller('AddHomeCtrl', ['$scope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema', function ($scope, $http, $state, $firebase, fireBaseData, homeSchema) {
         console.log("AddHomeCtrl");
-
         var homesDB = fireBaseData.refHomes();
         var homesRef = $firebase(homesDB).$asArray();
   //put upload function and inside promise
   homesRef.$loaded().then(function() {
+      $scope.numbers = [1, 2, 3, 4, 5, 6];
       //$state.go("addHome.addHome1");
       $scope.homeSchema = homeSchema;
       console.log(homeSchema);
@@ -124,14 +124,19 @@ starterControllers
               selectionArr.push(item)
           }
       };
-
+      $scope.returnErrorMsg = false;
       $scope.goToPg1 = function () {
           console.log("gotopage1");
           $state.go('addHome.addHome1');
       };
-      $scope.goToPg2 = function () {
+
+      $scope.goToPg2 = function (validForm) {
           console.log("gotopage2");
-          $state.go('addHome.addHome2');
+          if(validForm) {
+              $state.go('addHome.addHome2');
+          } else {
+              $scope.returnErrorMsg = true;
+          }
       };
       $scope.goToPg3 = function () {
           console.log("goto hom3");

@@ -275,50 +275,62 @@ angular.module('starter.services', [])
         ],
         orientation: ["North", "East", "South","West"],
         amenity: [
-          {
-            name: "Pool",
-            value: "pool"
-          },
-          {
-            name: "Gym",
-            value: "gym"
-          },
-          {
-            name: "Sauna",
-            value: "sauna"
-          },
-          {
-            name: "Steam",
-            value: "steam"
-          },
-          {
-            name: "Spa",
-            value: "spa"
-          },
-          {
-            name: "Rooftop",
-            value: "rooftop"
-          },
-          {
-            name: "BBQ",
-            value: "bbq"
-          },
-          {
-            name: "Pet Wash",
-            value: "petWash"
-          },
-          {
-            name: "Concierge(24 hour)",
-            value: "conciergeFullTime"
-          },
-          {
-            name: "Concierge(Part-time)",
-            value: "conciergePartTime"
-          },
-          {
-            name: "Party Room",
-            value: "partyRoom"
-          }
+            {
+                name: "Concierge (24 hour)",
+                value: "conciergeFullTime"
+            },
+            {
+                name: "Sauna",
+                value: "sauna"
+            },
+            {
+                name: "Concierge (Part-time)",
+                value: "concierge"
+            },
+            {
+                name: "Spa",
+                value: "spa"
+            },
+            {
+                name: "Gym",
+                value: "gym"
+            },
+            {
+                name: "Games Room",
+                value: "gamesRoom"
+            },
+            {
+                name: "Party Room",
+                value: "partyRoom"
+            },
+            {
+                name: "Board Room",
+                value: "boardRoom"
+            },
+            {
+                name: "Steam Room",
+                value: "steamRoom"
+            },
+            {
+                name: "Pet Wash",
+                value: "petWash"
+            },
+            {
+                name: "Car Wash",
+                value: "carWash"
+            },
+            {
+                name: "Theater Room",
+                value: "theaterRoom"
+            },
+            {
+                name: "Pool",
+                value: "pool"
+            },
+            {
+                name: "Other",
+                value: "other"
+            }
         ],
         lat:0,
         lng:0
