@@ -10,24 +10,16 @@ starterControllers
 
   function onLoginSuccess(authData) {
     saveUserProfile(authData);
-    $rootScope.notify("Authenticated successfully!");
-    $rootScope.$apply();
-    $rootScope.hide();
+    $scope.$broadcast('updateAuth');
     $state.go('home');
+    $scope.$apply();
   }
-
-  function saveUserProfile( authData) {
+  function saveUserProfile(authData) {
     authData.updated = Firebase.ServerValue.TIMESTAMP;
     /* SAVE PROFILE DATA */
     var usersRef = fireBaseData.refUsers();
     //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
-    usersRef.child(authData.uid).child('profile').set(authData);
-
-    usersRef.child(authData.uid).on("value", function (snapshot) {
-      $rootScope.authData = snapshot.val();
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
+    usersRef.child(authData.uid).update(authData);
   };
 
   $scope.signIn = function (user) {
@@ -105,13 +97,13 @@ starterControllers
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth, $http) {
   $scope.hideBackButton = true;
-  
+
   $scope.createUser = function (user) {
     var firstname = user.firstname;
     var surname = user.surname;
     var email = user.email;
     var password = user.password;
-    
+
     if (!firstname || !surname || !email || !password) {
       $rootScope.notify("Please enter valid credentials");
       return false;
@@ -129,26 +121,26 @@ starterControllers
       var usersRef = fireBaseData.refUsers();
       usersRef.child(authData.uid).set(authData, function () {
         $rootScope.hide();
-        $state.go('login')
+        $state.go('login');
         $rootScope.notify('Enter your email and password to login. ');
       });
     };
-    var sendEmail = function() {
-        var req = {
-            url: '/sendmail',
-            method: 'POST',
-            data: {'email': email},
-            headers: {'Content-Type': 'application/json'}
-        };
-        $http(req).success(function(res) {
-          if (res && res[0].status == 'sent') {
-            console.log('email sent to ' + res[0].email);
-          } else {
-            console.log('email not sent');
-          }
-        }).error(function(err){
-          console.log(err);
-        });
+    var sendEmail = function () {
+      var req = {
+        url: '/sendmail',
+        method: 'POST',
+        data: {'email': email},
+        headers: {'Content-Type': 'application/json'}
+      };
+      $http(req).success(function (res) {
+        if (res && res[0].status == 'sent') {
+          console.log('email sent to ' + res[0].email);
+        } else {
+          console.log('email not sent');
+        }
+      }).error(function (err) {
+        console.log(err);
+      });
     }
     auth.$createUser(email, password).then(function (error) {
       return auth.$authWithPassword({

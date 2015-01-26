@@ -73,17 +73,7 @@ starterControllers
       }, 100);
     }
 
-    if ($rootScope.authData != null) {
-      var refUserRep = fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
-      refUserRep.on("value", function (snapshot) {
-        console.log("updated value here:" + snapshot.val());
-        if ($rootScope.authData != null) {
-          $rootScope.authData.reputation = snapshot.val();
-        }
-      }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-      });
-    }
+
 
     $scope.valuation = {};
 
@@ -139,9 +129,8 @@ starterControllers
         i = 0;
       }
       //if user already reached their trial or they just reached their trial
-      if (($scope.reachedTrial === true && $scope.authData != null) || (i % 4 === 3 && $scope.authData == null)) {
-        console.log($scope.authData);
-        $scope.reachedTrial = true;
+      if (($rootScope.reachedTrial === true  && !$scope.authData) || (i % 4 === 3 && !$scope.authData)) {
+        $rootScope.reachedTrial = true;
         $state.go('login');
         $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
         return;
