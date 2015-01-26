@@ -13,6 +13,7 @@ starterControllers
   };
   $scope.$on('updateAuth', function () {
     updateAuth();
+    $rootScope.$apply();
   });
   updateAuth();
 

@@ -37,9 +37,16 @@
           </md-item-content>
         </md-item>
         <md-item >
+        <md-item-content>
+          <md-button ng-click="toggleLeftMenu();" ui-sref="login" class="md-primary button-block">
+            {{authData && 'My Profile' || 'Login' }}
+          </md-button>
+        </md-item-content>
+      </md-item>
+        <md-item >
           <md-item-content>
-            <md-button ng-click="toggleLeftMenu();" ui-sref="login" class="md-primary button-block">
-              {{authData && 'My Profile' || 'Login' }}
+            <md-button ng-click="toggleLeftMenu();"  class="md-primary button-block">
+              Close
             </md-button>
           </md-item-content>
         </md-item>
