@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('fireBaseData', ['$firebase', 'utility', function ($firebase, utility) {
+.factory('fireBaseData', ['$firebase', 'utility', function ($firebase, utility,$rootScope) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var homeInfo;
@@ -52,7 +52,9 @@ angular.module('starter.services', [])
       if (accuracy < 0) {
         accuracy = 0;
       }
-      console.log('accuracy: ' + accuracy);
+      if(!property.totalReputation){
+        property.totalReputation = 100;
+      }
 
       var newrepuationTotal = property.totalReputation + accuracy;
       var userReputation = utility.updateReputation(accuracy, authData.reputation);

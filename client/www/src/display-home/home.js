@@ -91,13 +91,12 @@ starterControllers
       $scope.valuation.crowdvalue = $scope.property.crowdvalue;
       $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
       $scope.valuation.reputation = 'N/A';
-//      $scope.valuation.score = 10 - Math.abs(($scope.property.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
-//      if ($scope.valuation.score < 0) {
-//        $scope.valuation.score = 0;
-//      }
-//      console.log('your score:' + $scope.valuation.score);
         
       if (!$scope.stopRecording && $scope.authData) {
+        if(!$scope.property.crowdvalue){
+          $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
+          return;
+        }
         var oldReputation = $scope.authData.reputation || 10;
         fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
         var change = $scope.authData.reputation - oldReputation;
@@ -108,6 +107,9 @@ starterControllers
 
     //modal popup
     $scope.postValuationPopup = function (ev) {
+      if(!$scope.property.crowdvalue){
+        return;
+      }
       $mdDialog.show({
         controller: 'ModalCtrl',
         templateUrl: 'src/display-home/modal.html',
