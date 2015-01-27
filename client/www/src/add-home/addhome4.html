@@ -23,7 +23,13 @@
     <input type="file" name="file6" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">6
     <input type="file" name="file7" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">7
     <input type="file" name="file8" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">8
+
+    <div class="upload">
+        <img ng-src="{{imageSrc}}" style="width:86px;height:87px;overflow: hidden;">
+        <input type="file" name="file9" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
+    </div>
 </div>
+
 <div class="list list-inset">
     <div class="col col-33 col-offset-33">
         <md-button class="md-raised md-warn"

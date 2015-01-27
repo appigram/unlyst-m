@@ -57,7 +57,25 @@ starterControllers
       $scope.uploadFile = function(files, name){
         console.log(files);
         console.log("houseID: " + $scope.home.houseId);
-        console.log(files[0]);
+        console.log("files[0]: "+ files[0]);
+          if (files[0]) {
+              var fileReader = new FileReader();
+              var file = files[0];
+              fileReader.onload = function(e) {
+                  $scope.$apply(function(){
+                      $scope.imageSrc=fileReader.result;
+                      console.log("res: " + fileReader.result)
+                  });
+              };
+              if (file) {
+                  console.log("readAsdata...");
+                  fileReader.readAsDataURL(files[0]);
+              } else {
+                  $scope.imageSrc = '';
+              }
+              console.log("src: " + $scope.imageSrc);
+          }
+
         var fd = new FormData();
         fd.append("file", files[0]);
         fd.append("houseId", $scope.home.houseId);
