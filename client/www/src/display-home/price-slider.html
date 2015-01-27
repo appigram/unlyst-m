@@ -1,26 +1,20 @@
 <div class="priceslider">
   <h4 class="text-center graycolor ">How much is this home worth today?</h4>
   <div class="text-center">
-    <h4 style="font-weight: bold">{{home.valuation | currency:undefined:0}}
-      <span style="font-size: smaller;font-weight:normal">&nbsp;({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)</span>
+    <h4 style="font-weight: bold">{{home.valuation | currency:undefined:0}} <span
+      style="font-size: smaller;font-weight:normal">&nbsp;({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)</span>
     </h4>
   </div>
   <div class="range range-positive">
     <input type="range" name="price" min="{{home.minValuation}}" max="{{home.maxValuation}}" ng-init="getDefaultValue()"
            step="1000" ng-model="home.valuation" class="assertive">
   </div>
-  <div class="row row-center">
-    <div class="col col-bottom text-center">
-      <md-button class="md-raised md-warn" ng-click="submitScore();postValuationPopup()" style="min-width: 200px;">
-        Submit Value
-      </md-button>
-    </div>
-  </div>
-  <div class="row row-center">
-    <div class="col col-center text-center">
-      <md-button class="md-flat gray-light" ng-click="clickNext()">
-        Skip
-      </md-button>
-    </div>
+  <div layout="column" layout-align="center center" class="padding">
+    <md-button class="md-raised md-warn" ng-click="submitScore();postValuationPopup()" style="min-width: 200px;">
+      Submit Value
+    </md-button>
+    <md-button class="md-flat gray-light" ng-click="clickNext()">
+      Skip
+    </md-button>
   </div>
 </div>

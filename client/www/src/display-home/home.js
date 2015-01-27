@@ -26,10 +26,12 @@ starterControllers
     var i = 0;
 
     $scope.property = houses[i];
-    $scope.likes = 20;
-    $scope.buildYr = 2014 - $scope.property.buildYr;
     $scope.hideDetail = true;
-
+    if($scope.property.suiteNumber){
+      $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
+    } else {
+      $scope.property.addressString = $scope.property.address;
+    }
     $scope.map = {
       lat: $scope.property.lat,
       lng: $scope.property.lng,
@@ -71,17 +73,7 @@ starterControllers
       }, 100);
     }
 
-    if ($rootScope.authData != null) {
-      var refUserRep = fireBaseData.refUsers().child($rootScope.authData.uid + '/reputation');
-      refUserRep.on("value", function (snapshot) {
-        console.log("updated value here:" + snapshot.val());
-        if ($rootScope.authData != null) {
-          $rootScope.authData.reputation = snapshot.val();
-        }
-      }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-      });
-    }
+
 
     $scope.valuation = {};
 
@@ -89,20 +81,25 @@ starterControllers
       $scope.valuation.crowdvalue = $scope.property.crowdvalue;
       $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
       $scope.valuation.reputation = 'N/A';
-      $scope.valuation.score = 10 - Math.abs(($scope.property.crowdvalue - $scope.home.valuation) * 1.5 / $scope.crowdvalue * 10);
-      if ($scope.valuation.score < 0) {
-        $scope.valuation.score = 0;
-      }
-      console.log('your score:' + $scope.valuation.score);
         
       if (!$scope.stopRecording && $scope.authData) {
+        if(!$scope.property.crowdvalue){
+          $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
+          return;
+        }
+        var oldReputation = $scope.authData.reputation || 10;
         fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
+        var change = $scope.authData.reputation - oldReputation;
         $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
+        $scope.valuation.reputationChange = (change > 0) ? '+' + change.toFixed(1) : change.toFixed(1);
       }
     };
 
     //modal popup
     $scope.postValuationPopup = function (ev) {
+      if(!$scope.property.crowdvalue){
+        return;
+      }
       $mdDialog.show({
         controller: 'ModalCtrl',
         templateUrl: 'src/display-home/modal.html',
@@ -132,22 +129,23 @@ starterControllers
         i = 0;
       }
       //if user already reached their trial or they just reached their trial
-      if (($scope.reachedTrial === true && $scope.authData != null) || (i % 4 === 3 && $scope.authData == null)) {
-        console.log($scope.authData);
-        $scope.reachedTrial = true;
+      if (($rootScope.reachedTrial === true  && !$scope.authData) || (i % 4 === 3 && !$scope.authData)) {
+        $rootScope.reachedTrial = true;
         $state.go('login');
         $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
         return;
       }
 
       $scope.property = houses[i];
-      $scope.likes = 20;
-      $scope.buildYr = 2014 - $scope.property.buildYr;
       $scope.hideDetail = true;
-      //prevent the next score to be shown
-      //$scope.crowdvalue = $scope.property.crowdvalue;
       $scope.map.lat = $scope.property.lat;
       $scope.map.lng = $scope.property.lng;
+
+      if($scope.property.suiteNumber){
+        $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
+      } else {
+        $scope.property.addressString = $scope.property.address;
+      }
       $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
       $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
       $scope.$broadcast('updatemap', $scope.map);

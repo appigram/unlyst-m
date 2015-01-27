@@ -50,9 +50,9 @@ angular.module('starter.routes', [])
     url: '/addHome4',
     templateUrl: 'src/add-home/addhome4.html'
    })
-  .state('buyer', {
-    url: '/buyer',
-    templateUrl: 'src/buyer-profile/buyer-profile.html',
+  .state('search', {
+    url: '/search',
+    templateUrl: 'src/search/search.html',
     controller: 'SearchCtrl'
   });
 

@@ -5,6 +5,7 @@ var express = require('express'),
     multer = require('multer'),
     aws = require("aws-sdk"),
     app = express();
+    compress = require('compression');
 
 var mailer = require('./server/email-client');
 var elasticSearch = require('./server/elastic-search');
@@ -14,6 +15,7 @@ var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY || '4HSc2Adw8qghyNIsule2NWx2dw0z
 var S3_BUCKET = process.env.S3_BUCKET || 'unlyst';
 var GLOBAL_CDN = "http://img.unlyst.co/";
 //app.use(bodyParser());          // pull information from html in POST
+app.use(compress());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(methodOverride());      // simulate DELETE and PUT
@@ -92,11 +94,7 @@ app.post('/sendmail', function (req,res) {
         console.log('no email given');
     }
 });
-app.post('/search', function (req,res) {
-  var query = req.body.query;
-  res.json('test');
-  console.log('search posted');
-});
+
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });

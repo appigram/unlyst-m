@@ -77,6 +77,10 @@ body{
 }
 .md-button {
   padding: 0.5em 2em !important;
+  margin: 1.0px;
+}
+.md-button-small{
+  padding: 0.5em 0.5em !important;
 }
 .md-button, .md-header-items-container, .md-action {
   text-transform: none !important;
