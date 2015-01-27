@@ -10,11 +10,15 @@ angular.module('starter.routes', [])
     // Each tab has its own nav history stack:
 
   .state('home', {
-    url: '/',
+    url: '/home',
     templateUrl: 'src/display-home/home.html',
     controller: 'HomeCtrl'
   })
-
+  .state('home.display', {
+    url: '/{id}',
+    templateUrl: 'src/display-home/display.html',
+    //controller: 'HomeCtrl'
+  })
   .state('login', {
     url: '/login',
     templateUrl: 'src/auth/login.html',

@@ -1,5 +1,7 @@
 <ion-view>
   <ion-content>
+<!--      <div ui-view=""></div>-->
+
     <div ng-controller="SliderCtrl">
       <div class="slider-nav-btn-left">
         <div ng-click="previous()" class="button button-dark button-small button-outline ion-chevron-left"></div>
@@ -27,6 +29,5 @@
       </ion-slide-box>
       <div ng-include src="'src/display-home/slides/slide-nav.html'"></div>
     </div>
-    <div ng-include src="'src/display-home/price-slider.html'"></div>
-  </ion-content>
+<div ng-include src="'src/display-home/price-slider.html'"></div>  </ion-content>
 </ion-view>

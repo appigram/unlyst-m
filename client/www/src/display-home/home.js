@@ -2,7 +2,7 @@ starterControllers
 
 .controller('HomeCtrl', function ($scope, $rootScope, fireBaseData, $ionicSlideBoxDelegate, utility, $firebase,
                                   $location, $timeout, $mdDialog, $state) {
-
+//  console.log('HomeCtrl');
   //bind model to scoep; set valuation
   $scope.home = {};
   $scope.home.valuation = 100000;
@@ -23,7 +23,9 @@ starterControllers
 
     var houses = utility.shuffle(homesRef);
     var i = 0;
-
+    console.log('HomeCtrl');
+    $state.go('home.display', { 'id' : houses[i].$id });
+    $rootScope.homeID = houses[i].$id;
     $scope.property = houses[i];
     $scope.hideDetail = true;
     if($scope.property.suiteNumber){
@@ -88,9 +90,9 @@ starterControllers
         }
         var oldReputation = $scope.authData.reputation || 10;
         fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
-        var change = $scope.authData.reputation - oldReputation;
+        var change = ($scope.authData.reputation - oldReputation).toFixed(1);
         $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
-        $scope.valuation.reputationChange = (change > 0) ? '+' + change.toFixed(1) : change.toFixed(1);
+        $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
       }
     };
 
@@ -134,6 +136,7 @@ starterControllers
         $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
         return;
       }
+      $state.go('home.display', { 'id' : houses[i].$id });
 
       $scope.property = houses[i];
       $scope.hideDetail = true;

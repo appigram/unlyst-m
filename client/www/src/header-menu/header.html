@@ -6,7 +6,7 @@
                    style="color:white"></md-button>
       </div>
       <div>
-        <md-button class="md-warn md-raised"  ui-sref="home" >
+        <md-button class="md-warn md-raised"  ui-sref="home.display({id: homeID})" >
           <h3 style="font-weight: bold">Unlyst</h3>
         </md-button>
       </div>
@@ -29,7 +29,7 @@
       <md-list>
         <md-item>
           <md-item-content>
-            <md-button ng-click="toggleLeftMenu()" ui-sref="home" class="md-primary button-block">
+            <md-button ng-click="toggleLeftMenu()" ui-sref="home.display({id: homeID})" class="md-primary button-block">
               Browse Homes
             </md-button>
           </md-item-content>

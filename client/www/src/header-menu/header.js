@@ -47,5 +47,6 @@ starterControllers
   $scope.toggleLeftMenu = function () {
     $mdSidenav('left').toggle();
   };
+  $state.go('home');
 });
 
