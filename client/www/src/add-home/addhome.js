@@ -121,10 +121,10 @@ starterControllers
                         count++;
                         console.log("i: " + count + " of" + ($scope.uploadFiles.length - 1 ));
                         if (count === ($scope.uploadFiles.length)) {
-                            //homesRef.$add($scope.home).then(function (ref) {
-                            //    console.log("return is:  " + ref);
-                            //});
-                            console.log('fake upload.....');
+                            homesRef.$add($scope.home).then(function (ref) {
+                                console.log("return is:  " + ref);
+                            });
+                            //console.log('fake upload.....');
                         }
                     }).error(function (err) {
                         console.log(err);
