@@ -1,14 +1,19 @@
 <div ng-controller="HeaderCtrl">
   <md-toolbar class="md-warn" md-scroll-shrink style="height:40px; min-height: 40px;">
     <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
-      <md-button  aria-label="Menu" class="button icon ion-navicon-round" ng-click="toggleLeftMenu()" style="color:white"></md-button>
-      <md-button class="md-warn md-raised" ui-sref="home">
-        <h3>Unlyst</h3>
-      </md-button>
-      <md-button class="md-warn md-raised" ng-show="authData == null" ui-sref="login">Login
-      </md-button>
-      <div ng-show="authData != null">
-        <md-button class="" ui-sref="login">
+      <div>
+        <md-button aria-label="Menu" class="button icon ion-navicon-round" ng-click="toggleLeftMenu()"
+                   style="color:white"></md-button>
+      </div>
+      <div>
+        <md-button class="md-warn md-raised"  ui-sref="home" >
+          <h3 style="font-weight: bold">Unlyst</h3>
+        </md-button>
+      </div>
+      <div>
+        <md-button class="md-warn md-raised" ng-show="authData == null" ui-sref="login">Login
+        </md-button>
+        <md-button ng-show="authData != null" ui-sref="login" class="md-button-small">
           {{ authData.reputation | number: 0}} &nbsp; {{authData.userDisplayName}}
         </md-button>
       </div>
@@ -24,6 +29,13 @@
       <md-list>
         <md-item>
           <md-item-content>
+            <md-button ng-click="toggleLeftMenu()" ui-sref="home" class="md-primary button-block">
+              Browse Homes
+            </md-button>
+          </md-item-content>
+        </md-item>
+        <md-item>
+          <md-item-content>
             <md-button ng-click="toggleLeftMenu()" ui-sref="addHome.addHome1" class="md-primary button-block">
               Add My Home
             </md-button>
@@ -36,16 +48,16 @@
             </md-button>
           </md-item-content>
         </md-item>
-        <md-item >
-        <md-item-content>
-          <md-button ng-click="toggleLeftMenu();" ui-sref="login" class="md-primary button-block">
-            {{authData && 'My Profile' || 'Login' }}
-          </md-button>
-        </md-item-content>
-      </md-item>
-        <md-item >
+        <md-item>
           <md-item-content>
-            <md-button ng-click="toggleLeftMenu();"  class="md-primary button-block">
+            <md-button ng-click="toggleLeftMenu();" ui-sref="login" class="md-primary button-block">
+              {{authData && 'My Profile' || 'Login' }}
+            </md-button>
+          </md-item-content>
+        </md-item>
+        <md-item>
+          <md-item-content>
+            <md-button ng-click="toggleLeftMenu();" class="md-primary button-block">
               Close
             </md-button>
           </md-item-content>
