@@ -40,7 +40,7 @@
             </md-input-container>
             <md-input-container flex>
                 <label>Size in square feet(finished areas only):</label>
-                <input type="text" ng-model="home.size">
+                <input type="number" ng-model="home.size">
             </md-input-container>
         </md-content>
 
@@ -86,11 +86,11 @@
         <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Maintenance Fee Per Month:</label>
-                <input type="text" ng-model="home.maintenanceFee">
+                <input  type="number" ng-model="home.maintenanceFee" numbers-only>
             </md-input-container>
             <md-input-container flex>
                 <label>Year built/Completed:</label>
-                <input type="text" ng-model="home.yearBuilt">
+                <input  type="number" ng-model="home.yearBuilt" numbers-only>
             </md-input-container>
         </md-content>
 
@@ -126,6 +126,7 @@
 
         <md-content class="md-padding">
             <label> Building Amenities (check all that apply)</label>
+            <br>
             <div ng-repeat = "amenity in homeSchema.amenity">
                 <div class="row checkboxRow" ng-if="$even">
                     <div class ="col checkCol">

@@ -170,3 +170,18 @@ md-content .item-select {
   border-left-width: 0;
   border-right-width: 0;
 }
+
+div.upload {
+  width: 86px;
+  height: 87px;
+  background: url('../img/addHomeIcon.png');
+  overflow: hidden;
+}
+
+div.upload input {
+  display: block !important;
+  width: 86px !important;
+  height: 86px !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+}

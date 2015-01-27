@@ -7,7 +7,7 @@ starterControllers
   //put upload function and inside promise
   homesRef.$loaded().then(function() {
       $scope.numbers = [1, 2, 3, 4, 5, 6];
-      $state.go("addHome.addHome1");
+      //$state.go("addHome.addHome1");
       $scope.homeSchema = homeSchema;
       console.log(homeSchema);
       $scope.home = {
@@ -40,34 +40,60 @@ starterControllers
 
       $scope.uploadFiles = [];
 
-      $scope.uploadFile = function (files) {
-          console.log(files[0]);
-          var fd = new FormData();
-          fd.append("file", files[0]);
-          $scope.uploadFiles.push(fd);
-      };
-
     console.log("load homeref ....");
     var length = homesRef.length;
     var id = homesRef[length-1].houseId;
     if (id >= length-1 ){
       //set houseID for new home
       $scope.home.houseId  = id + 1;
+
       //prepare for image upload
-      $scope.uploadFile = function(files, name){
-        console.log(files);
-        console.log("houseID: " + $scope.home.houseId);
-        console.log(files[0]);
-        var fd = new FormData();
-        fd.append("file", files[0]);
-        fd.append("houseId", $scope.home.houseId);
-        fd.append("imageNum",name);
-        $scope.uploadFiles.push(fd);
+        var imgFiles = [];
+        $scope.imgPaths = [];
+
+      //save each file in order and get thumbnails for them
+      $scope.uploadFile = function(files, index){
+          if (files[0]) {
+              imgFiles[index] = files[0];
+              var fileReader = new FileReader();
+              var file = files[0];
+
+              fileReader.onloadend = function(e) {
+                  $scope.$apply(function(){
+                      $scope.imgPaths[index]=fileReader.result;
+                  });
+              };
+              if (file) {
+                  fileReader.readAsDataURL(files[0]);
+              } else {
+                  $scope.imgPaths[index] = '';
+              }
+          }
+      };
+
+      $scope.removeImg = function(index) {
+          if(index > 0 && imgFiles[index] && $scope.imgPaths[index]) {
+              imgFiles.splice(index, 1, '');
+              $scope.imgPaths.splice(index, 1,'');
+          } else {
+              console.log("Error: failed ro remove image");
+          }
       };
 
       $scope.submitForm = function () {
+          // handel convert to formdata
+          for (var j = 0; j < imgFiles.length; j++) {
+              if (imgFiles[j]) {
+                  var fd = new FormData();
+                  fd.append("file", imgFiles[j]);
+                  fd.append("houseId", $scope.home.houseId);
+                  fd.append("imageNum", j);
+                  $scope.uploadFiles.push(fd);
+              }
+          }
+
           var count = 0;
-        if ($scope.uploadFiles.length >0 ) {
+          if ($scope.uploadFiles.length > 0 ) {
 
             for (var i = 0; i < $scope.uploadFiles.length; i++) {
                 var file = $scope.uploadFiles[i];
@@ -95,9 +121,10 @@ starterControllers
                         count++;
                         console.log("i: " + count + " of" + ($scope.uploadFiles.length - 1 ));
                         if (count === ($scope.uploadFiles.length)) {
-                            homesRef.$add($scope.home).then(function (ref) {
-                                console.log("return is:  " + ref);
-                            });
+                            //homesRef.$add($scope.home).then(function (ref) {
+                            //    console.log("return is:  " + ref);
+                            //});
+                            console.log('fake upload.....');
                         }
                     }).error(function (err) {
                         console.log(err);

@@ -9,21 +9,95 @@
         </span>
     </md-content>
     <br>
+
     <md-content class="md-padding">
         <div class="col col-33 col-offset-33">
             <img src="../dist/img/add_Pic_icon.png">
         </div>
     </md-content>
     <br>
-    <input type="file" name="file1" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">1
-    <input type="file" name="file2" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">2
-    <input type="file" name="file3" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">3
-    <input type="file" name="file4" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">4
-    <input type="file" name="file5" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">5
-    <input type="file" name="file6" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">6
-    <input type="file" name="file7" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">7
-    <input type="file" name="file8" onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">8
+
+    <md-content class="md-padding">
+        <div class="row">
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[0]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[0]">
+                    <input type="file" name=0 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">1
+                </div>
+                <button ng-click="removeImg(0)">Delete 1</button>
+            </div>
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[1]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[1]">
+                    <input type="file" name=1 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">2
+                </div>
+                <button ng-click="removeImg(1)">Delete 2</button>
+            </div>
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[2]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[2]">
+                    <input type="file" name=2 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">3
+                </div>
+                <button ng-click="removeImg(2)">Delete 3</button>
+            </div>
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[3]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[3]">
+                    <input type="file" name=3 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">4
+                </div>
+                <button ng-click="removeImg(3)">Delete 4</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[4]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[4]">
+                    <input type="file" name=4 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">5
+                </div>
+                <button ng-click="removeImg(4)">Delete 5</button>
+            </div>
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[5]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[5]">
+                    <input type="file" name=5 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">6
+                </div>
+                <button ng-click="removeImg(5)">Delete 6</button>
+            </div>
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[6]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[6]">
+                    <input type="file" name=6 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">7
+                </div>
+                <button ng-click="removeImg(6)">Delete 7</button>
+            </div>
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[7]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[7]">
+                    <input type="file" name=7 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">8
+                </div>
+                <button ng-click="removeImg(7)">Delete 8</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[8]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[8]">
+                    <input type="file" name=8 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">9
+                </div>
+                <md-button ng-click="removeImg(8)">Delete 9</md-button>
+            </div>
+            <div class="col">
+                <div class="upload">
+                    <img ng-src="{{imgPaths[9]}}" style="width:70px; height:70px; overflow: hidden;"  ng-if="imgPaths[9]">
+                    <input type="file" name=9 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">10
+                </div>
+                <md-button ng-click="removeImg(9)">Delete 10</md-button>
+            </div>
+        </div>
+    </md-content>
 </div>
+
+
 <div class="list list-inset">
     <div class="col col-33 col-offset-33">
         <md-button class="md-raised md-warn"
