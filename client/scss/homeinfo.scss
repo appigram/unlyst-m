@@ -1,6 +1,5 @@
 @import "variables";
 
-$slider-height: 238px;
 //customize tab
 .tab-custom-slider {
   .tabs {
@@ -14,7 +13,6 @@ $slider-height: 238px;
 
 .home-info, .slide-height {
 
-  min-height: $slider-height;
   height: 100%;
   h4 {
     color: $gray-dark;
@@ -35,9 +33,4 @@ $slider-height: 238px;
 .iconheight {
   height: 30px;
   min-width: 40px;
-}
-
-
-.slide-height {
-  height: $slider-height;
 }

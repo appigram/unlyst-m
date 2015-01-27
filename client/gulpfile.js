@@ -36,12 +36,12 @@ gulp.task('sass', function (done) {
   }))
   .pipe(concat('unlyst.css'))
   .pipe(sourcemaps.write())
-  .pipe(gulp.dest('./www/css/'))
+  .pipe(gulp.dest('./www/dist/css/'))
   .pipe(minifyCss({
     keepSpecialComments: 0
   }))
   .pipe(rename({extname: '.min.css'}))
-  .pipe(gulp.dest('./www/css/'))
+  .pipe(gulp.dest('./www/dist/css/'))
   .on('end', done);
 });
 
