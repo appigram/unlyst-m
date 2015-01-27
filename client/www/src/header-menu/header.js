@@ -11,12 +11,12 @@ starterControllers
       });
     }
   };
-  $scope.$on('updateAuth', function () {
+  $scope.$on('updateauth', function () {
     updateAuth();
-    $rootScope.$apply();
   });
-  updateAuth();
-
+  fireBaseData.ref().onAuth(function() {
+    updateAuth();
+  });
   $rootScope.getReputationIcon = function () {
     var number = Math.round($rootScope.authData.reputation);
     if (number < 10) {
@@ -42,7 +42,6 @@ starterControllers
   $scope.checkSession = function () {
     $rootScope.authData = fireBaseData.ref().getAuth();
     $rootScope.hide();
-    $state.go('home');
 
   };
   $scope.toggleLeftMenu = function () {

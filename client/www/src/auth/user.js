@@ -10,9 +10,8 @@ starterControllers
 
   function onLoginSuccess(authData) {
     saveUserProfile(authData);
-    $scope.$broadcast('updateAuth');
+    $scope.$broadcast('updateauth');
     $state.go('home');
-    $scope.$apply();
   }
   function saveUserProfile(authData) {
     authData.updated = Firebase.ServerValue.TIMESTAMP;

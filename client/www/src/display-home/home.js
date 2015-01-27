@@ -11,7 +11,6 @@ starterControllers
   var admin = $location.search();
   //Used to in line edit the pictures
   $scope.AdminMode = admin.admin;
-
   $scope.map = {};
   $scope.defaultzoom = 15;
   //test mode
