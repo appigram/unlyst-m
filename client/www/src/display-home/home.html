@@ -2,10 +2,10 @@
   <ion-content>
     <div ng-controller="SliderCtrl">
       <div class="slider-nav-btn-left">
-        <button ng-click="previous()" class="button button-dark button-small button-outline ion-chevron-left"></button>
+        <div style=" color:white" ng-click="previous()" class="button button-dark button-small button-outline ion-chevron-left"></div>
       </div>
       <div class="slider-nav-btn-right">
-        <button ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></button>
+        <div style=" color:white" ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></div>
       </div>
       <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" auto-play show-pager="false"
                      active-slide="activeSlide" style="max-height: 600px;" layout-align="center center">
@@ -27,7 +27,6 @@
       </ion-slide-box>
       <div ng-include src="'src/display-home/slides/slide-nav.html'"></div>
     </div>
-    <div ng-include src="'src/display-home/home-details/address.html'"></div>
     <div ng-include src="'src/display-home/price-slider.html'"></div>
   </ion-content>
 </ion-view>

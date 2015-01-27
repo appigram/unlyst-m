@@ -1,20 +1,8 @@
-<div class="padding-left padding-right stable-bg home-info resp-slider-height row row-center">
-  <div class="col col-center">
-    <div class="row">
-      <div class="col-50 col-offset-33">
-        <img src="dist/img/home-icons/icon_type_condo.png" class="valdIcon"/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-50 col-offset-33 home-detail-info">
-        <h6><span>Type:</span> {{property.homeType}} </h6>
-<!--
-        Building type:
-        Name:`1
--->
-        <h6><span>Maintenance:</span> ${{property.maintenanceFee}}/m</h6>
-        <h6><span>Year Built:</span> {{property.yearBuilt}}</h6>
-      </div>
-    </div>
+<div class="stable-bg home-info resp-slider-height" layout="column" layout-align="center center">
+  <div>
+    <img src="dist/img/home-icons/icon_type_condo.png" class="valdIcon"/>
+    <h4><span>Type:</span> {{property.homeType}} </h4>
+    <h4><span>Maintenance:</span> ${{property.maintenanceFee}}/m</h4>
+    <h4><span>Year Built:</span> {{property.yearBuilt}}</h4>
   </div>
 </div>

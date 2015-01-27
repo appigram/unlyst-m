@@ -1,17 +1,33 @@
 @import "variables";
 
 .photoSection {
-  figcaption {
-    height: 34px;
-    width: 100%;
-    background: rgba(0, 0, 0, .6);
-    position: absolute;
-    bottom: 0;
-    transition: .7s background linear;
-  }
   background-color:$light;
 }
 
+.home-caption {
+  height: 34px;
+  width: 100%;
+  background: rgba(0, 0, 0, .6);
+  position: absolute;
+  bottom: 0;
+  transition: .7s background linear;
+}
+$home-cover-height: 4em;
+.home-cover-height{
+  height: $home-cover-height;
+}
+
+.home-cover-caption {
+  width: 100%;
+  background: rgba(0, 0, 0, .6);
+  position: absolute;
+  bottom: 0;
+  transition: .7s background linear;
+  font-family:'Avenir Next Regular';
+  h5{
+    font-weight: 100 !important;
+  }
+}
 .resp-slider-height {
   height: 238px;
   @media screen and (min-width: $phone) {

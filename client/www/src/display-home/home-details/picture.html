@@ -1,11 +1,14 @@
-<figure class="text-center photoSection resp-slider-height">
+<figure class="photoSection text-center resp-slider-height">
   <img ng-src="{{image.url}}" height="100%"/>
-  <figcaption>
+  <figcaption class="home-caption" ng-show="$index!==0">
     <h5 class="light" ng-show="AdminMode">
       <a editable-text="image.caption" onbeforesave="saveCaption($data, $index)">
         &nbsp;{{ image.caption || "empty" }}
       </a>
-      <h5 class="light" ng-show="!AdminMode">{{image.caption}}</h5>
+      <h5 class="light" ng-show="!AdminMode">{{image.caption}}{{ $index }}</h5>
     </h5>
+  </figcaption>
+  <figcaption class="light home-cover-caption home-cover-height" ng-show="$index===0">
+    <div ng-include src="'src/display-home/home-details/address.html'"></div>
   </figcaption>
 </figure>

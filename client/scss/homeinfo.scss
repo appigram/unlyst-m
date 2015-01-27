@@ -16,29 +16,14 @@ $slider-height: 238px;
 
   min-height: $slider-height;
   height: 100%;
-  h3 {
-    color: $dark;
-    margin-top: 1px;
-    margin-bottom: 1px;
-  }
-  h6 {
+  h4 {
     color: $gray-dark;
     margin-top: 1px;
     margin-bottom: 1px;
-  }
-}
-
-.home-detail-info {
-  letter-spacing: 1px;
-  span {
-    color: $gray-dark;
-    font-weight: 300;
-  }
-  h6 {
-    color: $dark;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    font-weight: 600;
+    font-weight: bold;
+    span{
+      font-weight: normal;
+    }
   }
 }
 
@@ -52,9 +37,6 @@ $slider-height: 238px;
   min-width: 40px;
 }
 
-.box-shadow {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.30);
-}
 
 .slide-height {
   height: $slider-height;

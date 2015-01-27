@@ -9,12 +9,13 @@
     <input type="range" name="price" min="{{home.minValuation}}" max="{{home.maxValuation}}" ng-init="getDefaultValue()"
            step="1000" ng-model="home.valuation" class="assertive">
   </div>
-  <div layout="column" layout-align="center center" class="padding">
+  <div layout="column" layout-align="center center">
     <md-button class="md-raised md-warn" ng-click="submitScore();postValuationPopup()" style="min-width: 200px;">
       Submit Value
     </md-button>
-    <md-button class="md-flat gray-light" ng-click="clickNext()">
+    <md-button class="md-flat gray-light" ng-click="clickNext()" >
       Skip
     </md-button>
   </div>
+  <div style="padding-top:40px;"></div>
 </div>

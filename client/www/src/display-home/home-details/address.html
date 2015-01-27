@@ -1,7 +1,14 @@
-<div class="padding-top box-shadow">
-  <h4 class="slidersection"><strong>{{property.addressString}}</strong></h4>
-  <h5 class="text-center padding-bottom graycolor">
-    <icon class="icon-left ion-location icon-positive"></icon>
-    {{property.neighborhood}}, {{property.city}}
-  </h5>
+<div class="padding-left padding-right" layout-align="space-between center" layout="row" >
+  <div flex="80" layout-align="center start" layout="column" class="home-cover-height">
+    <h4 class="slidersection "><strong>{{property.addressString}}</strong></h4>
+    <h5  class="padding-bottom gray-light">
+      <icon class="icon-left ion-location icon-positive"></icon>
+      {{property.neighborhood}}, {{property.city}}
+    </h5>
+  </div>
+  <div flex="20" class="home-cover-height" layout="column" layout-align="center center">
+    <h6>{{ property.bedroomNum}}&nbsp;bed</h6>
+    <h6>{{ property.bathroomNum}}&nbsp;bath</h6>
+    <h6>{{ property.size}}&nbsp;sf</h6>
+  </div>
 </div>
