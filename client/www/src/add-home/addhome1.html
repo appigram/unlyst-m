@@ -12,7 +12,7 @@
         <md-content class="md-padding">
             <md-input-container flex>
                 <label>Home Address (Only Toronto Addresses)</label>
-                <input type="text" required name="address"  ng-model="home.address">
+                <input type="text" required name="address"  ng-model="home.address" googleplace placeholder="" >
             </md-input-container>
             <div ng-messages="homeInfoForm.address.$error" ng-if="homeInfoForm.address.$dirty || returnErrorMsg">
                 <div style="color:red" ng-message="required">This is required.</div>
@@ -20,7 +20,7 @@
 
             <md-input-container flex>
                 <label>Suite Number</label>
-                    <input type="number"required name="suiteNumber" ng-model = "home.suiteNumber">
+                <input type="number" required name="suiteNumber" ng-model = "home.suiteNumber" numbers-only>
             </md-input-container>
             <div ng-messages="homeInfoForm.suiteNumber.$error"
                  ng-if="homeInfoForm.suiteNumber.$dirty || returnErrorMsg">
