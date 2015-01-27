@@ -39,6 +39,10 @@ starterControllers
       if (error === null) {
         onLoginSuccess(authData);
       } else {
+        $timeout(function(){
+          $rootScope.hide();
+        },100);
+
         switch (error.code) {
           case "INVALID_EMAIL":
             $rootScope.notify("The specified user account email is invalid.");
@@ -51,10 +55,7 @@ starterControllers
             break;
           default:
             $rootScope.notify("Error logging user in:", error);
-
         }
-        $rootScope.hide();
-        $rootScope.notify('Error', 'Email or Password is incorrect!');
       }
     });
   };

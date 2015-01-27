@@ -1,4 +1,9 @@
-<div ng-message="required">You left the field blank...</div>
-<div ng-message="minlength">Your field is too short</div>
-<div ng-message="maxlength">Your field is too long</div>
-<div ng-message="email">Your field has an invalid email address</div>
+<div ng-messages="loginForm.email.$error">
+  <div ng-message="required">Required.</div>
+  <div ng-message="md-maxlength">Email has to be less than 30 characters long.</div>
+</div>
+<div ng-messages="loginForm.password.$error">
+  <div ng-message="required">Required.</div>
+  <div ng-message="md-maxlength">Must be less than 30 characters long.</div>
+  <div ng-message="minlength">Must be more than 6 characters long.</div>
+</div>

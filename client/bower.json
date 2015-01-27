@@ -5,7 +5,7 @@
     "ionic": "driftyco/ionic-bower#1.0.0-beta.14",
     "angular-leaflet-directive": "^0.7.9",
     "angulartics": "^0.17.1",
-    "angular-material": "^0.7.0",
+    "angular-material": "*",
     "angular-xeditable": "0.1.8",
     "leaflet-plugins" :"1.2.1",
     "ionicons":"^2.0.0",
