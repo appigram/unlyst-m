@@ -103,6 +103,35 @@ h4,h5,h6{
   src: url('../font/AvenirNext-UltraLight.woff');
 }
 
+//reponsive font
+@media (min-width:$xphone) {
+  body {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width:$mphone) {
+  body {
+    font-size: 18px !important;
+  }
+}
+@media (min-width:$lphone) {
+  body {
+    font-size: 20px !important;
+  }
+}
+
+@media (min-width:$tablet) {
+  body {
+    font-size: 22px !important;
+  }
+}
+@media (min-width:$desktop) {
+  body {
+    font-size: 30px !important;
+  }
+}
+
 md-input-container select.md-input {
   -moz-appearance: none;
   -webkit-appearance: none;

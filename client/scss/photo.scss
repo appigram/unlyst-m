@@ -5,7 +5,7 @@
 }
 
 .home-caption {
-  height: 34px;
+  height: 1.5em;
   width: 100%;
   background: rgba(0, 0, 0, .6);
   position: absolute;
@@ -28,35 +28,18 @@ $home-cover-height: 4em;
     font-weight: 100 !important;
   }
 }
+$slider-height: 15em;
 .resp-slider-height {
-  height: 238px;
-  @media screen and (min-width: $phone) {
-    height: 238px;
-  }
-  @media screen and (min-width: $tablet) {
-    height: 400px;
-  }
-  @media screen and (min-width: $desktop) {
-    height: 550px;
-  }
+  height: $slider-height;
 }
 
 .slider-nav-btn-left, .slider-nav-btn-right {
   position: absolute;
-  top: 100px;
+  top:8em;
   z-index: 5;
   font-size: 16px;
   cursor: hand;
-  height:238px;
-  @media screen and (min-width: $phone) {
-    top:100px;
-  }
-  @media screen and (min-width: $tablet) {
-    top:160px;
-  }
-  @media screen and (min-width: $desktop) {
-    top:220px;
-  }
+  height: $slider-height;
 }
 
 .slider-nav-btn-right {
