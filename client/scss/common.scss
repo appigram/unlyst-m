@@ -93,7 +93,8 @@ h4,h5,h6{
 .text-center         { text-align: center; }
 //Overriding angular material
 
-//font
+//responsive font
+
 @font-face {
   font-family:'Avenir Next Regular';
   src: url('../font/AvenirNext-Regular.woff');
@@ -103,7 +104,12 @@ h4,h5,h6{
   font-family:'Avenir Next UltraLight';
   src: url('../font/AvenirNext-UltraLight.woff');
 }
+body {
+  h1,h2,h3,h4,h5,h6{
 
+    line-height: 1em !important;
+  }
+}
 //reponsive font
 @media (min-width:$xphone) {
   body {

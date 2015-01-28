@@ -117,7 +117,6 @@ starterControllers
 
     //no more homes popup
     var noMoreHomesPopup = function () {
-      console.log('no more homes');
       $mdDialog.show({
         controller: 'ModalCtrl',
         templateUrl: 'src/display-home/no-more-homes.html',
@@ -143,6 +142,7 @@ starterControllers
 
       if (i < length - 1) {
         i++;
+        noMoreHomesPopup();
       } else {
         noMoreHomesPopup();
         i = 0;
