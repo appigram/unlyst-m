@@ -142,7 +142,6 @@ starterControllers
 
       if (i < length - 1) {
         i++;
-        noMoreHomesPopup();
       } else {
         noMoreHomesPopup();
         i = 0;
