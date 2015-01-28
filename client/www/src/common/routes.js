@@ -16,7 +16,7 @@ angular.module('starter.routes', [])
   })
   .state('home.display', {
     url: '/{id}',
-    templateUrl: 'src/display-home/display.html',
+    templateUrl: 'src/display-home/display.html'
     //controller: 'HomeCtrl'
   })
   .state('login', {

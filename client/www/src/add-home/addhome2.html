@@ -86,11 +86,11 @@
         <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Maintenance Fee Per Month:</label>
-                <input  type="number" ng-model="home.maintenanceFee" numbers-only>
+                <input  type="number" ng-model="home.maintenanceFee">
             </md-input-container>
             <md-input-container flex>
                 <label>Year built/Completed:</label>
-                <input  type="number" ng-model="home.yearBuilt" numbers-only>
+                <input  type="number" ng-model="home.yearBuilt">
             </md-input-container>
         </md-content>
 
@@ -165,4 +165,6 @@
         <div class="col col-33 col-offset-33">
             Step 2 of 4
         </div>
+
+    {{home}}
 </div>
