@@ -6,8 +6,9 @@
                    style="color:white"></md-button>
       </div>
       <div>
-        <md-button class="md-warn md-raised"  ui-sref="home.display({id: homeID})" >
-          <h3 style="font-weight: bold">Unlyst</h3>
+        <md-button class="md-warn" ui-sref="home.display({id: homeID})" >
+          <!--<h3 style="font-weight: bold">Unlyst</h3>-->
+          <img style="padding-top:5px;" class="invert" src="dist/img/logo-black-bg.png" />
         </md-button>
       </div>
       <div>
@@ -20,7 +21,7 @@
     </div>
   </md-toolbar>
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-    <md-toolbar class="md-warn md-hue-2 padding" style="min-height: 45px;" layout="column" layout-align="center center">
+    <md-toolbar class="md-primary padding" style="min-height: 45px;" layout="column" layout-align="center center">
       <img width="60px" ng-src="{{authData.userProfilePicture}}"/>
       <div ng-show="authData" class="ribbon  ribbon--orange">{{ authData.reputation | number: 0}} &nbsp;</div>
       <h5> {{getUserDisplayName(true)}} {{ authData && ' ' || 'Unlyst' }}</h5>
@@ -36,14 +37,14 @@
         </md-item>
         <md-item>
           <md-item-content>
-            <md-button ng-click="toggleLeftMenu()" ui-sref="addHome.addHome1" class="md-primary button-block">
+            <md-button ng-click="toggleLeftMenu()" ui-sref="{{authData ? 'addHome.addHome1' : 'login'}}" class="md-primary button-block">
               Add My Home
             </md-button>
           </md-item-content>
         </md-item>
         <md-item>
           <md-item-content>
-            <md-button ng-click="toggleLeftMenu()" ui-sref="search" class="md-primary button-block">
+            <md-button ng-hide="true" ng-click="toggleLeftMenu()" ui-sref="search" class="md-primary button-block">
               Search Homes
             </md-button>
           </md-item-content>
