@@ -2,17 +2,18 @@
   <md-toolbar class="md-warn" md-scroll-shrink style="height:40px; min-height: 40px;">
     <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
       <div>
-        <md-button aria-label="Menu" class="button icon ion-navicon-round" ng-click="toggleLeftMenu()"
+        <md-button aria-label="Menu" class="button icon ion-navicon-round md-button-small" ng-click="toggleLeftMenu()"
                    style="color:white"></md-button>
       </div>
-      <div>
-        <md-button class="md-warn" ui-sref="home.display({id: homeID})" >
-          <!--<h3 style="font-weight: bold">Unlyst</h3>-->
+      <div layout="row" layout-align="space-between center">
+        <md-button class="md-warn md-button-small" ui-sref="home.display({id: homeID})" >
           <img style="padding-top:5px;" class="invert" src="dist/img/logo-black-bg.png" />
         </md-button>
+        <h6 hide-sm >Unlyst</h6>
+
       </div>
       <div>
-        <md-button class="md-warn md-raised" ng-show="authData == null" ui-sref="login">Login
+        <md-button class="md-button-small" ng-show="authData == null" ui-sref="login">Login
         </md-button>
         <md-button ng-show="authData != null" ui-sref="login" class="md-button-small">
           {{ authData.reputation | number: 0}} &nbsp; {{authData.userDisplayName}}

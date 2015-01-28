@@ -96,14 +96,14 @@ starterControllers
       }
     };
 
-    //modal popup
-    $scope.postValuationPopup = function (ev) {
+    //post valuation modal popup
+    $scope.postValuationPopup = function () {
       if(!$scope.property.crowdvalue){
         return;
       }
       $mdDialog.show({
         controller: 'ModalCtrl',
-        templateUrl: 'src/display-home/modal.html',
+        templateUrl: 'src/display-home/post-valuation-modal.html',
         locals: {
           valuation: $scope.valuation
         }
@@ -112,6 +112,24 @@ starterControllers
         $scope.clickNext();
       }, function () {
         $scope.clickNext();
+      });
+    };
+
+    //no more homes popup
+    var noMoreHomesPopup = function () {
+      console.log('no more homes');
+      $mdDialog.show({
+        controller: 'ModalCtrl',
+        templateUrl: 'src/display-home/no-more-homes.html',
+        locals: {
+          valuation: $scope.valuation
+        }
+      })
+      .then(function () {
+        //log something in user profile
+        $scope.stopRecording = true;
+      }, function () {
+        $scope.stopRecording = true;
       });
     };
 
@@ -126,7 +144,7 @@ starterControllers
       if (i < length - 1) {
         i++;
       } else {
-        $rootScope.notify('You have valued all homes on unlyst!');
+        noMoreHomesPopup();
         i = 0;
       }
       //if user already reached their trial or they just reached their trial
