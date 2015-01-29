@@ -118,8 +118,9 @@ angular.module('starter.services', [])
         return rootAuth.twitter.cachedUserProfile.profile_image_url;
       }
       else if (rootAuth.provider === 'password') {
-        return null;
+        return 'dist/img/home-thumbnail';
       }
+
     }
   }
 }])
