@@ -25,7 +25,6 @@ node_modules
 .idea
 *.iml
 .idea/workspace.xml
-client/www/lib/
 .env
 
 #compiled css and js
