@@ -82,7 +82,7 @@ gulp.task('sass-minify', function () {
 
 //minify all images
 gulp.task('images', function () {
-  return gulp.src('./image/**/*')
+  return gulp.src('./client/image/**/*')
   .pipe(changed('./client/www/dist/img')) //changed only works on different directories and identical files
   .pipe(imagemin({
     progressive: true,
