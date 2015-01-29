@@ -7,7 +7,7 @@ starterControllers
   $rootScope.user = {};
   $rootScope.user.username = $scope.user.username;
   $rootScope.user.password = $scope.user.password;
-
+  $rootScope.EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i;
   function onLoginSuccess(authData) {
     saveUserProfile(authData);
     $scope.$broadcast('updateauth');
@@ -21,7 +21,11 @@ starterControllers
     usersRef.child(authData.uid).update(authData);
   };
 
-  $scope.signIn = function (user) {
+  $scope.signIn = function (user,validForm) {
+    $scope.submitted = true;
+    if(!validForm){
+      return;
+    }
     $rootScope.show('Logging In...');
 
     /* Check user fields*/
@@ -38,10 +42,6 @@ starterControllers
       if (error === null) {
         onLoginSuccess(authData);
       } else {
-        $timeout(function(){
-          $rootScope.hide();
-        },100);
-
         switch (error.code) {
           case "INVALID_EMAIL":
             $rootScope.notify("The specified user account email is invalid.");
@@ -56,6 +56,9 @@ starterControllers
             $rootScope.notify("Error logging user in:", error);
         }
       }
+      $timeout(function(){
+        $rootScope.hide();
+      },100);
     });
   };
 
@@ -99,7 +102,11 @@ starterControllers
     
   $scope.hideBackButton = true;
     
-  $scope.createUser = function (user) {
+  $scope.createUser = function (user,valid) {
+    $scope.submitted = true;
+    if(!valid){
+      return;
+    }
     var firstname = user.firstname;
     var surname = user.surname;
     var email = user.email;

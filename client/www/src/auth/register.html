@@ -4,7 +4,7 @@
       <md-input-container flex>
         <label>First Name</label>
         <input ng-model="user.firstname" name="firstname" minlength="2" required>
-        <div ng-messages="registerForm.firstname.$error">
+        <div ng-messages="registerForm.firstname.$error" ng-if="(registerForm.firstname.$dirty || submitted)">
           <div ng-message="required">Required.</div>
           <div ng-message="minlength">Must be more than 2 characters long.</div>
         </div>
@@ -12,28 +12,29 @@
       <md-input-container flex>
         <label>Last Name</label>
         <input ng-model="user.surname" name="surname" minlength="2" required>
-        <div ng-messages="registerForm.surname.$error">
+        <div ng-messages="registerForm.surname.$error" ng-if="(registerForm.surname.$dirty || submitted)">
           <div ng-message="required">Required.</div>
           <div ng-message="minlength">Must be more than 2 characters long.</div>
         </div>
       </md-input-container>
       <md-input-container flex>
         <label>Email</label>
-        <input ng-model="user.email" name="email" required>
-        <div ng-messages="registerForm.email.$error">
+        <input ng-model="user.email" name="email" required ng-pattern="EMAIL_REGEXP">
+        <div ng-messages="registerForm.email.$error" ng-if="(registerForm.email.$dirty || submitted)">
           <div ng-message="required">Required.</div>
+          <div ng-message="pattern">Not a valid email.</div>
         </div>
       </md-input-container>
       <md-input-container flex>
         <label>Password</label>
         <input ng-model="user.password" type="password" name="password" minlength="6" required>
-        <div ng-messages="registerForm.password.$error">
+        <div ng-messages="registerForm.password.$error" ng-if="(registerForm.password.$dirty || submitted)">
           <div ng-message="required">Required.</div>
           <div ng-message="minlength">Must be more than 6 characters long.</div>
         </div>
       </md-input-container>
       <div class="text-center padding">
-        <md-button class="md-raised md-warn" ng-disabled="!registerForm.$valid" ng-click="createUser(user)">
+        <md-button class="md-raised md-warn" ng-click="createUser(user,registerForm.$valid)">
           Sign up
         </md-button>
       </div>

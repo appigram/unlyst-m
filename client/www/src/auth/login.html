@@ -23,27 +23,28 @@
       <form name="loginForm">
         <md-input-container>
           <label>Email</label>
-          <input ng-model="user.email" label="Email" name="email" required>
-          <div ng-messages="loginForm.email.$error">
+          <input ng-model="user.email" label="Email" name="email" required ng-pattern="EMAIL_REGEXP">
+          <div ng-messages="loginForm.email.$error" ng-if="(loginForm.email.$dirty || submitted)">
             <div ng-message="required">Required.</div>
+            <div ng-message="pattern">Not a valid email.</div>
           </div>
+
         </md-input-container>
         <md-input-container>
           <label>Password</label>
           <input ng-model="user.password" type="password" name="password" minlength="6" required>
-          <div ng-messages="loginForm.password.$error">
+          <div ng-messages="loginForm.password.$error" ng-if='loginForm.password.$dirty || submitted'>
             <div ng-message="required">Required.</div>
             <div ng-message="minlength">Must be more than 6 characters long.</div>
           </div>
         </md-input-container>
         <div class="padding text-center">
-          <md-button ng-disabled="!loginForm.$valid" class="md-raised md-warn" ng-click="signIn(user)"
-                     style="font-weight: bold;color:black">
+          <md-button class="md-raised md-warn" ng-click="signIn(user,loginForm.$valid)">
             Log in
           </md-button>
           <h4 class="text-center gray-light">
             <div>Or</div>
-            <md-button type="submit" ui-sref="register" class="md-flat" style="padding:5px !important">
+            <md-button type="submit" ui-sref="register" class="md-flat" style="padding:5px !important;font-weight: bold;color:black">
               Sign up
             </md-button>
             &nbsp;with your email address
