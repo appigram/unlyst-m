@@ -15,9 +15,12 @@ angular.module('starter.routes', [])
     controller: 'HomeCtrl'
   })
   .state('home.display', {
-    url: '/{id}',
-    templateUrl: 'src/display-home/display.html'
-    //controller: 'HomeCtrl'
+    url: '/:id',
+    //templateUrl: 'src/display-home/display.html',
+    controller: function($scope, $stateParams) {
+        console.log('home id ' + $stateParams.id);
+    },
+    //reloadOnSearch: false
   })
   .state('login', {
     url: '/login',

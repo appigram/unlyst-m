@@ -1,9 +1,9 @@
 starterControllers
 
 .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
-
+    
   $scope.hideBackButton = true;
-
+    
   $rootScope.user = {};
   $rootScope.user.username = $scope.user.username;
   $rootScope.user.password = $scope.user.password;
@@ -96,8 +96,9 @@ starterControllers
 })
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth, $http) {
+    
   $scope.hideBackButton = true;
-
+    
   $scope.createUser = function (user) {
     var firstname = user.firstname;
     var surname = user.surname;

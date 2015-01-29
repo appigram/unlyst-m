@@ -1,5 +1,5 @@
 starterControllers
-.controller('HeaderCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav) {
+.controller('HeaderCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav, $location) {
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
     if (authData) {
@@ -47,6 +47,12 @@ starterControllers
   $scope.toggleLeftMenu = function () {
     $mdSidenav('left').toggle();
   };
+  //workaround to avoid reloading HomeCtrl
+  $scope.displayHome = function(homeID) {
+      $state.go('home').then(function() {
+        $state.go('home.display', {'id': homeID});
+      });
+  }
   $state.go('home');
 });
 

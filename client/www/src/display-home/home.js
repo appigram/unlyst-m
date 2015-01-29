@@ -2,13 +2,14 @@ starterControllers
 
 .controller('HomeCtrl', function ($scope, $rootScope, fireBaseData, $ionicSlideBoxDelegate, utility, $firebase,
                                   $location, $timeout, $mdDialog, $state) {
-//  console.log('HomeCtrl');
+  console.log('Home Ctrl');
   //bind model to scoep; set valuation
   $scope.home = {};
   $scope.home.valuation = 100000;
   $scope.score = 0;
   $scope.Math = window.Math;
   var admin = $location.search();
+  console.log(admin);
   //Used to in line edit the pictures
   $scope.AdminMode = admin.admin;
   $scope.map = {};
@@ -23,7 +24,6 @@ starterControllers
 
     var houses = utility.shuffle(homesRef);
     var i = 0;
-    console.log('HomeCtrl');
     $state.go('home.display', { 'id' : houses[i].$id });
     $rootScope.homeID = houses[i].$id;
     $scope.property = houses[i];
@@ -154,7 +154,7 @@ starterControllers
         return;
       }
       $state.go('home.display', { 'id' : houses[i].$id });
-
+      $rootScope.homeID = houses[i].$id;
       $scope.property = houses[i];
       $scope.hideDetail = true;
       $scope.map.lat = $scope.property.lat;
