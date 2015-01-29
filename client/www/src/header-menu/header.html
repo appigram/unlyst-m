@@ -6,7 +6,7 @@
                    style="color:white"></md-button>
       </div>
       <div layout="row" layout-align="space-between center">
-        <md-button class="md-warn md-button-small" ui-sref="home.display({id: homeID})" >
+        <md-button class="md-warn md-button-small" ui-sref="displayHome" >
           <img style="padding-top:5px;" class="invert" src="dist/img/logo-black-bg.png" />
         </md-button>
         <h6 hide-sm >Unlyst</h6>
@@ -38,7 +38,7 @@
         </md-item>
         <md-item>
           <md-item-content>
-            <md-button ng-click="toggleLeftMenu()" ui-sref="{{authData ? 'addHome.addHome1' : 'login'}}" class="md-primary button-block">
+            <md-button ng-click="toggleLeftMenu()" ui-sref="addHome.addHome1" class="md-primary button-block">
               Add My Home
             </md-button>
           </md-item-content>

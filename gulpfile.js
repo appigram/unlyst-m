@@ -34,7 +34,7 @@ var paths = {
   ],
   js: [
     //TODO: fix app.js to be the first file to load
-    './client/www/src/common/app.js',
+    './client/www/src/common/*.js',
     './client/www/src/**/*.js'
   ]
 };
