@@ -16,11 +16,13 @@ starterControllers
   $scope.defaultzoom = 15;
   //test mode
   $scope.stopRecording = false;
-
+  $rootScope.show('Loading...');
   var homesDB = fireBaseData.refHomes();
   var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
   //init firebase
   homesRef.$loaded().then(function () {
+
+    $rootScope.hide();
 
     var houses = utility.shuffle(homesRef);
     var i = 0;

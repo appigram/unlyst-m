@@ -2,7 +2,6 @@ starterControllers
 
 .controller('AddHomeCtrl', ['$scope', '$rootScope', '$http', '$state', '$firebase', 'fireBaseData',
 'homeSchema', function ($scope, $rootScope, $http, $state, $firebase, fireBaseData, homeSchema) {
-console.log('addhome')
     if (!$rootScope.authData) {
       $state.go('login');
       $rootScope.notify('Please login to add your home.');

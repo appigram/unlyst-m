@@ -17,9 +17,9 @@ angular.module('starter.routes', [])
   .state('home.display', {
     url: '/:id',
     //templateUrl: 'src/display-home/display.html',
-    controller: function($scope, $stateParams) {
-        console.log('home id ' + $stateParams.id);
-    },
+    controller: function ($scope, $stateParams) {
+      console.log('home id ' + $stateParams.id);
+    }
     //reloadOnSearch: false
   })
   .state('login', {
@@ -37,26 +37,26 @@ angular.module('starter.routes', [])
     url: '/addHome',
     templateUrl: 'src/add-home/addhome.html',
     controller: 'AddHomeCtrl'
-   })
+  })
 
-   .state('addHome.addHome1', {
-     url: '/addHome1',
-     templateUrl: 'src/add-home/addhome1.html'
-      })
+  .state('addHome.addHome1', {
+    url: '/addHome1',
+    templateUrl: 'src/add-home/addhome1.html'
+  })
 
   .state('addHome.addHome2', {
     url: '/addHome2',
     templateUrl: 'src/add-home/addhome2.html'
   })
-      
+
   .state('addHome.addHome3', {
     url: '/addHome3',
     templateUrl: 'src/add-home/addhome3.html'
   })
-   .state('addHome.addHome4', {
+  .state('addHome.addHome4', {
     url: '/addHome4',
     templateUrl: 'src/add-home/addhome4.html'
-   })
+  })
   .state('search', {
     url: '/search',
     templateUrl: 'src/search/search.html',
@@ -64,7 +64,7 @@ angular.module('starter.routes', [])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/home');
   //remove # from url
   //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
   //$locationProvider.html5Mode(true).hashPrefix('!');

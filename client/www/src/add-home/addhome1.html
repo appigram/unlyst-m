@@ -11,7 +11,7 @@
     <md-content class="md-padding">
       <md-input-container flex>
         <label>Home Address (Only Toronto Addresses)</label>
-        <input type="text" required name="address" ng-model="home.address" googleplace placeholder="">
+        <input type="text" required name="address" ng-model="home.address" googleplace disabletap placeholder="">
       </md-input-container>
       <div ng-messages="homeInfoForm.address.$error" ng-if="homeInfoForm.address.$dirty || returnErrorMsg">
         <div style="color:red" ng-message="required">This is required.</div>
