@@ -9,9 +9,9 @@
   </md-content>
   <form name="homeInfoForm" class="homeInfoForm">
     <md-content class="md-padding">
-      <md-input-container flex>
+      <md-input-container flex disableTap>
         <label>Home Address (Only Toronto Addresses)</label>
-        <input type="text" required name="address" ng-model="home.address" googleplace disabletap placeholder="">
+        <input type="text" required name="address" ng-model="home.address" placeholder="" ng-autocomplete>
       </md-input-container>
       <div ng-messages="homeInfoForm.address.$error" ng-if="homeInfoForm.address.$dirty || returnErrorMsg">
         <div style="color:red" ng-message="required">This is required.</div>

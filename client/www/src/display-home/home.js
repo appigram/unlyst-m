@@ -22,7 +22,6 @@ starterControllers
   //init firebase
   homesRef.$loaded().then(function () {
 
-    $rootScope.hide();
 
     var houses = utility.shuffle(homesRef);
     var i = 0;
@@ -100,6 +99,7 @@ starterControllers
 
     //post valuation modal popup
     $scope.postValuationPopup = function () {
+      $ionicSlideBoxDelegate.update();
       if(!$scope.property.crowdvalue){
         return;
       }

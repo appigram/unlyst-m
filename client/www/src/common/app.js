@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services',
   'starter.filters',  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable','angulartics',
-  'angulartics.google.analytics', 'ngMaterial', 'ngMessages']);
+  'angulartics.google.analytics', 'ngMaterial', 'ngMessages','ngAutocomplete']);
 
 var starterControllers = angular.module('starter.controllers', []);
 
