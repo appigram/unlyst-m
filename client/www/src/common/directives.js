@@ -51,7 +51,7 @@ angular.module('starter.directives', [])
             document.getElementById('autocomplete').blur();
           };
         });
-      },500);
+      },200);
     }
   };
 });
