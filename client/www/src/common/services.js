@@ -323,7 +323,7 @@ angular.module('starter.services', [])
     orientation: ["North", "East", "South", "West"],
     amenity: [
       {
-        name: "Concierge (24 hour)",
+        name: "Concierge (24h)",
         value: "conciergeFullTime"
       },
       {
@@ -331,7 +331,7 @@ angular.module('starter.services', [])
         value: "sauna"
       },
       {
-        name: "Concierge (Part-time)",
+        name: "Concierge (<24h)",
         value: "concierge"
       },
       {
