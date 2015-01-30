@@ -53,6 +53,5 @@ starterControllers
         $state.go('home.display', {'id': homeID});
       });
   }
-  $state.go('home');
 });
 

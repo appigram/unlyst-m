@@ -209,16 +209,40 @@ md-content .item-select {
 }
 
 div.upload {
-  width: 86px;
-  height: 87px;
-  background: url('../img/addHomeIcon.png');
+  width: 95px;
+  height: 95px;
+  background: url('../img/button_photo_upload.png');
+  background-size: 86px 87px;
+  background-position-y: 6px;
+  background-repeat: no-repeat;
   overflow: hidden;
+}
+
+div.upload .display-img{
+  position: relative;
+  width: 82px;
+  height: 84px;
+  top: -19px;
+  left: 2px;
+  border-color: black;
+  border-width: 0px;
+  border-radius: 14px;
+  border-style: solid;
+}
+div.upload .close-btn{
+  position: relative;
+  background: url('../img/close_button.png');
+  left: 70px;
+  top: 0px;
+  z-index: 1;
 }
 
 div.upload input {
   display: block !important;
+  position: relative;
+  top: 6px;
   width: 86px !important;
-  height: 86px !important;
+  height: 87px !important;
   opacity: 0 !important;
   overflow: hidden !important;
 }

@@ -49,11 +49,11 @@
   <div ng-messages="homeInfoForm.$invalid" ng-if="returnErrorMsg && homeInfoForm.$invalid ">
     <div ng-messages="">please fill the required fild.</div>
   </div>
-  <div class="col col-33 col-offset-33">
+  <div layout ="row" layout-align="center">
     <md-button class="md-raised md-warn" name="btnNextPg2" ng-click="goToPg2(homeInfoForm.$valid)">NEXT
     </md-button>
   </div>
-  <div class="col col-33 col-offset-33">
-    <span style="padding-left: 10%">Step 1 of 4</span>
+  <div layout ="row" layout-align="center">
+    <span>Step 1 of 4</span>
   </div>
 </div>

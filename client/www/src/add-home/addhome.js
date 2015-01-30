@@ -93,7 +93,7 @@ starterControllers
         };
 
         $scope.removeImg = function (index) {
-          if (index > 0 && imgFiles[index] && $scope.imgPaths[index]) {
+          if (index > -1 && imgFiles[index] && $scope.imgPaths[index]) {
             imgFiles.splice(index, 1, '');
             $scope.imgPaths.splice(index, 1, '');
           } else {
@@ -199,6 +199,9 @@ starterControllers
         console.log("add home");
         $state.go('addHome.addHome1');
       };
+      $scope.clickMe = function() {
+          console.log("clickme!");
+      }
 
     });
   }]);
