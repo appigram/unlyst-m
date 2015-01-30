@@ -13,10 +13,11 @@
         <label>Home Address (Only Toronto Addresses)</label>
         <input type="text" required name="address" ng-model="home.address" ng-blur="getGeo()" placeholder=""
                ng-autocomplete options="{country: 'ca'}">
+        <div ng-messages="homeInfoForm.address.$error" ng-if="homeInfoForm.address.$dirty || returnErrorMsg">
+          <div style="color:red" ng-message="required">This is required.</div>
+        </div>
       </md-input-container>
-      <div ng-messages="homeInfoForm.address.$error" ng-if="homeInfoForm.address.$dirty || returnErrorMsg">
-        <div style="color:red" ng-message="required">This is required.</div>
-      </div>
+
       <md-input-container flex>
         <label>Suite Number</label>
         <input name="suiteNumber" ng-model="home.suiteNumber">
@@ -25,11 +26,11 @@
         <label>Postal code</label>
         <input type="text" name="postalCode" ng-model="home.postalCode"
                ng-pattern="/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/">
+        <div ng-messages="homeInfoForm.postalCode.$error"
+             ng-if="(homeInfoForm.postalCode.$dirty && homeInfoForm.postalCode.$invalid) || returnErrorMsg">
+          <div style="color:red" ng-message="pattern">Invalid postal code.</div>
+        </div>
       </md-input-container>
-      <div ng-messages="homeInfoForm.postalCode.$error"
-           ng-if="(homeInfoForm.postalCode.$dirty && homeInfoForm.postalCode.$invalid) || returnErrorMsg">
-        <div style="color:red" ng-message="pattern">Invalid postal code.</div>
-      </div>
       <md-input-container flex>
         <label>Neighborhood (optional)</label>
         <input type="text" ng-model="home.neighborhood">
