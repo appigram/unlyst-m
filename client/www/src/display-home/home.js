@@ -24,7 +24,7 @@ starterControllers
 
       var houses = utility.shuffle(homesRef);
       var i = 0;
-      //$state.go('home.display', {'id': houses[i].$id});
+      $state.go('home.display', {'id': houses[i].$id});
       $rootScope.homeID = houses[i].$id;
       $scope.property = houses[i];
       $scope.hideDetail = true;
@@ -129,7 +129,7 @@ starterControllers
           $timeout(function(){
             $ionicSlideBoxDelegate.slide(0);
             $ionicSlideBoxDelegate.update();
-          },200);
+          },1000);
         }
       };
 
