@@ -5,7 +5,8 @@
     </div>
     <md-input-container disableTap>
       <label>Location(Neighorhood, Postal Code or Address)</label>
-      <input  label="Location" ng-model="search.location" name="location" placeholder="" ng-autocomplete>
+      <input label="Location" ng-model="search.location" name="location" placeholder="" ng-autocomplete
+             options="{country: 'ca'}">
     </md-input-container>
     <md-input-container>
       <label>Price($)</label>
