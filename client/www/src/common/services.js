@@ -202,7 +202,7 @@ angular.module('starter.services', [])
   }
 }])
 
-.factory('geocoding', [function ($scope) {
+.factory('geocoding', [function () {
   var geocoder = new google.maps.Geocoder();
   //hard coded for now
   var city = 'Toronto';

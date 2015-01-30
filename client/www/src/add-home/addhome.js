@@ -1,16 +1,18 @@
 starterControllers
 
-.controller('AddHomeCtrl', ['$scope', '$rootScope', '$http', '$state', '$firebase', 'fireBaseData',
-'homeSchema', function ($scope, $rootScope, $http, $state, $firebase, fireBaseData, homeSchema) {
+.controller('AddHomeCtrl', ['$scope', '$rootScope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema',
+  'geocoding', function ($scope, $rootScope, $http, $state, $firebase, fireBaseData, homeSchema, geocoding) {
 
     if (!$rootScope.authData) {
       $state.go('login');
       $rootScope.notify('Please login to add your home.');
     }
+
     var homesDB = fireBaseData.refHomes();
     var homesRef = $firebase(homesDB).$asArray();
     //put upload function and inside promise
     homesRef.$loaded().then(function () {
+
       $scope.numbers = [1, 2, 3, 4, 5, 6];
       //$state.go("addHome.addHome1");
       $scope.homeSchema = homeSchema;
@@ -40,9 +42,23 @@ starterControllers
         maintenanceFee: '',
         unlystPrice: '',
         houseId: -1,
-        img: []
+        img: [],
+        lat:'',
+        lng:''
       };
-
+      $scope.getGeo = function () {
+        if(!$scope.home.address || $scope.home.address.trim()===''){
+          return;
+        }
+        geocoding.getData($scope.home.address, function(addressInfo){
+          console.log(addressInfo);
+          $scope.home.postalCode = addressInfo.postal_code;
+          $scope.home.neighborhood = addressInfo.neighborhood;
+          $scope.home.lat = addressInfo.lat;
+          $scope.home.lng = addressInfo.lng;
+          $scope.$apply();
+        });
+      };
       $scope.uploadFiles = [];
 
       console.log("load homeref ....");
