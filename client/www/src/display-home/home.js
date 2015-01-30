@@ -129,14 +129,6 @@ starterControllers
           var change = ($scope.authData.reputation - oldReputation).toFixed(1);
           $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
           $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
-<<<<<<< HEAD
-=======
-          // Saving the valuation will update the home data, which will update scope and showing an empty tab
-          $timeout(function(){
-            $ionicSlideBoxDelegate.slide(0);
-            $ionicSlideBoxDelegate.update();
-          },1000);
->>>>>>> origin/master
         }
       };
       $scope.skip = function(){
