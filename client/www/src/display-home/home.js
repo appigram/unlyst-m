@@ -1,8 +1,8 @@
 starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
-  '$location', '$timeout', '$mdDialog', '$state', function ($scope, $rootScope, fireBaseData, $ionicSlideBoxDelegate,
-                                                            utility, $firebase, $location, $timeout, $mdDialog, $state) {
+  '$location', '$timeout', '$mdDialog', '$state', function ($scope, $rootScope, fireBaseData,
+  $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state) {
     console.log('Home Ctrl');
     //bind model to scoep; set valuation
     $scope.home = {};
@@ -22,9 +22,12 @@ starterControllers
     //init firebase
     homesRef.$loaded().then(function () {
 
-      var houses = utility.shuffle(homesRef);
+      var shuffled = utility.shuffle(homesRef);
+      //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
+      var houses = JSON.parse(JSON.stringify(shuffled));
+
       var i = 0;
-      //$state.go('home.display', {'id': houses[i].$id});
+      $state.go('home.display', {'id': houses[i].$id});
       $rootScope.homeID = houses[i].$id;
       $scope.property = houses[i];
       $scope.hideDetail = true;
@@ -33,6 +36,7 @@ starterControllers
       } else {
         $scope.property.addressString = $scope.property.address;
       }
+
       $scope.map = {
         lat: $scope.property.lat,
         lng: $scope.property.lng,
@@ -125,13 +129,13 @@ starterControllers
           var change = ($scope.authData.reputation - oldReputation).toFixed(1);
           $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
           $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
-          // Saving the valuation will update the home data, which will update scope and showing an empty tab
-          $timeout(function(){
-            $ionicSlideBoxDelegate.slide(0);
-            $ionicSlideBoxDelegate.update();
-          },200);
         }
       };
+      $scope.skip = function(){
+        $ionicSlideBoxDelegate.slide(0);
+        $ionicSlideBoxDelegate.update();
+        $scope.clickNext();
+      }
 
       $scope.clickNext = function () {
 

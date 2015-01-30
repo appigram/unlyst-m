@@ -1,9 +1,9 @@
 <div class="stable-bg home-info resp-slider-height" layout="column" layout-align="center center">
   <div>
     <img src="dist/img/home-icons/icon_parking.png" class="valdIcon"/>
-    <h4><span>Outdoor Space:</span> {{property.outdoorSpace}} </h4>
+    <h4><span>Outdoor Space:</span> {{property.outdoorSpace.join(', ')}} </h4>
     <h4><span>Parking Type:</span> {{property.parkingType}} </h4>
     <h4><span>Parking Spaces:</span> {{property.parkingSpace}} </h4>
-    <h4><span>Orientation:</span> {{property.orientation}} </h4>
+    <h4><span>Orientation:</span> {{property.orientation.join(', ')}} </h4>
   </div>
 </div>
