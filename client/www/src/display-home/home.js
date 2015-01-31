@@ -81,9 +81,11 @@ starterControllers
 	  $scope.property.homeType = searchForObjName(homeSchema.homeTypes, $scope.property.homeType);
 
 	  var outdoorSpaceArr = [];
-	  for (var j = 0; j< $scope.property.outdoorSpace.length; j++) {
-		  outdoorSpaceArr.push(searchForObjName(homeSchema.outdoorSpace, $scope.property.outdoorSpace[i]));
-	  }
+    if($scope.property.outdoorSpace){
+      for (var j = 0; j< $scope.property.outdoorSpace.length; j++) {
+        outdoorSpaceArr.push(searchForObjName(homeSchema.outdoorSpace, $scope.property.outdoorSpace[i]));
+      }
+    }
 
 	  $scope.property.outdoorSpace = outdoorSpaceArr;
 
