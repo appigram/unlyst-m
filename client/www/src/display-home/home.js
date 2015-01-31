@@ -85,7 +85,7 @@ starterControllers
         }
         $mdDialog.show({
           controller: 'ModalCtrl',
-          templateUrl: 'src/display-home/post-valuation-modal.html',
+          templateUrl: 'src/display-home/modal-dialogs/post-valuation.html',
           locals: {
             valuation: $scope.valuation
           }
@@ -101,7 +101,7 @@ starterControllers
       var noMoreHomesPopup = function () {
         $mdDialog.show({
           controller: 'ModalCtrl',
-          templateUrl: 'src/display-home/no-more-homes.html',
+          templateUrl: 'src/display-home/modal-dialogs/no-more-homes.html',
           locals: {
             valuation: $scope.valuation
           }

@@ -1,0 +1,41 @@
+<md-dialog aria-label="Current Unlysted Value" class="padding">
+  <md-content ng-hide="showWantToBuy">
+    <!--    <h3 class="md-sticky-no-effect">Current Unlysted Value</h3>-->
+    <div layout="column" layout-align="space-between center" class=" margin-bottom">
+      <h6>{{valuation.accuracy | scoreMessage}}</h6>
+      <h3 class="text-underscore text-center"><strong>{{valuation.accuracy | number : 0}}%</strong></h3>
+      <h6>Your Accuracy</h6>
+      <h3 class="text-underscore text-center">{{valuation.crowdvalue | currency:undefined:0}}</h3>
+      <h6>Crowd Value</h6>
+      <h4 class="text-underscore text-center">{{valuation.reputation}} {{valuation.reputationChange}}</h4>
+      <h6>Unlyst Level</h6>
+    </div>
+    <div layout="row" layout-sm="column" layout-align="space-between center">
+      <div class="margin-bottom margin-right">
+        <md-button aria-label="like" class="md-raised md-warn md-button-small" ng-click="wanttobuy()">I Want To Buy
+        </md-button>
+      </div>
+      <div class="margin-bottom margin-right">
+        <md-button class="md-raised md-warn md-button-small" ng-click="hide();">
+          View Next Home
+        </md-button>
+      </div>
+    </div>
+  </md-content>
+  <md-content ng-show="showWantToBuy">
+    <div layout="column" layout-align="center center" class="text-center" style="max-width:500px;">
+      <md-button class="md-button-small md-warn">
+        <i class="icon ion-android-person md-warn" style="font-size:1.8em;"></i>
+      </md-button>
+      <h3>Great!</h3>
+      <h4>We've let the owner know that you're interested.</h4>
+      <h4>If they're also interested, they may contact you.</h4>
+      <br/>
+      <div>
+        <md-button class="md-raised md-warn modal-button" ng-click="hide();">
+          View Next Home
+        </md-button>
+      </div>
+    </div>
+  </md-content>
+</md-dialog>
