@@ -3,15 +3,15 @@ starterControllers
 .controller('AddHomeCtrl', ['$scope', '$rootScope', '$http', '$state', '$firebase', 'fireBaseData', 'homeSchema',
   'geocoding', function ($scope, $rootScope, $http, $state, $firebase, fireBaseData, homeSchema, geocoding) {
 
-    if (!$rootScope.authData) {
-      $state.go('login');
-      $rootScope.notify('Please login to add your home.');
-    }
 
     var homesDB = fireBaseData.refHomes();
     var homesRef = $firebase(homesDB).$asArray();
     //put upload function and inside promise
     homesRef.$loaded().then(function () {
+      if (!$rootScope.authData) {
+        $state.go('login');
+        $rootScope.notify('Please login to add your home.');
+      }
 
       $scope.numbers = [1, 2, 3, 4, 5, 6];
       //$state.go("addHome.addHome1");
