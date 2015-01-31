@@ -8,7 +8,7 @@ var express = require('express'),
     compress = require('compression');
 
 var mailer = require('./server/email-client');
-var elasticSearch = require('./server/elastic-search');
+//var elasticSearch = require('./server/elastic-search');
 
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY || 'AKIAILDO7FWEDSP4NQEA';
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY || '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';
