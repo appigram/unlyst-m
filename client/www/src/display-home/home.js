@@ -83,7 +83,7 @@ starterControllers
       var outdoorSpaceArr = [];
       if ($scope.property.outdoorSpace) {
         for (var j = 0; j < $scope.property.outdoorSpace.length; j++) {
-          outdoorSpaceArr.push(searchForObjName(homeSchema.outdoorSpace, $scope.property.outdoorSpace[i]));
+          outdoorSpaceArr.push(searchForObjName(homeSchema.outdoorSpace, $scope.property.outdoorSpace[j]));
         }
       }
 
@@ -204,11 +204,11 @@ starterControllers
     });
 
     var searchForObjName = function (arr, name) {
-      var name = arr.filter(function (obj) {
+      var results = arr.filter(function (obj) {
         return obj.value === name;
-      })[0];
-      if (name) {
-        return name;
+      })[0].name;
+      if (results) {
+        return results;
       }
       return null
     }
