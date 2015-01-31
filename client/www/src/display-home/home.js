@@ -1,8 +1,8 @@
 starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
-  '$location', '$timeout', '$mdDialog', '$state', function ($scope, $rootScope, fireBaseData,
-  $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state) {
+  '$location', '$timeout', '$mdDialog', '$state', 'homeSchema', function ($scope, $rootScope, fireBaseData,
+  $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, homeSchema) {
     console.log('Home Ctrl');
     //bind model to scoep; set valuation
     $scope.home = {};
@@ -31,6 +31,20 @@ starterControllers
       $rootScope.homeID = houses[i].$id;
       $scope.property = houses[i];
       $scope.hideDetail = true;
+
+      //property naming handle here:
+      //this won't work on IE8 or earlier version
+      $scope.property.homeType = searchForObjName(homeSchema.homeTypes, $scope.property.homeType);
+
+      var outdoorSpaceArr = [];
+      for (var j = 0; j< $scope.property.outdoorSpace.length; j++) {
+        outdoorSpaceArr.push(searchForObjName(homeSchema.outdoorSpace, $scope.property.outdoorSpace[i]));
+      }
+
+      $scope.property.outdoorSpace = outdoorSpaceArr;
+
+      $scope.property.parkingType = searchForObjName(homeSchema.parkingType, $scope.property.parkingType);
+
       if ($scope.property.suiteNumber) {
         $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
       } else {
@@ -76,7 +90,7 @@ starterControllers
           $ionicSlideBoxDelegate.update();
           return true;
         }, 100);
-      }
+      };
 
       //post valuation modal popup
       var postValuationPopup = function () {
@@ -135,7 +149,7 @@ starterControllers
         $ionicSlideBoxDelegate.slide(0);
         $ionicSlideBoxDelegate.update();
         $scope.clickNext();
-      }
+      };
 
       $scope.clickNext = function () {
 
@@ -175,5 +189,11 @@ starterControllers
       };
 
     });
+
+    var searchForObjName = function(arr, name) {
+     return  arr.filter(function(obj){
+        return obj.value === name;
+      })[0].name;
+    }
   }]);
 
