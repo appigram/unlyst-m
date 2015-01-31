@@ -1,20 +1,24 @@
 <md-dialog aria-label="Current Unlysted Value" class="padding">
   <md-content>
-<!--    <h3 class="md-sticky-no-effect">Current Unlysted Value</h3>-->
-    <div class="text-center">
-      <h5>{{valuation.accuracy | scoreMessage}}</h5>
-      <h3 class="text-underscore"><strong>{{valuation.accuracy | number : 0}}%</strong></h3>
-      <h5>your accuracy</h5>
-      <h2 class="text-underscore">{{valuation.crowdvalue | currency:undefined:0}}</h2>
-      <h5>crowd value</h5>
-      <h3 class="text-underscore">{{valuation.reputation}} {{valuation.reputationChange}}</h3>
-      <h5>Unlyst Level</h5>
+    <!--    <h3 class="md-sticky-no-effect">Current Unlysted Value</h3>-->
+    <div layout="column" layout-align="space-between center" class=" margin-bottom">
+      <h6>{{valuation.accuracy | scoreMessage}}</h6>
+      <h3 class="text-underscore text-center"><strong>{{valuation.accuracy | number : 0}}%</strong></h3>
+      <h6>Your Accuracy</h6>
+      <h3 class="text-underscore text-center">{{valuation.crowdvalue | currency:undefined:0}}</h3>
+      <h6>Crowd Value</h6>
+      <h4 class="text-underscore text-center">{{valuation.reputation}} {{valuation.reputationChange}}</h4>
+      <h6>Unlyst Level</h6>
     </div>
-    <div class="row" layout-align="space-between center">
-      <md-button aria-label="like" class="md-raised md-warn ion-star corner-round modal-button"></md-button>
-      <md-button class="md-raised md-warn modal-button" ng-click="hide();">
-        View Next Home
-      </md-button>
+    <div layout="row" layout-sm="column" layout-align="space-between center">
+      <div class="margin-bottom margin-right">
+        <md-button aria-label="like" class="md-raised md-warn md-button-small">I Want To Buy</md-button>
+      </div>
+      <div class="margin-bottom margin-right">
+        <md-button class="md-raised md-warn md-button-small" ng-click="hide();">
+          View Next Home
+        </md-button>
+      </div>
     </div>
   </md-content>
 </md-dialog>

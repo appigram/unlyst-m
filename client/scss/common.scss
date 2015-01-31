@@ -72,7 +72,21 @@
 }
 .invert {-webkit-filter: invert(100%);}
 
-//Overriding angular material
+.margin-bottom{
+  margin-bottom:10px;
+}
+.margin-right{
+  margin-right:10px;
+}
+.margin-top{
+  margin-top:10px;
+}
+.margin-left{
+  margin-left:10px;
+}
+
+
+//-------------Overriding angular material-------------------
 body{
   font-size:16px !important;
   font-family:'Avenir Next Regular' !important;
@@ -169,6 +183,7 @@ input.md-input.ng-invalid.ng-dirty {
   width:100%;
 }
 
+//----------Add home--------TODO:move this to another file
 .addHomeTextSmall {
   font-family: 'Avenir Next Regular';
   font-size: 100%;
