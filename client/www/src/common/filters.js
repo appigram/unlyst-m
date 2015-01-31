@@ -32,4 +32,18 @@ angular.module('starter.filters',[])
     var scoreAdjusted = Math.round(score/10);
     return scoreMsg[scoreAdjusted];
   }
-}]);
+}])
+.filter('toArray', function () {
+  return function (obj, addKey) {
+    if (!obj) return obj;
+    if ( addKey === false ) {
+      return Object.keys(obj).map(function(key) {
+        return obj[key];
+      });
+    } else {
+      return Object.keys(obj).map(function (key) {
+        return Object.defineProperty(obj[key], '$key', { enumerable: false, value: key});
+      });
+    }
+  };
+});;

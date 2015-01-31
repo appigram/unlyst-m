@@ -9,9 +9,10 @@
       <div class="slider-nav-btn-right">
         <div ng-click="next()" class="button button-dark button-small button-outline ion-chevron-right"></div>
       </div>
+      <!--TODO:images are sorted based on their name, so 1, 10, 11, 2, 3, etc...-->
       <ion-slide-box on-slide-changed="slideHasChanged($index)" class="slider-override" auto-play show-pager="false"
                      active-slide="activeSlide" style="max-height: 600px;" layout-align="center center">
-        <ion-slide ng-repeat="image in property.img | orderBy:url">
+        <ion-slide ng-repeat="image in property.img  | toArray | orderBy: 'url'">
           <div ng-include src="'src/display-home/home-details/picture.html'"></div>
         </ion-slide>
         <ion-slide>
