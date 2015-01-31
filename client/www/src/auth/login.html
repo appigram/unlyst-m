@@ -1,6 +1,6 @@
 <ion-view>
   <ion-content class="padding-top">
-    <div ng-show="authData==null">
+    <div>
       <h4 class="text-center gray">Log in with a social account or email address</h4>
       <div class="text-center padding-top">
         <md-button class="md-raised icon-left ion-social-facebook md-primary" ng-click="facebookLogin()"
@@ -51,16 +51,6 @@
           </h4>
         </div>
       </form>
-    </div>
-    <div class="text-center" ng-show="authData!=null">
-      <h3>Welcome {{ authData.userDisplayName }}!</h3>
-      <div class="padding">
-        <img width="80px" ng-src="{{authData.userProfilePicture}}"/>
-      </div>
-      <h4>Your reputation: {{ authData.reputation | number: 0}}</h4>
-      <md-button class="md-raised gray-light" ng-click="logout()">
-        Log out
-      </md-button>
     </div>
   </ion-content>
 </ion-view>

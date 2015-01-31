@@ -1,9 +1,9 @@
 starterControllers
 
 .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
-    
+
   $scope.hideBackButton = true;
-    
+
   $rootScope.user = {};
   $rootScope.user.username = $scope.user.username;
   $rootScope.user.password = $scope.user.password;
@@ -11,8 +11,10 @@ starterControllers
   function onLoginSuccess(authData) {
     saveUserProfile(authData);
     $scope.$broadcast('updateauth');
-    $state.go('home', {'id': $rootScope.homes.current});
+    $state.go('myprofile');
+
   }
+
   function saveUserProfile(authData) {
     authData.updated = Firebase.ServerValue.TIMESTAMP;
     /* SAVE PROFILE DATA */
@@ -21,9 +23,9 @@ starterControllers
     usersRef.child(authData.uid).update(authData);
   };
 
-  $scope.signIn = function (user,validForm) {
+  $scope.signIn = function (user, validForm) {
     $scope.submitted = true;
-    if(!validForm){
+    if (!validForm) {
       return;
     }
     $rootScope.show('Logging In...');
@@ -56,55 +58,66 @@ starterControllers
             $rootScope.notify("Error logging user in:", error);
         }
       }
-      $timeout(function(){
+      $timeout(function () {
         $rootScope.hide();
-      },100);
+      }, 100);
     });
+  };
+  var socialAuthRedirect = function(provider, dataScope){
+    var scope = {scope: dataScope};
+    fireBaseData.ref().authWithOAuthRedirect(provider, function (error, authData) {
+      if (error) {
+        $rootScope.notify("Login Failed!", error);
+      }
+      else {
+        onLoginSuccess(authData);
+      }
+    }, scope);
+  };
+
+  var socialAuth = function (provider, dataScope) {
+    var scope = {scope: dataScope};
+    fireBaseData.ref().authWithOAuthPopup(provider, function (error, authData) {
+      if (error) {
+        if (error.code === "TRANSPORT_UNAVAILABLE") {
+          // fall-back to browser redirects, and pick up the session
+          // automatically when we come back to the origin page
+          socialAuthRedirect(provider, dataScope);
+        } else {
+          $rootScope.notify("Login Failed!", error);
+        }
+      } else {
+        onLoginSuccess(authData);
+      }
+    }, scope);
   };
 
   $scope.facebookLogin = function () {
-
-    fireBaseData.ref().authWithOAuthPopup("facebook", function (error, authData) {
-      if (error) {
-        $rootScope.notify("Login Failed!", error);
-      } else {
-        onLoginSuccess(authData);
-      }
-    }, {
-      scope: "email,public_profile,user_games_activity,user_location"
-    });
+    var dataScope = "email,public_profile,user_games_activity,user_location";
+    var provider = "facebook";
+    socialAuth(provider, dataScope);
   };
 
   $scope.googleLogin = function () {
-    fireBaseData.ref().authWithOAuthPopup("google", function (error, authData) {
-      if (error) {
-        $rootScope.notify("Login Failed!", error);
-      } else {
-        onLoginSuccess(authData);
-      }
-    }, {
-      scope: "email,profile"
-    });
+    var dataScope = "email,profile";
+    var provider = "google";
+    socialAuth(provider, dataScope);
   };
   $scope.twitterLogin = function () {
-    fireBaseData.ref().authWithOAuthPopup("twitter", function (error, authData) {
-      if (error) {
-        $rootScope.notify("Login Failed!", error);
-      } else {
-        onLoginSuccess(authData);
-      }
-    });
+
+    var provider = "twitter";
+    socialAuth(provider, null);
   };
 
 })
 
 .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, fireBaseData, $firebaseAuth, $http) {
-    
+
   $scope.hideBackButton = true;
-    
-  $scope.createUser = function (user,valid) {
+
+  $scope.createUser = function (user, valid) {
     $scope.submitted = true;
-    if(!valid){
+    if (!valid) {
       return;
     }
     var firstname = user.firstname;

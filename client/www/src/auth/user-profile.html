@@ -1,0 +1,14 @@
+<ion-view>
+  <ion-content class="padding-top">
+    <div class="text-center" ng-show="authData!=null">
+      <h3>Welcome {{ authData.userDisplayName }}!</h3>
+      <div class="padding">
+        <img width="80px" ng-src="{{authData.userProfilePicture}}"/>
+      </div>
+      <h4>Your reputation: {{ authData.reputation | number: 0}}</h4>
+      <md-button class="md-raised gray-light" ng-click="logout()">
+        Log out
+      </md-button>
+    </div>
+  </ion-content>
+</ion-view>

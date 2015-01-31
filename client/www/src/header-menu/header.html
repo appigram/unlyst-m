@@ -14,7 +14,7 @@
       <div>
         <md-button class="md-button-small" ng-show="authData == null" ui-sref="login">Login
         </md-button>
-        <md-button ng-show="authData != null" ui-sref="login" class="md-button-small">
+        <md-button ng-show="authData != null" ui-sref="myprofile" class="md-button-small">
           {{ authData.reputation | number: 0}} &nbsp; {{authData.userDisplayName}}
         </md-button>
       </div>
@@ -52,8 +52,11 @@
         </md-item>
         <md-item>
           <md-item-content>
-            <md-button ng-click="toggleLeftMenu();" ui-sref="login" class="md-primary button-block">
-              {{authData && 'My Profile' || 'Login' }}
+            <md-button ng-click="toggleLeftMenu();" ng-show="authData===null" ui-sref="login" class="md-primary button-block">
+              Login
+            </md-button>
+            <md-button ng-click="toggleLeftMenu();" ng-show="authData!==null" ui-sref="myprofile" class="md-primary button-block">
+              My Profile
             </md-button>
           </md-item-content>
         </md-item>

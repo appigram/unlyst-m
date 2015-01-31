@@ -24,7 +24,11 @@ angular.module('starter.routes', [])
     templateUrl: 'src/auth/register.html',
     controller: 'RegisterCtrl'
   })
-
+  .state('myprofile', {
+    url: '/myprofile',
+    templateUrl: 'src/auth/user-profile.html',
+    controller: 'LoginCtrl'
+  })
   .state('addHome', {
     url: '/addHome',
     templateUrl: 'src/add-home/addhome.html',

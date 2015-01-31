@@ -37,6 +37,7 @@ starterControllers
     $scope.checkSession();
     $rootScope.notify("Logged out successfully!");
     $scope.popover.hide();
+    $state.go('login');
   };
 
   $scope.checkSession = function () {
