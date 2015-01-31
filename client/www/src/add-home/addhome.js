@@ -51,7 +51,6 @@ starterControllers
           return;
         }
         geocoding.getData($scope.home.address, function(addressInfo){
-          console.log(addressInfo);
           $scope.home.postalCode = addressInfo.postal_code;
           $scope.home.neighborhood = addressInfo.neighborhood;
           $scope.home.lat = addressInfo.lat;
@@ -102,6 +101,8 @@ starterControllers
         };
 
         $scope.submitForm = function () {
+          //remove Toronto from the address, need a better way to handle multiple cities
+          $scope.home.address = $scope.home.address.split(',')[0];
           // handel convert to formdata
           for (var j = 0; j < imgFiles.length; j++) {
             if (imgFiles[j]) {

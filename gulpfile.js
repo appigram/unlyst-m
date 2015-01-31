@@ -92,6 +92,16 @@ gulp.task('images', function () {
   .pipe(gulp.dest('./client/www/dist/img'));
 });
 
+gulp.task('tempImages', function () {
+  return gulp.src('./tempImages/**/*')
+  .pipe(imagemin({
+    progressive: true,
+    svgoPlugins: [{removeViewBox: false}],
+    use: [pngquant()]
+  }))
+  .pipe(gulp.dest('./tempImages/minified'));
+});
+
 /**
  * Process Scripts
  */
