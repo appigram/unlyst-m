@@ -57,6 +57,8 @@ var s3 = new aws.S3();
 app.post('/upload', function (req,res){
     console.log(req.body);
     var file_name ='image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+    //var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+
     console.log(req.files);
     var params = {
         Bucket: S3_BUCKET,
@@ -74,14 +76,16 @@ app.post('/upload', function (req,res){
         } else {
             // Success!
             console.log("Success");
-            res.end(GLOBAL_CDN + file_name);
+            res.json({
+                "url": GLOBAL_CDN + file_name,
+                "index": req.body.imageNum
+            });
             }
         })
         .on('httpUploadProgress',function(progress) {
             // Log Progress Information
             console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
         });
-    //res.json(req.files);
 });
 
 app.post('/sendmail', function (req,res) {
