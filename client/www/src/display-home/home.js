@@ -9,10 +9,10 @@ starterControllers
     $scope.home.valuation = 100000;
     $scope.score = 0;
     $scope.Math = window.Math;
-    var admin = $location.search();
-    console.log(admin);
     //Used to in line edit the pictures
-    $scope.AdminMode = admin.admin;
+    if($rootScope.authData && $rootScope.authData.admin){
+      $scope.AdminMode = $rootScope.authData.admin;
+    }
     $scope.map = {};
     $scope.defaultzoom = 15;
     //test mode
