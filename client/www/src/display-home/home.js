@@ -1,8 +1,8 @@
 starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
-  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', function ($scope, $rootScope, fireBaseData,
-  $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams) {
+  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
+  $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
   console.log('Home Ctrl ' + $stateParams.id);
   //bind model to scope; set valuation
   $scope.home = {};
@@ -75,6 +75,25 @@ starterControllers
       }, 100);
     };
     $scope.getDefaultValue();
+	  
+	  //property naming handle here:
+	  //this won't work on IE8 or earlier version
+	  $scope.property.homeType = searchForObjName(homeSchema.homeTypes, $scope.property.homeType);
+
+	  var outdoorSpaceArr = [];
+	  for (var j = 0; j< $scope.property.outdoorSpace.length; j++) {
+		  outdoorSpaceArr.push(searchForObjName(homeSchema.outdoorSpace, $scope.property.outdoorSpace[i]));
+	  }
+
+	  $scope.property.outdoorSpace = outdoorSpaceArr;
+
+	  $scope.property.parkingType = searchForObjName(homeSchema.parkingType, $scope.property.parkingType);
+
+	  if ($scope.property.suiteNumber) {
+		  $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
+	  } else {
+		  $scope.property.addressString = $scope.property.address;
+	  }  
 
     $scope.$broadcast('updateMap', $scope.map);
     $ionicSlideBoxDelegate.update();
@@ -179,7 +198,13 @@ starterControllers
 //				$scope.home.valuation = utility.defaultCondoValue($scope.property.size);
 //				$scope.$broadcast('updatemap', $scope.map);
 //				$scope.$broadcast('updateTabs');
-    }
-  });
-}]);
+			}
+		});
+
+        var searchForObjName = function(arr, name) {
+          return arr.filter(function (obj) {
+            return obj.value === name;
+          })[0].name;
+        }  
+  }]);
 

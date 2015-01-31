@@ -28,7 +28,7 @@ starterControllers
         ownerCertify: false,
         homeType: $scope.homeSchema.homeTypes[0].value,
         buildingType: $scope.homeSchema.buildingTypes[0].value,
-        buildingName: "",
+        buildName: "",
         size: '',
         bedroomNum: $scope.homeSchema.bedRooms[0],
         bathroomNum: $scope.homeSchema.bathRooms[0],
