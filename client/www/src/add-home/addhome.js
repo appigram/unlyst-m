@@ -130,18 +130,14 @@ starterControllers
                 };
 
                 $http(req).success(function (data) {
-                  var imgObj = {
-                    caption: '',
-                    url: ''
-                  };
                   console.log("OK", data);
-                  imgObj.url = data;
-                  $scope.home.img.push({
-                    "caption": "",
-                    "url": data
-                  });
+
+                  $scope.home.img[data.index] = {
+                      "caption": "",
+                      "url": data.url
+                  };
                   count++;
-                  console.log("i: " + count + " of" + ($scope.uploadFiles.length - 1 ));
+                  console.log("i: " + count + " of" + ($scope.uploadFiles.length  ));
                   if (count === ($scope.uploadFiles.length)) {
                     homesDB.child($scope.home.houseId).set($scope.home);
                     //homesRef.$add($scope.home).then(function (ref) {
