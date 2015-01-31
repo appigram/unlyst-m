@@ -47,11 +47,5 @@ starterControllers
   $scope.toggleLeftMenu = function () {
     $mdSidenav('left').toggle();
   };
-  //workaround to avoid reloading HomeCtrl
-  $scope.displayHome = function(homeID) {
-      $state.go('home').then(function() {
-        $state.go('home.display', {'id': homeID});
-      });
-  }
 });
 

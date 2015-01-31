@@ -8,6 +8,10 @@ starterControllers
   $scope.cancel = function () {
     $mdDialog.cancel();
   };
+  $scope.showWantToBuy =false;
+  $scope.wanttobuy = function () {
+    $scope.showWantToBuy = true;
+  };
   $scope.valuation = valuation;
 
-})
+});

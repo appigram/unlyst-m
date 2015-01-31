@@ -10,17 +10,9 @@ angular.module('starter.routes', [])
     // Each tab has its own nav history stack:
 
   .state('home', {
-    url: '/home',
+    url: '/home/:id',
     templateUrl: 'src/display-home/home.html',
     controller: 'HomeCtrl'
-  })
-  .state('home.display', {
-    url: '/:id',
-    //templateUrl: 'src/display-home/display.html',
-    controller: function ($scope, $stateParams) {
-      console.log('home id ' + $stateParams.id);
-    }
-    //reloadOnSearch: false
   })
   .state('login', {
     url: '/login',
@@ -64,7 +56,7 @@ angular.module('starter.routes', [])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/home/');
   //remove # from url
   //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
   //$locationProvider.html5Mode(true).hashPrefix('!');

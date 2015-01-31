@@ -1,15 +1,12 @@
 starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
-  '$location', '$timeout', '$mdDialog', '$state', 'homeSchema', function ($scope, $rootScope, fireBaseData,
-  $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, homeSchema) {
-    console.log('Home Ctrl');
-    //bind model to scoep; set valuation
+  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
+  $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
+    //console.log('Home Ctrl ' + $stateParams.id);
+    //bind model to scope; set valuation
     $scope.home = {};
     $scope.home.valuation = 100000;
-    $scope.score = 0;
-    $scope.Math = window.Math;
-    //Used to in line edit the pictures
     if($rootScope.authData && $rootScope.authData.admin){
       $scope.AdminMode = $rootScope.authData.admin;
     }
@@ -17,20 +14,67 @@ starterControllers
     $scope.defaultzoom = 15;
     //test mode
     $scope.stopRecording = false;
-    var homesDB = fireBaseData.refHomes();
-    var homesRef = $firebase(fireBaseData.refHomes()).$asArray();
-    //init firebase
-    homesRef.$loaded().then(function () {
+			
+		var homesDB = fireBaseData.refHomes();
+		//store and shuffle the list of homes in rootscope
+		if(!$rootScope.homes) {
+			$rootScope.homes = {};
+			$rootScope.homes.homesRef = $firebase(fireBaseData.refHomes()).$asArray();    
+		}
+		$rootScope.homes.homesRef.$loaded().then(function() {
+			if(!$rootScope.homes.shuffled) {
+					utility.shuffle($rootScope.homes.homesRef);
+					$rootScope.homes.shuffled = true;
+					$rootScope.homes.indexes = {};
+					$rootScope.homes.valued = 0;
+					for(var i = 0; i < $rootScope.homes.homesRef.length; i+=1) {
+						$rootScope.homes.indexes[$rootScope.homes.homesRef[i].$id] = i;
+					}
+					console.log($rootScope.homes.indexes);
+			}
+			//We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
+			var houses = JSON.parse(JSON.stringify($rootScope.homes.homesRef));
+			var i = 0;
+			if(!$stateParams.id) {
+				$state.go('home', {'id': houses[i].$id});
+				return;
+			} 
+			var i = $rootScope.homes.indexes[$stateParams.id];
+			$rootScope.homes.current = $stateParams.id;
+			$scope.property = houses[i];
+			$scope.hideDetail = true;
+			if ($scope.property.suiteNumber) {
+				$scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
+			} else {
+				$scope.property.addressString = $scope.property.address;
+			}
 
-      var shuffled = utility.shuffle(homesRef);
-      //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
-      var houses = JSON.parse(JSON.stringify(shuffled));
+			$scope.map = {
+				lat: $scope.property.lat,
+				lng: $scope.property.lng,
+				zoom: $scope.defaultzoom
+			};
+			$scope.markers = {
+				osloMarker: {
+					lat: $scope.property.lat,
+					lng: $scope.property.lng,
+					focus: true,
+					draggable: false
+				}
+			};
+			$scope.valuation = {};
+			//price slider
+			$scope.home.minValuation = 100000;
+			$scope.home.maxValuation = utility.maxCondoValue(houses[i].size);
 
-      var i = 0;
-      $state.go('home.display', {'id': houses[i].$id});
-      $rootScope.homeID = houses[i].$id;
-      $scope.property = houses[i];
-      $scope.hideDetail = true;
+			// need to use this method and ng-init to bind the initial value. There's a bug in the range slider in ionic.
+			$scope.getDefaultValue = function () {
+			//need the timeout to make it work
+				$timeout(function () {
+					$scope.home.valuation = utility.defaultCondoValue(houses[i].size);
+				}, 100);
+			};
+			$scope.getDefaultValue();
 
       //property naming handle here:
       //this won't work on IE8 or earlier version
@@ -51,149 +95,116 @@ starterControllers
         $scope.property.addressString = $scope.property.address;
       }
 
-      $scope.map = {
-        lat: $scope.property.lat,
-        lng: $scope.property.lng,
-        zoom: $scope.defaultzoom
-      };
-      $scope.markers = {
-        osloMarker: {
-          lat: $scope.property.lat,
-          lng: $scope.property.lng,
-          focus: true,
-          draggable: false
-        }
-      };
-      $scope.valuation = {};
-      //price slider
-      $scope.home.minValuation = 100000;
-      $scope.home.maxValuation = utility.maxCondoValue(houses[i].size);
+			$scope.$broadcast('updateMap', $scope.map);
+			$ionicSlideBoxDelegate.update();
+			$scope.$broadcast('updateTabs');
 
-      // need to use this method and ng-init to bind the initial value. There's a bug in the range slider in ionic.
-      $scope.getDefaultValue = function () {
-        //need the timeout to make it work
-        $timeout(function () {
-          $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
-        }, 100);
-      };
-      $scope.getDefaultValue();
+			$scope.saveCaption = function (data, imgIndex) {
+				var house = homesDB.child(houses[i].$id);
+				var captionRef = 'img/' + imgIndex + '/caption';
+				house.child(captionRef).set(data);
+				$timeout(function () {
+					$ionicSlideBoxDelegate.update();
+					return true;
+				}, 100);
+			}
 
-      $scope.$broadcast('updateMap', $scope.map);
-      $ionicSlideBoxDelegate.update();
-      $scope.$broadcast('updateTabs');
+			//post valuation modal popup
+			var postValuationPopup = function () {
+				if (!$scope.property.crowdvalue) {
+					return;
+				}
+				$mdDialog.show({
+					controller: 'ModalCtrl',
+					templateUrl: 'src/display-home/modal-dialogs/post-valuation.html',
+					locals: {
+						valuation: $scope.valuation
+					}
+				})
+				.then(function () {
+					$scope.clickNext();
+				}, function () {
+					$scope.clickNext();
+				});
+			};
 
-      $scope.saveCaption = function (data, imgIndex) {
-        var house = homesDB.child(houses[i].$id);
-        var captionRef = 'img/' + imgIndex + '/caption';
-        house.child(captionRef).set(data);
-        $timeout(function () {
-          $ionicSlideBoxDelegate.update();
-          return true;
-        }, 100);
-      };
+			//no more homes popup
+			var noMoreHomesPopup = function () {
+				$mdDialog.show({
+					controller: 'ModalCtrl',
+					templateUrl: 'src/display-home/modal-dialogs/no-more-homes.html',
+					locals: {
+							valuation: $scope.valuation
+					}
+				})
+				.then(function () {
+					//log something in user profile
+					$scope.stopRecording = true;
+				}, function () {
+					$scope.stopRecording = true;
+				});
+			};
 
-      //post valuation modal popup
-      var postValuationPopup = function () {
-        if (!$scope.property.crowdvalue) {
-          return;
-        }
-        $mdDialog.show({
-          controller: 'ModalCtrl',
-          templateUrl: 'src/display-home/post-valuation-modal.html',
-          locals: {
-            valuation: $scope.valuation
-          }
-        })
-        .then(function () {
-          $scope.clickNext();
-        }, function () {
-          $scope.clickNext();
-        });
-      };
+			$scope.submitScore = function () {
+				$scope.valuation.crowdvalue = $scope.property.crowdvalue;
+				$scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
+				$scope.valuation.reputation = 'N/A';
+				postValuationPopup();
+				if (!$scope.stopRecording && $scope.authData) {
+					if (!$scope.property.crowdvalue) {
+						$rootScope.notify('This property has not been evaluated. Please continue to the next home.');
+						return;
+					}
+					var oldReputation = $scope.authData.reputation || 10;
+					fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
+					var change = ($scope.authData.reputation - oldReputation).toFixed(1);
+					$scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
+					$scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
+				}
+				$rootScope.homes.valued += 1;
+			};
+			$scope.skip = function(){
+				$ionicSlideBoxDelegate.slide(0);
+				$ionicSlideBoxDelegate.update();
+				$scope.clickNext();
+			}
 
-      //no more homes popup
-      var noMoreHomesPopup = function () {
-        $mdDialog.show({
-          controller: 'ModalCtrl',
-          templateUrl: 'src/display-home/no-more-homes.html',
-          locals: {
-            valuation: $scope.valuation
-          }
-        })
-        .then(function () {
-          //log something in user profile
-          $scope.stopRecording = true;
-        }, function () {
-          $scope.stopRecording = true;
-        });
-      };
+			$scope.clickNext = function () {
+				var length = houses.length;
+				$scope.hideDetail = true;
+				i = (i+1)%length;
+				if ($rootScope.homes.valued >= length) {
+					noMoreHomesPopup();
+				} 
+				//if user already reached their trial or they just reached their trial
+				if (($rootScope.reachedTrial === true && !$scope.authData) || (i % 4 === 3 && !$scope.authData)) {
+					$rootScope.reachedTrial = true;
+					$state.go('login');
+					$rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
+					return;
+				}
+				$state.go('home', {'id': houses[i].$id});
+//				$scope.property = houses[i];
+//				$scope.hideDetail = true;
+//				$scope.map.lat = $scope.property.lat;
+//				$scope.map.lng = $scope.property.lng;
+//
+//				if ($scope.property.suiteNumber) {
+//					$scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
+//				} else {
+//					$scope.property.addressString = $scope.property.address;
+//				}
+//				$scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
+//				$scope.home.valuation = utility.defaultCondoValue($scope.property.size);
+//				$scope.$broadcast('updatemap', $scope.map);
+//				$scope.$broadcast('updateTabs');
+			}
+		});
 
-      $scope.submitScore = function () {
-        $scope.valuation.crowdvalue = $scope.property.crowdvalue;
-        $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
-        $scope.valuation.reputation = 'N/A';
-        postValuationPopup();
-        if (!$scope.stopRecording && $scope.authData) {
-          if (!$scope.property.crowdvalue) {
-            $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
-            return;
-          }
-          var oldReputation = $scope.authData.reputation || 10;
-          fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
-          var change = ($scope.authData.reputation - oldReputation).toFixed(1);
-          $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
-          $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
-        }
-      };
-      $scope.skip = function(){
-        $ionicSlideBoxDelegate.slide(0);
-        $ionicSlideBoxDelegate.update();
-        $scope.clickNext();
-      };
-
-      $scope.clickNext = function () {
-
-        var length = houses.length;
-        $scope.hideDetail = true;
-
-        if (i < length - 1) {
-          i++;
-        } else {
-          noMoreHomesPopup();
-          i = 0;
-        }
-        //if user already reached their trial or they just reached their trial
-        if (($rootScope.reachedTrial === true && !$scope.authData) || (i % 4 === 3 && !$scope.authData)) {
-          $rootScope.reachedTrial = true;
-          $state.go('login');
-          $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
-          return;
-        }
-        $state.go('home.display', {'id': houses[i].$id});
-        $rootScope.homeID = houses[i].$id;
-        $scope.property = houses[i];
-        $scope.hideDetail = true;
-        $scope.map.lat = $scope.property.lat;
-        $scope.map.lng = $scope.property.lng;
-
-        if ($scope.property.suiteNumber) {
-          $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
-        } else {
-          $scope.property.addressString = $scope.property.address;
-        }
-        $scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
-        $scope.home.valuation = utility.defaultCondoValue($scope.property.size);
-        $scope.$broadcast('updatemap', $scope.map);
-        $scope.$broadcast('updateTabs');
-
-      };
-
-    });
-
-    var searchForObjName = function(arr, name) {
-     return  arr.filter(function(obj){
-        return obj.value === name;
-      })[0].name;
-    }
+        var searchForObjName = function(arr, name) {
+          return arr.filter(function (obj) {
+            return obj.value === name;
+          })[0].name;
+        }  
   }]);
 
