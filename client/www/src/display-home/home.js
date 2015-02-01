@@ -206,9 +206,9 @@ starterControllers
     var searchForObjName = function (arr, name) {
       var results = arr.filter(function (obj) {
         return obj.value === name;
-      })[0].name;
+      })[0];
       if (results) {
-        return results;
+        return results.name;
       }
       return null
     }
