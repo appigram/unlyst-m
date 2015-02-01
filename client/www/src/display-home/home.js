@@ -35,7 +35,8 @@ starterControllers
       //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
       var houses = JSON.parse(JSON.stringify($rootScope.homes.homesRef));
       var i = 0;
-      if (!$stateParams.id) {
+      if (!$stateParams.id || !($stateParams.id in $rootScope.homes.indexes)) {
+        console.log('bad id');
         $state.go('home', {'id': houses[i].houseId});
         return;
       }
@@ -95,7 +96,6 @@ starterControllers
       }
 
       $scope.property.outdoorSpace = outdoorSpaceArr;
-
       $scope.property.parkingType = searchForObjName(homeSchema.parkingType, $scope.property.parkingType);
 
       if ($scope.property.suiteNumber) {
@@ -105,7 +105,6 @@ starterControllers
       }
 
       $scope.$broadcast('updateMap', $scope.map);
-      $ionicSlideBoxDelegate.update();
       $scope.$broadcast('updateTabs');
 
       $scope.saveCaption = function (data, imgIndex) {
@@ -186,27 +185,13 @@ starterControllers
           noMoreHomesPopup();
         }
         //if user already reached their trial or they just reached their trial
-        if (($rootScope.reachedTrial === true && !$scope.authData) || (i % 4 === 3 && !$scope.authData)) {
+        if (($rootScope.reachedTrial === true && !$scope.authData) || ($rootScope.homes.valued % 4 === 3 && !$scope.authData)) {
           $rootScope.reachedTrial = true;
           $state.go('login');
           $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
-          return;
+        } else {
+          $state.go('home', {'id': houses[i].houseId});
         }
-        $state.go('home', {'id': houses[i].houseId});
-//				$scope.property = houses[i];
-//				$scope.hideDetail = true;
-//				$scope.map.lat = $scope.property.lat;
-//				$scope.map.lng = $scope.property.lng;
-//
-//				if ($scope.property.suiteNumber) {
-//					$scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
-//				} else {
-//					$scope.property.addressString = $scope.property.address;
-//				}
-//				$scope.home.maxValuation = utility.maxCondoValue($scope.property.size);
-//				$scope.home.valuation = utility.defaultCondoValue($scope.property.size);
-//				$scope.$broadcast('updatemap', $scope.map);
-//				$scope.$broadcast('updateTabs');
       }
     });
 
