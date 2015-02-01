@@ -95,6 +95,7 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       $scope.property.parkingType = searchForObjName(homeSchema.parkingType, $scope.property.parkingType);
 
       $scope.$broadcast('updateMap', $scope.map);
+      $ionicSlideBoxDelegate.update();
       $scope.$broadcast('updateTabs');
 
       $scope.saveCaption = function (data, imgIndex) {
