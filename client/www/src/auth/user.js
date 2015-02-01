@@ -11,7 +11,7 @@ starterControllers
   function onLoginSuccess(authData) {
     saveUserProfile(authData);
     $scope.$broadcast('updateauth');
-    $state.go('myprofile');
+    $state.go('home');
 
   }
 

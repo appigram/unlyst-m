@@ -47,7 +47,7 @@ starterControllers
     $timeout(function () {
       $ionicSlideBoxDelegate.update();
       updateTabs();
-    }, 0);
+    }, 100);
   });
 
 });
