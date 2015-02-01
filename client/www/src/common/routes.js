@@ -53,6 +53,11 @@ angular.module('starter.routes', [])
     url: '/addHome4',
     templateUrl: 'src/add-home/addhome4.html'
   })
+  .state('addHome.success', {
+    url: '/success',
+    templateUrl: 'src/add-home/success.html'
+    })
+
   .state('search', {
     url: '/search',
     templateUrl: 'src/search/search.html',

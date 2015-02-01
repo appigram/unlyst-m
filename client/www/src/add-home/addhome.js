@@ -144,6 +144,7 @@ starterControllers
                     //  console.log("return is:  " + ref);
                     //});
                     //console.log('fake upload.....');
+                    $state.go('addHome.success');
                   }
                 }).error(function (err) {
                   console.log(err);
@@ -196,8 +197,8 @@ starterControllers
         console.log("add home");
         $state.go('addHome.addHome1');
       };
-      $scope.clickMe = function() {
-          console.log("clickme!");
+      $scope.goToHome = function () {
+        $state.go('home');
       }
 
     });

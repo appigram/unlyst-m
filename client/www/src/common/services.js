@@ -301,7 +301,7 @@ angular.module('starter.services', [])
       },
       {
         name: "Above Ground Garage",
-        value: "AboveGroundGrg"
+        value: "aboveGroundGrg"
       },
       {
         name: "Driveway",
