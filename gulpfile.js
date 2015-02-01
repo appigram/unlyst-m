@@ -218,7 +218,7 @@ gulp.task('config', function () {
   gulp.src('./client/www/src/common/services.js')
   .pipe(preprocess({
     context: {
-      NODE_ENV: 'production',
+      NODE_ENV: process.env.NODE_ENV,
       FIREBASE: 'https://fiery-heat-1976.firebaseio.com/valuations-prod'
     }
   }))
