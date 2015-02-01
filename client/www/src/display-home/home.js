@@ -2,11 +2,10 @@ starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
   '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
-                                                                                          $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
+$ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
     console.log('Home Ctrl ' + $stateParams.id);
     //bind model to scope; set valuation
     $scope.home = {};
-    $scope.home.valuation = 100000;
     if ($rootScope.authData && $rootScope.authData.admin) {
       $scope.AdminMode = $rootScope.authData.admin;
     }
@@ -36,7 +35,6 @@ starterControllers
       var houses = JSON.parse(JSON.stringify($rootScope.homes.homesRef));
       var i = 0;
       if (!$stateParams.id || !($stateParams.id in $rootScope.homes.indexes)) {
-        console.log('bad id');
         $state.go('home', {'id': houses[i].houseId});
         return;
       }
@@ -44,17 +42,15 @@ starterControllers
       $rootScope.homes.current = $stateParams.id;
       $scope.property = houses[i];
       $scope.hideDetail = true;
-
-      if ($scope.property.suiteNumber) {
+      if ($scope.property.suiteNumber && !$scope.property.hideAddress) {
         $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
       } else {
         $scope.property.addressString = $scope.property.address;
       }
-
       if ($rootScope.authData && !$rootScope.authData.admin) {
         //User has valued this home before
         $scope.home.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
-        console.log($scope.home.valuedThisHome);
+        console.log('valued this home ' + $scope.home.valuedThisHome);
       }
       $scope.map = {
         lat: $scope.property.lat,
@@ -97,12 +93,6 @@ starterControllers
 
       $scope.property.outdoorSpace = outdoorSpaceArr;
       $scope.property.parkingType = searchForObjName(homeSchema.parkingType, $scope.property.parkingType);
-
-      if ($scope.property.suiteNumber) {
-        $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
-      } else {
-        $scope.property.addressString = $scope.property.address;
-      }
 
       $scope.$broadcast('updateMap', $scope.map);
       $scope.$broadcast('updateTabs');
