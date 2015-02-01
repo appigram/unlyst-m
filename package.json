@@ -44,7 +44,8 @@
         "firebase": "^2.1.1",
         "colors": "~0.6.2",
         "JQDeferred": "~1.9.1",
-        "compression": "*"
+        "compression": "*",
+        "easyimage" : "*"
     },
     "scripts": {
         "start": "node server.js"

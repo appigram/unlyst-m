@@ -4,8 +4,11 @@ var express = require('express'),
     sessions = require('./server/routes/sessions'),
     multer = require('multer'),
     aws = require("aws-sdk"),
+    compress = require('compression'),
+    fs = require("fs"),
+    easyImg = require("easyimage");
+
     app = express();
-    compress = require('compression');
 
 var mailer = require('./server/email-client');
 //var elasticSearch = require('./server/elastic-search');
@@ -21,6 +24,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());      // simulate DELETE and PUT
 
 app.use(multer({
+    //dest: './uploads/'
     inMemory: true
 }));
 
@@ -54,18 +58,60 @@ aws.config.update({
 aws.config.region = 'us-east-1';
 var s3 = new aws.S3();
 
-app.post('/upload', function (req,res){
+/*app.post('/upload', function (req,res){
     console.log(req.body);
+    //var file_name ='image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+    var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+    console.log(req.files);
+    easyImg.convert({
+        src: req.files.file.path,
+        dst: req.files.file.path,
+        quality: 80
+    }).then(function(image){
+        var data = fs.readFileSync(req.files.file.path);
+        console.log(data);
+        var params = {
+            Bucket: S3_BUCKET,
+            Key: file_name,
+            ACL: 'public-read',
+            ContentType: 'image/jpeg',
+            //Body:req.files.file.buffer,
+            Body: data,
+            ServerSideEncryption: 'AES256'
+        };
+        s3.putObject(params, function(err, data) {
+            if(err) {
+                // There Was An Error With Your S3 Config
+                res.end("Error: failed to upload pictures");
+                return false;
+            } else {
+                // Success!
+                console.log("Success");
+                res.json({
+                    "url": GLOBAL_CDN + file_name,
+                    "index": req.body.imageNum
+                });
+            }
+        }).on('httpUploadProgress',function(progress) {
+            // Log Progress Information
+            console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+        });
+    },function(err){
+        console.log(err);
+    });
+}); */
+
+app.post('/upload', function (req,res){
     var file_name ='image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
     //var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
-
     console.log(req.files);
     var params = {
         Bucket: S3_BUCKET,
         Key: file_name,
         ACL: 'public-read',
         ContentType: 'image/jpeg',
-        Body:req.files.file.buffer,
+        Body: req.files.file.buffer,
+        //Body: data,
         ServerSideEncryption: 'AES256'
     };
     s3.putObject(params, function(err, data) {
@@ -80,12 +126,11 @@ app.post('/upload', function (req,res){
                 "url": GLOBAL_CDN + file_name,
                 "index": req.body.imageNum
             });
-            }
-        })
-        .on('httpUploadProgress',function(progress) {
-            // Log Progress Information
-            console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
-        });
+        }
+    }).on('httpUploadProgress',function(progress) {
+        // Log Progress Information
+        console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+    });
 });
 
 app.post('/sendmail', function (req,res) {
