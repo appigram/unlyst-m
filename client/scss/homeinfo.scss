@@ -34,3 +34,16 @@
   height: 30px;
   min-width: 40px;
 }
+
+//fix hidden scroll bar
+.scroll-bar-v {
+  right: 1px !important;
+}
+
+.ng-animate .scroll-bar {
+  visibility: visible !important;
+}
+
+.scroll-bar-fade-out{
+  opacity:1 !important
+}
