@@ -51,7 +51,7 @@
   "stories" : 1,
   "suiteNumber" : "625",
   "test" : "100,2990",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "yearBuilt" : 2009
 }, {
   "additionalSpace" : [ "Storage Locker" ],
@@ -125,7 +125,7 @@
   "size" : 1050,
   "stories" : 1,
   "suiteNumber" : "422",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "yearBuilt" : 2009
 }, {
   "address" : "100 Western Battery Road",
@@ -182,7 +182,7 @@
   "size" : 600,
   "stories" : 1.5,
   "suiteNumber" : "103",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "yearBuilt" : 2009
 }, {
   "additionalSpace" : [ "Storage Locker" ],
@@ -240,7 +240,7 @@
   "size" : 900,
   "stories" : 1,
   "suiteNumber" : "671",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "yearBuilt" : 2009
 }, {
   "additionalSpace" : [ "Locker", "Den" ],
@@ -277,7 +277,7 @@
   "size" : 631,
   "stories" : 1,
   "suiteNumber" : "705",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "yearBuilt" : 2009
 }, {
   "additionalSpace" : "",
@@ -332,7 +332,7 @@
   "size" : 550,
   "stories" : 1,
   "suiteNumber" : "706",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "yearBuilt" : 2005
 }, {
   "additionalSpace" : [ "Storage locker" ],
@@ -389,7 +389,7 @@
   "province" : "ON",
   "size" : 870,
   "suiteNumber" : 923,
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "unlystPrice" : "",
   "yearBuilt" : "2015"
 }, {
@@ -450,7 +450,7 @@
   "province" : "ON",
   "size" : 1117,
   "suiteNumber" : "PH 108",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "unlystPrice" : "",
   "yearBuilt" : 2011
 }, {
@@ -511,7 +511,7 @@
   "province" : "ON",
   "size" : 1020,
   "suiteNumber" : "2208",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "unlystPrice" : "",
   "yearBuilt" : 1990
 }, {
@@ -563,7 +563,7 @@
   "province" : "ON",
   "size" : 1187,
   "suiteNumber" : "",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "unlystPrice" : "",
   "yearBuilt" : 2004
 }, {
@@ -620,7 +620,7 @@
   "province" : "ON",
   "size" : 545,
   "suiteNumber" : "516",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "unlystPrice" : ""
 }, {
   "address" : "1169 Queen Street West",
@@ -676,7 +676,7 @@
   "province" : "ON",
   "size" : 650,
   "suiteNumber" : "611",
-  "totalReputation" : 100,
+  "totalReputation" : 500,
   "unlystPrice" : "",
   "yearBuilt" : 2009
 } ]
