@@ -6,9 +6,7 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
     console.log('Home Ctrl ' + $stateParams.id);
     //bind model to scope; set valuation
     $scope.home = {};
-    if ($rootScope.authData && $rootScope.authData.admin) {
-      $scope.AdminMode = $rootScope.authData.admin;
-    }
+
     $scope.map = {};
     $scope.defaultzoom = 15;
     //test mode
@@ -21,6 +19,9 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       $rootScope.homes.homesRef = $firebase(fireBaseData.refHomes()).$asArray();
     }
     $rootScope.homes.homesRef.$loaded().then(function () {
+      if ($rootScope.authData && $rootScope.authData.admin) {
+        $scope.AdminMode = $rootScope.authData.admin;
+      }
       if (!$rootScope.homes.shuffled) {
         utility.shuffle($rootScope.homes.homesRef);
         $rootScope.homes.shuffled = true;
@@ -98,9 +99,10 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       $ionicSlideBoxDelegate.update();
       $scope.$broadcast('updateTabs');
 
-      $scope.saveCaption = function (data, imgIndex) {
+      $scope.saveCaption = function (data, imageIndex) {
         var house = homesDB.child(houses[i].houseId);
-        var captionRef = 'img/' + imgIndex + '/caption';
+        var captionRef = 'img/' + imageIndex + '/caption';
+        console.log(captionRef);
         house.child(captionRef).set(data);
         $timeout(function () {
           $ionicSlideBoxDelegate.update();
