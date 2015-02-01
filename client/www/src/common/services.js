@@ -56,8 +56,10 @@ angular.module('starter.services', [])
         property.totalReputation = 100;
       }
 
-      var newrepuationTotal = property.totalReputation + accuracy;
       var userReputation = utility.updateReputation(accuracy, authData.reputation);
+      var newrepuationTotal = property.totalReputation + userReputation;
+      var newCrowdValue = (property.crowdvalue  * property.totalReputation +
+        value * userReputation) / (property.totalReputation + userReputation);
 
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
@@ -69,12 +71,13 @@ angular.module('starter.services', [])
         "userReputation": authData.reputation,
         "accuracy": accuracy
       };
+
       refValuation.push(valuation);
       refUser.child(authData.uid + '/valuations').push(valuation);
       refUser.child(authData.uid + '/reputation').set(userReputation);
       refHomes.child(property.$id + '/valuations').push(valuation);
       refHomes.child(property.$id + '/totalReputation').set(newrepuationTotal);
-
+      refHomes.child(property.$id + '/crowdvalue').set(newCrowdValue);
       return 1;
     },
     getUserDisplayName: function (rootAuth) {
