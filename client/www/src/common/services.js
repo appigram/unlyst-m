@@ -62,7 +62,7 @@ angular.module('starter.services', [])
         accuracy = 0;
       }
       if (!property.totalReputation) {
-        property.totalReputation = 100;
+        property.totalReputation = 500;
       }
 
       var userReputation = utility.updateReputation(accuracy, authData.reputation);
