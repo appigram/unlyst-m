@@ -215,14 +215,14 @@ gulp.task('html-dev', function () {
 });
 
 gulp.task('config', function () {
-  gulp.src('./client/www/js/services.js')
+  gulp.src('./client/www/src/common/services.js')
   .pipe(preprocess({
     context: {
-      NODE_ENV: process.env.NODE_ENV,
+      NODE_ENV: 'production',
       FIREBASE: 'https://fiery-heat-1976.firebaseio.com/valuations-prod'
     }
   }))
-  .pipe(gulp.dest('./client/www/js/services.js'))
+  .pipe(gulp.dest('./client/www/src/common/'))
 });
 
 // This does not work on heroku somehow, but work locally
