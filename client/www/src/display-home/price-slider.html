@@ -9,13 +9,19 @@
     <input type="range" name="price" min="{{home.minValuation}}" max="{{home.maxValuation}}" ng-init="getDefaultValue()"
            step="1000" ng-model="home.valuation" class="assertive">
   </div>
-  <div layout="column" layout-align="center center">
+  <div layout="column" layout-align="center center" ng-show="!home.valuedThisHome">
     <md-button class="md-raised md-warn" ng-click="submitScore();" style="min-width: 200px;">
       Submit Value
     </md-button>
     <md-button class="md-flat gray-light" ng-click="skip()" >
       Skip
     </md-button>
+  </div>
+  <div layout="column" layout-align="center center" ng-show="home.valuedThisHome">
+    <md-button class="md-raised md-warn" ng-click="skip();" style="min-width: 200px;">
+      View Next Home
+    </md-button>
+
   </div>
   <div style="padding-top:40px;"></div>
 </div>

@@ -8,6 +8,7 @@ starterControllers
         $rootScope.authData = snap.val();
         $rootScope.authData.userDisplayName = fireBaseData.getUserDisplayName($rootScope.authData);
         $rootScope.authData.userProfilePicture = fireBaseData.getUserProfilePicture($rootScope.authData);
+        console.log($rootScope.authData);
       });
     }
   };

@@ -28,7 +28,7 @@ starterControllers
         $rootScope.homes.indexes = {};
         $rootScope.homes.valued = 0;
         for (var i = 0; i < $rootScope.homes.homesRef.length; i += 1) {
-          $rootScope.homes.indexes[$rootScope.homes.homesRef[i].$id] = i;
+          $rootScope.homes.indexes[$rootScope.homes.homesRef[i].houseId] = i;
         }
         console.log($rootScope.homes.indexes);
       }
@@ -36,19 +36,25 @@ starterControllers
       var houses = JSON.parse(JSON.stringify($rootScope.homes.homesRef));
       var i = 0;
       if (!$stateParams.id) {
-        $state.go('home', {'id': houses[i].$id});
+        $state.go('home', {'id': houses[i].houseId});
         return;
       }
       var i = $rootScope.homes.indexes[$stateParams.id];
       $rootScope.homes.current = $stateParams.id;
       $scope.property = houses[i];
       $scope.hideDetail = true;
+
       if ($scope.property.suiteNumber) {
         $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
       } else {
         $scope.property.addressString = $scope.property.address;
       }
 
+      if ($rootScope.authData && !$rootScope.authData.admin) {
+        //User has valued this home before
+        $scope.home.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+        console.log($scope.home.valuedThisHome);
+      }
       $scope.map = {
         lat: $scope.property.lat,
         lng: $scope.property.lng,
@@ -102,7 +108,7 @@ starterControllers
       $scope.$broadcast('updateTabs');
 
       $scope.saveCaption = function (data, imgIndex) {
-        var house = homesDB.child(houses[i].$id);
+        var house = homesDB.child(houses[i].houseId);
         var captionRef = 'img/' + imgIndex + '/caption';
         house.child(captionRef).set(data);
         $timeout(function () {
@@ -185,7 +191,7 @@ starterControllers
           $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
           return;
         }
-        $state.go('home', {'id': houses[i].$id});
+        $state.go('home', {'id': houses[i].houseId});
 //				$scope.property = houses[i];
 //				$scope.hideDetail = true;
 //				$scope.map.lat = $scope.property.lat;

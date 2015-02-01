@@ -42,6 +42,15 @@ angular.module('starter.services', [])
       if (refUser == null || authData == null) {
         return;
       }
+      //has this user valued this property before?
+      var valuedBefore = false;
+      if (authData.valuations) {
+        valuedBefore = utility.hasValuedPropertyBefore(authData.valuations, property.houseId.toString());
+        if (valuedBefore) {
+          console.log('User valued this property before');
+          return;
+        }
+      }
 
       if (!authData.reputation) {
         authData.reputation = 10;
@@ -58,12 +67,12 @@ angular.module('starter.services', [])
 
       var userReputation = utility.updateReputation(accuracy, authData.reputation);
       var newrepuationTotal = property.totalReputation + userReputation;
-      var newCrowdValue = (property.crowdvalue  * property.totalReputation +
-        value * userReputation) / (property.totalReputation + userReputation);
+      var newCrowdValue = (property.crowdvalue * property.totalReputation +
+      value * userReputation) / (property.totalReputation + userReputation);
 
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
-        "homeID": property.$id,
+        "homeID": property.houseId,
         "homeValue": property.crowdvalue,
         "homeReputation": property.totalReputation,
         "userID": authData.uid,
@@ -201,6 +210,17 @@ angular.module('starter.services', [])
         accuracy = 0;
       }
       return accuracy;
+    },
+    hasValuedPropertyBefore: function (valuations,homeID){
+      var valuedBefore = false;
+      //angular forEach does not support break
+      angular.forEach(valuations, function (value, key) {
+        if (value.homeID.toString() === homeID) {
+          valuedBefore = true;
+          return;
+        }
+      });
+      return valuedBefore;
     }
   }
 }])
