@@ -222,7 +222,7 @@ gulp.task('config', function () {
       FIREBASE: 'https://fiery-heat-1976.firebaseio.com/valuations-prod'
     }
   }))
-  .pipe(gulp.dest('./client/www/js/'))
+  .pipe(gulp.dest('./client/www/js/services.js'))
 });
 
 // This does not work on heroku somehow, but work locally
