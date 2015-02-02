@@ -9,7 +9,7 @@
   </md-content>
   <form name="homeInfoForm" class="homeInfoForm">
     <md-content class="md-padding">
-      <md-input-container flex disableTap>
+      <md-input-container flex>
         <label>Home Address (Only Toronto Addresses)</label>
         <input type="text" required name="address" ng-model="home.address" ng-blur="getGeo()" placeholder=""
                ng-autocomplete options="{country: 'ca'}">
