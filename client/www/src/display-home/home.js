@@ -3,7 +3,6 @@ starterControllers
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
   '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
 $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
-    console.log('Home Ctrl ' + $stateParams.id);
     //bind model to scope; set valuation
     $scope.home = {};
 
@@ -30,7 +29,6 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
         for (var i = 0; i < $rootScope.homes.homesRef.length; i += 1) {
           $rootScope.homes.indexes[$rootScope.homes.homesRef[i].houseId] = i;
         }
-        console.log($rootScope.homes.indexes);
       }
       //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
       var houses = JSON.parse(JSON.stringify($rootScope.homes.homesRef));
@@ -51,7 +49,6 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       if ($rootScope.authData && !$rootScope.authData.admin) {
         //User has valued this home before
         $scope.home.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
-        console.log('valued this home ' + $scope.home.valuedThisHome);
       }
       $scope.map = {
         lat: $scope.property.lat,
@@ -102,7 +99,6 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       $scope.saveCaption = function (data, imageIndex) {
         var house = homesDB.child(houses[i].houseId);
         var captionRef = 'img/' + imageIndex + '/caption';
-        console.log(captionRef);
         house.child(captionRef).set(data);
         $timeout(function () {
           $ionicSlideBoxDelegate.update();
