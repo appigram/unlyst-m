@@ -97,6 +97,7 @@ body{
 }
 .md-button-small{
   padding: 0.5em 0.5em !important;
+  font-size:0.7em !important;
 }
 .md-button, .md-header-items-container, .md-action {
   text-transform: none !important;
@@ -144,12 +145,12 @@ body {
 
 @media (min-width:$tablet) {
   body {
-    font-size: 22px !important;
+    font-size: 20px !important;
   }
 }
 @media (min-width:$desktop) {
   body {
-    font-size: 30px !important;
+    font-size: 20px !important;
   }
 }
 
