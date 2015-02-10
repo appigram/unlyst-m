@@ -2580,10 +2580,10 @@ var tapEventListeners = {
   'mouseup': tapMouseUp,
   'mousemove': tapMouseMove,
 
-  'touchstart': tapTouchStart,
-  'touchend': tapTouchEnd,
-  'touchcancel': tapTouchCancel,
-  'touchmove': tapTouchMove,
+  //'touchstart': tapTouchStart,
+  //'touchend': tapTouchEnd,
+  //'touchcancel': tapTouchCancel,
+  //'touchmove': tapTouchMove,
 
   'pointerdown': tapTouchStart,
   'pointerup': tapTouchEnd,
