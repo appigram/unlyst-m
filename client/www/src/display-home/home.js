@@ -48,7 +48,7 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       }
       if ($rootScope.authData && !$rootScope.authData.admin) {
         //User has valued this home before
-        $scope.home.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+        $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
       }
       $scope.map = {
         lat: $scope.property.lat,
@@ -151,6 +151,10 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
           if (!$scope.property.crowdvalue) {
             $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
             return;
+          }
+          if (!$rootScope.authData.admin) {
+            //User has valued this home before
+            $scope.property.valuedThisHome = true;
           }
           var oldReputation = $scope.authData.reputation || 10;
           fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
