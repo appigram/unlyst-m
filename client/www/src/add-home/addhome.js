@@ -55,106 +55,104 @@ starterControllers
       });
     };
     $scope.uploadFiles = [];
+    //set houseID for new home
+    $scope.home.houseId = -1;
+    homesDB.child('maxHomeID').on("value", function(snapshot) {
+      $scope.home.houseId = snapshot.val() + 1;
+    });
 
-    var length = 18;
-    var id = 15;
-    if (id >= length - 1) {
-      //set houseID for new home
-      $scope.home.houseId = id + 1;
+    //prepare for image upload
+    var imgFiles = [];
+    $scope.imgPaths = [];
 
-      //prepare for image upload
-      var imgFiles = [];
-      $scope.imgPaths = [];
+    //save each file in order and get thumbnails for them
+    $scope.uploadFile = function (files, index) {
+      if (files[0]) {
+        imgFiles[index] = files[0];
+        var fileReader = new FileReader();
+        var file = files[0];
 
-      //save each file in order and get thumbnails for them
-      $scope.uploadFile = function (files, index) {
-        if (files[0]) {
-          imgFiles[index] = files[0];
-          var fileReader = new FileReader();
-          var file = files[0];
+        fileReader.onloadend = function (e) {
+          $scope.$apply(function () {
+            $scope.imgPaths[index] = fileReader.result;
+          });
+        };
+        if (file) {
+          fileReader.readAsDataURL(files[0]);
+        } else {
+          $scope.imgPaths[index] = '';
+        }
+      }
+    };
 
-          fileReader.onloadend = function (e) {
-            $scope.$apply(function () {
-              $scope.imgPaths[index] = fileReader.result;
-            });
-          };
+    $scope.removeImg = function (index) {
+      if (index > -1 && imgFiles[index] && $scope.imgPaths[index]) {
+        imgFiles.splice(index, 1, '');
+        $scope.imgPaths.splice(index, 1, '');
+      } else {
+        console.log("Error: failed ro remove image");
+      }
+    };
+
+    $scope.submitForm = function () {
+      //remove Toronto from the address, need a better way to handle multiple cities
+      $scope.home.address = $scope.home.address.split(',')[0];
+      // handel convert to formdata
+      for (var j = 0; j < imgFiles.length; j++) {
+        if (imgFiles[j]) {
+          var fd = new FormData();
+          fd.append("file", imgFiles[j]);
+          fd.append("houseId", $scope.home.houseId);
+          fd.append("imageNum", j);
+          $scope.uploadFiles.push(fd);
+        }
+      }
+
+      var count = 0;
+      if ($scope.uploadFiles.length > 0) {
+
+        for (var i = 0; i < $scope.uploadFiles.length; i++) {
+          var file = $scope.uploadFiles[i];
           if (file) {
-            fileReader.readAsDataURL(files[0]);
-          } else {
-            $scope.imgPaths[index] = '';
-          }
-        }
-      };
+            var req = {
+              url: '/upload',
+              data: file,
+              method: 'POST',
+              withCredentials: true,
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+            };
 
-      $scope.removeImg = function (index) {
-        if (index > -1 && imgFiles[index] && $scope.imgPaths[index]) {
-          imgFiles.splice(index, 1, '');
-          $scope.imgPaths.splice(index, 1, '');
-        } else {
-          console.log("Error: failed ro remove image");
-        }
-      };
+            $http(req).success(function (data) {
+              console.log("OK", data);
 
-      $scope.submitForm = function () {
-        //remove Toronto from the address, need a better way to handle multiple cities
-        $scope.home.address = $scope.home.address.split(',')[0];
-        // handel convert to formdata
-        for (var j = 0; j < imgFiles.length; j++) {
-          if (imgFiles[j]) {
-            var fd = new FormData();
-            fd.append("file", imgFiles[j]);
-            fd.append("houseId", $scope.home.houseId);
-            fd.append("imageNum", j);
-            $scope.uploadFiles.push(fd);
-          }
-        }
-
-        var count = 0;
-        if ($scope.uploadFiles.length > 0) {
-
-          for (var i = 0; i < $scope.uploadFiles.length; i++) {
-            var file = $scope.uploadFiles[i];
-            if (file) {
-              var req = {
-                url: '/upload',
-                data: file,
-                method: 'POST',
-                withCredentials: true,
-                headers: {'Content-Type': undefined},
-                transformRequest: angular.identity
+              $scope.home.img[data.index] = {
+                "caption": "",
+                "url": data.url
               };
-
-              $http(req).success(function (data) {
-                console.log("OK", data);
-
-                $scope.home.img[data.index] = {
-                  "caption": "",
-                  "url": data.url
-                };
-                count++;
-                console.log("i: " + count + " of" + ($scope.uploadFiles.length  ));
-                if (count === ($scope.uploadFiles.length)) {
-                  homesDB.child($scope.home.houseId).set($scope.home);
-                  //homesRef.$add($scope.home).then(function (ref) {
-                  //  console.log("return is:  " + ref);
-                  //});
-                  //console.log('fake upload.....');
-                  $state.go('addHome.success');
-                }
-              }).error(function (err) {
-                console.log(err);
-              });
-            } else {
-              alert('empty File Selected');
-            }
+              count++;
+              console.log("i: " + count + " of" + ($scope.uploadFiles.length  ));
+              if (count === ($scope.uploadFiles.length)) {
+                homesDB.child($scope.home.houseId).set($scope.home);
+                homesDB.child('maxHomeID').set($scope.home.houseId);
+                //homesRef.$add($scope.home).then(function (ref) {
+                //  console.log("return is:  " + ref);
+                //});
+                //console.log('fake upload.....');
+                $state.go('addHome.success');
+              }
+            }).error(function (err) {
+              console.log(err);
+            });
+          } else {
+            alert('empty File Selected');
           }
-        } else {
-          alert('No File Selected');
         }
-      };
-    } else {
-      console.log("Error: house ID is not correct!")
-    }
+      } else {
+        alert('No File Selected');
+      }
+    };
+
     $scope.toggleSelection = function (item, selectionArr) {
       var idx = selectionArr.indexOf(item);
       // is currently selected
@@ -168,12 +166,10 @@ starterControllers
     };
     $scope.returnErrorMsg = false;
     $scope.goToPg1 = function () {
-      console.log("gotopage1");
       $state.go('addHome1');
     };
 
     $scope.goToPg2 = function (validForm) {
-      console.log("gotopage2");
       if (validForm) {
         $state.go('addHome2');
       } else {
@@ -181,17 +177,13 @@ starterControllers
       }
     };
     $scope.goToPg3 = function () {
-      console.log("goto hom3");
       $state.go('addHome3');
-      $scope.$broadcast('scroll.scrollTop');
     };
     $scope.goToPg4 = function () {
       console.log("goto hom4");
       $state.go('addHome4');
-      $scope.$broadcast('scroll.scrollTop');
     };
     $scope.addhome = function () {
-      console.log("add home");
       $state.go('addHome1');
     };
     $scope.goToHome = function () {
