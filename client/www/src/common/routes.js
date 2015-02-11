@@ -34,33 +34,33 @@ angular.module('starter.routes', [])
     templateUrl: 'src/auth/home-profile.html',
     controller: 'LoginCtrl'
   })
+
   .state('addHome', {
     url: '/addHome',
-    templateUrl: 'src/add-home/addhome.html',
+    templateUrl: 'src/add-home/addhome1.html',
     controller: 'AddHomeCtrl'
   })
 
-  .state('addHome.addHome1', {
-    url: '/addHome1',
-    templateUrl: 'src/add-home/addhome1.html'
-  })
-
-  .state('addHome.addHome2', {
+  .state('addHome2', {
     url: '/addHome2',
-    templateUrl: 'src/add-home/addhome2.html'
+    templateUrl: 'src/add-home/addhome2.html',
+    controller: 'AddHomeCtrl'
   })
 
-  .state('addHome.addHome3', {
+  .state('addHome3', {
     url: '/addHome3',
-    templateUrl: 'src/add-home/addhome3.html'
+    templateUrl: 'src/add-home/addhome3.html',
+    controller: 'AddHomeCtrl'
   })
-  .state('addHome.addHome4', {
+  .state('addHome4', {
     url: '/addHome4',
-    templateUrl: 'src/add-home/addhome4.html'
+    templateUrl: 'src/add-home/addhome4.html',
+    controller: 'AddHomeCtrl'
   })
-  .state('addHome.success', {
+  .state('success', {
     url: '/success',
-    templateUrl: 'src/add-home/success.html'
+    templateUrl: 'src/add-home/success.html',
+    controller: 'AddHomeCtrl'
     })
 
   .state('search', {

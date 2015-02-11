@@ -1,5 +1,7 @@
-<div class="list list-inset">
-    <md-content class="md-padding">
+<ion-view>
+  <ion-content>
+    <div class="list list-inset">
+      <md-content class="md-padding">
         <span class="addHomeTextBig">
             Now for the most important part: photos! Without photos the market will not be able to accurately
             value your home. The more photos the better.
@@ -7,86 +9,82 @@
             <br>
             Click or tap below to upload photos.
         </span>
-    </md-content>
-    <br>
-
-    <md-content class="md-padding">
-        <div layout = "row" layout-align="center">
-            <img src="../dist/img/add_Pic_icon.png">
+      </md-content>
+      <br>
+      <md-content class="md-padding">
+        <div layout="row" layout-align="center">
+          <img src="../dist/img/add_Pic_icon.png">
         </div>
-    </md-content>
-    <br>
-
-    <md-content class="md-padding">
-        <div layout = "row" layout-align="center">
-            <div class = "upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(0)" ng-if="imgPaths[0]">
-                <img class = "display-img" ng-src="{{imgPaths[0]}}" ng-if="imgPaths[0]">
-                <input type="file" name=0 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(1)" ng-if="imgPaths[1]">
-                <img class = "display-img" ng-src="{{imgPaths[1]}}" ng-if="imgPaths[1]">
-                <input type="file" name=1 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(2)" ng-if="imgPaths[2]">
-                <img class = "display-img" ng-src="{{imgPaths[2]}}"  ng-if="imgPaths[2]">
-                <input type="file" name=2 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(3)" ng-if="imgPaths[3]">
-                <img class = "display-img" ng-src="{{imgPaths[3]}}" ng-if="imgPaths[3]">
-                <input type="file" name=3 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
+      </md-content>
+      <br>
+      <md-content class="md-padding">
+        <div layout="row" layout-align="center">
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(0)" ng-if="imgPaths[0]">
+            <img class="display-img" ng-src="{{imgPaths[0]}}" ng-if="imgPaths[0]">
+            <input type="file" name=0 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(1)" ng-if="imgPaths[1]">
+            <img class="display-img" ng-src="{{imgPaths[1]}}" ng-if="imgPaths[1]">
+            <input type="file" name=1 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(2)" ng-if="imgPaths[2]">
+            <img class="display-img" ng-src="{{imgPaths[2]}}" ng-if="imgPaths[2]">
+            <input type="file" name=2 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(3)" ng-if="imgPaths[3]">
+            <img class="display-img" ng-src="{{imgPaths[3]}}" ng-if="imgPaths[3]">
+            <input type="file" name=3 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
         </div>
         <div layout="row" layout-align="center">
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(4)" ng-if="imgPaths[4]">
-                <img class = "display-img" ng-src="{{imgPaths[4]}}"  ng-if="imgPaths[4]">
-                <input type="file" name=4 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(5)" ng-if="imgPaths[5]">
-                <img class = "display-img" ng-src="{{imgPaths[5]}}"  ng-if="imgPaths[5]">
-                <input type="file" name=5 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(6)" ng-if="imgPaths[6]">
-                <img class = "display-img" ng-src="{{imgPaths[6]}}" ng-if="imgPaths[6]">
-                <input type="file" name=6 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(7)" ng-if="imgPaths[7]">
-                <img class = "display-img" ng-src="{{imgPaths[7]}}" ng-if="imgPaths[7]">
-                <input type="file" name=7 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(4)" ng-if="imgPaths[4]">
+            <img class="display-img" ng-src="{{imgPaths[4]}}" ng-if="imgPaths[4]">
+            <input type="file" name=4 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(5)" ng-if="imgPaths[5]">
+            <img class="display-img" ng-src="{{imgPaths[5]}}" ng-if="imgPaths[5]">
+            <input type="file" name=5 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(6)" ng-if="imgPaths[6]">
+            <img class="display-img" ng-src="{{imgPaths[6]}}" ng-if="imgPaths[6]">
+            <input type="file" name=6 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(7)" ng-if="imgPaths[7]">
+            <img class="display-img" ng-src="{{imgPaths[7]}}" ng-if="imgPaths[7]">
+            <input type="file" name=7 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
         </div>
         <div layout="row" layout-align="center">
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(8)" ng-if="imgPaths[8]">
-                <img class = "display-img" ng-src="{{imgPaths[8]}}" ng-if="imgPaths[8]">
-                <input type="file" name=8 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
-            <div class="upload">
-                <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(9)" ng-if="imgPaths[9]">
-                <img class = "display-img" ng-src="{{imgPaths[9]}}"  ng-if="imgPaths[9]">
-                <input type="file" name=9 onchange = "angular.element(this).scope().uploadFile(this.files, this.name)">
-            </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(8)" ng-if="imgPaths[8]">
+            <img class="display-img" ng-src="{{imgPaths[8]}}" ng-if="imgPaths[8]">
+            <input type="file" name=8 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
+          <div class="upload">
+            <img class="close-btn" src="../../dist/img/close_button.png" ng-click="removeImg(9)" ng-if="imgPaths[9]">
+            <img class="display-img" ng-src="{{imgPaths[9]}}" ng-if="imgPaths[9]">
+            <input type="file" name=9 onchange="angular.element(this).scope().uploadFile(this.files, this.name)">
+          </div>
         </div>
-    </md-content>
-</div>
-
-
-<div class="list list-inset">
-    <div layout ="row" layout-align="center">
-        <md-button class="md-raised md-warn"
-                   ng-click="submitForm()">Add Home
+      </md-content>
+    </div>
+    <div class="list list-inset">
+      <div layout="row" layout-align="center">
+        <md-button class="md-raised md-warn" ng-click="submitForm()">Add Home
         </md-button>
+      </div>
+      <br>
+      <h6 layout="row" layout-align="center">
+        Step 4 of 4 </h6>
     </div>
     <br>
-    <h6 layout="row" layout-align="center">
-        Step 4 of 4
-    </h6>
-</div>
-<br>
+  </ion-content>
+</ion-view>

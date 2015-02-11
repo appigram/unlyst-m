@@ -1,13 +1,14 @@
-<div class="list list-inset">
-    <md-content class="md-padding">
+<ion-view>
+  <ion-content>
+    <div class="list list-inset">
+      <md-content class="md-padding">
         <span class="addHomeTextBig">
             What's the <span style="text-decoration:underline">minimum</span> that someone would
             need to offer you in order for you to sell your home?
         </span>
-    </md-content>
-
-    <br>
-    <md-content class="md-padding">
+      </md-content>
+      <br>
+      <md-content class="md-padding">
         <span class="addHomeTextSmall">
             This number is strictly <b>confidential</b>. It'll only be used to match
             you with potential buyers who are interested in homes like yours and
@@ -17,24 +18,23 @@
             Your Unlyst Price can as high or low as you would like, and
             it can be changed later. If you don't have a price, simply leave it blank.
             </span>
-    </md-content>
-
-    <md-content class="md-padding">
+      </md-content>
+      <md-content class="md-padding">
         <md-input-container flex>
-            <label>Your Unlyst Price (confidential)</label>
-            <input type="number" ng-model="home.unlystPrice">
+          <label>Your Unlyst Price (confidential)</label>
+          <input type="number" ng-model="home.unlystPrice">
         </md-input-container>
-    </md-content>
-
-    <div layout ="row" layout-align="center">
+      </md-content>
+      <div layout="row" layout-align="center">
         <md-button class="md-raised md-warn" ng-click="goToPg2(true)">
-            PREV
+          PREV
         </md-button>
         <md-button class="md-raised md-warn" ng-click="goToPg4()">
-            NEXT
+          NEXT
         </md-button>
+      </div>
+      <h6 layout="row" layout-align="center">
+        Step 3 of 4 </h6>
     </div>
-    <h6 layout ="row" layout-align="center">
-        Step 3 of 4
-    </h6>
-</div>
+  </ion-content>
+</ion-view>

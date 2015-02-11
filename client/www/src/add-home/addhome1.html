@@ -1,59 +1,61 @@
-<div class="list list-inset">
-  <md-content class="md-padding">
+<ion-view>
+  <ion-content>
+    <div class="list list-inset">
+      <md-content class="md-padding">
     <span class="addHomeTextBig">
         Get a market-tested valuation and a list of people who are interested in buying your home right now.
         <br>
         <br>
         Let's get started!
     </span>
-  </md-content>
-  <form name="homeInfoForm" class="homeInfoForm">
-    <md-content class="md-padding">
-      <md-input-container flex>
-        <label>Home Address (Only Toronto Addresses)</label>
-        <input type="text" required name="address" ng-model="home.address" ng-blur="getGeo()" placeholder=""
-               ng-autocomplete options="{country: 'ca'}">
-        <div ng-messages="homeInfoForm.address.$error" ng-if="homeInfoForm.address.$dirty || returnErrorMsg">
+      </md-content>
+      <form name="homeInfoForm" class="homeInfoForm">
+        <md-content class="md-padding">
+          <md-input-container flex>
+            <label>Home Address (Only Toronto Addresses)</label>
+            <input type="text" required name="address" ng-model="home.address" ng-blur="getGeo()" placeholder=""
+                   g-places-autocomplete>
+            <div ng-messages="homeInfoForm.address.$error" ng-if="homeInfoForm.address.$dirty || returnErrorMsg">
+              <div style="color:red" ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Suite Number</label>
+            <input name="suiteNumber" ng-model="home.suiteNumber">
+          </md-input-container>
+          <md-input-container flex>
+            <label>Postal code</label>
+            <input type="text" name="postalCode" ng-model="home.postalCode"
+                   ng-pattern="/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/">
+            <div ng-messages="homeInfoForm.postalCode.$error"
+                 ng-if="(homeInfoForm.postalCode.$dirty && homeInfoForm.postalCode.$invalid) || returnErrorMsg">
+              <div style="color:red" ng-message="pattern">Invalid postal code.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Neighborhood (optional)</label>
+            <input type="text" ng-model="home.neighborhood">
+          </md-input-container>
+        </md-content>
+        <md-checkbox ng-model="home.hideAddress" aria-label="hideAddress">
+          <label>Make my suite number private (optional)</label>
+        </md-checkbox>
+        <md-checkbox required name="ownerCertify" ng-model="home.ownerCertify" aria-label="hideAddress">
+          <label>I certify that I am the or one of the owners of this property(required)</label>
+        </md-checkbox>
+        <div ng-messages="homeInfoForm.ownerCertify.$error" ng-if="returnErrorMsg">
           <div style="color:red" ng-message="required">This is required.</div>
         </div>
-      </md-input-container>
-
-      <md-input-container flex>
-        <label>Suite Number</label>
-        <input name="suiteNumber" ng-model="home.suiteNumber">
-      </md-input-container>
-      <md-input-container flex>
-        <label>Postal code</label>
-        <input type="text" name="postalCode" ng-model="home.postalCode"
-               ng-pattern="/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/">
-        <div ng-messages="homeInfoForm.postalCode.$error"
-             ng-if="(homeInfoForm.postalCode.$dirty && homeInfoForm.postalCode.$invalid) || returnErrorMsg">
-          <div style="color:red" ng-message="pattern">Invalid postal code.</div>
-        </div>
-      </md-input-container>
-      <md-input-container flex>
-        <label>Neighborhood (optional)</label>
-        <input type="text" ng-model="home.neighborhood">
-      </md-input-container>
-    </md-content>
-    <md-checkbox ng-model="home.hideAddress" aria-label="hideAddress">
-      <label>Make my suite number private (optional)</label>
-    </md-checkbox>
-    <md-checkbox required name="ownerCertify" ng-model="home.ownerCertify" aria-label="hideAddress">
-      <label>I certify that I am the or one of the owners of this property(required)</label>
-    </md-checkbox>
-    <div ng-messages="homeInfoForm.ownerCertify.$error" ng-if="returnErrorMsg">
-      <div style="color:red" ng-message="required">This is required.</div>
+      </form>
+      <div ng-messages="homeInfoForm.$invalid" ng-if="returnErrorMsg && homeInfoForm.$invalid ">
+        <div ng-messages="">please fill the required fild.</div>
+      </div>
+      <div layout="row" layout-align="center">
+        <md-button class="md-raised md-warn" name="btnNextPg2" ng-click="goToPg2(homeInfoForm.$valid)">NEXT
+        </md-button>
+      </div>
+      <h6 layout="row" layout-align="center">
+        Step 1 of 4 </h6>
     </div>
-  </form>
-  <div ng-messages="homeInfoForm.$invalid" ng-if="returnErrorMsg && homeInfoForm.$invalid ">
-    <div ng-messages="">please fill the required fild.</div>
-  </div>
-  <div layout ="row" layout-align="center">
-    <md-button class="md-raised md-warn" name="btnNextPg2" ng-click="goToPg2(homeInfoForm.$valid)">NEXT
-    </md-button>
-  </div>
-  <h6 layout ="row" layout-align="center">
-    Step 1 of 4
-  </h6>
-</div>
+  </ion-content>
+</ion-view>
