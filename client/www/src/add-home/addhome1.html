@@ -41,14 +41,14 @@
           <label>Make my suite number private (optional)</label>
         </md-checkbox>
         <md-checkbox required name="ownerCertify" ng-model="home.ownerCertify" aria-label="hideAddress">
-          <label>I certify that I am the or one of the owners of this property(required)</label>
+          <label>I certify that I am the or one of the owners of this property (required)</label>
         </md-checkbox>
         <div ng-messages="homeInfoForm.ownerCertify.$error" ng-if="returnErrorMsg">
           <div style="color:red" ng-message="required">This is required.</div>
         </div>
       </form>
       <div ng-messages="homeInfoForm.$invalid" ng-if="returnErrorMsg && homeInfoForm.$invalid ">
-        <div ng-messages="">please fill the required fild.</div>
+        <div ng-messages="">please fill the required field.</div>
       </div>
       <div layout="row" layout-align="center">
         <md-button class="md-raised md-warn" name="btnNextPg2" ng-click="goToPg2(homeInfoForm.$valid)">NEXT
