@@ -295,15 +295,15 @@ angular.module('starter.services', [])
     ],
     buildingTypes: [
       {
-        name: "High-rise",
+        name: "High-rise (12+ Storeys)",
         value: "highRise"
       },
       {
-        name: "Mid-rise",
+        name: "Mid-rise(4-12 Storeys)",
         value: "midRise"
       },
       {
-        name: "Low-rise",
+        name: "Low-rise(1-4 Storeys)",
         value: "lowRise"
       }
     ],
@@ -328,7 +328,7 @@ angular.module('starter.services', [])
         value: "driveway"
       }
     ],
-    parkingSpace: [0, 1, 2, 3, 4],
+    parkingSpace: [0, 1, 2, '2(Tandem)', 3, '3(Tandem)', 4],
     outdoorSpace: [
       {
         name: "Balcony",
@@ -374,7 +374,7 @@ angular.module('starter.services', [])
         value: "partyRoom"
       },
       {
-        name: "Board Room",
+        name: "Boardroom",
         value: "boardRoom"
       },
       {
@@ -392,6 +392,14 @@ angular.module('starter.services', [])
       {
         name: "Theater Room",
         value: "theaterRoom"
+      },
+      {
+        name: "Visitor Parking",
+        value: "visitorParking"
+      },
+      {
+        name: "Guest Suites",
+        value: "guestSuites"
       },
       {
         name: "Pool",
