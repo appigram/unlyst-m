@@ -1,7 +1,7 @@
 <md-content>
   <h3 class="text-center">Homes you valued</h3>
   <md-list>
-    <md-item ng-repeat="property in homes">
+    <md-item ng-repeat="property in ::homes">
       <div layout="column" layout-align="center center">
         <md-card ng-show="property.valuedThisHome === true" style="max-width:400px;">
           <figure class="photoSection text-center">

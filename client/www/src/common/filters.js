@@ -33,6 +33,15 @@ angular.module('starter.filters',[])
     return scoreMsg[scoreAdjusted];
   }
 }])
+.filter('addressString', [function () {
+  return function (property) {
+    if (property.suiteNumber && !property.hideAddress) {
+      return property.suiteNumber + ' - ' + property.address;
+    } else {
+      return property.address;
+    }
+  }
+}])
 .filter('toArray', function () {
   return function (obj, addKey) {
     if (!obj) return obj;

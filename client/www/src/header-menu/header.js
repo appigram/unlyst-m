@@ -1,5 +1,5 @@
 starterControllers
-.controller('HeaderCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav, $location) {
+.controller('MainCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav) {
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
     if (authData) {
@@ -11,10 +11,11 @@ starterControllers
       });
     }
   };
+
   $scope.$on('updateauth', function () {
     updateAuth();
   });
-  fireBaseData.ref().onAuth(function() {
+  fireBaseData.ref().onAuth(function () {
     updateAuth();
   });
   $rootScope.getReputationIcon = function () {
@@ -24,6 +25,7 @@ starterControllers
     }
     return 'http://google-maps-icons.googlecode.com/files/red' + number + '.png'
   };
+
 
   $ionicPopover.fromTemplateUrl('src/auth/popover.html', {
     scope: $scope
@@ -48,5 +50,6 @@ starterControllers
   $scope.toggleLeftMenu = function () {
     $mdSidenav('left').toggle();
   };
+
 });
 

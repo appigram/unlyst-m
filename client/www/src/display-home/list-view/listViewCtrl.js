@@ -7,6 +7,7 @@ starterControllers
     homes.$loaded().then(function () {
       var homeJson = JSON.parse(JSON.stringify(homes));
       $scope.homeList = homeJson;
+      //TODO: refactor this and mainCtrl
       var authData = fireBaseData.ref().getAuth();
       if (authData) {
         var ref = fireBaseData.refUsers().child(authData.uid);
@@ -19,7 +20,6 @@ starterControllers
             var houseID = value.houseId + '';
             var valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations,houseID);
             value.valuedThisHome = valuedThisHome;
-            console.log(valuedThisHome);
           });
         });
       }

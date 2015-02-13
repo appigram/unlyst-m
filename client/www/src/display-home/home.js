@@ -2,7 +2,7 @@ starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
   '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
-$ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
+                                                                                          $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
     //bind model to scope; set valuation
     $scope.home = {};
 
@@ -42,11 +42,7 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       $rootScope.homes.current = $stateParams.id;
       $scope.property = houses[i];
       $scope.hideDetail = true;
-      if ($scope.property.suiteNumber && !$scope.property.hideAddress) {
-        $scope.property.addressString = $scope.property.suiteNumber + ' - ' + $scope.property.address;
-      } else {
-        $scope.property.addressString = $scope.property.address;
-      }
+
       if ($rootScope.authData && !$rootScope.authData.admin) {
         //User has valued this home before
         $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
@@ -89,7 +85,6 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
           outdoorSpaceArr.push(searchForObjName(homeSchema.outdoorSpace, $scope.property.outdoorSpace[j]));
         }
       }
-
       $scope.property.outdoorSpace = outdoorSpaceArr;
       $scope.property.parkingType = searchForObjName(homeSchema.parkingType, $scope.property.parkingType);
 
