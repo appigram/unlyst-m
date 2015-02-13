@@ -21,7 +21,7 @@ $home-cover-height: 4em;
 
 .home-cover-caption {
   width: 100%;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(0, 0, 0, 0.4);
   position: absolute;
   bottom: 0;
   transition: .7s background linear;
@@ -30,6 +30,11 @@ $home-cover-height: 4em;
     font-weight: 100 !important;
   }
 }
+
+.home-caption-bg{
+  background: linear-gradient(90deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1), rgba(0,0,0,0.2));
+}
+
 $slider-height: 15em;
 
 .resp-slider-height {
