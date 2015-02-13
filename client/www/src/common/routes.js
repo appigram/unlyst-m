@@ -67,6 +67,11 @@ angular.module('starter.routes', [])
     url: '/search',
     templateUrl: 'src/search/search.html',
     controller: 'SearchCtrl'
+  })
+  .state('list', {
+    url: '/list',
+    templateUrl: 'src/display-home/list.html',
+    controller: 'ListCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback

@@ -10,8 +10,6 @@ starterControllers
       $rootScope.notify('Please login to add your home.');
     }
 
-    $scope.numbers = [1, 2, 3, 4, 5, 6];
-    //$state.go("addHome.addHome1");
     $scope.homeSchema = homeSchema;
     $scope.home = {
       address: "",
@@ -180,7 +178,6 @@ starterControllers
       $state.go('addHome3');
     };
     $scope.goToPg4 = function () {
-      console.log("goto hom4");
       $state.go('addHome4');
     };
     $scope.addhome = function () {

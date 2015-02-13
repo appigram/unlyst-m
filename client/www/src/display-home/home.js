@@ -32,6 +32,7 @@ $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $sta
       }
       //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
       var houses = JSON.parse(JSON.stringify($rootScope.homes.homesRef));
+
       var i = 0;
       if (!$stateParams.id || !($stateParams.id in $rootScope.homes.indexes)) {
         $state.go('home', {'id': houses[i].houseId});
