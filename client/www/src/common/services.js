@@ -215,7 +215,7 @@ angular.module('starter.services', [])
       var valuedBefore = false;
       //angular forEach does not support break
       angular.forEach(valuations, function (value, key) {
-        if (value.homeID.toString() === homeID) {
+        if (value.homeID === homeID) {
           valuedBefore = true;
           return;
         }

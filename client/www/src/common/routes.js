@@ -57,7 +57,7 @@ angular.module('starter.routes', [])
     templateUrl: 'src/add-home/addhome4.html',
     controller: 'AddHomeCtrl'
   })
-  .state('success', {
+  .state('addHomeSuccess', {
     url: '/success',
     templateUrl: 'src/add-home/success.html',
     controller: 'AddHomeCtrl'

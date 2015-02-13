@@ -4,7 +4,6 @@ starterControllers
   'geocoding', '$timeout', function ($scope, $rootScope, $http, $state, $firebase, fireBaseData, homeSchema, geocoding, $timeout) {
 
     var homesDB = fireBaseData.refHomes();
-    //var homesRef = $firebase(homesDB).$asArray();
     if (!fireBaseData.ref().getAuth()) {
       $state.go('login');
       $rootScope.notify('Please login to add your home.');
@@ -123,7 +122,6 @@ starterControllers
 
             $http(req).success(function (data) {
               console.log("OK", data);
-
               $scope.home.img[data.index] = {
                 "caption": "",
                 "url": data.url
@@ -133,11 +131,7 @@ starterControllers
               if (count === ($scope.uploadFiles.length)) {
                 homesDB.child($scope.home.houseId).set($scope.home);
                 homesDB.child('maxHomeID').set($scope.home.houseId);
-                //homesRef.$add($scope.home).then(function (ref) {
-                //  console.log("return is:  " + ref);
-                //});
-                //console.log('fake upload.....');
-                $state.go('addHome.success');
+                $state.go('addHomeSuccess');
               }
             }).error(function (err) {
               console.log(err);

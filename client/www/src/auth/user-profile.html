@@ -6,6 +6,10 @@
         <img width="80px" ng-src="{{authData.userProfilePicture}}"/>
       </div>
       <h4>Your reputation: {{ authData.reputation | number: 0}}</h4>
+      <md-button class="md-raised md-warn" ui-sref="list">
+        Homes you valued
+      </md-button>
+      </br></br>
       <md-button class="md-raised gray-light" ng-click="logout()">
         Log out
       </md-button>
