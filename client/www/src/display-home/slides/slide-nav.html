@@ -1,17 +1,17 @@
 <div class="tab-custom-slider">
-  <div class="tabs-striped tabs-color-assertive">
-    <div class="tabs tabs-icon-left">
-      <a class="tab-item" ng-click="slideHasChanged(0)" ng-class="{'active': activeSlide < property.img.length}">
-        <i class="icon ion-images"></i>
+  <div class="tabs-striped">
+    <md-tabs md-stretch-tabs="always" md-selected="activeTab()" class="custom-tabs">
+      <md-tab class="custom-tab" ng-click="slideHasChanged(0)">
+        <i class="icon ion-images"> </i>
         {{curPhotoSlide}}
-      </a>
-      <a class="tab-item" ng-click="slideHasChanged(count-4)" ng-class="{'active': activeSlide >= property.img.length && activeSlide < property.img.length+3}">
-        <i class="icon ion-information-circled"></i>
+      </md-tab>
+      <md-tab class="custom-tab" ng-click="slideHasChanged(count-4)">
+        <i class="icon ion-information-circled"> </i>
         {{curInfoSlide}}
-      </a>
-      <a class="tab-item" ng-click="slideHasChanged(count-1)" ng-class="{'active': activeSlide == property.img.length+3}">
+      </md-tab>
+      <md-tab class="custom-tab" ng-click="slideHasChanged(count-1)">
         <i class="icon ion-map"></i>
-      </a>
-    </div>
+      </md-tab>
+    </md-tabs>
   </div>
 </div>

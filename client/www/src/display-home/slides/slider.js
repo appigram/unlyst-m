@@ -32,7 +32,15 @@ starterControllers
     updateTabs();
   };
 
-  //for tabs showing correctly
+  $scope.activeTab = function() {
+    if (isPhotoSlide()) {
+      return 0
+    } else if(isInfoSlide()) {
+      return 1
+    } else {
+      return 2;
+    }
+  };
   var numSlides = 0;
   $scope.curPhotoSlide = $scope.curInfoSlide = '';
 

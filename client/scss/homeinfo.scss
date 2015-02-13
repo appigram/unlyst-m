@@ -68,3 +68,31 @@
 .pac-container {  //this is a fix for google autocomplete not showing up
   z-index: 100000 !important;
 }
+
+// angular material tabs customization
+.custom-tabs {
+  .md-header {
+    background-color: white !important;
+    height: 40px;
+  }
+  md-tab:not([disabled]) {
+    color: $assertive;
+    &.active {
+      color: white;
+      background-color: $assertive;
+    }
+  }
+  md-tabs-ink-bar {
+    background: transparent !important;
+  }
+}
+.custom-tab {
+  padding: 5px 6px !important;
+  md-tab-label {
+    height: 28px !important;
+  }
+  .icon {
+  //display: block;
+  margin: 0 auto;
+  font-size: 24px; }
+}
