@@ -68,10 +68,15 @@ angular.module('starter.routes', [])
     templateUrl: 'src/search/search.html',
     controller: 'SearchCtrl'
   })
-  .state('list', {
-    url: '/list',
+  .state('valuedHomes', {
+    url: '/valuedHomes',
     templateUrl: 'src/display-home/list.html',
-    controller: 'ListCtrl'
+    controller: 'ValuedHomesCtrl'
+  })
+  .state('likedHomes', {
+    url: '/likedHomes',
+    templateUrl: 'src/display-home/list.html',
+    controller: 'LikedHomesCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback

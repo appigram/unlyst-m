@@ -133,6 +133,13 @@ angular.module('starter.services', [])
         return 'dist/img/home-thumbnail';
       }
 
+    },
+    likesHome: function(rootAuth,houseId){
+      if(!rootAuth){
+        return;
+      }
+      refUser.child(rootAuth.uid + '/likedHomes').push({'homeID': houseId,"created": Firebase.ServerValue.TIMESTAMP});
+      return 1;
     }
   }
 }])
@@ -215,7 +222,7 @@ angular.module('starter.services', [])
       var valuedBefore = false;
       //angular forEach does not support break
       angular.forEach(valuations, function (value, key) {
-        if (value.homeID === homeID) {
+        if (value.homeID.toString() === homeID) {
           valuedBefore = true;
           return;
         }

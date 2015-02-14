@@ -4,7 +4,8 @@ angular.module('starter.directives', [])
   return {
     restrict:'E',
     scope: {
-      homes: '='
+      homes: '=',
+      title: '='
     },
     templateUrl:'src/display-home/list-view/home-list.html'
   };

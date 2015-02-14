@@ -1,6 +1,6 @@
 starterControllers
 
-.controller('ModalCtrl', function ($scope, $mdDialog, valuation) {
+.controller('ModalCtrl', function ($scope,$rootScope, $mdDialog, valuation, fireBaseData,houseId) {
   $scope.hide = function () {
     $mdDialog.hide();
   };
@@ -8,10 +8,12 @@ starterControllers
   $scope.cancel = function () {
     $mdDialog.cancel();
   };
-  $scope.showWantToBuy =false;
+  $scope.showWantToBuy = false;
   $scope.wanttobuy = function () {
     $scope.showWantToBuy = true;
+    if ($rootScope.authData) {
+      fireBaseData.likesHome($rootScope.authData, houseId);
+    }
   };
   $scope.valuation = valuation;
-
 });

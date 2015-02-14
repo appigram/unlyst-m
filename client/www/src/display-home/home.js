@@ -10,7 +10,6 @@ starterControllers
     $scope.defaultzoom = 15;
     //test mode
     $scope.stopRecording = false;
-
     var homesDB = fireBaseData.refHomes();
     //store and shuffle the list of homes in rootscope
     if (!$rootScope.homes) {
@@ -111,7 +110,8 @@ starterControllers
           controller: 'ModalCtrl',
           templateUrl: 'src/display-home/modal-dialogs/post-valuation.html',
           locals: {
-            valuation: $scope.valuation
+            valuation: $scope.valuation,
+            houseId: $scope.property.houseId
           }
         })
         .then(function () {
@@ -120,6 +120,7 @@ starterControllers
           $scope.clickNext();
         });
       };
+
 
       //no more homes popup
       var noMoreHomesPopup = function () {
