@@ -1,8 +1,8 @@
 {
-  "name": "angular-aria",
+  "name": "angular-messages",
   "version": "1.3.13",
-  "description": "AngularJS module for making accessibility easy",
-  "main": "angular-aria.js",
+  "description": "AngularJS module that provides enhanced support for displaying messages within templates",
+  "main": "angular-messages.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,8 +14,6 @@
     "angular",
     "framework",
     "browser",
-    "accessibility",
-    "a11y",
     "client-side"
   ],
   "author": "Angular Core Team <angular-core+npm@google.com>",
