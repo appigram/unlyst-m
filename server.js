@@ -1,14 +1,14 @@
 var express = require('express'),
-    bodyParser     = require('body-parser'),
-    methodOverride = require('method-override'),
-    sessions = require('./server/routes/sessions'),
-    multer = require('multer'),
-    aws = require("aws-sdk"),
-    compress = require('compression'),
-    fs = require("fs"),
-    easyImg = require("easyimage");
+bodyParser = require('body-parser'),
+methodOverride = require('method-override'),
+sessions = require('./server/routes/sessions'),
+multer = require('multer'),
+aws = require("aws-sdk"),
+compress = require('compression'),
+fs = require("fs"),
+easyImg = require("easyimage");
 
-    app = express();
+app = express();
 
 var mailer = require('./server/email-client');
 //var elasticSearch = require('./server/elastic-search');
@@ -19,22 +19,22 @@ var S3_BUCKET = process.env.S3_BUCKET || 'unlyst';
 var GLOBAL_CDN = "http://img.unlyst.co/";
 //app.use(bodyParser());          // pull information from html in POST
 app.use(compress());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(methodOverride());      // simulate DELETE and PUT
 
 app.use(multer({
-    //dest: './uploads/'
-    inMemory: true
+  //dest: './uploads/'
+  inMemory: true
 }));
 
 app.use(express.static('client/www'));
 
 // CORS (Cross-Origin Resource Shariappng) headers to support Cross-site HTTP requests
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
+app.all('*', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
 });
 
 app.get('/server/sessions', sessions.findAll);
@@ -46,106 +46,113 @@ app.set('port', process.env.PORT || 5000);
 //    res.sendFile(__dirname + '/client/www/view/index.html');
 //});
 
-app.get('*', function(req,res) {
-    res.sendFile(__dirname + '/client/www/index.html');
+app.get('*', function (req, res) {
+  res.sendFile(__dirname + '/client/www/index.html');
 });
 
 aws.config.update({
-    accessKeyId: AWS_ACCESS_KEY ,
-    secretAccessKey: AWS_SECRET_KEY
+  accessKeyId: AWS_ACCESS_KEY,
+  secretAccessKey: AWS_SECRET_KEY
 });
 
 aws.config.region = 'us-east-1';
 var s3 = new aws.S3();
 
 /*app.post('/upload', function (req,res){
-    console.log(req.body);
-    //var file_name ='image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
-    var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
-    console.log(req.files);
-    easyImg.convert({
-        src: req.files.file.path,
-        dst: req.files.file.path,
-        quality: 80
-    }).then(function(image){
-        var data = fs.readFileSync(req.files.file.path);
-        console.log(data);
-        var params = {
-            Bucket: S3_BUCKET,
-            Key: file_name,
-            ACL: 'public-read',
-            ContentType: 'image/jpeg',
-            //Body:req.files.file.buffer,
-            Body: data,
-            ServerSideEncryption: 'AES256'
-        };
-        s3.putObject(params, function(err, data) {
-            if(err) {
-                // There Was An Error With Your S3 Config
-                res.end("Error: failed to upload pictures");
-                return false;
-            } else {
-                // Success!
-                console.log("Success");
-                res.json({
-                    "url": GLOBAL_CDN + file_name,
-                    "index": req.body.imageNum
-                });
-            }
-        }).on('httpUploadProgress',function(progress) {
-            // Log Progress Information
-            console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
-        });
-    },function(err){
-        console.log(err);
-    });
-}); */
+ console.log(req.body);
+ //var file_name ='image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+ var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+ console.log(req.files);
+ easyImg.convert({
+ src: req.files.file.path,
+ dst: req.files.file.path,
+ quality: 80
+ }).then(function(image){
+ var data = fs.readFileSync(req.files.file.path);
+ console.log(data);
+ var params = {
+ Bucket: S3_BUCKET,
+ Key: file_name,
+ ACL: 'public-read',
+ ContentType: 'image/jpeg',
+ //Body:req.files.file.buffer,
+ Body: data,
+ ServerSideEncryption: 'AES256'
+ };
+ s3.putObject(params, function(err, data) {
+ if(err) {
+ // There Was An Error With Your S3 Config
+ res.end("Error: failed to upload pictures");
+ return false;
+ } else {
+ // Success!
+ console.log("Success");
+ res.json({
+ "url": GLOBAL_CDN + file_name,
+ "index": req.body.imageNum
+ });
+ }
+ }).on('httpUploadProgress',function(progress) {
+ // Log Progress Information
+ console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+ });
+ },function(err){
+ console.log(err);
+ });
+ }); */
 
-app.post('/upload', function (req,res){
-    var file_name ='image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
-    //var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
-    console.log(req.files);
-    var params = {
-        Bucket: S3_BUCKET,
-        Key: file_name,
-        ACL: 'public-read',
-        ContentType: 'image/jpeg',
-        Body: req.files.file.buffer,
-        //Body: data,
-        ServerSideEncryption: 'AES256'
-    };
-    s3.putObject(params, function(err, data) {
-        if(err) {
-            // There Was An Error With Your S3 Config
-            res.end("Error: failed to upload pictures");
-            return false;
-        } else {
-            // Success!
-            console.log("Success");
-            res.json({
-                "url": GLOBAL_CDN + file_name,
-                "index": req.body.imageNum
-            });
-        }
-    }).on('httpUploadProgress',function(progress) {
-        // Log Progress Information
-        console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
-    });
+app.post('/upload', function (req, res) {
+  var folderName = 'image/homes/';
+  if (process.env.NODE_ENV === 'development') {
+    folderName = 'image/homes-test/'
+  } else if (process.env.NODE_ENV === 'production') {
+    folderName = 'image/homes/'
+  }
+  var file_name = folderName + req.body.houseId + '/' + req.body.imageNum + '.' + req.files.file.extension;
+  //var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
+  console.log(req.files);
+  console.log(file_name);
+  var params = {
+    Bucket: S3_BUCKET,
+    Key: file_name,
+    ACL: 'public-read',
+    ContentType: 'image/jpeg',
+    Body: req.files.file.buffer,
+    //Body: data,
+    ServerSideEncryption: 'AES256'
+  };
+  s3.putObject(params, function (err, data) {
+    if (err) {
+      // There Was An Error With Your S3 Config
+      res.end("Error: failed to upload pictures");
+      return false;
+    } else {
+      // Success!
+      console.log("Success");
+      res.json({
+        "url": GLOBAL_CDN + file_name,
+        "index": req.body.imageNum
+      });
+    }
+  }).on('httpUploadProgress', function (progress) {
+    // Log Progress Information
+    console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
+  });
 });
 
-app.post('/sendmail', function (req,res) {
-    var mail_to = req.body.email;
-    if(mail_to) {
-        mailer.sendMail(mail_to, function(data) {
-            res.json(data);
-        });
-    } else {
-        console.log('no email given');
-    }
+app.post('/sendmail', function (req, res) {
+  var mail_to = req.body.email;
+  if (mail_to) {
+    mailer.sendMail(mail_to, function (data) {
+      res.json(data);
+    });
+  } else {
+    console.log('no email given');
+  }
 });
 
 app.listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port ' + app.get('port'));
 });
 
 

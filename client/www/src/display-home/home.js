@@ -66,10 +66,6 @@ starterControllers
 
       // need to use this method and ng-init to bind the initial value. There's a bug in the range slider in ionic.
       $scope.getDefaultValue = function () {
-        //need the timeout to make it work
-        //$timeout(function () {
-        //  $scope.home.valuation = utility.defaultCondoValue(houses[i].size);
-        //}, 100);
         $scope.home.valuation = 100000;
       };
       $scope.getDefaultValue();

@@ -84,7 +84,7 @@ angular.module('starter.routes', [])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home/');
+  $urlRouterProvider.otherwise('/home/-1');
   //remove # from url
   //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
   //$locationProvider.html5Mode(true).hashPrefix('!');
