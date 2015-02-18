@@ -38,6 +38,9 @@ angular.module('starter.services', [])
     refUsers: function () {
       return refUser;
     },
+    index: function(index) {
+      return new Firebase(homeInfo + index)
+    },
     saveValuation: function saveValuation(value, authData, property) {
       if (refUser == null || authData == null) {
         return;
