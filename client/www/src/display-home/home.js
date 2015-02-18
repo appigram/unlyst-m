@@ -121,7 +121,25 @@ starterControllers
           $scope.clickNext();
         });
       };
-
+      //post valuation modal popup
+      var postBumpPopup = function () {
+        if (!$scope.property.crowdvalue) {
+          return;
+        }
+        $mdDialog.show({
+          controller: 'ModalCtrl',
+          templateUrl: 'src/display-home/modal-dialogs/post-valuation-bump.html',
+          locals: {
+            valuation: $scope.valuation,
+            houseId: $scope.property.houseId
+          }
+        })
+        .then(function () {
+          $scope.clickNext();
+        }, function () {
+          $scope.clickNext();
+        });
+      };
       //no more homes popup
       var noMoreHomesPopup = function () {
         $mdDialog.show({
@@ -161,6 +179,24 @@ starterControllers
         }
         $rootScope.homes.valued += 1;
       };
+      $scope.submitBump = function (up) {
+        if (!$scope.stopRecording && $scope.authData) {
+          if (!$scope.property.crowdvalue) {
+            $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
+            return;
+          }
+          if (!$rootScope.authData.admin) {
+            //User has valued this home before
+            $scope.property.valuedThisHome = true;
+          }
+          fireBaseData.saveBump(up, $scope.authData, $scope.property);
+          $scope.valuation.bumpvalue = $scope.property.bumpvalue;
+          $scope.valuation.bumpChange = $scope.property.bumpChange;
+          postBumpPopup();
+        }
+        $rootScope.homes.valued += 1;
+      };
+
       $scope.skip = function () {
         $timeout(function(){
           $ionicSlideBoxDelegate.update();

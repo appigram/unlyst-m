@@ -89,6 +89,45 @@ angular.module('starter.services', [])
       refHomes.child(property.$id + '/crowdvalue').set(newCrowdValue);
       return 1;
     },
+    saveBump: function saveValuation(value, authData, property) {
+      if (refUser == null || authData == null) {
+        return;
+      }
+      //has this user valued this property before?
+      var valuedBefore = false;
+      //if (authData.valuations) {
+      //  valuedBefore = utility.hasValuedPropertyBefore(authData.valuations, property.houseId.toString());
+      //  if (valuedBefore) {
+      //    console.log('User valued this property before');
+      //    return;
+      //  }
+      //}
+      if(!property.bumpvalue){
+        property.bumpvalue = property.crowdvalue;
+        refHomes.child(property.$id + '/bumpvalue').set(property.crowdvalue);
+      }
+      var newBumpValue = property.bumpvalue;
+      if(value === true){
+        newBumpValue = property.bumpvalue *1.02;
+      } else {
+        newBumpValue = property.bumpvalue *0.98;
+      }
+      property.bumpChange = newBumpValue - property.bumpvalue;
+      property.bumpvalue = newBumpValue;
+      console.log('bump value:' + newBumpValue);
+      console.log('bump value changed :' + property.bumpChange);
+      var valuation = {
+        "created": Firebase.ServerValue.TIMESTAMP,
+        "homeID": property.houseId,
+        "homeValue": newBumpValue,
+        "userID": authData.uid,
+        "userSubmittedValue": value
+      };
+      //refValuation.push(valuation);
+      //refUser.child(authData.uid + '/valuations').push(valuation);
+      //refHomes.child(property.$id + '/valuations').push(valuation);
+      //refHomes.child(property.$id + '/bumpvalue').set(newBumpValue);
+    },
     getUserDisplayName: function (rootAuth) {
       var name;
       if (!rootAuth) {
