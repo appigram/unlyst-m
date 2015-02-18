@@ -1,13 +1,19 @@
 <div class="priceslider padding-top">
-  <h4 class="text-center" style="padding-bottom:20px;">Is this home worth more or less than its current Unlysted Value?</h4>
+  <h4 class="text-center" style="padding-bottom:20px;">
+    Is this home worth
+    <span style="text-decoration: underline">more</span>
+    or
+    <span style="text-decoration: underline">less</span>
+    than its current Unlysted Value?
+  </h4>
   <div layout="row" layout-align="center center" ng-show="!property.valuedThisHome" class="text-center">
     <md-button class="md-fab md-button-small text-center " style="background-color:white" aria-label="Less" ng-click="skip();">
       <i class="icon ion-arrow-down-c" style="font-size:40px;color:darkgray"></i>
     </md-button>
     <div class="padding-left padding-right">
       <h5>CURRENT UNLYSTED VALUE</h5>
-      <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{home.valuation | currency:undefined:0}}</h2>
-       <span style="font-size: smaller;font-weight:normal">
+      <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{property.crowdvalue | currency:undefined:0}}</h2>
+       <span class="graycolor" style="font-size: smaller;font-weight:normal">
          ({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)
        </span>
     </div>
