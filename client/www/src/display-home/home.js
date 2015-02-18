@@ -35,7 +35,11 @@ starterControllers
 
       var i = 0;
       if (!$stateParams.id || !($stateParams.id in $rootScope.homes.indexes)) {
-        $state.go('home', {'id': houses[i].houseId});
+        if ($state.current.name === 'home') {
+          $state.go('home', {'id': houses[i].houseId});
+        } else if ($state.current.name === 'bump') {
+          $state.go('bump', {'id': houses[i].houseId});
+        }
         return;
       }
       var i = $rootScope.homes.indexes[$stateParams.id];
@@ -95,7 +99,7 @@ starterControllers
         $timeout(function () {
           $ionicSlideBoxDelegate.update();
           return true;
-        }, 100);
+        }, 500);
       }
 
       //post valuation modal popup
@@ -158,8 +162,11 @@ starterControllers
         $rootScope.homes.valued += 1;
       };
       $scope.skip = function () {
-        $ionicSlideBoxDelegate.slide(0);
-        $ionicSlideBoxDelegate.update();
+        $timeout(function(){
+          $ionicSlideBoxDelegate.update();
+          $ionicSlideBoxDelegate.slide(0);
+        },0);
+
         $scope.clickNext();
       }
 
@@ -170,14 +177,19 @@ starterControllers
         if ($rootScope.homes.valued >= length) {
           noMoreHomesPopup();
         }
-        //if user already reached their trial or they just reached their trial
-        if (($rootScope.reachedTrial === true && !$scope.authData) || ($rootScope.homes.valued % 4 === 3 && !$scope.authData)) {
-          $rootScope.reachedTrial = true;
-          $state.go('login');
-          $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
-        } else {
+        if ($state.current.name === 'home') {
           $state.go('home', {'id': houses[i].houseId});
+        } else if($state.current.name === 'bump'){
+          $state.go('bump', {'id': houses[i].houseId});
         }
+        //if user already reached their trial or they just reached their trial
+        //if (($rootScope.reachedTrial === true && !$scope.authData) || ($rootScope.homes.valued % 4 === 3 && !$scope.authData)) {
+        //  $rootScope.reachedTrial = true;
+        //  $state.go('login');
+        //  $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
+        //} else {
+        //  $state.go('home', {'id': houses[i].houseId});
+        //}
       }
     });
 

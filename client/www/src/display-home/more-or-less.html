@@ -1,0 +1,30 @@
+<div class="priceslider padding-top">
+  <h4 class="text-center" style="padding-bottom:20px;">Is this home worth more or less than its current Unlysted Value?</h4>
+  <div layout="row" layout-align="center center" ng-show="!property.valuedThisHome" class="text-center">
+    <md-button class="md-fab md-button-small text-center " style="background-color:white" aria-label="Less" ng-click="submitScore();">
+      <i class="icon ion-arrow-down-c" style="font-size:40px;color:darkgray"></i>
+    </md-button>
+    <div class="padding-left padding-right">
+      <h5>CURRENT UNLYSTED VALUE</h5>
+      <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{home.valuation | currency:undefined:0}}</h2>
+       <span style="font-size: smaller;font-weight:normal">
+         ({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)
+       </span>
+    </div>
+    <md-button class="md-fab md-button-small text-center" style="background-color:white" aria-label="Less" ng-click="submitScore();">
+      <i class="icon ion-arrow-up-c" style="font-size:40px;color:#3EABD7"></i>
+    </md-button>
+  </div>
+  <br/>
+  <div class="text-center">
+    <md-button class="md-flat gray-light" ng-click="skip()">
+      Skip
+    </md-button>
+  </div>
+  <div layout="column" layout-align="center center" ng-show="property.valuedThisHome">
+    <md-button class="md-raised md-warn" ng-click="skip();" style="min-width: 200px;">
+      View Next Home
+    </md-button>
+  </div>
+  <div style="padding-top:40px;"></div>
+</div>
