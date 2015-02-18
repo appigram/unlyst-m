@@ -1,7 +1,7 @@
 <div class="priceslider padding-top">
   <h4 class="text-center" style="padding-bottom:20px;">Is this home worth more or less than its current Unlysted Value?</h4>
   <div layout="row" layout-align="center center" ng-show="!property.valuedThisHome" class="text-center">
-    <md-button class="md-fab md-button-small text-center " style="background-color:white" aria-label="Less" ng-click="submitScore();">
+    <md-button class="md-fab md-button-small text-center " style="background-color:white" aria-label="Less" ng-click="skip();">
       <i class="icon ion-arrow-down-c" style="font-size:40px;color:darkgray"></i>
     </md-button>
     <div class="padding-left padding-right">
@@ -11,7 +11,7 @@
          ({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)
        </span>
     </div>
-    <md-button class="md-fab md-button-small text-center" style="background-color:white" aria-label="Less" ng-click="submitScore();">
+    <md-button class="md-fab md-button-small text-center" style="background-color:white" aria-label="Less" ng-click="skip();">
       <i class="icon ion-arrow-up-c" style="font-size:40px;color:#3EABD7"></i>
     </md-button>
   </div>
