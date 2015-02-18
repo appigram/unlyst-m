@@ -1,5 +1,5 @@
 <div class="priceslider padding-top">
-  <h4 class="text-center" class="padding-bottom">
+  <h4 class="text-center" class="padding-bottom" ng-show="!property.valuedThisHome">
     Is this home worth
     <span style="text-decoration: underline">more</span>
     or
@@ -21,14 +21,17 @@
       <i class="icon ion-arrow-up-c" style="font-size:40px;color:#3EABD7"></i>
     </md-button>
   </div>
-  <div class="text-center">
-    <md-button class="md-flat gray-light" ng-click="skip()">
-      Skip
-    </md-button>
+  <div class="padding-left padding-right text-center" ng-show="property.valuedThisHome">
+    <h5 class="padding-bottom graycolor">You have valued this home before</h5>
+    <h5>CURRENT UNLYSTED VALUE</h5>
+    <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{property.crowdvalue | currency:undefined:0}}</h2>
+       <span class="graycolor" style="font-size: smaller;font-weight:normal">
+         ({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)
+       </span>
   </div>
-  <div layout="column" layout-align="center center" ng-show="property.valuedThisHome">
-    <md-button class="md-raised md-warn" ng-click="skip();" style="min-width: 200px;">
-      View Next Home
+  <div class="text-center">
+    <md-button class="md-flat gray-light md-button-small" ng-click="skip()">
+      SKIP TO NEXT HOME
     </md-button>
   </div>
   <div style="padding-top:40px;"></div>

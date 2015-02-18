@@ -28,9 +28,9 @@ starter
   })
 })
 
-.config(function ($ionicConfigProvider) {
-  $ionicConfigProvider.views.transition('none');
-})
+//.config(function ($ionicConfigProvider) {
+//  $ionicConfigProvider.views.transition('none');
+//})
 
 .run(function ($rootScope, $ionicLoading,$ionicPopup) {
   $rootScope.$on('loading:show', function () {

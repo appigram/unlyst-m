@@ -1,7 +1,31 @@
 starterControllers
 
 .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
+  var updateAuth = function () {
+    var authData = fireBaseData.ref().getAuth();
+    if (authData) {
+      var ref = fireBaseData.refUsers().child(authData.uid);
+      ref.on("value", function (snap) {
+        $rootScope.authData = snap.val();
+        $rootScope.authData.userDisplayName = fireBaseData.getUserDisplayName($rootScope.authData);
+        $rootScope.authData.userProfilePicture = fireBaseData.getUserProfilePicture($rootScope.authData);
+      });
+    }
+  };
 
+  $scope.$on('updateauth', function () {
+    updateAuth();
+  });
+  fireBaseData.ref().onAuth(function () {
+    updateAuth();
+  });
+  $rootScope.getReputationIcon = function () {
+    var number = Math.round($rootScope.authData.reputation);
+    if (number < 10) {
+      number = '0' + number;
+    }
+    return 'http://google-maps-icons.googlecode.com/files/red' + number + '.png'
+  };
   $scope.hideBackButton = true;
 
   $rootScope.user = {};
@@ -12,7 +36,6 @@ starterControllers
     saveUserProfile(authData);
     $scope.$broadcast('updateauth');
     $state.go('home');
-
   }
 
   function saveUserProfile(authData) {

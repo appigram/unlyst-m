@@ -1,29 +1,39 @@
 <div class="priceslider padding-top">
-  <h4 class="text-center" style="padding-bottom:20px;">How much is this home worth today?</h4>
-  <div class="text-center">
-    <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{home.valuation | currency:undefined:0}}
+  <div ng-show="!property.valuedThisHome">
+    <h4 class="text-center" class="padding-bottom">How much is this home worth today?</h4>
+    <div class="text-center">
+      <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{home.valuation | currency:undefined:0}}
       <span class="graycolor" style="font-size: 0.6em;font-weight:normal">
         &nbsp;({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)
       </span>
-    </h2>
-  </div>
-  <div class="range range-positive">
-    <input type="range" name="price" min="{{home.minValuation}}" max="{{home.maxValuation}}" ng-init="getDefaultValue()"
-           step="1000" ng-model="home.valuation" class="assertive">
-  </div>
-  <div layout="column" layout-align="center center" ng-show="!property.valuedThisHome">
-    <md-button class="md-raised md-warn"  ng-click="submitScore();" style="min-width: 200px;">
-      Submit Value
-    </md-button>
-    <md-button class="md-flat gray-light" ng-click="skip()" >
-      Skip
-    </md-button>
+      </h2>
+    </div>
+    <div class="range range-positive">
+      <input type="range" name="price" min="{{home.minValuation}}" max="{{home.maxValuation}}"
+             ng-init="getDefaultValue()" step="1000" ng-model="home.valuation" class="assertive">
+    </div>
+    <div layout="column" layout-align="center center">
+      <md-button class="md-raised md-warn" ng-click="submitScore();" style="min-width: 200px;">
+        Submit Value
+      </md-button>
+      <md-button class="md-flat gray-light md-button-small" ng-click="skip()">
+        SKIP TO NEXT HOME
+      </md-button>
+    </div>
   </div>
   <div layout="column" layout-align="center center" ng-show="property.valuedThisHome">
-    <md-button class="md-raised md-warn" ng-click="skip();" style="min-width: 200px;">
-      View Next Home
+    <div class="padding-left padding-right text-center" ng-show="property.valuedThisHome">
+      <h5 class="padding-bottom graycolor">You have valued this home before</h5>
+      <h5>CURRENT UNLYSTED VALUE</h5>
+      <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">
+        {{property.crowdvalue |currency:undefined:0}} </h2>
+       <span class="graycolor" style="font-size: smaller;font-weight:normal">
+         ({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)
+       </span>
+    </div>
+    <md-button class="md-flat gray-light md-button-small" ng-click="skip()">
+      SKIP TO NEXT HOME
     </md-button>
-
   </div>
   <div style="padding-top:40px;"></div>
 </div>

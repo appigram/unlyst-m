@@ -45,11 +45,24 @@ starterControllers
       var i = $rootScope.homes.indexes[$stateParams.id];
       $rootScope.homes.current = $stateParams.id;
       $scope.property = houses[i];
-      $scope.hideDetail = true;
+      $scope.hideDetail = true
 
+      //TODO:refactor this
       if ($rootScope.authData && !$rootScope.authData.admin) {
         //User has valued this home before
-        $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+        if ($state.current.name === 'home') {
+          $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+        } else if ($state.current.name === 'bump') {
+          $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.bump, $scope.property.houseId.toString());
+        }
+
+      }
+      if ($rootScope.anonymousAuth) {
+        if ($state.current.name === 'home') {
+          $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.valuations, $scope.property.houseId.toString());
+        } else if ($state.current.name === 'bump') {
+          $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.bump, $scope.property.houseId.toString());
+        }
       }
       $scope.map = {
         lat: $scope.property.lat,
@@ -162,34 +175,43 @@ starterControllers
         $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
         $scope.valuation.reputation = 'N/A';
         postValuationPopup();
-        if (!$scope.stopRecording && $scope.authData) {
+        var auth = $scope.authData;
+        if (!$scope.authData && $scope.anonymousAuth) {
+          auth = $scope.anonymousAuth;
+        }
+
+        if (!$scope.stopRecording && auth) {
           if (!$scope.property.crowdvalue) {
             $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
             return;
           }
-          if (!$rootScope.authData.admin) {
+          if (auth && !auth.admin) {
             //User has valued this home before
             $scope.property.valuedThisHome = true;
           }
-          var oldReputation = $scope.authData.reputation || 10;
-          fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
-          var change = ($scope.authData.reputation - oldReputation).toFixed(1);
-          $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
+          var oldReputation = auth.reputation || 10;
+          fireBaseData.saveValuation($scope.home.valuation, auth, $scope.property);
+          var change = (auth.reputation - oldReputation).toFixed(1);
+          $scope.valuation.reputation = auth.reputation.toFixed(1);
           $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
         }
         $rootScope.homes.valued += 1;
       };
       $scope.submitBump = function (up) {
-        if (!$scope.stopRecording && $scope.authData) {
+        var auth = $scope.authData;
+        if (!$scope.authData && $scope.anonymousAuth) {
+          auth = $scope.anonymousAuth;
+        }
+        if (!$scope.stopRecording && auth) {
           if (!$scope.property.crowdvalue) {
             $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
             return;
           }
-          if (!$rootScope.authData.admin) {
+          if (!auth.admin) {
             //User has valued this home before
             $scope.property.valuedThisHome = true;
           }
-          fireBaseData.saveBump(up, $scope.authData, $scope.property);
+          fireBaseData.saveBump(up, auth, $scope.property);
           $scope.valuation.bumpvalue = $scope.property.bumpvalue;
           $scope.valuation.bumpChange = $scope.property.bumpChange;
           postBumpPopup();
@@ -198,10 +220,10 @@ starterControllers
       };
 
       $scope.skip = function () {
-        $timeout(function(){
+        $timeout(function () {
           $ionicSlideBoxDelegate.update();
           $ionicSlideBoxDelegate.slide(0);
-        },0);
+        }, 0);
 
         $scope.clickNext();
       }
@@ -215,7 +237,7 @@ starterControllers
         }
         if ($state.current.name === 'home') {
           $state.go('home', {'id': houses[i].houseId});
-        } else if($state.current.name === 'bump'){
+        } else if ($state.current.name === 'bump') {
           $state.go('bump', {'id': houses[i].houseId});
         }
         //if user already reached their trial or they just reached their trial
