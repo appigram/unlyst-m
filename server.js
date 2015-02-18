@@ -6,7 +6,7 @@ multer = require('multer'),
 aws = require("aws-sdk"),
 compress = require('compression'),
 fs = require("fs"),
-easyImg = require("easyimage");
+im = require('imagemagick');
 
 app = express();
 
@@ -58,48 +58,6 @@ aws.config.update({
 aws.config.region = 'us-east-1';
 var s3 = new aws.S3();
 
-/*app.post('/upload', function (req,res){
- console.log(req.body);
- //var file_name ='image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
- var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
- console.log(req.files);
- easyImg.convert({
- src: req.files.file.path,
- dst: req.files.file.path,
- quality: 80
- }).then(function(image){
- var data = fs.readFileSync(req.files.file.path);
- console.log(data);
- var params = {
- Bucket: S3_BUCKET,
- Key: file_name,
- ACL: 'public-read',
- ContentType: 'image/jpeg',
- //Body:req.files.file.buffer,
- Body: data,
- ServerSideEncryption: 'AES256'
- };
- s3.putObject(params, function(err, data) {
- if(err) {
- // There Was An Error With Your S3 Config
- res.end("Error: failed to upload pictures");
- return false;
- } else {
- // Success!
- console.log("Success");
- res.json({
- "url": GLOBAL_CDN + file_name,
- "index": req.body.imageNum
- });
- }
- }).on('httpUploadProgress',function(progress) {
- // Log Progress Information
- console.log(Math.round(progress.loaded / progress.total * 100) + '% done');
- });
- },function(err){
- console.log(err);
- });
- }); */
 
 app.post('/upload', function (req, res) {
   var folderName = 'image/homes/';
@@ -110,8 +68,6 @@ app.post('/upload', function (req, res) {
   }
   var file_name = folderName + req.body.houseId + '/' + req.body.imageNum + '.' + req.files.file.extension;
   //var file_name ='test/image/homes/' + req.body.houseId+ '/' + req.body.imageNum + '.' +req.files.file.extension;
-  console.log(req.files);
-  console.log(file_name);
   var params = {
     Bucket: S3_BUCKET,
     Key: file_name,
@@ -121,6 +77,17 @@ app.post('/upload', function (req, res) {
     //Body: data,
     ServerSideEncryption: 'AES256'
   };
+  //resize not working yet
+  //im.resize({
+  //  srcPath: req.files.file.path,
+  //  dstPath: 'kittens-small.jpg',
+  //  width:   256
+  //}, function(err, stdout, stderr){
+  //  if (err) {
+  //    console.log(err);
+  //    console.log('resized kittens.jpg to fit within 256x256px');
+  //  }
+  //});
   s3.putObject(params, function (err, data) {
     if (err) {
       // There Was An Error With Your S3 Config

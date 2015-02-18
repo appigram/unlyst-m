@@ -1,8 +1,9 @@
 starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
-  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
-                                                                                          $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
+  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema',
+  function ($scope, $rootScope, fireBaseData, $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog,
+            $state, $stateParams, homeSchema) {
     //bind model to scope; set valuation
     $scope.home = {};
 
@@ -116,7 +117,6 @@ starterControllers
           $scope.clickNext();
         });
       };
-
 
       //no more homes popup
       var noMoreHomesPopup = function () {
