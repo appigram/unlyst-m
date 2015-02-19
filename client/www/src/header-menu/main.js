@@ -1,5 +1,5 @@
 starterControllers
-.controller('MainCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav) {
+.controller('MainCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav, $http) {
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
     if (authData && authData.provider !== 'anonymous') {
@@ -12,8 +12,8 @@ starterControllers
     } else if (authData && authData.provider === 'anonymous') {
       var ref = fireBaseData.refUsers().child(authData.uid);
       ref.on("value", function (snap) {
-        if(!snap.val()){
-          authAnonymously();
+        if (!snap.val()) {
+          //authAnonymously();
           return;
         }
         $rootScope.anonymousAuth = snap.val();
@@ -22,16 +22,21 @@ starterControllers
       authAnonymously();
     }
   };
-  var authAnonymously = function() {
+  var authAnonymously = function () {
     fireBaseData.ref().authAnonymously(function (error, authData) {
       if (error) {
         console.log("Login Failed!", error);
       } else {
         authData.updated = Firebase.ServerValue.TIMESTAMP;
-        /* SAVE PROFILE DATA */
-        var usersRef = fireBaseData.refUsers();
-        //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
-        usersRef.child(authData.uid).update(authData);
+        authData.geo = {};
+        $http.get('http://ipinfo.io/json').
+        success(function (data) {
+          authData.geo = data;
+          fireBaseData.refUsers().child(authData.uid).update(authData);
+        }).
+        error(function () {
+          fireBaseData.refUsers().child(authData.uid).update(authData);
+        });
       }
     });
   }

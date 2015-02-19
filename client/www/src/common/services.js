@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('fireBaseData', ['$firebase', 'utility', function ($firebase, utility) {
+.factory('fireBaseData', ['$firebase', 'utility', '$http', function ($firebase, utility, $http) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var homeInfo;
@@ -13,14 +13,14 @@ angular.module('starter.services', [])
   homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
   valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
   refUserConfig = 'https://fiery-heat-1976.firebaseio.com/user/';
-  bumpData ='https://fiery-heat-1976.firebaseio.com/bump-prod/';
+  bumpData = 'https://fiery-heat-1976.firebaseio.com/bump-prod/';
   /* @endif */
 
   /* @if NODE_ENV='development' */
   homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
   valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations';
   refUserConfig = "https://fiery-heat-1976.firebaseio.com/user-test/";
-  bumpData ='https://fiery-heat-1976.firebaseio.com/bump-test/';
+  bumpData = 'https://fiery-heat-1976.firebaseio.com/bump-test/';
   /* @endif */
 
   var ref = new Firebase(refConfig);
@@ -41,7 +41,7 @@ angular.module('starter.services', [])
     refUsers: function () {
       return refUser;
     },
-    saveValuation: function saveValuation(value, authData, property) {
+    saveValuation: function saveValuation(value, authData, property,analytics) {
 
       if (refUser == null || authData == null) {
         return;
@@ -83,7 +83,8 @@ angular.module('starter.services', [])
         "userID": authData.uid,
         "userSubmittedValue": parseInt(value),
         "userReputation": authData.reputation,
-        "accuracy": accuracy
+        "accuracy": accuracy,
+        "analytics": analytics
       };
 
       refValuation.push(valuation);
@@ -94,7 +95,7 @@ angular.module('starter.services', [])
       refHomes.child(property.$id + '/crowdvalue').set(newCrowdValue);
       return 1;
     },
-    saveBump: function saveValuation(value, authData, property) {
+    saveBump: function saveValuation(value, authData, property,analytics) {
 
       if (refUser == null || authData == null) {
         return;
@@ -127,7 +128,8 @@ angular.module('starter.services', [])
         "homeID": property.houseId,
         "homeValue": newBumpValue,
         "userID": authData.uid,
-        "userSubmittedqValue": value
+        "userSubmittedqValue": value,
+        "analytics": analytics
       };
       refBump.push(bump);
       refUser.child(authData.uid + '/bump').push(bump);

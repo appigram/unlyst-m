@@ -1,6 +1,6 @@
 starterControllers
 
-.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
+.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout,$http) {
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
     if (authData && authData.provider !== 'anonymous') {
@@ -42,8 +42,15 @@ starterControllers
     authData.updated = Firebase.ServerValue.TIMESTAMP;
     /* SAVE PROFILE DATA */
     var usersRef = fireBaseData.refUsers();
-    //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
-    usersRef.child(authData.uid).update(authData);
+    $http.get('http://ipinfo.io/json').
+    success(function (data) {
+      authData.geo = data;
+      //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
+      usersRef.child(authData.uid).update(authData);
+    }).
+    error(function (err) {
+      usersRef.child(authData.uid).update(authData);
+    });
   };
 
   $scope.signIn = function (user, validForm) {
@@ -86,7 +93,7 @@ starterControllers
       }, 100);
     });
   };
-  var socialAuthRedirect = function(provider, dataScope){
+  var socialAuthRedirect = function (provider, dataScope) {
     var scope = {scope: dataScope};
     fireBaseData.ref().authWithOAuthRedirect(provider, function (error, authData) {
       if (error) {

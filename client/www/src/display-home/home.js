@@ -191,7 +191,7 @@ starterControllers
             $scope.property.valuedThisHome = true;
           }
           var oldReputation = auth.reputation || 10;
-          fireBaseData.saveValuation($scope.home.valuation, auth, $scope.property);
+          fireBaseData.saveValuation($scope.home.valuation, auth, $scope.property,$rootScope.analytics);
           var change = (auth.reputation - oldReputation).toFixed(1);
           $scope.valuation.reputation = auth.reputation.toFixed(1);
           $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
@@ -212,20 +212,20 @@ starterControllers
             //User has valued this home before
             $scope.property.valuedThisHome = true;
           }
-          fireBaseData.saveBump(up, auth, $scope.property);
+          fireBaseData.saveBump(up, auth, $scope.property, $rootScope.analytics);
           $scope.valuation.bumpvalue = $scope.property.bumpvalue;
           $scope.valuation.bumpChange = $scope.property.bumpChange;
           postBumpPopup();
         }
         $rootScope.homes.valued += 1;
       };
-
       $scope.skip = function () {
         $timeout(function () {
           $ionicSlideBoxDelegate.update();
           $ionicSlideBoxDelegate.slide(0);
         }, 0);
 
+        mixpanel.track("skip" + $scope.property.houseId);
         $scope.clickNext();
       }
 
