@@ -262,6 +262,7 @@ angular.module('starter.services', [])
       return accuracy;
     },
     hasValuedPropertyBefore: function (valuations, homeID) {
+      return false;
       var valuedBefore = false;
       //angular forEach does not support break
       angular.forEach(valuations, function (value, key) {

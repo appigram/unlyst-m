@@ -28,7 +28,7 @@
       <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">
         {{property.crowdvalue |currency:undefined:0}} </h2>
        <span class="graycolor" style="font-size: smaller;font-weight:normal">
-         ({{home.valuation/property.size | currency:undefined:0}} per ft<sup>2</sup>)
+         ({{property.crowdvalue/property.size | currency:undefined:0}} per ft<sup>2</sup>)
        </span>
     </div>
     <md-button class="md-flat gray-light md-button-small" ng-click="skip()">

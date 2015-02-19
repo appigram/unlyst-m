@@ -3,7 +3,7 @@ starterControllers
 .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
-    if (authData) {
+    if (authData && authData.provider !== 'anonymous') {
       var ref = fireBaseData.refUsers().child(authData.uid);
       ref.on("value", function (snap) {
         $rootScope.authData = snap.val();

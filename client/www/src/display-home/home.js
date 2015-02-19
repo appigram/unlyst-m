@@ -45,7 +45,7 @@ starterControllers
       var i = $rootScope.homes.indexes[$stateParams.id];
       $rootScope.homes.current = $stateParams.id;
       $scope.property = houses[i];
-      $scope.hideDetail = true
+      $scope.hideDetail = true;
 
       //TODO:refactor this
       if ($rootScope.authData && !$rootScope.authData.admin) {
@@ -64,6 +64,7 @@ starterControllers
           $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.bump, $scope.property.houseId.toString());
         }
       }
+
       $scope.map = {
         lat: $scope.property.lat,
         lng: $scope.property.lng,
