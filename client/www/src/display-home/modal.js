@@ -18,7 +18,7 @@ starterControllers
     }
   };
   $scope.valuation = valuation;
-  $scope.valuation.previousBumpValue = $scope.valuation.bumpvalue + $scope.valuation.bumpChange;
+  $scope.valuation.previousBumpValue = $scope.valuation.bumpvalue - $scope.valuation.bumpChange;
   var tick = $scope.valuation.bumpChange/100;
   $scope.valuation.countUp = 0;
   $interval(function(){
