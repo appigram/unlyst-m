@@ -50,7 +50,7 @@ angular.module('starter.services', [])
       var valuedBefore = false;
       if (authData.valuations) {
         valuedBefore = utility.hasValuedPropertyBefore(authData.valuations, property.houseId.toString());
-        if (valuedBefore) {
+        if (valuedBefore && !authData.admin) {
           console.log('User valued this property before');
           return;
         }
@@ -73,6 +73,7 @@ angular.module('starter.services', [])
       var newrepuationTotal = property.totalReputation + userReputation;
       var newCrowdValue = (property.crowdvalue * property.totalReputation +
       value * userReputation) / (property.totalReputation + userReputation);
+      authData.reputation = userReputation;
 
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
