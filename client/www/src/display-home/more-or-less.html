@@ -12,9 +12,9 @@
     </md-button>
     <div class="padding-left padding-right">
       <h5>CURRENT UNLYSTED VALUE</h5>
-      <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{property.crowdvalue | currency:undefined:0}}</h2>
+      <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{property.bumpvalue | currency:undefined:0}}</h2>
        <span class="graycolor" style="font-size: smaller;font-weight:normal">
-         ({{property.crowdvalue/property.size | currency:undefined:0}} per ft<sup>2</sup>)
+         ({{property.bumpvalue/property.size | currency:undefined:0}} per ft<sup>2</sup>)
        </span>
     </div>
     <md-button class="md-fab md-button-small text-center" style="background-color:white" aria-label="Less" ng-click="submitBump(true);">
@@ -24,9 +24,9 @@
   <div class="padding-left padding-right text-center" ng-show="property.valuedThisHome">
     <h5 class="padding-bottom graycolor">You have valued this home before</h5>
     <h5>CURRENT UNLYSTED VALUE</h5>
-    <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{property.crowdvalue | currency:undefined:0}}</h2>
+    <h2 style="font-weight: bold;margin-top:5px;margin-bottom:5px;">{{property.bumpvalue | currency:undefined:0}}</h2>
        <span class="graycolor" style="font-size: smaller;font-weight:normal">
-         ({{property.crowdvalue/property.size | currency:undefined:0}} per ft<sup>2</sup>)
+         ({{property.bumpvalue/property.size | currency:undefined:0}} per ft<sup>2</sup>)
        </span>
   </div>
   <div class="text-center">

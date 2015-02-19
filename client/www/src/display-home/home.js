@@ -114,7 +114,7 @@ starterControllers
           $ionicSlideBoxDelegate.update();
           return true;
         }, 500);
-      }
+      };
 
       //post valuation modal popup
       var postValuationPopup = function () {
@@ -227,7 +227,7 @@ starterControllers
 
         mixpanel.track("skip" + $scope.property.houseId);
         $scope.clickNext();
-      }
+      };
 
       $scope.clickNext = function () {
         var length = houses.length;
