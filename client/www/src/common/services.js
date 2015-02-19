@@ -115,9 +115,9 @@ angular.module('starter.services', [])
       }
       var newBumpValue = property.bumpvalue;
       if (value === true) {
-        newBumpValue = property.bumpvalue * 1.02;
+        newBumpValue = property.bumpvalue * 1.01;
       } else {
-        newBumpValue = property.bumpvalue * 0.98;
+        newBumpValue = property.bumpvalue * 0.99;
       }
       property.bumpChange = newBumpValue - property.bumpvalue;
       property.bumpvalue = newBumpValue;
