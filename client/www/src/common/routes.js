@@ -71,11 +71,15 @@ angular.module('starter.routes', [])
     templateUrl: 'src/add-home/success.html',
     controller: 'AddHomeCtrl'
     })
-
   .state('search', {
     url: '/search',
     templateUrl: 'src/search/search.html',
     controller: 'SearchCtrl'
+  })
+  .state('searchResult', {
+    url: '/search?location&maxPrice&squarefoot&bedrooms&bathrooms',
+    templateUrl: 'src/display-home/list.html',
+    controller: 'searchResultCtrl'
   })
   .state('valuedHomes', {
     url: '/valuedHomes',
