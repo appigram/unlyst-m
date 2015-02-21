@@ -1,7 +1,31 @@
 starterControllers
 
-.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout) {
+.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout,$http) {
+  var updateAuth = function () {
+    var authData = fireBaseData.ref().getAuth();
+    if (authData && authData.provider !== 'anonymous') {
+      var ref = fireBaseData.refUsers().child(authData.uid);
+      ref.on("value", function (snap) {
+        $rootScope.authData = snap.val();
+        $rootScope.authData.userDisplayName = fireBaseData.getUserDisplayName($rootScope.authData);
+        $rootScope.authData.userProfilePicture = fireBaseData.getUserProfilePicture($rootScope.authData);
+      });
+    }
+  };
 
+  $scope.$on('updateauth', function () {
+    updateAuth();
+  });
+  fireBaseData.ref().onAuth(function () {
+    updateAuth();
+  });
+  $rootScope.getReputationIcon = function () {
+    var number = Math.round($rootScope.authData.reputation);
+    if (number < 10) {
+      number = '0' + number;
+    }
+    return 'http://google-maps-icons.googlecode.com/files/red' + number + '.png'
+  };
   $scope.hideBackButton = true;
 
   $rootScope.user = {};
@@ -12,15 +36,21 @@ starterControllers
     saveUserProfile(authData);
     $scope.$broadcast('updateauth');
     $state.go('home');
-
   }
 
   function saveUserProfile(authData) {
     authData.updated = Firebase.ServerValue.TIMESTAMP;
     /* SAVE PROFILE DATA */
     var usersRef = fireBaseData.refUsers();
-    //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
-    usersRef.child(authData.uid).update(authData);
+    $http.get('http://ipinfo.io/json').
+    success(function (data) {
+      authData.geo = data;
+      //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
+      usersRef.child(authData.uid).update(authData);
+    }).
+    error(function (err) {
+      usersRef.child(authData.uid).update(authData);
+    });
   };
 
   $scope.signIn = function (user, validForm) {
@@ -63,7 +93,7 @@ starterControllers
       }, 100);
     });
   };
-  var socialAuthRedirect = function(provider, dataScope){
+  var socialAuthRedirect = function (provider, dataScope) {
     var scope = {scope: dataScope};
     fireBaseData.ref().authWithOAuthRedirect(provider, function (error, authData) {
       if (error) {

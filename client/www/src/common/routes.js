@@ -14,6 +14,11 @@ angular.module('starter.routes', [])
     templateUrl: 'src/display-home/home.html',
     controller: 'HomeCtrl'
   })
+  .state('bump', {
+    url: '/bump/:id',
+    templateUrl: 'src/display-home/home-bump.html',
+    controller: 'HomeCtrl'
+  })
   .state('login', {
     url: '/login',
     templateUrl: 'src/auth/login.html',
@@ -66,11 +71,15 @@ angular.module('starter.routes', [])
     templateUrl: 'src/add-home/success.html',
     controller: 'AddHomeCtrl'
     })
-
   .state('search', {
     url: '/search',
     templateUrl: 'src/search/search.html',
     controller: 'SearchCtrl'
+  })
+  .state('searchResult', {
+    url: '/search?location&maxPrice&squarefoot&bedrooms&bathrooms',
+    templateUrl: 'src/display-home/list.html',
+    controller: 'searchResultCtrl'
   })
   .state('valuedHomes', {
     url: '/valuedHomes',
@@ -84,7 +93,7 @@ angular.module('starter.routes', [])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home/-1');
+  $urlRouterProvider.otherwise('/home/0');
   //remove # from url
   //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
   //$locationProvider.html5Mode(true).hashPrefix('!');

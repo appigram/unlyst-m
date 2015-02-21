@@ -28,9 +28,9 @@ starter
   })
 })
 
-.config(function ($ionicConfigProvider) {
-  $ionicConfigProvider.views.transition('none');
-})
+//.config(function ($ionicConfigProvider) {
+//  $ionicConfigProvider.views.transition('none');
+//})
 
 .run(function ($rootScope, $ionicLoading,$ionicPopup) {
   $rootScope.$on('loading:show', function () {
@@ -84,11 +84,11 @@ starter
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    if(typeof analytics !== "undefined") {
-      analytics.startTrackerWithId("UA-57937417-1");
-    } else {
-      console.log("Google Analytics Unavailable for IOS/Android");
-    }
+    //if(typeof analytics !== "undefined") {
+    //  analytics.startTrackerWithId("UA-57937417-1");
+    //} else {
+    //  console.log("Google Analytics Unavailable for IOS/Android");
+    //}
   })
 });
 

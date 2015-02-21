@@ -4,16 +4,16 @@
       <h3>Tell us what kind of home you are looking for and we'll do the rest!</h3>
     </div>
     <md-input-container disableTap>
-      <label>Location(Neighorhood, Postal Code or Address)</label>
+      <label>Location (neighorhood, postal code or address)</label>
       <input label="Location" ng-model="search.location" name="location" placeholder="" ng-autocomplete
              options="{country: 'ca'}">
     </md-input-container>
     <md-input-container>
-      <label>Price($)</label>
-      <input label="Price" ng-model="price" name="price" numbers-only>
+      <label>Maximum Price ($)</label>
+      <input label="Price" ng-model="search.maxPrice" name="price" numbers-only>
     </md-input-container>
     <md-input-container>
-      <label>Mininum square footage(interior space)</label>
+      <label>Mininum Square Footage (interior space)</label>
       <input label="squarefoot" ng-model="search.sqaurefoot" name="squarefoot" numbers-only>
     </md-input-container>
     <md-input-container>
@@ -27,7 +27,7 @@
       <input ng-model="search.bathrooms" ng-hide="true">
     </md-input-container>
     <div class="text-center">
-      <md-button class="md-warn md-raised">Search</md-button>
+      <md-button class="md-warn md-raised" ng-click="searchHomes()">Search</md-button>
     </div>
   </ion-content>
 </ion-view>

@@ -4,15 +4,15 @@ starterControllers
   $scope.activeSlide = 0;
   $scope.next = function () {
     $ionicSlideBoxDelegate.next();
+
   };
   $scope.previous = function () {
     $ionicSlideBoxDelegate.previous();
   };
 
-  $ionicSlideBoxDelegate.update();
-
   var updateTabs = function () {
     numSlides = $ionicSlideBoxDelegate.count();
+
     $scope.curPhotoSlide = $scope.curInfoSlide = '';
     if (isPhotoSlide()) {
       var curSlide = $scope.activeSlide + 1;
@@ -23,13 +23,25 @@ starterControllers
       $scope.curInfoSlide = curSlide + '/' + 3;
     }
   };
+  $scope.recordSlide = function(){
+    console.log($scope.activeTab());
+  };
+  $rootScope.analytics = {};
+  $rootScope.analytics.slideIndex = [];
+  $rootScope.analytics.tabInex = [];
 
   // Called each time the slide changes
   $scope.slideHasChanged = function (index) {
-    $ionicSlideBoxDelegate.slide(index);
     $scope.activeSlide = index;
-    $ionicSlideBoxDelegate.update();
     updateTabs();
+    $rootScope.analytics.slideIndex.push(index);
+    $rootScope.analytics.tabInex.push($scope.activeTab());
+    console.log($rootScope.analytics);
+  };
+
+  $scope.changeSlide = function(index) {
+    $scope.activeSlide = index;
+    $ionicSlideBoxDelegate.slide(index);
   };
 
   $scope.activeTab = function() {
@@ -37,11 +49,12 @@ starterControllers
       return 0
     } else if(isInfoSlide()) {
       return 1
-    } else {
+    } else if(isMapSlide()){
       return 2;
     }
+    return 0;
   };
-  var numSlides = 0;
+  var numSlides = $ionicSlideBoxDelegate.count();
   $scope.curPhotoSlide = $scope.curInfoSlide = '';
 
   var isPhotoSlide = function () {
@@ -51,9 +64,11 @@ starterControllers
     return $scope.activeSlide < numSlides - 1
     && $scope.activeSlide >= numSlides - 3 - 1;
   };
+  var isMapSlide = function () {
+    return $scope.activeSlide === numSlides-1;
+  };
   $scope.$on('updateTabs', function() {
     $timeout(function () {
-      $ionicSlideBoxDelegate.update();
       updateTabs();
     }, 100);
   });

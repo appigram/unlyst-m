@@ -1,30 +1,33 @@
 angular.module('starter.services', [])
 
-.factory('fireBaseData', ['$firebase', 'utility', function ($firebase, utility) {
+.factory('fireBaseData', ['$firebase', 'utility', '$http', function ($firebase, utility, $http) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var homeInfo;
   var valuationData;
+  var bumpData;
   var refUserConfig;
   var refConfig = 'https://fiery-heat-1976.firebaseio.com';
 
   /* @if NODE_ENV='production' */
   homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst/';
   valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations-prod';
-  refUserConfig = "https://fiery-heat-1976.firebaseio.com/user/";
+  refUserConfig = 'https://fiery-heat-1976.firebaseio.com/user/';
+  bumpData = 'https://fiery-heat-1976.firebaseio.com/bump-prod/';
   /* @endif */
 
   /* @if NODE_ENV='development' */
   homeInfo = 'https://fiery-heat-1976.firebaseio.com/unlyst-test/';
   valuationData = 'https://fiery-heat-1976.firebaseio.com/valuations';
   refUserConfig = "https://fiery-heat-1976.firebaseio.com/user-test/";
+  bumpData = 'https://fiery-heat-1976.firebaseio.com/bump-test/';
   /* @endif */
 
   var ref = new Firebase(refConfig);
   var refHomes = new Firebase(homeInfo);
   var refValuation = new Firebase(valuationData);
   var refUser = new Firebase(refUserConfig);
-
+  var refBump = new Firebase(bumpData);
   return {
     ref: function () {
       return ref;
@@ -41,7 +44,8 @@ angular.module('starter.services', [])
     index: function(index) {
       return new Firebase(homeInfo + index)
     },
-    saveValuation: function saveValuation(value, authData, property) {
+    saveValuation: function saveValuation(value, authData, property,analytics) {
+
       if (refUser == null || authData == null) {
         return;
       }
@@ -49,7 +53,7 @@ angular.module('starter.services', [])
       var valuedBefore = false;
       if (authData.valuations) {
         valuedBefore = utility.hasValuedPropertyBefore(authData.valuations, property.houseId.toString());
-        if (valuedBefore) {
+        if (valuedBefore && !authData.admin) {
           console.log('User valued this property before');
           return;
         }
@@ -72,6 +76,7 @@ angular.module('starter.services', [])
       var newrepuationTotal = property.totalReputation + userReputation;
       var newCrowdValue = (property.crowdvalue * property.totalReputation +
       value * userReputation) / (property.totalReputation + userReputation);
+      authData.reputation = userReputation;
 
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
@@ -81,7 +86,8 @@ angular.module('starter.services', [])
         "userID": authData.uid,
         "userSubmittedValue": parseInt(value),
         "userReputation": authData.reputation,
-        "accuracy": accuracy
+        "accuracy": accuracy,
+        "analytics": analytics
       };
 
       refValuation.push(valuation);
@@ -92,26 +98,66 @@ angular.module('starter.services', [])
       refHomes.child(property.$id + '/crowdvalue').set(newCrowdValue);
       return 1;
     },
+    saveBump: function saveValuation(value, authData, property,analytics) {
+
+      if (refUser == null || authData == null) {
+        return;
+      }
+      //has this user valued this property before?
+      var valuedBefore = false;
+      if (authData.bumps) {
+        valuedBefore = utility.hasValuedPropertyBefore(authData.bumps, property.houseId.toString());
+        if (valuedBefore) {
+          console.log('User valued this property before');
+          return;
+        }
+      }
+      if (!property.bumpvalue) {
+        property.bumpvalue = property.crowdvalue;
+        refHomes.child(property.$id + '/bumpvalue').set(property.crowdvalue);
+      }
+      var newBumpValue = property.bumpvalue;
+      if (value === true) {
+        newBumpValue = property.bumpvalue * 1.01;
+      } else {
+        newBumpValue = property.bumpvalue * 0.99;
+      }
+      property.bumpChange = newBumpValue - property.bumpvalue;
+      property.bumpvalue = newBumpValue;
+      console.log('bump value:' + newBumpValue);
+      console.log('bump value changed :' + property.bumpChange);
+      var bump = {
+        "created": Firebase.ServerValue.TIMESTAMP,
+        "homeID": property.houseId,
+        "homeValue": newBumpValue,
+        "userID": authData.uid,
+        "userSubmittedqValue": value,
+        "analytics": analytics
+      };
+      refBump.push(bump);
+      refUser.child(authData.uid + '/bump').push(bump);
+      refHomes.child(property.$id + '/bumps').push(bump);
+      refHomes.child(property.$id + '/bumpvalue').set(newBumpValue);
+    },
     getUserDisplayName: function (rootAuth) {
       var name;
       if (!rootAuth) {
         return null;
-      }
-      else if (rootAuth.provider === 'google') {
+      } else if (rootAuth.provider === 'google') {
         name = rootAuth.google.displayName;
-      }
-      else if (rootAuth.provider === 'facebook') {
+      } else if (rootAuth.provider === 'facebook') {
         name = rootAuth.facebook.displayName;
-      }
-      else if (rootAuth.provider === 'twitter') {
+      } else if (rootAuth.provider === 'twitter') {
         name = rootAuth.twitter.displayName;
-      }
-      else if (rootAuth.provider === 'password') {
+      } else if (rootAuth.provider === 'password') {
         if (rootAuth.user == null) {
           return '';
         }
         name = rootAuth.user.firstname + ' ' + rootAuth.user.lastname;
+      } else if (rootAuth.provider === 'anonymous') {
+        name = 'anonymous user';
       }
+
       var full = false;
       if (full) {
         return name;
@@ -137,11 +183,11 @@ angular.module('starter.services', [])
       }
 
     },
-    likesHome: function(rootAuth,houseId){
-      if(!rootAuth){
+    likesHome: function (rootAuth, houseId) {
+      if (!rootAuth) {
         return;
       }
-      refUser.child(rootAuth.uid + '/likedHomes').push({'homeID': houseId,"created": Firebase.ServerValue.TIMESTAMP});
+      refUser.child(rootAuth.uid + '/likedHomes').push({'homeID': houseId, "created": Firebase.ServerValue.TIMESTAMP});
       return 1;
     }
   }
@@ -221,7 +267,7 @@ angular.module('starter.services', [])
       }
       return accuracy;
     },
-    hasValuedPropertyBefore: function (valuations,homeID){
+    hasValuedPropertyBefore: function (valuations, homeID) {
       var valuedBefore = false;
       //angular forEach does not support break
       angular.forEach(valuations, function (value, key) {

@@ -26,17 +26,42 @@ starterControllers
 
           var i = 0;
           if (!$stateParams.id || !($stateParams.id in houseIndexArr)) {
-            $state.go('home', {'id': $rootScope.singlehome.houseId});
+            //$state.go('home', {'id': $rootScope.singlehome.houseId});
+            //return;
+            if ($state.current.name === 'home') {
+              $state.go('home', {'id': $rootScope.singlehome.houseId});
+            } else if ($state.current.name === 'bump') {
+              $state.go('bump', {'id': $rootScope.singlehome.houseId});
+            }
             return;
           }
 
           $scope.property = $rootScope.singlehome;
           $scope.hideDetail = true;
 
+          //if ($rootScope.authData && !$rootScope.authData.admin) {
+          //   //User has valued this home before
+          //  $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+          //}
+
+          //TODO:refactor this
           if ($rootScope.authData && !$rootScope.authData.admin) {
-             //User has valued this home before
-            $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+            //User has valued this home before
+            if ($state.current.name === 'home') {
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+            } else if ($state.current.name === 'bump') {
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.bump, $scope.property.houseId.toString());
+            }
+
           }
+          if ($rootScope.anonymousAuth) {
+            if ($state.current.name === 'home') {
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.valuations, $scope.property.houseId.toString());
+            } else if ($state.current.name === 'bump') {
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.bump, $scope.property.houseId.toString());
+            }
+          }
+
           $scope.map = {
             lat: $scope.property.lat,
             lng: $scope.property.lng,
@@ -106,7 +131,24 @@ starterControllers
               $scope.clickNext();
             });
           };
-
+          //post valuation modal popup
+          var postBumpPopup = function () {
+            if (!$scope.property.crowdvalue) {
+              return;
+            }
+            $mdDialog.show({
+              controller: 'ModalCtrl',
+              templateUrl: 'src/display-home/modal-dialogs/post-valuation-bump.html',
+              locals: {
+                valuation: $scope.valuation,
+                houseId: $scope.property.houseId
+              }
+            }).then(function () {
+              $scope.clickNext();
+            }, function () {
+              $scope.clickNext();
+            });
+          };
            //no more homes popup
           var noMoreHomesPopup = function () {
             $mdDialog.show({
@@ -127,6 +169,10 @@ starterControllers
             $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
             $scope.valuation.reputation = 'N/A';
             postValuationPopup();
+            var auth = $scope.authData;
+            if (!$scope.authData && $scope.anonymousAuth) {
+              auth = $scope.anonymousAuth;
+            }
             if (!$scope.stopRecording && $scope.authData) {
               if (!$scope.property.crowdvalue) {
                 $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
