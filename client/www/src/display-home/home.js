@@ -256,7 +256,7 @@ starterControllers
       angular.forEach($scope.property.valuations, function (value, key) {
         valuations.push([
           value.created, // the date
-          value.homeValue // close
+          Math.round(value.homeValue) // close
         ]);
       });
 

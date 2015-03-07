@@ -25,9 +25,7 @@ starterControllers
       $scope.curInfoSlide = curSlide + '/' + infoSlideNum;
     }
   };
-  $scope.recordSlide = function(){
-    console.log($scope.activeTab());
-  };
+
   $rootScope.analytics = {};
   $rootScope.analytics.slideIndex = [];
   $rootScope.analytics.tabInex = [];
@@ -38,7 +36,6 @@ starterControllers
     updateTabs();
     $rootScope.analytics.slideIndex.push(index);
     $rootScope.analytics.tabInex.push($scope.activeTab());
-    console.log($rootScope.analytics);
   };
 
   $scope.changeSlide = function(index) {
