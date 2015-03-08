@@ -70,7 +70,7 @@ starter
 })
 .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-  .primaryColor('blue');
+  .primaryPalette('blue');
 })
 
 .run(function ($ionicPlatform) {
