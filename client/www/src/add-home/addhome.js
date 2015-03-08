@@ -180,5 +180,4 @@ starterControllers
     $scope.goToHome = function () {
       $state.go('home');
     }
-
   }]);
