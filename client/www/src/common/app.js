@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.routes', 'starter.controllers', 'starter.services',
   'starter.filters',  'starter.directives', 'ui.router', 'firebase', 'leaflet-directive', 'xeditable','angulartics',
-  'angulartics.google.analytics', 'ngMaterial', 'ngMessages','ngAutocomplete','google.places']);
+  'angulartics.google.analytics', 'ngMaterial', 'ngMessages','ngAutocomplete','google.places','highcharts-ng']);
 
 var starterControllers = angular.module('starter.controllers', []);
 
@@ -28,9 +28,9 @@ starter
   })
 })
 
-//.config(function ($ionicConfigProvider) {
-//  $ionicConfigProvider.views.transition('none');
-//})
+.config(function ($ionicConfigProvider) {
+  $ionicConfigProvider.views.transition('none');
+})
 
 .run(function ($rootScope, $ionicLoading,$ionicPopup) {
   $rootScope.$on('loading:show', function () {
@@ -70,7 +70,7 @@ starter
 })
 .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-  .primaryColor('blue');
+  .primaryPalette('blue');
 })
 
 .run(function ($ionicPlatform) {
