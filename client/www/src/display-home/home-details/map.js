@@ -31,7 +31,7 @@ starterControllers
       lng: $scope.$parent.map.lng,
       zoom: $scope.$parent.defaultzoom
     };
-
+    console.log($scope.map);
     $scope.markers = {
       osloMarker: {
         lat: $scope.$parent.map.lat,

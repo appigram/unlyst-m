@@ -39,42 +39,25 @@ starterControllers
           $scope.property = $rootScope.singlehome;
           $scope.hideDetail = true;
 
-          //if ($rootScope.authData && !$rootScope.authData.admin) {
-          //   //User has valued this home before
-          //  $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
-          //}
-
           //TODO:refactor this
           if ($rootScope.authData && !$rootScope.authData.admin) {
             //User has valued this home before
             if ($state.current.name === 'home') {
-              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
+              console.log($scope.property.houseId);
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $rootScope.singlehome.houseId.toString());
             } else if ($state.current.name === 'bump') {
-              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.bump, $scope.property.houseId.toString());
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.bump, $rootScope.singlehome.houseId.toString());
             }
 
           }
           if ($rootScope.anonymousAuth) {
             if ($state.current.name === 'home') {
-              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.valuations, $scope.property.houseId.toString());
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.valuations, $rootScope.singlehome.houseId.toString());
             } else if ($state.current.name === 'bump') {
-              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.bump, $scope.property.houseId.toString());
+              $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.bump, $rootScope.singlehome.houseId.toString());
             }
           }
 
-          $scope.map = {
-            lat: $scope.property.lat,
-            lng: $scope.property.lng,
-            zoom: $scope.defaultzoom
-          };
-          $scope.markers = {
-            osloMarker: {
-              lat: $scope.property.lat,
-              lng: $scope.property.lng,
-              focus: true,
-              draggable: false
-            }
-          };
           $scope.valuation = {};
            //price slider
           $scope.home.minValuation = 100000;
@@ -183,17 +166,23 @@ starterControllers
                 $scope.property.valuedThisHome = true;
               }
               var oldReputation = $scope.authData.reputation || 10;
-              fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property);
+              fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property, $rootScope.analytics);
               var change = ($scope.authData.reputation - oldReputation).toFixed(1);
               $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
               $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
             }
             $rootScope.singlehome.valued += 1;
           };
+
+          //mixpanel uncomment this when the foreach is fixed
+          //mixpanel.track("viewHome",$scope.property.houseId);
+
           $scope.skip = function () {
             $ionicSlideBoxDelegate.slide(0);
             $ionicSlideBoxDelegate.update();
             $scope.clickNext();
+            //mixpanel
+            mixpanel.track("skipHome",$scope.property.houseId);
           };
 
           $scope.clickNext = function () {
@@ -211,6 +200,7 @@ starterControllers
             } else {
               $state.go('home', {'id': $rootScope.singlehome.houseId});
             }
+
           }
         });
 

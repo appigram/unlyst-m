@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('fireBaseData', ['$firebase', 'utility', '$http', function ($firebase, utility, $http) {
+.factory('fireBaseData', ['$firebase', 'utility', function ($firebase, utility) {
   //gulp-preprocess to change FIREBASE to production URL see root/gulpfile.js
   //Do not remove the comments below.
   var homeInfo;
@@ -41,10 +41,10 @@ angular.module('starter.services', [])
     refUsers: function () {
       return refUser;
     },
-    index: function(index) {
+    index: function (index) {
       return new Firebase(homeInfo + index)
     },
-    saveValuation: function saveValuation(value, authData, property,analytics) {
+    saveValuation: function saveValuation(value, authData, property, analytics) {
 
       if (refUser == null || authData == null) {
         return;
@@ -96,9 +96,11 @@ angular.module('starter.services', [])
       refHomes.child(property.$id + '/valuations').push(valuation);
       refHomes.child(property.$id + '/totalReputation').set(newrepuationTotal);
       refHomes.child(property.$id + '/crowdvalue').set(newCrowdValue);
+      //mixpanel
+      mixpanel.track("valueHome",valuation);
       return 1;
     },
-    saveBump: function saveValuation(value, authData, property,analytics) {
+    saveBump: function saveValuation(value, authData, property, analytics) {
 
       if (refUser == null || authData == null) {
         return;
@@ -138,8 +140,10 @@ angular.module('starter.services', [])
       refUser.child(authData.uid + '/bump').push(bump);
       refHomes.child(property.$id + '/bumps').push(bump);
       refHomes.child(property.$id + '/bumpvalue').set(newBumpValue);
+      //mixpanel
+      mixpanel.track("bumpHome",bump);
     },
-    getUserDisplayName: function (rootAuth) {
+    getUserDisplayName: function (rootAuth,full) {
       var name;
       if (!rootAuth) {
         return null;
@@ -158,12 +162,32 @@ angular.module('starter.services', [])
         name = 'anonymous user';
       }
 
-      var full = false;
       if (full) {
         return name;
       } else {
         return name.split(' ')[0]
       }
+    },
+    getUserEmail: function (rootAuth) {
+      var email;
+      if (!rootAuth) {
+        return null;
+      } else if (rootAuth.provider === 'google') {
+        email = rootAuth.google.email;
+      } else if (rootAuth.provider === 'facebook') {
+        email = rootAuth.facebook.email;
+      } else if (rootAuth.provider === 'twitter') {
+        //twitter doesn't give out emails...
+        email = '';
+      } else if (rootAuth.provider === 'password') {
+        if (rootAuth.user == null) {
+          return '';
+        }
+        email = rootAuth.password.email
+      } else if (rootAuth.provider === 'anonymous') {
+        email = '';
+      }
+      return email;
     },
     getUserProfilePicture: function (rootAuth) {
       if (!rootAuth) {
@@ -176,7 +200,7 @@ angular.module('starter.services', [])
         return rootAuth.facebook.cachedUserProfile.picture.data.url;
       }
       else if (rootAuth.provider === 'twitter') {
-        return rootAuth.twitter.cachedUserProfile.profile_image_url;
+        return '';
       }
       else if (rootAuth.provider === 'password') {
         return 'dist/img/home-thumbnail';
@@ -193,7 +217,45 @@ angular.module('starter.services', [])
   }
 }])
 
+.factory('mixpanel', ['fireBaseData', function (fireBaseData) {
+  return{
+    updateAnalytics: function(authData){
+      console.log(authData);
+      //mixpanel
+      mixpanel.identify(authData.uid);
+      var mixpanelData = {
+        "$name": fireBaseData.getUserDisplayName(authData,true),
+        "$email": fireBaseData.getUserEmail(authData),
+        "provider": authData.provider
+      };
+      mixpanelData.ip = authData.geo.ip;
+      mixpanelData.loc = authData.geo.loc;
+      mixpanelData.postal = authData.geo.postal;
+      mixpanel.people.set(mixpanelData);
+    }
+  }
+}])
+
 .factory('utility', [function ($scope) {
+  var flatten = function (ob) {
+    var toReturn = {};
+
+    for (var i in ob) {
+      if (!ob.hasOwnProperty(i)) continue;
+
+      if ((typeof ob[i]) == 'object') {
+        var flatObject = flatten(ob[i]);
+        for (var x in flatObject) {
+          if (!flatObject.hasOwnProperty(x)) continue;
+
+          toReturn[i + '.' + x] = flatObject[x];
+        }
+      } else {
+        toReturn[i] = ob[i];
+      }
+    }
+    return toReturn;
+  };
   return {
     shuffle: function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex;
@@ -277,11 +339,13 @@ angular.module('starter.services', [])
         }
       });
       return valuedBefore;
-    }
-  }
+    },
+    flattenObject: flatten
+}
 }])
 
-.factory('geocoding', [function () {
+.
+factory('geocoding', [function () {
   var geocoder = new google.maps.Geocoder();
   //hard coded for now
   var city = 'Toronto';

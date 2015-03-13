@@ -1,96 +1,22 @@
 starterControllers
 
-.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout,$http) {
-  //My code
-
-  $http.jsonp('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=JSON_CALLBACK').success(function (data) {
-
-    // split the data set into ohlc and volume
-    var ohlc = [],
-    volume = [],
-    dataLength = data.length,
-    // set the allowed units for data grouping
-    groupingUnits = [[
-      'week',                         // unit name
-      [1]                             // allowed multiples
-    ], [
-      'month',
-      [1, 2, 3, 4, 6]
-    ]],
-
-    i = 0;
-
-    for (i; i < dataLength; i += 1) {
-      ohlc.push([
-        data[i][0], // the date
-        data[i][1], // open
-        data[i][2], // high
-        data[i][3], // low
-        data[i][4] // close
-      ]);
-
-      volume.push([
-        data[i][0], // the date
-        data[i][5] // the volume
-      ]);
-    }
-
-    $scope.highchartsNG = {
-      options: {
-        chart: {
-          type: 'StockChart'
-        },
-        navigator: { enabled: true }
-      },
-      useHighStocks: true,
-      rangeSelector: {
-        inputEnabled:true,
-        selected: 1
-      },
-
-      title: {
-        text: 'Historic Unlyst Value'
-      },
-
-      yAxis: [{
-        labels: {
-          align: 'right',
-          x: -3
-        },
-        title: {
-          text: 'OHLC'
-        },
-        height: '60%',
-        lineWidth: 2
-      }, {
-        labels: {
-          align: 'right',
-          x: -3
-        },
-        title: {
-          text: 'Volume'
-        },
-        top: '65%',
-        height: '35%',
-        offset: 0,
-        lineWidth: 2
-      }],
-
-      series: [{
-        type: 'spline',
-        name: 'AAPL',
-        data: ohlc,
-        dataGrouping: {
-          units: groupingUnits
-        }
-      }]
-    };
-
-
-  });
-
-  //EO My code
-
+.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout, $http, mixpanel) {
+  ////test code. delete this later
+  //var req = {
+  //  url: '/sendmail',
+  //  method: 'POST',
+  //  data: {'email': 'louis.dm.li@gmail.com'},
+  //  headers: {'Content-Type': 'application/json'}
+  //};
+  //$http(req).success(function (res) {
+  //  if (res && res[0].status == 'sent') {
+  //    console.log('email sent to ' + res[0].email);
+  //  } else {
+  //    console.log('email not sent');
+  //  }
+  //}).error(function (err) {
+  //  console.log(err);
+  //});
 
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
@@ -129,6 +55,7 @@ starterControllers
     $state.go('home');
   }
 
+
   function saveUserProfile(authData) {
     authData.updated = Firebase.ServerValue.TIMESTAMP;
     /* SAVE PROFILE DATA */
@@ -138,6 +65,7 @@ starterControllers
       authData.geo = data;
       //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
       usersRef.child(authData.uid).update(authData);
+      mixpanel.updateAnalytics(authData);
     }).
     error(function (err) {
       usersRef.child(authData.uid).update(authData);

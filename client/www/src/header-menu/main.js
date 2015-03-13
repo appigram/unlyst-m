@@ -1,12 +1,12 @@
 starterControllers
-.controller('MainCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav, $http) {
+.controller('MainCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav, $http, mixpanel) {
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
     if (authData && authData.provider !== 'anonymous') {
       var ref = fireBaseData.refUsers().child(authData.uid);
       ref.on("value", function (snap) {
         $rootScope.authData = snap.val();
-        $rootScope.authData.userDisplayName = fireBaseData.getUserDisplayName($rootScope.authData);
+        $rootScope.authData.userDisplayName = fireBaseData.getUserDisplayName($rootScope.authData,false);
         $rootScope.authData.userProfilePicture = fireBaseData.getUserProfilePicture($rootScope.authData);
       });
     } else if (authData && authData.provider === 'anonymous') {
@@ -33,13 +33,15 @@ starterControllers
         success(function (data) {
           authData.geo = data;
           fireBaseData.refUsers().child(authData.uid).update(authData);
+          mixpanel.updateAnalytics(authData);
         }).
         error(function () {
           fireBaseData.refUsers().child(authData.uid).update(authData);
         });
       }
     });
-  }
+  };
+
   $scope.$on('updateauth', function () {
     updateAuth();
   });
