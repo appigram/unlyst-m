@@ -11,49 +11,49 @@
   <meta name="keywords" content="valuation, real estate, condos, Toronto, buy homes"/>
   <title>Unlyst</title>
   <link href="dist/css/unlyst.css" rel="stylesheet">
-  <link href="lib/ionicons/css/ionicons.css" rel="stylesheet">
-  <link href="lib/angular-material/angular-material.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/angular-material/angular-material.min.css" rel="stylesheet">
 
   <!-- ionic/angularjs js -->
-  <script src="lib/ionic/js/ionic.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular-animate/angular-animate.js"></script>
-  <script src="lib/angular-sanitize/angular-sanitize.js"></script>
-  <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="lib/ionic/js/ionic-angular.js"></script>
-  <!--<script src="lib/ionic/js/ionic.bundle.js"></script>-->
+  <!--<script src="lib/ionic/js/ionic.js"></script>-->
+  <!--<script src="lib/angular/angular.min.js"></script>-->
+  <!--<script src="lib/angular-animate/angular-animate.min.js"></script>-->
+  <!--<script src="lib/angular-sanitize/angular-sanitize.min.js"></script>-->
+  <!--<script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>-->
+  <!--<script src="lib/ionic/js/ionic-angular.min.js"></script>-->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
   <!-- Firebase -->
   <script src="lib/firebase/firebase.js"></script>
   <!-- AngularFire -->
-  <script src="lib/angularfire/dist/angularfire.js"></script>
+  <script src="lib/angularfire/dist/angularfire.min.js"></script>
   <!-- Leaflet -->
   <script src="lib/leaflet/dist/leaflet.js"></script>
-  <script src="lib/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+  <script src="lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
   <script src="lib/leaflet-plugins/layer/tile/Google.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
   <script src="lib/ngAutocomplete/src/ngAutocomplete.js"></script>
   <!-- xeditable -->
   <link href="lib/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
-  <script src="lib/angular-xeditable/dist/js/xeditable.js"></script>
+  <script src="lib/angular-xeditable/dist/js/xeditable.min.js"></script>
   <!-- cordova script (this will be a 404 during development) --><!--<script src="cordova.js"></script>-->
   <!--TODO:change to minified file in prod-->
   <script src="dist/js/unlyst.js"></script>
   <!-- Angular Material Dependencies -->
-  <script src="lib/angular-aria/angular-aria.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
   <!--Angular messages for form validation-->
-  <script src="lib/angular-messages/angular-messages.js"></script>
+  <script src="lib/angular-messages/angular-messages.min.js"></script>
   <!-- Angular Material Javascript now available via Google CDN; version 0.6 used here -->
-  <script src="lib/angular-material/angular-material.js"></script>
-  <script src="http://cdn.jsdelivr.net/hammerjs/2.0.4/hammer.js"></script>
+  <script src="lib/angular-material/angular-material.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/hammerjs/2.0.4/hammer.min.js"></script>
 
   <!--High Charts-->
   <script src="lib/highstock-release/adapters/standalone-framework.js"></script>
-  <script src="lib/highcharts-ng/dist/highcharts-ng.js"></script>
+  <script src="lib/highcharts-ng/dist/highcharts-ng.min.js"></script>
   <script src="lib/highstock-release/highstock.js"></script>
 
   <!-- Google Analytics-->
-  <script src="lib/angulartics/src/angulartics.js"></script>
-  <script src="lib/angulartics/src/angulartics-ga.js"></script>
+  <script src="lib/angulartics/dist/angulartics.min.js"></script>
+  <script src="lib/angulartics/dist/angulartics-ga.min.js"></script>
   <script>
     (function (i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r;
@@ -73,7 +73,7 @@
   <!-- start Mixpanel -->
   <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
     for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-  mixpanel.init("01a244dee0910f8b29909baf089224c0");</script>
+  mixpanel.init("0cff946b8dab697358b17967129322f5");</script>
   <!-- end Mixpanel -->
 </head>
 <body ng-app="starter" class="mainContainer" animation="slide-left-right-ios7"  ng-controller="MainCtrl">

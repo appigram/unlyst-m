@@ -155,19 +155,6 @@ gulp.task('nodemon', function (cb) {
       'client/www/dist/css/**'
     ]
   });
-  //.on('start', function () {
-  //  setTimeout(function () {
-  //    if (!called) {
-  //      called = true;
-  //      cb();
-  //    }
-  //  }, 1000);  // wait for start
-  //})
-  //.on('restart', function () {
-  //  setTimeout(function () {
-  //    livereload.changed('/');
-  //  }, 1000);  // wait for restart
-  //});
 });
 
 gulp.task("open", function(){
@@ -186,33 +173,19 @@ gulp.task("open", function(){
 // Production gulp for minification
 gulp.task('heroku:production', ['html-prod', 'config','sass-minify','scripts']);
 
-gulp.task('heroku:development', ['html-dev', 'config','sass-minify','scripts']);
+gulp.task('heroku:development', ['config','sass-minify','scripts']);
 
 gulp.task('html-prod', function () {
   gulp.src('./client/www/index.html')
     //To set variables in-line based on environment
-  .pipe(preprocess({
-    context: {
-      NODE_ENV: process.env.NODE_ENV,
-      LIVE: true,
-      CSS: '<link href=\"dist/css/unlyst.min.css\" rel=\"stylesheet\">'
-    }
-  }))
-  .pipe(gulp.dest('./client/www/'))
+  .pipe(rename('./client/www/index-dev.html'))
+  .pipe(gulp.dest('./'))
+  gulp.src('./client/www/index-prod.html')
+    //To set variables in-line based on environment
+  .pipe(rename('./client/www/index.html'))
+  .pipe(gulp.dest('./'))
 });
 
-gulp.task('html-dev', function () {
-  gulp.src('./client/www/index.html')
-    //To set variables in-line based on environment
-  .pipe(preprocess({
-    context: {
-      NODE_ENV: process.env.NODE_ENV,
-      LIVE: true,
-      CSS: '<link href=\"dist/css/unlyst.css\" rel=\"stylesheet\">'
-    }
-  }))
-  .pipe(gulp.dest('./client/www/'))
-});
 
 gulp.task('config', function () {
   gulp.src('./client/www/src/common/services.js')
@@ -225,12 +198,3 @@ gulp.task('config', function () {
   .pipe(gulp.dest('./client/www/src/common/'))
 });
 
-// This does not work on heroku somehow, but work locally
-//gulp.task('prod-sass', function () {
-//  gulp.src('./client/www/css/unlyst.css')
-//  .pipe(minifyCss({
-//    keepSpecialComments: 0
-//  }))
-//  .pipe(rename({extname: '.min.css'}))
-//  .pipe(gulp.dest('./client/www/css/'));
-//});.
