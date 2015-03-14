@@ -4,6 +4,7 @@ starterControllers
     var authData = fireBaseData.ref().getAuth();
     if (authData && authData.provider !== 'anonymous') {
       var ref = fireBaseData.refUsers().child(authData.uid);
+      mixpanel.identify(authData.uid);
       ref.on("value", function (snap) {
         $rootScope.authData = snap.val();
         $rootScope.authData.userDisplayName = fireBaseData.getUserDisplayName($rootScope.authData,false);
@@ -11,13 +12,13 @@ starterControllers
       });
     } else if (authData && authData.provider === 'anonymous') {
       var ref = fireBaseData.refUsers().child(authData.uid);
+      mixpanel.identify(authData.uid);
       ref.on("value", function (snap) {
         if (!snap.val()) {
           //authAnonymously();
           return;
         }
         $rootScope.anonymousAuth = snap.val();
-        mixpanel.identify(snap.val().uid);
       });
     } else if (!authData) {
       authAnonymously();

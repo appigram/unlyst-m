@@ -52,8 +52,8 @@ starterControllers
       }
 
       //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
-      var home = angular.copy($rootScope.singlehome);
-      $scope.property = home;
+      var clonedHome = angular.fromJson(angular.toJson($rootScope.singlehome));
+      $scope.property = clonedHome;
       $scope.hideDetail = true;
 
       //TODO:refactor this
@@ -204,6 +204,7 @@ starterControllers
         }
         $rootScope.singlehome.valued += 1;
       };
+
       $scope.skip = function () {
         $ionicSlideBoxDelegate.slide(0);
         $ionicSlideBoxDelegate.update();
