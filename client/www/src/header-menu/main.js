@@ -1,5 +1,5 @@
 starterControllers
-.controller('MainCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav, $http, mixpanel) {
+.controller('MainCtrl', function ($scope, $rootScope, fireBaseData, $ionicPopover, $ionicHistory, $state, $mdSidenav, $http, mixpanelData) {
   var updateAuth = function () {
     var authData = fireBaseData.ref().getAuth();
     if (authData && authData.provider !== 'anonymous') {
@@ -17,6 +17,7 @@ starterControllers
           return;
         }
         $rootScope.anonymousAuth = snap.val();
+        mixpanel.identify(snap.val().uid);
       });
     } else if (!authData) {
       authAnonymously();
@@ -33,7 +34,7 @@ starterControllers
         success(function (data) {
           authData.geo = data;
           fireBaseData.refUsers().child(authData.uid).update(authData);
-          mixpanel.updateAnalytics(authData);
+          mixpanelData.updateAnalytics(authData);
         }).
         error(function () {
           fireBaseData.refUsers().child(authData.uid).update(authData);

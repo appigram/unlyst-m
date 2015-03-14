@@ -1,6 +1,6 @@
 starterControllers
 
-.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout, $http, mixpanel) {
+.controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, fireBaseData, $timeout, $http, mixpanelData) {
   ////test code. delete this later
   //var req = {
   //  url: '/sendmail',
@@ -65,7 +65,7 @@ starterControllers
       authData.geo = data;
       //use uid as ID, if the user logs in again, we simply update the profile instead of creating a new one
       usersRef.child(authData.uid).update(authData);
-      mixpanel.updateAnalytics(authData);
+      mixpanelData.updateAnalytics(authData);
     }).
     error(function (err) {
       usersRef.child(authData.uid).update(authData);

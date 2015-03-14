@@ -13,20 +13,20 @@ var starterControllers = angular.module('starter.controllers', []);
 
 starter
 //interceptor for http request. Show loading icon.
-.config(function ($httpProvider) {
-  $httpProvider.interceptors.push(function ($rootScope) {
-    return {
-      request: function (config) {
-        $rootScope.$broadcast('loading:show');
-        return config;
-      },
-      response: function (response) {
-        $rootScope.$broadcast('loading:hide');
-        return response;
-      }
-    }
-  })
-})
+//.config(function ($httpProvider) {
+//  $httpProvider.interceptors.push(function ($rootScope) {
+//    return {
+//      request: function (config) {
+//        $rootScope.$broadcast('loading:show');
+//        return config;
+//      },
+//      response: function (response) {
+//        $rootScope.$broadcast('loading:hide');
+//        return response;
+//      }
+//    }
+//  })
+//})
 
 .config(function ($ionicConfigProvider) {
   $ionicConfigProvider.views.transition('none');

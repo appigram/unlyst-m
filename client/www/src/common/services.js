@@ -72,21 +72,21 @@ angular.module('starter.services', [])
         property.totalReputation = 500;
       }
 
-      var userReputation = utility.updateReputation(accuracy, authData.reputation);
-      var newrepuationTotal = property.totalReputation + userReputation;
-      var newCrowdValue = (property.crowdvalue * property.totalReputation +
-      value * userReputation) / (property.totalReputation + userReputation);
+      var userReputation = +utility.updateReputation(accuracy, authData.reputation).toFixed(3);
+      var newrepuationTotal = +(property.totalReputation + userReputation).toFixed(3);
+      var newCrowdValue = +((property.crowdvalue * property.totalReputation +
+      value * userReputation) / (property.totalReputation + userReputation)).toFixed(3);
       authData.reputation = userReputation;
 
       var valuation = {
         "created": Firebase.ServerValue.TIMESTAMP,
         "homeID": property.houseId,
-        "homeValue": property.crowdvalue,
-        "homeReputation": property.totalReputation,
+        "homeValue": +property.crowdvalue.toFixed(3),
+        "homeReputation": +property.totalReputation.toFixed(3),
         "userID": authData.uid,
-        "userSubmittedValue": parseInt(value),
-        "userReputation": authData.reputation,
-        "accuracy": accuracy,
+        "userSubmittedValue": +parseInt(value).toFixed(3),
+        "userReputation": +authData.reputation.toFixed(3),
+        "accuracy": +accuracy.toFixed(3),
         "analytics": analytics
       };
 
@@ -217,10 +217,9 @@ angular.module('starter.services', [])
   }
 }])
 
-.factory('mixpanel', ['fireBaseData', function (fireBaseData) {
+.factory('mixpanelData', ['fireBaseData', function (fireBaseData) {
   return{
     updateAnalytics: function(authData){
-      console.log(authData);
       //mixpanel
       mixpanel.identify(authData.uid);
       var mixpanelData = {

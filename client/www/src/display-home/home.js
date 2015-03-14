@@ -1,8 +1,8 @@
 starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
-  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
-                                                                                          $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
+  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema','$ionicLoading', function ($scope, $rootScope, fireBaseData,
+   $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema,$ionicLoading) {
     //bind model to scope; set valuation
     $scope.home = {};
     $scope.map = {};
@@ -12,7 +12,7 @@ starterControllers
     $scope.stopRecording = false;
     var homesDB = fireBaseData.refHomes();
     var houseIndexArr = [];
-
+    $rootScope.$broadcast('loading:show');
     if (!$rootScope.houseIndexArr || $rootScope.houseIndexArr.length === 0) {
       houseIndexArr = Array.apply(null, {length: 13}).map(Number.call, Number);
       houseIndexArr = utility.shuffle(houseIndexArr);
@@ -30,16 +30,19 @@ starterControllers
     }
 
     $rootScope.singlehome.$loaded().then(function () {
+
+      $timeout(function(){
+        $rootScope.$broadcast('loading:hide');
+      },100);
+
       if ($rootScope.authData && $rootScope.authData.admin) {
         $scope.AdminMode = $rootScope.authData.admin;
       }
-      //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
-      //var houses = JSON.parse(JSON.stringify($rootScope.homes.homesRef));
 
       var i = 0;
       if (!$stateParams.id || !($stateParams.id in houseIndexArr)) {
-        //$state.go('home', {'id': $rootScope.singlehome.houseId});
-        //return;
+        $state.go('home', {'id': houseIndexArr[0]});
+        return;
         if ($state.current.name === 'home') {
           $state.go('home', {'id': houseIndexArr[0]});
         } else if ($state.current.name === 'bump') {
@@ -48,13 +51,10 @@ starterControllers
         return;
       }
 
-      $scope.property = $rootScope.singlehome;
+      //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
+      var home = angular.copy($rootScope.singlehome);
+      $scope.property = home;
       $scope.hideDetail = true;
-
-      //if ($rootScope.authData && !$rootScope.authData.admin) {
-      //   //User has valued this home before
-      //  $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.authData.valuations, $scope.property.houseId.toString());
-      //}
 
       //TODO:refactor this
       if ($rootScope.authData && !$rootScope.authData.admin) {
@@ -73,7 +73,7 @@ starterControllers
           $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.bump, $scope.property.houseId.toString());
         }
       }
-
+      //map
       $scope.map = {
         lat: $scope.property.lat,
         lng: $scope.property.lng,
@@ -87,6 +87,7 @@ starterControllers
           draggable: false
         }
       };
+
       $scope.valuation = {};
       //price slider
       $scope.home.minValuation = 100000;
@@ -186,19 +187,19 @@ starterControllers
         if (!$scope.authData && $scope.anonymousAuth) {
           auth = $scope.anonymousAuth;
         }
-        if (!$scope.stopRecording && $scope.authData) {
+        if (!$scope.stopRecording && auth) {
           if (!$scope.property.crowdvalue) {
             $rootScope.notify('This property has not been evaluated. Please continue to the next home.');
             return;
           }
-          if (!$rootScope.authData.admin) {
+          if (!auth.admin) {
             //User has valued this home before
             $scope.property.valuedThisHome = true;
           }
-          var oldReputation = $scope.authData.reputation || 10;
-          fireBaseData.saveValuation($scope.home.valuation, $scope.authData, $scope.property, $rootScope.analytics);
-          var change = ($scope.authData.reputation - oldReputation).toFixed(1);
-          $scope.valuation.reputation = $scope.authData.reputation.toFixed(1);
+          var oldReputation = auth.reputation || 10;
+          fireBaseData.saveValuation($scope.home.valuation, auth, $scope.property, $rootScope.analytics);
+          var change = (auth.reputation - oldReputation).toFixed(1);
+          $scope.valuation.reputation = auth.reputation.toFixed(1);
           $scope.valuation.reputationChange = (change < 0) ? '(' + change + ')' : '(+' + change + ')';
         }
         $rootScope.singlehome.valued += 1;
@@ -211,8 +212,8 @@ starterControllers
         mixpanel.track("skipHome", $scope.property.houseId);
       };
 
-      //mixpanel uncomment this when the foreach is fixed
-      //mixpanel.track("viewHome",$scope.property.houseId);
+      //mixpanel
+      mixpanel.track("viewHome",$scope.property.houseId);
 
       $scope.clickNext = function () {
         var length = houseIndexArr.length;
