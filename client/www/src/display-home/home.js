@@ -1,8 +1,8 @@
 starterControllers
 
 .controller('HomeCtrl', ['$scope', '$rootScope', 'fireBaseData', '$ionicSlideBoxDelegate', 'utility', '$firebase',
-  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema','$ionicLoading', function ($scope, $rootScope, fireBaseData,
-   $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema,$ionicLoading) {
+  '$location', '$timeout', '$mdDialog', '$state', '$stateParams', 'homeSchema', function ($scope, $rootScope, fireBaseData,
+   $ionicSlideBoxDelegate, utility, $firebase, $location, $timeout, $mdDialog, $state, $stateParams, homeSchema) {
     //bind model to scope; set valuation
     $scope.home = {};
     $scope.map = {};
@@ -209,11 +209,12 @@ starterControllers
         $ionicSlideBoxDelegate.update();
         $scope.clickNext();
         //mixpanel
-        mixpanel.track("skipHome", $scope.property.houseId);
+        $rootScope.analytics.homeID = $scope.property.houseId;
+        mixpanel.track("skipHome", $rootScope.analytics);
       };
 
       //mixpanel
-      mixpanel.track("viewHome",$scope.property.houseId);
+      mixpanel.track("viewHome",{'homeID':$scope.property.houseId});
 
       $scope.clickNext = function () {
         var length = houseIndexArr.length;
