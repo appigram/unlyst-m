@@ -115,6 +115,7 @@ starterControllers
       $scope.$broadcast('updateMap', $scope.map);
       $ionicSlideBoxDelegate.update();
       $scope.$broadcast('updateTabs');
+      $scope.$broadcast('updateChart', $scope.map);
 
       $scope.saveCaption = function (data, imageIndex) {
         var house = homesDB.child($rootScope.singlehome.houseId);

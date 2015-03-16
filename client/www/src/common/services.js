@@ -235,7 +235,7 @@ angular.module('starter.services', [])
   }
 }])
 
-.factory('utility', [function ($scope) {
+.factory('utility', [function () {
   var flatten = function (ob) {
     var toReturn = {};
 
