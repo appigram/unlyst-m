@@ -8,7 +8,11 @@ angular.module('starter.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
     // Each tab has its own nav history stack:
-
+  .state('homeRandom', {
+    url: '/homeRandom',
+    templateUrl: 'src/display-home/home.html',
+    controller: 'HomeCtrl'
+  })
   .state('home', {
     url: '/home/:id',
     templateUrl: 'src/display-home/home.html',
@@ -93,7 +97,7 @@ angular.module('starter.routes', [])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home/0');
+  $urlRouterProvider.otherwise('/homeRandom');
   //remove # from url
   //had to comment this out because ionic server does not supply html5mode. We'll need to use our custom node server to do this.
   //$locationProvider.html5Mode(true).hashPrefix('!');

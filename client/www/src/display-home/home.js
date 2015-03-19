@@ -20,9 +20,8 @@ starterControllers
       houseIndexArr = $rootScope.houseIndexArr;
     }
 
-    if ($stateParams.id && $stateParams.id === 0) {
+    if ($stateParams.id) {
       $rootScope.singlehome = $firebase(fireBaseData.index($stateParams.id)).$asObject();
-      $rootScope.houseIndexArr.splice(indexOf(0), 1);
     } else {
       $rootScope.singlehome = $firebase(fireBaseData.index(houseIndexArr[0])).$asObject();
       $rootScope.houseIndexArr.splice(0, 1);
@@ -216,7 +215,7 @@ starterControllers
           $state.go('login');
           $rootScope.notify('Now that you are a pro at valuing homes, sign up to start tracking your reputation score!');
         } else {
-          // $state.go('home', {'id': $rootScope.singlehome.houseId});
+          houseIndexArr.splice(0, 1);
           $state.go('home', {'id': houseIndexArr[0]});
         }
       };
