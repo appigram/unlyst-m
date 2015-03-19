@@ -68,10 +68,6 @@ starter
     });
   };
 })
-.config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
-  .primaryPalette('blue');
-})
 
 .run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {

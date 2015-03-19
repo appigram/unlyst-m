@@ -122,4 +122,7 @@ app.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-
+app.post('/export', function (req, res) {
+  console.log('chart export on server');
+  console.log(req);
+});

@@ -38,20 +38,22 @@ angular.module('starter.directives', [])
     }
   };
 })
-.directive('disableTap', function($timeout) {
+.directive('disabletap', function($timeout) {
   return {
     link: function() {
+      console.log('google autocomplete blur');
       $timeout(function() {
-        // Find google places div
-        findIndex(angular.element(document.querySelectorAll('.pac-container')), function(container) {
-          // disable ionic data tab
-          container.setAttribute('data-tap-disabled', 'true');
-          // leave input field if google-address-entry is selected
-          container.onclick = function() {
-            document.getElementById('autocomplete').blur();
-          };
+        var container = document.getElementsByClassName('pac-container');
+        // disable ionic data tab
+        angular.element(container).attr('data-tap-disabled', 'true');
+        // leave input field if google-address-entry is selected
+        angular.element(container).on("click", function(){
+          document.getElementById('type-selector').blur();
+          console.log('google autocomplete blur');
         });
-      },200);
+
+      },500);
+
     }
   };
 });

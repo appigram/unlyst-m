@@ -7,7 +7,6 @@ starterControllers
     $scope.home = {};
     $scope.map = {};
 
-    $scope.defaultzoom = 15;
     //test mode
     $scope.stopRecording = false;
     var homesDB = fireBaseData.refHomes();
@@ -73,20 +72,6 @@ starterControllers
           $scope.property.valuedThisHome = utility.hasValuedPropertyBefore($rootScope.anonymousAuth.bump, $scope.property.houseId.toString());
         }
       }
-      //map
-      $scope.map = {
-        lat: $scope.property.lat,
-        lng: $scope.property.lng,
-        zoom: $scope.defaultzoom
-      };
-      $scope.markers = {
-        osloMarker: {
-          lat: $scope.property.lat,
-          lng: $scope.property.lng,
-          focus: true,
-          draggable: false
-        }
-      };
 
       $scope.valuation = {};
       //price slider
@@ -112,7 +97,7 @@ starterControllers
       $scope.property.outdoorSpace = outdoorSpaceArr;
       $scope.property.parkingType = searchForObjName(homeSchema.parkingType, $scope.property.parkingType);
 
-      $scope.$broadcast('updateMap', $scope.map);
+      $scope.$broadcast('updateMap', $scope.property);
       $ionicSlideBoxDelegate.update();
       $scope.$broadcast('updateTabs');
       $scope.$broadcast('updateChart', $scope.map);

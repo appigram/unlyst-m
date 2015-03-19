@@ -1,9 +1,9 @@
 <ion-view>
-  <ion-content class="padding-top" ng-controller="SearchCtrl" disableTap>
+  <ion-content class="padding-top" ng-controller="SearchCtrl">
     <div class="padding text-center">
       <h3>Tell us what kind of home you are looking for and we'll do the rest!</h3>
     </div>
-    <md-input-container disableTap>
+    <md-input-container>
       <label>Location (neighorhood, postal code or address)</label>
       <input label="Location" ng-model="search.location" name="location" placeholder="" ng-autocomplete
              options="{country: 'ca'}">

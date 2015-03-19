@@ -23,19 +23,18 @@ starterControllers
   $scope.defaults = {
     scrollWheelZoom: false
   };
-
-  $scope.$on('updatemap', function (event, args) {
+  var defaultzoom = 15;
+  $scope.$on('updateMap', function (event, property) {
 
     $scope.map = {
-      lat: $scope.$parent.map.lat,
-      lng: $scope.$parent.map.lng,
-      zoom: $scope.$parent.defaultzoom
+      lat: property.lat,
+      lng: property.lng,
+      zoom: defaultzoom
     };
-    console.log($scope.map);
     $scope.markers = {
-      osloMarker: {
-        lat: $scope.$parent.map.lat,
-        lng: $scope.$parent.map.lng,
+      property: {
+        lat: property.lat,
+        lng: property.lng,
         focus: true,
         draggable: false
       }

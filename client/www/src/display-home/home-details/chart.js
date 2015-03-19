@@ -10,7 +10,6 @@ starterControllers
         value.homeValue // close
       ]);
     });
-    console.log(valuations);
     // set the allowed units for data grouping
     var groupingUnits = [[
       'day',                         // unit name
@@ -25,14 +24,13 @@ starterControllers
         chart: {
           type: 'StockChart'
         },
-        navigator: {enabled: true}
+        navigator: {enabled: false}
       },
       useHighStocks: true,
       rangeSelector: {
         inputEnabled: true,
         selected: 1
       },
-
       title: {
         text: 'Historic Unlyst Value'
       },
@@ -43,7 +41,7 @@ starterControllers
           x: -3
         },
         title: {
-          text: 'Unlyst'
+          text: 'Valuation'
         },
         lineWidth: 2
       }],
@@ -55,8 +53,10 @@ starterControllers
         dataGrouping: {
           units: groupingUnits
         }
-      }]
+      }],
+      exporting:{
+        enabled:true
+      }
     };
   });
-
 }])
