@@ -19,7 +19,6 @@ starterControllers
     } else {
       houseIndexArr = $rootScope.houseIndexArr;
     }
-
     if ($stateParams.id) {
       $rootScope.singlehome = $firebase(fireBaseData.index($stateParams.id)).$asObject();
     } else {
@@ -28,6 +27,11 @@ starterControllers
     }
 
     $rootScope.singlehome.$loaded().then(function () {
+      //if user didn't specify a homeID
+      if ($state.current.name === 'homeRandom') {
+        houseIndexArr.splice(0, 1);
+        $state.go('home', {'id': houseIndexArr[0]});
+      }
 
       $timeout(function(){
         $rootScope.$broadcast('loading:hide');
@@ -35,18 +39,6 @@ starterControllers
 
       if ($rootScope.authData && $rootScope.authData.admin) {
         $scope.AdminMode = $rootScope.authData.admin;
-      }
-
-      var i = 0;
-      if (!$stateParams.id || !($stateParams.id in houseIndexArr)) {
-        $state.go('home', {'id': houseIndexArr[0]});
-        return;
-        if ($state.current.name === 'home') {
-          $state.go('home', {'id': houseIndexArr[0]});
-        } else if ($state.current.name === 'bump') {
-          $state.go('bump', {'id': houseIndexArr[0]});
-        }
-        return;
       }
 
       //We clone the object to prevent firebase's 3-way data binding. It messes up slidebox css and we don't need that feature.
@@ -163,6 +155,7 @@ starterControllers
           $scope.stopRecording = true;
         });
       };
+
       $scope.submitScore = function () {
         $scope.valuation.crowdvalue = $scope.property.crowdvalue;
         $scope.valuation.accuracy = utility.getAccuracy($scope.home.valuation, $scope.property.crowdvalue);
@@ -205,7 +198,6 @@ starterControllers
       $scope.clickNext = function () {
         var length = houseIndexArr.length;
         $scope.hideDetail = true;
-        i = (i + 1) % length;
         if ($rootScope.singlehome.valued >= length) {
           noMoreHomesPopup();
         }
