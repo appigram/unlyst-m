@@ -90,6 +90,11 @@ angular.module('starter.routes', [])
     templateUrl: 'src/display-home/list.html',
     controller: 'ValuedHomesCtrl'
   })
+  .state('homeMapView', {
+    url: '/mapview',
+    templateUrl: 'src/display-home/map-view/map.html',
+    controller: 'MapViewCtrl'
+  })
   .state('likedHomes', {
     url: '/likedHomes',
     templateUrl: 'src/display-home/list.html',

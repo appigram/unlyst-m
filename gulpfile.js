@@ -26,7 +26,8 @@ var paths = {
   ],
   sass: [
     './client/scss/**/*.scss',
-    './client/www/lib/leaflet/dist/leaflet.css'
+    './client/www/lib/leaflet/dist/leaflet.css',
+    './client/www/lib/Leaflet.label/dist/leaflet.label.css'
   ],
   html: [
     './client/www/**/*.html',
